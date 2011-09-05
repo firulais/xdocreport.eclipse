@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Xdocreport
+Bundle-SymbolicName: fr.opensagres.xdocreport.eclipse.report.xdocreport;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: fr.opensagres.xdocreport.eclipse.reporting.xdocreport.internal.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ fr.opensagres.xdocreport.eclipse;bundle-version="1.0.0",
+ fr.opensagres.xdocreport.converter;bundle-version="0.9.2",
+ fr.opensagres.xdocreport.core;bundle-version="0.9.2",
+ fr.opensagres.xdocreport.document;bundle-version="0.9.2",
+ fr.opensagres.xdocreport.template;bundle-version="0.9.2"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: fr.opensagres.xdocreport.eclipse.reporting.xdocreport

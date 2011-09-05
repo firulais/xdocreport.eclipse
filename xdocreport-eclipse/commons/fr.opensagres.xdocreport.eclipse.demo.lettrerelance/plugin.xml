@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   
+   <extension
+         point="fr.opensagres.xdocreport.eclipse.reportModules">
+      <reportModule
+            id="lettreRelance"
+            name="LettreRelance" 
+            description="LettreRelance Report Definition">
+      </reportModule>
+   </extension>
+
+</plugin>
