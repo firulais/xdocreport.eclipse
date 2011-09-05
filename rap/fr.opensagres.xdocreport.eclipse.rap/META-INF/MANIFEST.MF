@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Rap
+Bundle-SymbolicName: fr.opensagres.xdocreport.eclipse.rap; singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Fragment-Host: fr.opensagres.xdocreport.eclipse;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Import-Package: javax.servlet;version="2.5.0",
+ javax.servlet.http;version="2.5.0"

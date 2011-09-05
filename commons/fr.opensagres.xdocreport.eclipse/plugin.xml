@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension-point id="reportModules" name="%reportModulesContributionName"
+		schema="schema/reportModules.exsd" />
+   <extension-point id="reportEngines" name="%reportEnginesContributionName"
+		schema="schema/reportEngines.exsd" />
+	<extension-point id="reportProcessors" name="%reportProcessorsContributionName"
+		schema="schema/reportProcessors.exsd" />
+				
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="fr.opensagres.xdocreport.eclipse.internal.ui.XDocReportApplication">
+         </run>
+      </application>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="%XDocReportPerspective.name"
+            class="fr.opensagres.xdocreport.eclipse.internal.ui.XDocReportPerspective"
+            id="fr.opensagres.xdocreport.eclipse.perspective">
+      </perspective>
+   </extension>
+    
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            name="%XDocReportExplorerView.name"
+            class="fr.opensagres.xdocreport.eclipse.internal.ui.XDocReportExplorerView"
+            id="fr.opensagres.xdocreport.eclipse.reportExplorer" 
+            allowMultiple="false">
+      </view>
+   </extension>
+   
+   <!--<extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="*">
+         <view
+               standalone="true"
+               minimized="false"
+               relative="org.eclipse.ui.editorss"
+               relationship="left"
+               id="fr.opensagres.xdocreport.eclipse.reportExplorer">
+         </view>
+      </perspectiveExtension>
+   </extension>-->
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <menu
+               label="File">
+            <command
+                  commandId="org.eclipse.ui.file.exit"
+                  label="Exit">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+
+</plugin>
