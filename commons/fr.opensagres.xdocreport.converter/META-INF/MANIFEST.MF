@@ -1,0 +1,38 @@
+Manifest-Version: 1.0
+Export-Package: fr.opensagres.xdocreport.converter;
+  uses:="fr.opensagres.xdocreport.core.logging,
+   fr.opensagres.xdocreport.converter.discovery,
+   fr.opensagres.xdocreport.core.registry,
+   fr.opensagres.xdocreport.core.discovery,
+   fr.opensagres.xdocreport.core.io,
+   fr.opensagres.xdocreport.core.document,
+   fr.opensagres.xdocreport.core",
+ fr.opensagres.xdocreport.converter.discovery;uses:="fr.opensagres.xdocreport.core.discovery,fr.opensagres.xdocreport.converter",
+ fr.opensagres.xdocreport.converter.internal,
+ fr.opensagres.xdocreport.converter.internal.osgi
+Built-By: azerr
+Tool: Bnd-1.15.0
+Bundle-Name: fr.opensagres.xdocreport.converter
+Created-By: Apache Maven Bundle Plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5, JavaSE-1.6
+Build-Jdk: 1.6.0_23
+Bundle-Version: 0.9.2.SNAPSHOTv201108301650
+Bnd-LastModified: 1314715829375
+Bundle-ManifestVersion: 2
+Bundle-Activator: fr.opensagres.xdocreport.converter.internal.osgi.Act
+ ivator
+Bundle-License: http://www.opensource.org/licenses/mit-license.php
+Bundle-Description: XDocReport means XML Document reporting. It's Java
+  API to merge XML document created with MS Office (docx) or OpenOffic
+ e (odt), LibreOffice (odt) with a Java model to generate report and c
+ onvert it if you need to another format (PDF, XHTML...).
+Import-Package: fr.opensagres.xdocreport.core,
+ fr.opensagres.xdocreport.core.discovery,
+ fr.opensagres.xdocreport.core.document,
+ fr.opensagres.xdocreport.core.io,
+ fr.opensagres.xdocreport.core.logging,
+ fr.opensagres.xdocreport.core.registry,
+ org.osgi.framework
+Bundle-SymbolicName: fr.opensagres.xdocreport.converter
+Require-Bundle: fr.opensagres.xdocreport.core;bundle-version="0.9.2"
+
