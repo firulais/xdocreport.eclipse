@@ -2,9 +2,7 @@ package fr.opensagres.xdocreport.eclipse.internal.extensions.modules;
 
 import org.eclipse.swt.graphics.Image;
 
-import fr.opensagres.xdocreport.eclipse.registry.IIconAware;
-
-public abstract class ReportBaseModule implements IIconAware {
+public abstract class ReportBaseModule {
 
 	private final String id;
 	private String name;

@@ -1,6 +1,7 @@
 package fr.opensagres.xdocreport.eclipse.ui.actions;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.services.IServiceLocator;
 
@@ -27,7 +28,10 @@ public class GenerationReportAction extends Action {
 			IModelProvider<?> modelProvider,
 			IReportProcessorType processorType, IReportFormat format,
 			IServiceLocator serviceLocator) {
-		super.setImageDescriptor(ImageResources.getImageDescriptor(ImageResources.IMG_FORMAT_DOCX));
+		ImageDescriptor descriptor = format.getImageDescriptor();
+		if (descriptor != null) {
+			super.setImageDescriptor(descriptor);
+		}
 		super.setText(processorType.getProcessor().getReportId());
 		this.entryProvider = entryProvider;
 		this.modelProvider = modelProvider;

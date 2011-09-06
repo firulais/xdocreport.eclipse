@@ -28,7 +28,7 @@ public class GenerateReportHandler extends AbstractGenerateReportHandler {
 			engine.process(processor, model, options, out);
 
 			try {
-				ContextHandlerUtils.openSystemExternalEditor(event, file, true);
+				ContextHandlerUtils.openSystemExternalEditor(event, file, false);
 			} catch (PartInitException e) {
 				throw new RuntimeException(e);
 			}

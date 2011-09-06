@@ -1,0 +1,28 @@
+Manifest-Version: 1.0
+Export-Package: fr.opensagres.xdocreport.converter.docx.poi.itext.disc
+ overy;uses:="fr.opensagres.xdocreport.converter.docx.poi.itext",fr.op
+ ensagres.xdocreport.converter.docx.poi.itext;uses:="org.apache.poi.xw
+ pf.converter",fr.opensagres.xdocreport.converter.docx.poi.xhtml.disco
+ very;uses:="fr.opensagres.xdocreport.converter.docx.poi.xhtml",fr.ope
+ nsagres.xdocreport.converter.docx.poi.xhtml;uses:="org.apache.poi.xwp
+ f.converter.xhtml,org.apache.poi.xwpf.converter,fr.opensagres.xdocrep
+ ort.converter.docx.poi.itext"
+Built-By: azerr
+Tool: Bnd-1.15.0
+Bundle-Name: fr.opensagres.xdocreport.converter.docx.xwpf
+Created-By: Apache Maven Bundle Plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5, JavaSE-1.6
+Fragment-Host: fr.opensagres.xdocreport.converter
+Build-Jdk: 1.6.0_23
+Bundle-Version: 0.9.2.SNAPSHOTv201109051456
+Bnd-LastModified: 1315227372375
+Bundle-ManifestVersion: 2
+Bundle-License: http://www.opensource.org/licenses/mit-license.php
+Bundle-Description: XDocReport means XML Document reporting. It's Java
+  API to merge XML document created with MS Office (docx) or OpenOffic
+ e (odt), LibreOffice (odt) with a Java model to generate report and c
+ onvert it if you need to another format (PDF, XHTML...).
+Import-Package: org.apache.poi.xwpf.converter,org.apache.poi.xwpf.conv
+ erter.xhtml
+Bundle-SymbolicName: fr.opensagres.xdocreport.converter.docx.xwpf
+

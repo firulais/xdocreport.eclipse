@@ -96,6 +96,10 @@ public class ReportModuleRegistry extends AbstractRegistry implements
 		}
 	}
 
+	private void updateIcon(IConfigurationElement ce, ReportBaseModule module) {
+		module.setIcon(super.getIconImage(ce));		
+	}
+
 	private void parseReportModuleEntries(IConfigurationElement ce,
 			ReportModule module) {
 		for (IConfigurationElement cech : ce.getChildren()) {

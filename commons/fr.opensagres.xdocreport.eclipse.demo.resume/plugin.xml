@@ -20,6 +20,7 @@
 	        <reportProcessors commandId="fr.opensagres.xdocreport.eclipse.ui.handlers.GenerateReportHandler">
 	        	<reportProcessor reportProcessorId="resume1" />
 	        	<reportProcessor reportProcessorId="resume2" />
+	        	<reportProcessor reportProcessorId="resume3" />
 	        </reportProcessors>	        
       </reportModule>
    </extension>
@@ -28,10 +29,13 @@
          point="fr.opensagres.xdocreport.eclipse.reportProcessors">
          <reportProcessor id="resume1"
          				  reportEngineId="xdocreport"
-         				  class="fr.opensagres.xdocreport.eclipse.demo.resume.internal.reporting.ResumeReportProcessor" />
+         				  class="fr.opensagres.xdocreport.eclipse.demo.resume.internal.reporting.DocxResumeReportProcessor" />
 		 <reportProcessor id="resume2"
          				  reportEngineId="xdocreport"
-         				  class="fr.opensagres.xdocreport.eclipse.demo.resume.internal.reporting.ResumeReportProcessor2" />         				  
+         				  class="fr.opensagres.xdocreport.eclipse.demo.resume.internal.reporting.DocxReportProcessor2" />         				  
+		 <reportProcessor id="resume3"
+         				  reportEngineId="xdocreport"
+         				  class="fr.opensagres.xdocreport.eclipse.demo.resume.internal.reporting.ODTResumeReportProcessor" />         				  
 	</extension>
 
   <extension

@@ -71,11 +71,11 @@
 	      point="fr.opensagres.xdocreport.eclipse.reportFormats">
 	   <reportFormat
 	   	     id="DOCX"
-	         icon="icons/obj16/format/docx.png"
+	         icon="icons/obj16/format/docx.gif"
 	         name="Docx Format" />
 	   <reportFormat
 	   	     id="ODT"
-	         icon="icons/obj16/format/odt.png"
+	         icon="icons/obj16/format/odt.gif"
 	         name="ODT Format" />
 	   <reportFormat
 	   	     id="PDF"
@@ -87,7 +87,7 @@
 	         name="XHTML Format" />	         
 	   <reportFormat
 	   	     id="RTF"
-	         icon="icons/obj16/format/rtf.png"
+	         icon="icons/obj16/format/rtf.gif"
 	         name="RTF Format" />	         
 	</extension>
 	

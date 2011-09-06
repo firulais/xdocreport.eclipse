@@ -13,6 +13,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 public abstract class AbstractRegistry implements IRegistryChangeListener {
 
+	private static final String ICON_ATTR = "icon";
 	protected static final String ID_ATTR = "id";
 	protected static final String NAME_ATTR = "name";
 	protected static final String DESCRIPTION_ATTR = "description";
@@ -59,17 +60,24 @@ public abstract class AbstractRegistry implements IRegistryChangeListener {
 		return registryListenerIntialized;
 	}
 
-	protected void updateIcon(IConfigurationElement cfig, IIconAware iconAware) {
-		String strIcon = cfig.getAttribute("icon");//$NON-NLS-1$
-		if (strIcon != null) {
-			ImageDescriptor imageDescriptor = AbstractUIPlugin
-					.imageDescriptorFromPlugin(cfig.getNamespace(), strIcon);
-			if (imageDescriptor != null) {
-				Image image = JFaceResources.getResources()
-						.createImageWithDefault(imageDescriptor);
-				iconAware.setIcon(image);
-			}
+	protected Image getIconImage(IConfigurationElement cfig) {
+		ImageDescriptor imageDescriptor = getIconImageDescriptor(cfig);
+		if (imageDescriptor != null) {
+			return JFaceResources.getResources().createImageWithDefault(
+					imageDescriptor);
+
 		}
+		return null;
+	}
+
+	protected ImageDescriptor getIconImageDescriptor(IConfigurationElement cfig) {
+		String strIcon = cfig.getAttribute(ICON_ATTR);//$NON-NLS-1$
+		if (strIcon != null) {
+			return AbstractUIPlugin.imageDescriptorFromPlugin(
+					cfig.getNamespace(), strIcon);
+		}
+		return null;
+
 	}
 
 	protected abstract void loadRegistry();
