@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import fr.opensagres.xdocreport.converter.ConverterRegistry;
+import fr.opensagres.xdocreport.converter.IConverter;
 import fr.opensagres.xdocreport.converter.MimeMapping;
 import fr.opensagres.xdocreport.converter.Options;
 import fr.opensagres.xdocreport.core.XDocReportException;
@@ -27,21 +28,19 @@ public class XDocReportEngine implements IReportEngine {
 	private static final String REPORT_MIME_MAPPING_KEY = "___ReportMimeMapping";
 
 	public void process(IReportProcessor p, Object model,
-			ReportConfiguration o, OutputStream out) throws IOException,
-			ReportException {
+			ReportConfiguration configuration, OutputStream out)
+			throws IOException, ReportException {
 		XDocReportProcessor processor = (XDocReportProcessor) p;
 		// 1) Get XDoc report
 		try {
 			IXDocReport report = internalGetReport(processor);
-			Options options = getOptionsConverter(report, processor);
+			Options options = getOptionsConverter(configuration, report,
+					processor);
 			if (options == null) {
-
 				doProcessReport(report, processor, model, out);
-
 			} else {
-				// doProcessReportWithConverter(report, options, processor,
-				// model,
-				// out);
+				doProcessReportWithConverter(report, processor, model, options,
+						out);
 			}
 		} catch (XDocReportException e) {
 			throw new ReportException(e);
@@ -166,51 +165,64 @@ public class XDocReportEngine implements IReportEngine {
 		processor.populateContext(context, model);
 	}
 
-	protected Options getOptionsConverter(IXDocReport report,
-			XDocReportProcessor processort) {
-		final String converterId = getConverterId(report, processort);
-		if (StringUtils.isEmpty(converterId)) {
+	protected Options getOptionsConverter(ReportConfiguration configuration,
+			IXDocReport report, XDocReportProcessor processor) {
+		if (configuration == null) {
 			return null;
 		}
-		Options options = null;
-		int index = converterId.lastIndexOf('_');
-		if (index != -1) {
-			String to = converterId.substring(0, index);
-			String via = converterId.substring(index + 1, converterId.length());
-			options = Options.getTo(to).via(via);
-		} else {
-			options = Options.getTo(converterId);
+		IReportFormat format = configuration.getFormat();
+		if (format == null) {
+			return null;
 		}
-		prepareOptions(options, report, converterId, processort);
-		return options;
+		if (!isFormatConverter(report, format)) {
+			return null;
+		}
+		return Options.getFrom(report.getKind()).to(format.getId());
 	}
 
-	private void prepareOptions(Options options, IXDocReport report,
-			String converterId, XDocReportProcessor processort) {
-		// TODO Auto-generated method stub
-
-	}
-
-	private String getConverterId(IXDocReport report,
-			XDocReportProcessor processort) {
-		return null;
+	private boolean isFormatConverter(IXDocReport report, IReportFormat format) {
+		if (report.getKind().equals(format.getId())) {
+			return false;
+		}
+		return true;
 	}
 
 	public ReportMimeMapping getMimeMapping(IReportProcessor p,
-			ReportConfiguration options) throws IOException, ReportException {
+			ReportConfiguration configuration) throws IOException,
+			ReportException {
 		XDocReportProcessor processor = (XDocReportProcessor) p;
 		try {
+			String key = getMimeMappingKey(configuration);
 			IXDocReport report = internalGetReport(processor);
 			ReportMimeMapping mimeMapping = (ReportMimeMapping) report
-					.getData(REPORT_MIME_MAPPING_KEY);
+					.getData(key);
 			if (mimeMapping == null) {
-				mimeMapping = toReportMimeMapping(report.getMimeMapping());
-				report.setData(REPORT_MIME_MAPPING_KEY, mimeMapping);
+
+				if (isFormatConverter(report, configuration.getFormat())) {
+					Options options = getOptionsConverter(configuration,
+							report, processor);
+					if (options == null) {
+						return null;
+					}
+					IConverter converter = report.getConverter(options);
+					if (converter == null) {
+						return null;
+					}
+					mimeMapping = toReportMimeMapping(converter
+							.getMimeMapping());
+				} else {
+					mimeMapping = toReportMimeMapping(report.getMimeMapping());
+				}
+				report.setData(key, mimeMapping);
 			}
 			return mimeMapping;
 		} catch (XDocReportException e) {
 			throw new ReportException(e);
 		}
+	}
+
+	private String getMimeMappingKey(ReportConfiguration configuration) {
+		return REPORT_MIME_MAPPING_KEY + configuration.getFormat().getId();
 	}
 
 	private static ReportMimeMapping toReportMimeMapping(MimeMapping mimeMapping) {
@@ -242,5 +254,33 @@ public class XDocReportEngine implements IReportEngine {
 			throw new ReportException("Cannot get XDoc Report");
 		}
 		return report;
+	}
+
+	/**
+	 * Generate report with conversion.
+	 * 
+	 * @param out
+	 * @param model2
+	 * 
+	 */
+	private void doProcessReportWithConverter(IXDocReport report,
+			XDocReportProcessor processor, Object model, Options options,
+			OutputStream out) throws XDocReportException, IOException,
+			ReportException {
+		IContext context = null;
+		ITemplateEngine templateEngine = report.getTemplateEngine();
+		if (templateEngine != null) {
+			// 1) Prepare Java model context
+			context = report.createContext();
+			populateContext(context, model, processor);
+		}
+
+		// 2) Get converter
+		IConverter converter = report.getConverter(options);
+		// 3) Prepare HTTP response content type
+		// prepareHTTPResponse(report.getId(), converter.getMimeMapping(),
+		// request, response);
+		// 4) Generate report with conversion
+		report.convert(context, options, out);
 	}
 }
