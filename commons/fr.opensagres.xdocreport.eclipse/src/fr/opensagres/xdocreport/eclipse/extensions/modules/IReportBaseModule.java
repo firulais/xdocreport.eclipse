@@ -6,5 +6,5 @@ public interface IReportBaseModule {
 
 	String getName();
 
-	Image getImage();
+	Image getIcon();
 }

@@ -2,7 +2,9 @@ package fr.opensagres.xdocreport.eclipse.internal.extensions.modules;
 
 import org.eclipse.swt.graphics.Image;
 
-public abstract class ReportBaseModule {
+import fr.opensagres.xdocreport.eclipse.registry.IIconAware;
+
+public abstract class ReportBaseModule implements IIconAware {
 
 	private final String id;
 	private String name;
@@ -33,11 +35,11 @@ public abstract class ReportBaseModule {
 		this.description = description;
 	}
 
-	public Image getImage() {
+	public Image getIcon() {
 		return image;
 	}
 
-	public void setImage(Image image) {
+	public void setIcon(Image image) {
 		this.image = image;
 	}
 

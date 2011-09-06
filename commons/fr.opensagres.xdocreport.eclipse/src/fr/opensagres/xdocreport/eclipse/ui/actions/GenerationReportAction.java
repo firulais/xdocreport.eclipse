@@ -8,9 +8,9 @@ import fr.opensagres.xdocreport.eclipse.extensions.IModelProvider;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModule;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntry;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntryProvider;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportFormat;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessorType;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportConfiguration;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportFormat;
 import fr.opensagres.xdocreport.eclipse.internal.ImageResources;
 import fr.opensagres.xdocreport.eclipse.ui.handlers.ContextHandlerEvent;
 import fr.opensagres.xdocreport.eclipse.ui.handlers.ContextHandlerUtils;
@@ -25,7 +25,7 @@ public class GenerationReportAction extends Action {
 
 	public GenerationReportAction(IReportModuleEntryProvider entryProvider,
 			IModelProvider<?> modelProvider,
-			IReportProcessorType processorType, ReportFormat format,
+			IReportProcessorType processorType, IReportFormat format,
 			IServiceLocator serviceLocator) {
 		super.setImageDescriptor(ImageResources.getImageDescriptor(ImageResources.IMG_FORMAT_DOCX));
 		super.setText(processorType.getProcessor().getReportId());

@@ -2,6 +2,7 @@ package fr.opensagres.xdocreport.eclipse.ui.editors;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.Action;
@@ -15,10 +16,9 @@ import fr.opensagres.xdocreport.eclipse.extensions.IModelProvider;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModule;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntry;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntryProvider;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportEngine;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportFormat;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessorType;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessors;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportFormat;
 import fr.opensagres.xdocreport.eclipse.ui.actions.ActionMenu;
 import fr.opensagres.xdocreport.eclipse.ui.actions.GenerationReportAction;
 
@@ -84,24 +84,19 @@ public abstract class AbstractFormEditor<Model> extends FormEditor implements
 			return;
 		}
 
-		// Loop for each processors to compute supported format
-		IReportProcessorType firstProcessorType = processors
-				.getProcessorTypes().get(0);
-		IReportEngine firstEngine = firstProcessorType.getEngine();
-
-		List<ReportFormat> supportedFormats = firstEngine.getSupportedFormat();
-		for (ReportFormat reportFormat : supportedFormats) {
+		Map<IReportFormat, List<IReportProcessorType>> supportedFormats = processors
+				.getSupportedFormats();
+		for (Map.Entry<IReportFormat, List<IReportProcessorType>> supportedFormat : supportedFormats
+				.entrySet()) {
 			Action runAction = new ActionMenu(getReportProcessorsAction(
-					processors, reportFormat));
+					supportedFormat.getValue(), supportedFormat.getKey()));
 			manager.add(runAction);
 		}
 	}
 
 	private List<Action> getReportProcessorsAction(
-			IReportProcessors processors, ReportFormat format) {
+			List<IReportProcessorType> processorTypes, IReportFormat format) {
 		List<Action> actions = new ArrayList<Action>();
-		List<IReportProcessorType> processorTypes = processors
-				.getProcessorTypes();
 		for (IReportProcessorType processorType : processorTypes) {
 			actions.add(new GenerationReportAction(this, this, processorType,
 					format, this.getSite()));

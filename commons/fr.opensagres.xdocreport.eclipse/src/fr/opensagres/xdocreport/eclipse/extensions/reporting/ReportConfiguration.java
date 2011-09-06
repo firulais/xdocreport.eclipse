@@ -5,21 +5,23 @@ import java.io.File;
 public class ReportConfiguration {
 
 	private final File tempBaseDir;
-	private final ReportFormat format;
+	private final IReportFormat format;
 
-	public ReportConfiguration(File tempBaseDir, ReportFormat format) {
+	public ReportConfiguration(File tempBaseDir, IReportFormat format) {
 		this.tempBaseDir = tempBaseDir;
 		this.format = format;
 	}
 
-	public ReportConfiguration(ReportFormat format) {
+	public ReportConfiguration(IReportFormat format) {
 		this(new File(getDefaultTempBaseDir()), format);
 	}
 
 	private static String getDefaultTempBaseDir() {
-		String temp = System.getenv("TEMP");
-		if (temp != null) {
-			return temp;
+		String tempdir = System.getProperty("java.io.tmpdir");
+		if (!(tempdir.endsWith("/") || tempdir.endsWith("\\")))
+			tempdir = tempdir + System.getProperty("file.separator");
+		if (tempdir != null) {
+			return tempdir;
 		}
 		return "C:/xdocreport";
 	}
@@ -28,7 +30,7 @@ public class ReportConfiguration {
 		return tempBaseDir;
 	}
 
-	public ReportFormat getFormat() {
+	public IReportFormat getFormat() {
 		return format;
 	}
 

@@ -120,19 +120,6 @@ public class ReportModuleRegistry extends AbstractRegistry implements
 		return entry;
 	}
 
-	private void updateIcon(IConfigurationElement cfig, ReportBaseModule entry) {
-		String strIcon = cfig.getAttribute("icon");//$NON-NLS-1$
-		if (strIcon != null) {
-			ImageDescriptor imageDescriptor = AbstractUIPlugin
-					.imageDescriptorFromPlugin(cfig.getNamespace(), strIcon);
-			if (imageDescriptor != null) {
-				Image image = JFaceResources.getResources()
-						.createImageWithDefault(imageDescriptor);
-				entry.setImage(image);
-			}
-		}
-	}
-
 	private void parseReportProcessors(IConfigurationElement ce,
 			ReportModule module) {
 		IReportProcessorType processorType = null;

@@ -1,7 +1,5 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.reporting;
 
-import java.io.InputStream;
-
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.User;
 import fr.opensagres.xdocreport.eclipse.reporting.xdocreport.XDocReportProcessor;
 import fr.opensagres.xdocreport.template.IContext;

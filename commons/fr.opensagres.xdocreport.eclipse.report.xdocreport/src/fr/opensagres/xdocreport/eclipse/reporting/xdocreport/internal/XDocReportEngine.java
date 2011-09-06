@@ -3,9 +3,8 @@ package fr.opensagres.xdocreport.eclipse.reporting.xdocreport.internal;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
 
+import fr.opensagres.xdocreport.converter.ConverterRegistry;
 import fr.opensagres.xdocreport.converter.MimeMapping;
 import fr.opensagres.xdocreport.converter.Options;
 import fr.opensagres.xdocreport.core.XDocReportException;
@@ -13,10 +12,10 @@ import fr.opensagres.xdocreport.core.utils.StringUtils;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportEngine;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportFormat;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessor;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportConfiguration;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportException;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportFormat;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportMimeMapping;
 import fr.opensagres.xdocreport.eclipse.reporting.xdocreport.XDocReportProcessor;
 import fr.opensagres.xdocreport.template.IContext;
@@ -27,41 +26,13 @@ public class XDocReportEngine implements IReportEngine {
 
 	private static final String REPORT_MIME_MAPPING_KEY = "___ReportMimeMapping";
 
-	public ReportMimeMapping getMimeMapping(IReportProcessor p,
-			ReportConfiguration options) throws IOException, ReportException {
-		XDocReportProcessor processor = (XDocReportProcessor) p;
-		try {
-			IXDocReport report = getReport(processor);
-			if (report == null) {
-				throw new ReportException("Cannot get XDoc Report");
-			}
-			ReportMimeMapping mimeMapping = (ReportMimeMapping) report
-					.getData(REPORT_MIME_MAPPING_KEY);
-			if (mimeMapping == null) {
-				mimeMapping = toReportMimeMapping(report.getMimeMapping());
-				report.setData(REPORT_MIME_MAPPING_KEY, mimeMapping);
-			}
-			return mimeMapping;
-		} catch (XDocReportException e) {
-			throw new ReportException(e);
-		}
-	}
-
-	private static ReportMimeMapping toReportMimeMapping(MimeMapping mimeMapping) {
-		return new ReportMimeMapping(mimeMapping.getExtension(),
-				mimeMapping.getMimeType());
-	}
-
 	public void process(IReportProcessor p, Object model,
 			ReportConfiguration o, OutputStream out) throws IOException,
 			ReportException {
 		XDocReportProcessor processor = (XDocReportProcessor) p;
 		// 1) Get XDoc report
 		try {
-			IXDocReport report = getReport(processor);
-			if (report == null) {
-				throw new ReportException("Cannot get XDoc Report");
-			}
+			IXDocReport report = internalGetReport(processor);
 			Options options = getOptionsConverter(report, processor);
 			if (options == null) {
 
@@ -225,11 +196,51 @@ public class XDocReportEngine implements IReportEngine {
 		return null;
 	}
 
-	public List<ReportFormat> getSupportedFormat() {
-		// TODO : compute the supported format
-		List<ReportFormat> formats = new ArrayList<ReportFormat>();
-		formats.add(ReportFormat.DOCX);
-		return formats;
+	public ReportMimeMapping getMimeMapping(IReportProcessor p,
+			ReportConfiguration options) throws IOException, ReportException {
+		XDocReportProcessor processor = (XDocReportProcessor) p;
+		try {
+			IXDocReport report = internalGetReport(processor);
+			ReportMimeMapping mimeMapping = (ReportMimeMapping) report
+					.getData(REPORT_MIME_MAPPING_KEY);
+			if (mimeMapping == null) {
+				mimeMapping = toReportMimeMapping(report.getMimeMapping());
+				report.setData(REPORT_MIME_MAPPING_KEY, mimeMapping);
+			}
+			return mimeMapping;
+		} catch (XDocReportException e) {
+			throw new ReportException(e);
+		}
 	}
 
+	private static ReportMimeMapping toReportMimeMapping(MimeMapping mimeMapping) {
+		return new ReportMimeMapping(mimeMapping.getExtension(),
+				mimeMapping.getMimeType());
+	}
+
+	public boolean canSupportFormat(IReportProcessor p, IReportFormat format)
+			throws IOException, ReportException {
+		XDocReportProcessor processor = (XDocReportProcessor) p;
+		try {
+			IXDocReport report = internalGetReport(processor);
+			if (format.getId().equalsIgnoreCase(report.getKind())) {
+				// ex : docx, odt, etc
+				return true;
+			}
+			// test converter
+			return ConverterRegistry.getRegistry().getConverter(
+					report.getKind(), format.getId(), null) != null;
+		} catch (XDocReportException e) {
+			throw new ReportException(e);
+		}
+	}
+
+	private IXDocReport internalGetReport(XDocReportProcessor processor)
+			throws IOException, ReportException, XDocReportException {
+		IXDocReport report = getReport(processor);
+		if (report == null) {
+			throw new ReportException("Cannot get XDoc Report");
+		}
+		return report;
+	}
 }

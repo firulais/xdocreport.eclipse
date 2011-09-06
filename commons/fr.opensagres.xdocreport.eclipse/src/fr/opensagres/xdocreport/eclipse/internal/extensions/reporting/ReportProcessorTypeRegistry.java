@@ -1,6 +1,7 @@
 package fr.opensagres.xdocreport.eclipse.internal.extensions.reporting;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
@@ -11,6 +12,7 @@ import org.eclipse.core.runtime.Platform;
 
 import fr.opensagres.xdocreport.eclipse.PlatformXDocReport;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportEngine;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportFormat;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessor;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessorType;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessorTypeRegistry;

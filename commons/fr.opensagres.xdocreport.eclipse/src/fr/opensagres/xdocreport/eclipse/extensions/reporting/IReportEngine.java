@@ -2,7 +2,6 @@ package fr.opensagres.xdocreport.eclipse.extensions.reporting;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.List;
 
 public interface IReportEngine {
 
@@ -10,9 +9,10 @@ public interface IReportEngine {
 			ReportConfiguration options, OutputStream out) throws IOException,
 			ReportException;
 
-	ReportMimeMapping getMimeMapping(IReportProcessor processor, ReportConfiguration options)
-			throws IOException, ReportException;
+	ReportMimeMapping getMimeMapping(IReportProcessor processor,
+			ReportConfiguration options) throws IOException, ReportException;
 
-	List<ReportFormat> getSupportedFormat();
+	boolean canSupportFormat(IReportProcessor processor, IReportFormat format)
+			throws IOException, ReportException;
 
 }

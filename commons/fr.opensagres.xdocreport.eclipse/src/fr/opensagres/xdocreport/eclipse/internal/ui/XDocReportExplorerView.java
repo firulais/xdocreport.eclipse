@@ -98,7 +98,7 @@ public class XDocReportExplorerView extends ViewPart implements
 	}
 
 	private Image getImage(IReportBaseModule baseModule, String imageKey) {
-		Image image = baseModule.getImage();
+		Image image = baseModule.getIcon();
 		if (image != null) {
 			return image;
 		}

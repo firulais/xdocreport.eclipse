@@ -2,9 +2,11 @@ package fr.opensagres.xdocreport.eclipse;
 
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleRegistry;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportEngineRegistry;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportFormatRegistry;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessorTypeRegistry;
 import fr.opensagres.xdocreport.eclipse.internal.extensions.modules.ReportModuleRegistry;
 import fr.opensagres.xdocreport.eclipse.internal.extensions.reporting.ReportEngineTypeRegistry;
+import fr.opensagres.xdocreport.eclipse.internal.extensions.reporting.ReportFormatRegistry;
 import fr.opensagres.xdocreport.eclipse.internal.extensions.reporting.ReportProcessorTypeRegistry;
 
 public final class PlatformXDocReport {
@@ -19,5 +21,9 @@ public final class PlatformXDocReport {
 
 	public static IReportEngineRegistry getReportEngineRegistry() {
 		return ReportEngineTypeRegistry.getRegistry();
+	}
+	
+	public static IReportFormatRegistry getReportFormatRegistry() {
+		return ReportFormatRegistry.getRegistry();
 	}
 }

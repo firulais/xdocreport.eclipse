@@ -8,7 +8,9 @@
 		schema="schema/reportEngines.exsd" />
 	<extension-point id="reportProcessors" name="%reportProcessorsContributionName"
 		schema="schema/reportProcessors.exsd" />
-				
+	<extension-point id="reportFormats" name="%reportFormatsContributionName"
+		schema="schema/reportFormats.exsd" />
+						
    <extension
          id="application"
          point="org.eclipse.core.runtime.applications">
@@ -65,4 +67,28 @@
       </menuContribution>
    </extension>
 
+	<extension
+	      point="fr.opensagres.xdocreport.eclipse.reportFormats">
+	   <reportFormat
+	   	     id="DOCX"
+	         icon="icons/obj16/format/docx.png"
+	         name="Docx Format" />
+	   <reportFormat
+	   	     id="ODT"
+	         icon="icons/obj16/format/odt.png"
+	         name="ODT Format" />
+	   <reportFormat
+	   	     id="PDF"
+	         icon="icons/obj16/format/pdf.png"
+	         name="PDF Format" />
+	   <reportFormat
+	   	     id="XHTML"
+	         icon="icons/obj16/format/xhtml.png"
+	         name="XHTML Format" />	         
+	   <reportFormat
+	   	     id="RTF"
+	         icon="icons/obj16/format/rtf.png"
+	         name="RTF Format" />	         
+	</extension>
+	
 </plugin>
