@@ -13,6 +13,7 @@
 	<modules>
 		<module>commons</module>
 		<module>rcp</module>
+		<module>rap</module>
 	</modules>
 	<build>
 
@@ -70,6 +71,12 @@
 			<artifactId>fr.opensagres.xdocreport.template</artifactId>
 			<version>0.9.1</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>com.springsource.javax.servlet</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<repositories>
@@ -80,5 +87,11 @@
 			<url>http://download.eclipse.org/releases/indigo</url>
 			<!-- <url>file:/Users/pascalleclercq/devs/helios/org.eclipse.platform-3.6.2</url> -->
 		</repository>
+		<repository>
+                        <id>com.springsource.repository.bundles.external</id>
+                        <name>SpringSource Enterprise Bundle Repository - External Bundle
+                                Releases</name>
+                        <url>http://repository.springsource.com/maven/bundles/external</url>
+                </repository>
 	</repositories>
 </project>
