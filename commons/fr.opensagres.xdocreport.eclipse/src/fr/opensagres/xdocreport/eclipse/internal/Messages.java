@@ -8,6 +8,9 @@ public class Messages extends NLS {
 
 	public static String WorkbenchWindowConfigurer_title;
 
+	// Report Processors Editor
+	public static String ReportProcessorsPage_title;
+
 	static {
 		// load message values from bundle file
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

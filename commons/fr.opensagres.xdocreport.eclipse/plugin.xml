@@ -54,16 +54,27 @@
       </perspectiveExtension>
    </extension>-->
 
+  <extension
+        point="org.eclipse.ui.editors">
+     <editor
+           class="fr.opensagres.xdocreport.eclipse.internal.ui.editors.ReportingEditor"           
+           extensions="*"
+           icon="icons/obj16/reporting.gif"
+           id="fr.opensagres.xdocreport.eclipse.ui.editors.ReportingEditor"
+           name="%ReportingEditor.name">
+     </editor>
+  </extension>
+  
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
             locationURI="menu:org.eclipse.ui.main.menu">
          <menu
                label="%ReportMenu.label">
-            <command
+            <!--<command
                     commandId="fr.opensagres.xdocreport.eclipse.report.new"
                     label="%ReportNewMenu.label">
-            </command>
+            </command>-->
             <command
                   commandId="org.eclipse.ui.file.exit"
                   label="%ReportExitMenu.label">
@@ -101,8 +112,11 @@
     <command
           id="fr.opensagres.xdocreport.eclipse.report.new"
           defaultHandler="fr.opensagres.xdocreport.eclipse.internal.handlers.NewReportHandler"
-          name="New Report">
-    </command>
+          name="New Report" />
+    <command
+          id="fr.opensagres.xdocreport.eclipse.handlers.ReportingHandler"
+          defaultHandler="fr.opensagres.xdocreport.eclipse.internal.handlers.ReportingHandler"
+          name="New Report" />
  </extension>
 	
 </plugin>

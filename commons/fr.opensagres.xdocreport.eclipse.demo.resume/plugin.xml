@@ -16,6 +16,9 @@
 	            <entry name="%SearchResumeEntry.name"
 	                   commandId="fr.opensagres.xdocreport.eclipse.demo.resume.handlers.SearchResumeHandler"
 	                   icon="icons/obj16/search_resume.gif" />
+				<entry name="%ReportingEntry.name"
+	                   commandId="fr.opensagres.xdocreport.eclipse.handlers.ReportingHandler"
+	                   icon="icons/obj16/reporting_resume.gif" />	                   
 	        </entries>
 	        <reportProcessors commandId="fr.opensagres.xdocreport.eclipse.ui.handlers.GenerateReportHandler">
 	        	<reportProcessor reportProcessorId="resume1" />
