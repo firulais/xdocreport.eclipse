@@ -14,6 +14,8 @@ public class Messages extends NLS {
 	public static String ResumeFormEditor_FirstName_label;
 	public static String ResumeFormEditor_LastName_label;
 	public static String ResumeFormEditor_Birthday_label;
+	public static String OverviewPage_lblNewLabel_text;
+	public static String OverviewPage_txtNewText_text;
 
 	static {
 		// load message values from bundle file

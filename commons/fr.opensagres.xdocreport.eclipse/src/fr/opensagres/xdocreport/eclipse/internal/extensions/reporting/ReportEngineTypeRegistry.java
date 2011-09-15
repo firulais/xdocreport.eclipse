@@ -1,5 +1,6 @@
 package fr.opensagres.xdocreport.eclipse.internal.extensions.reporting;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +46,10 @@ public class ReportEngineTypeRegistry extends AbstractRegistry implements
 		loadRegistryIfNedded();
 		return engineTypes.get(id);
 	}
+	
+	public Collection<IReportEngineType> getEngineTypes() {
+		return engineTypes.values();
+	}
 
 	@Override
 	protected void loadRegistry() {
@@ -80,8 +85,7 @@ public class ReportEngineTypeRegistry extends AbstractRegistry implements
 
 				}
 
-				ReportEngineType engineType = new ReportEngineType(id, engine);
-				engineType.setName(name);
+				ReportEngineType engineType = new ReportEngineType(id, name, engine);
 				engineType.setDescription(description);
 
 				engineTypes.put(engineType.getId(), engineType);
