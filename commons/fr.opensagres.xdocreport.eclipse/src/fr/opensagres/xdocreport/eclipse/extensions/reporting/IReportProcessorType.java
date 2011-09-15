@@ -4,6 +4,10 @@ import java.util.List;
 
 public interface IReportProcessorType {
 
+	String getId();
+	
+	String getName();
+	
 	IReportProcessor getProcessor();
 	
 	IReportEngine getEngine();
