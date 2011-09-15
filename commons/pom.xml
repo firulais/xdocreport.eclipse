@@ -11,6 +11,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<modules>
+		<module>org.eclipse.rap.singlesourcing</module>
 		<module>fr.opensagres.xdocreport.eclipse</module>
 		<module>fr.opensagres.xdocreport.eclipse.demo.lettrerelance</module>
 		<module>fr.opensagres.xdocreport.eclipse.demo.resume</module>
