@@ -4,14 +4,14 @@ import org.eclipse.jface.viewers.LabelProvider;
 
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModule;
 
-public class ReprortModuleLabelProvider extends LabelProvider {
+public class ReportModuleLabelProvider extends LabelProvider {
 
-	private static ReprortModuleLabelProvider instance;
+	private static ReportModuleLabelProvider instance;
 
-	public static ReprortModuleLabelProvider getInstance() {
-		synchronized (ReprortModuleLabelProvider.class) {
+	public static ReportModuleLabelProvider getInstance() {
+		synchronized (ReportModuleLabelProvider.class) {
 			if (instance == null) {
-				instance = new ReprortModuleLabelProvider();
+				instance = new ReportModuleLabelProvider();
 			}
 			return instance;
 		}

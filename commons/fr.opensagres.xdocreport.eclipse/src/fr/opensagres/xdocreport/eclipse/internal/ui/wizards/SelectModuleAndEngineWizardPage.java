@@ -4,8 +4,11 @@ import java.util.Collection;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
@@ -14,11 +17,10 @@ import org.eclipse.swt.widgets.Label;
 
 import fr.opensagres.xdocreport.eclipse.PlatformXDocReport;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModule;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportEngineType;
-import fr.opensagres.xdocreport.eclipse.internal.ui.viewers.ReportEngineTypeContentProvider;
-import fr.opensagres.xdocreport.eclipse.internal.ui.viewers.ReportEngineTypeLabelProvider;
 import fr.opensagres.xdocreport.eclipse.internal.ui.viewers.ReportModuleContentProvider;
-import fr.opensagres.xdocreport.eclipse.internal.ui.viewers.ReprortModuleLabelProvider;
+import fr.opensagres.xdocreport.eclipse.internal.ui.viewers.ReportModuleLabelProvider;
+import fr.opensagres.xdocreport.eclipse.internal.ui.viewers.ReportProcessorTypeContentProvider;
+import fr.opensagres.xdocreport.eclipse.internal.ui.viewers.ReportProcessorTypeLabelProvider;
 
 public class SelectModuleAndEngineWizardPage extends WizardPage {
 	private Composite composite_1;
@@ -38,18 +40,6 @@ public class SelectModuleAndEngineWizardPage extends WizardPage {
 				| GridData.HORIZONTAL_ALIGN_FILL));
 
 		createReportAndEngineArea(composite_1);
-		// setPreferenceTransfers();
-
-		// restoreWidgetValues();
-		// updateWidgetEnablements();
-
-		// can not finish initially, but don't want to start with an error
-		// message either
-		// if (!(validDestination() && validateOptionsGroup() &&
-		// validateSourceGroup())) {
-		// setPageComplete(false);
-		// }
-
 		setControl(composite_1);
 
 		// giveFocusToDestination();
@@ -66,26 +56,6 @@ public class SelectModuleAndEngineWizardPage extends WizardPage {
 	 */
 	protected void createTransfersList(Composite composite) {
 
-		// transferAllButton = new Button(composite, SWT.CHECK);
-		// transferAllButton.setText(getAllButtonText());
-		//
-		// Group group = new Group(composite, SWT.NONE);
-		// group.setText("Module");
-		// GridData groupData = new GridData(GridData.FILL_BOTH);
-		// groupData.horizontalSpan = 2;
-		// groupData.horizontalIndent = IDialogConstants.INDENT;
-		// Object compositeLayout = composite.getLayout();
-		// if (compositeLayout instanceof GridLayout) {
-		// groupData.horizontalIndent -= ((GridLayout)
-		// compositeLayout).marginWidth;
-		// groupData.horizontalIndent -= ((GridLayout)
-		// compositeLayout).marginLeft;
-		// }
-		// group.setLayoutData(groupData);
-		//
-		// GridLayout layout = new GridLayout();
-		// group.setLayout(layout);
-
 		// Module
 		Label moduleLabel = new Label(composite, SWT.NONE);
 		moduleLabel.setText("Module:");
@@ -93,35 +63,75 @@ public class SelectModuleAndEngineWizardPage extends WizardPage {
 
 		Combo moduleCombo = new Combo(composite, SWT.READ_ONLY);
 		moduleCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		ComboViewer moduleViewer = new ComboViewer(moduleCombo);
+		final ComboViewer moduleViewer = new ComboViewer(moduleCombo);
 		moduleViewer.setContentProvider(ReportModuleContentProvider
 				.getInstance());
-		moduleViewer.setLabelProvider(ReprortModuleLabelProvider.getInstance());
+		moduleViewer.setLabelProvider(ReportModuleLabelProvider.getInstance());
 		moduleViewer.setInput(PlatformXDocReport.getReportModuleRegistry()
 				.getReportModules());
 		Collection<IReportModule> modules = PlatformXDocReport
 				.getReportModuleRegistry().getReportModules();
 		moduleViewer.setInput(modules);
+		
+		
+		
+		// Engine
+		Label processorLabel = new Label(composite, SWT.NONE);
+		processorLabel.setText("Report processor:");
+		processorLabel.setLayoutData(new GridData(SWT.FILL));
+
+		Combo processorCombo = new Combo(composite, SWT.READ_ONLY);
+		processorCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		final ComboViewer engineViewer = new ComboViewer(processorCombo);
+		engineViewer.setContentProvider(ReportProcessorTypeContentProvider
+				.getInstance());
+		engineViewer.setLabelProvider(ReportProcessorTypeLabelProvider
+				.getInstance());
+		
+		moduleCombo.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {		
+				
+				refreshProcessors(moduleViewer, engineViewer);
+				
+				//engineViewer.setInput(input);
+			}
+
+			
+		});
+		
 		if (modules.size() > 0) {
 			moduleCombo.select(0);
+			refreshProcessors(moduleViewer, engineViewer);
 		}
+		
 		// Engine
-		Label engineLabel = new Label(composite, SWT.NONE);
-		engineLabel.setText("Report engine:");
-		engineLabel.setLayoutData(new GridData(SWT.FILL));
-
-		Combo engineCombo = new Combo(composite, SWT.READ_ONLY);
-		engineCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		ComboViewer engineViewer = new ComboViewer(engineCombo);
-		engineViewer.setContentProvider(ReportEngineTypeContentProvider
-				.getInstance());
-		engineViewer.setLabelProvider(ReportEngineTypeLabelProvider
-				.getInstance());
-		Collection<IReportEngineType> enginTypes = PlatformXDocReport
-				.getReportEngineRegistry().getEngineTypes();
-		engineViewer.setInput(enginTypes);
-		if (enginTypes.size() > 0) {
-			engineCombo.select(0);
+//		Label engineLabel = new Label(composite, SWT.NONE);
+//		engineLabel.setText("Report engine:");
+//		engineLabel.setLayoutData(new GridData(SWT.FILL));
+//
+//		Combo engineCombo = new Combo(composite, SWT.READ_ONLY);
+//		engineCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+//		final ComboViewer engineViewer = new ComboViewer(engineCombo);
+//		engineViewer.setContentProvider(ReportEngineTypeContentProvider
+//				.getInstance());
+//		engineViewer.setLabelProvider(ReportEngineTypeLabelProvider
+//				.getInstance());
+//		Collection<IReportEngineType> enginTypes = PlatformXDocReport
+//				.getReportEngineRegistry().getEngineTypes();
+//		engineViewer.setInput(enginTypes);
+//		if (enginTypes.size() > 0) {
+//			engineCombo.select(0);
+//		}
+	}
+	
+	private void refreshProcessors(final ComboViewer moduleViewer,
+			final ComboViewer engineViewer) {
+		IStructuredSelection selection = (IStructuredSelection)moduleViewer.getSelection();
+		if (!selection.isEmpty()) {
+			IReportModule module = (IReportModule)selection.getFirstElement();
+			engineViewer.setInput(module.getProcessors().getProcessorTypes());
+			engineViewer.refresh();
 		}
 	}
 }

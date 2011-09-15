@@ -28,12 +28,15 @@
    <extension
          point="fr.opensagres.xdocreport.eclipse.reportProcessors">
          <reportProcessor id="resume1"
+         				  name="Resume 1"
          				  reportEngineId="xdocreport"
          				  class="fr.opensagres.xdocreport.eclipse.demo.resume.internal.reporting.DocxResumeReportProcessor" />
 		 <reportProcessor id="resume2"
+		 				  name="Resume 2"
          				  reportEngineId="xdocreport"
          				  class="fr.opensagres.xdocreport.eclipse.demo.resume.internal.reporting.DocxReportProcessor2" />         				  
 		 <reportProcessor id="resume3"
+		 				  name="Resume 3"		 
          				  reportEngineId="xdocreport"
          				  class="fr.opensagres.xdocreport.eclipse.demo.resume.internal.reporting.ODTResumeReportProcessor" />         				  
 	</extension>
