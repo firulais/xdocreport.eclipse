@@ -6,8 +6,6 @@ public class Messages extends NLS {
 
 	private static final String BUNDLE_NAME = "fr.opensagres.xdocreport.eclipse.internal.Messages";//$NON-NLS-1$
 
-
-
 	public static String WorkbenchWindowConfigurer_title;
 
 	// Report Processors Editor
@@ -16,13 +14,15 @@ public class Messages extends NLS {
 	// GenericReportLoaderDetailsPage
 	public static String GenericReportLoaderDetailsPage_title;
 	public static String GenericReportLoaderDetailsPage_desc;
+	public static String GenericReportLoaderDetails_reportEngine_label;
 	public static String GenericReportLoaderDetails_reportId_label;
-
+	public static String GenericReportLoaderDetails_reportName_label;
+	public static String GenericReportLoaderDetails_reportDesc_label;
+	public static String GenericReportLoaderDetails_reportSource_label;
+	
 	// ReportLoaderMasterDetailsBlock
 	public static String ReportLoaderMasterDetailsBlock_title;
 	public static String ReportLoaderMasterDetailsBlock_desc;
-	public static String GenericReportLoaderDetails_reportName_label;
-	public static String GenericReportLoaderDetails_reportDesc_label;
 	
 	static {
 		// load message values from bundle file

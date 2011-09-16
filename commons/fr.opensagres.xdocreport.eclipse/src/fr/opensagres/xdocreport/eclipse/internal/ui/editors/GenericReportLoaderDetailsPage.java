@@ -1,13 +1,22 @@
 package fr.opensagres.xdocreport.eclipse.internal.ui.editors;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.IDetailsPage;
 import org.eclipse.ui.forms.IFormPart;
@@ -30,7 +39,8 @@ public class GenericReportLoaderDetailsPage implements IDetailsPage {
 	private Text reportIdText;
 	private Text reportNameText;
 	private Text reportDescText;
-	
+	private Label reportEngineLabel;
+
 	public GenericReportLoaderDetailsPage() {
 
 	}
@@ -77,44 +87,114 @@ public class GenericReportLoaderDetailsPage implements IDetailsPage {
 
 		Composite client = toolkit.createComposite(reportLoaderSection);
 		reportLoaderSection.setClient(client);
+		
+		// Create generic content
+		createGenericContent(toolkit, client);
+		createSpecificContent(toolkit, client);
+
+		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, client);
+	}
+
+	private void createGenericContent(FormToolkit toolkit, Composite parent) {
 		GridLayout glayout = new GridLayout();
-		// glayout.marginWidth = glayout.marginHeight = 0;
 		glayout.numColumns = 2;
-		client.setLayout(glayout);
+		parent.setLayout(glayout);
+
+		// Report Engine
+		toolkit.createLabel(parent,
+				Messages.GenericReportLoaderDetails_reportEngine_label);
+		reportEngineLabel = toolkit.createLabel(parent, "", SWT.SINGLE);
+		reportEngineLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		// Report ID
-		toolkit.createLabel(client,
+		toolkit.createLabel(parent,
 				Messages.GenericReportLoaderDetails_reportId_label);
-		reportIdText = toolkit.createText(client, "", SWT.SINGLE);
+		reportIdText = toolkit.createText(parent, "", SWT.SINGLE);
 		reportIdText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		// Name
-		toolkit.createLabel(client,
+		toolkit.createLabel(parent,
 				Messages.GenericReportLoaderDetails_reportName_label);
-		reportNameText = toolkit.createText(client, "", SWT.SINGLE);
+		reportNameText = toolkit.createText(parent, "", SWT.SINGLE);
 		reportNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		// Description
-		toolkit.createLabel(client,
+		toolkit.createLabel(parent,
 				Messages.GenericReportLoaderDetails_reportDesc_label);
-		reportDescText = toolkit.createText(client, "", SWT.MULTI);
+		reportDescText = toolkit.createText(parent, "", SWT.MULTI);
 		reportDescText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		// Source stream of the report
+		createSourceContent(toolkit, parent);
+	}
+
+	private void createSourceContent(FormToolkit toolkit, Composite parent) {
+		toolkit.createLabel(parent,
+				Messages.GenericReportLoaderDetails_reportSource_label);
+		Composite sourceComposite = toolkit.createComposite(parent);
+		sourceComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));		
+		sourceComposite.setLayout(new GridLayout(2, false));
 		
-		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, client);
+		// Modify button
+		Button addMultiBtn = new Button(sourceComposite, SWT.PUSH);
+		addMultiBtn.setText("Modify");
+		addMultiBtn
+				.setToolTipText("Launches file dialog for file selection.");
+		// addMultiBtn.setLayoutData(factory.create());
+		addMultiBtn.addSelectionListener(new SelectionAdapter() {
+
+			public void widgetSelected(SelectionEvent e) {
+				FileDialog fd = new FileDialog(Display.getDefault()
+						.getActiveShell(), SWT.SHELL_TRIM | SWT.SINGLE
+						| SWT.APPLICATION_MODAL);
+				fd.setText("Upload Multiple Files");
+				fd.setFilterPath("C:/");
+				String[] filterExt = { "*.txt", "*.doc", "*.rtf", "*.*" };
+				fd.setFilterExtensions(filterExt);
+				String[] filterNames = { "Text Files", "Word Document",
+						"Rich Text Format", "All Files" };
+				fd.setFilterNames(filterNames);
+				String selected = fd.open();
+				if (selected != null && selected.length() > 0) {
+
+					File f = new File(selected);
+					try {
+						FileInputStream in = new FileInputStream(f);
+
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		// View button
+		Button viewButton = new Button(sourceComposite, SWT.PUSH);
+		viewButton.setText("View");
+		viewButton
+				.setToolTipText("View the source document.");
+		viewButton.addSelectionListener(new SelectionAdapter() {
+		
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				super.widgetSelected(e);
+			}
+		});
+		
+	}
+
+	protected void createSpecificContent(FormToolkit toolkit, Composite client) {		
+		
 	}
 
 	protected void update() {
 		if (reportLoader == null) {
 			return;
 		}
+		// reportEngineLabel.setText(reportLoader.getProcessorType().getEngine());
 		reportIdText.setText(reportLoader.getReportId());
 		reportNameText.setText(reportLoader.getName());
 		reportDescText.setText(reportLoader.getDescription());
-		// for (int i=0; i<TypeOne.CHOICES.length; i++) {
-		// choices[i].setSelection(input!=null && input.getChoice()==i);
-		// }
-		// flag.setSelection(input!=null && input.getFlag());
-		//		text.setText(input!=null && input.getText()!=null?input.getText():""); //$NON-NLS-1$
 	}
 
 	/*
