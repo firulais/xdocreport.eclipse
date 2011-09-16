@@ -21,6 +21,8 @@ public class Messages extends NLS {
 	// ReportLoaderMasterDetailsBlock
 	public static String ReportLoaderMasterDetailsBlock_title;
 	public static String ReportLoaderMasterDetailsBlock_desc;
+	public static String GenericReportLoaderDetails_reportName_label;
+	public static String GenericReportLoaderDetails_reportDesc_label;
 	
 	static {
 		// load message values from bundle file

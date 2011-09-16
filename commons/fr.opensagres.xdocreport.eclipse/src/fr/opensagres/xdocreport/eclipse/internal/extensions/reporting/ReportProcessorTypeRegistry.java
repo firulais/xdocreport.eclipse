@@ -113,6 +113,8 @@ public class ReportProcessorTypeRegistry extends AbstractRegistry implements
 							.createExecutableExtension(CLASS_ATTR);
 					reportLoader.setProcessorType(processorType);
 					reportLoader.setReportId(ce.getAttribute(ID_ATTR));					
+					reportLoader.setName(ce.getAttribute(NAME_ATTR));
+					reportLoader.setDescription(ce.getAttribute(DESCRIPTION_ATTR));
 					reportLoaders.add(reportLoader);
 				} catch (CoreException e) {
 					e.printStackTrace();

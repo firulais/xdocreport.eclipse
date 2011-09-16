@@ -6,6 +6,10 @@ import java.io.InputStream;
 public interface IReportLoader {
 
 	String getReportId();
+	
+	String getName();
+	
+	String getDescription();
 
 	InputStream getSourceStream();
 

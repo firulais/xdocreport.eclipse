@@ -4,6 +4,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -25,13 +26,11 @@ public class GenericReportLoaderDetailsPage implements IDetailsPage {
 	private IReportLoader reportLoader;
 	// private TypeOne input;
 	private Button[] choices;
-	private Button flag;
-	private Text text;
-	private Text reportIdText;
-	private static final String RTEXT_DATA = "<form><p>An example of a free-form text that should be " + //$NON-NLS-1$
-			"wrapped below the section with widgets.</p>" + //$NON-NLS-1$
-			"<p>It can contain simple tags like <a>links</a> and <b>bold text</b>.</p></form>"; //$NON-NLS-1$
 
+	private Text reportIdText;
+	private Text reportNameText;
+	private Text reportDescText;
+	
 	public GenericReportLoaderDetailsPage() {
 
 	}
@@ -62,36 +61,55 @@ public class GenericReportLoaderDetailsPage implements IDetailsPage {
 		parent.setLayout(layout);
 
 		FormToolkit toolkit = mform.getToolkit();
-		Section s1 = toolkit.createSection(parent, Section.DESCRIPTION
-				| Section.TITLE_BAR);
-		s1.marginWidth = 10;
-		s1.setText(Messages.GenericReportLoaderDetailsPage_title); //$NON-NLS-1$
-		s1.setDescription(Messages.GenericReportLoaderDetailsPage_desc); //$NON-NLS-1$
-		
+
+		Section reportLoaderSection = toolkit.createSection(parent,
+				Section.DESCRIPTION | Section.TITLE_BAR);
+		reportLoaderSection.marginWidth = 10;
+		reportLoaderSection
+				.setText(Messages.GenericReportLoaderDetailsPage_title); //$NON-NLS-1$
+		reportLoaderSection
+				.setDescription(Messages.GenericReportLoaderDetailsPage_desc); //$NON-NLS-1$
+
 		TableWrapData td = new TableWrapData(TableWrapData.FILL,
 				TableWrapData.TOP);
 		td.grabHorizontal = true;
-		s1.setLayoutData(td);
-		Composite client = toolkit.createComposite(s1);
+		reportLoaderSection.setLayoutData(td);
+
+		Composite client = toolkit.createComposite(reportLoaderSection);
+		reportLoaderSection.setClient(client);
 		GridLayout glayout = new GridLayout();
-		glayout.marginWidth = glayout.marginHeight = 0;
+		// glayout.marginWidth = glayout.marginHeight = 0;
 		glayout.numColumns = 2;
 		client.setLayout(glayout);
 
 		// Report ID
-		toolkit.createLabel(client, Messages.GenericReportLoaderDetails_reportId_label);
+		toolkit.createLabel(client,
+				Messages.GenericReportLoaderDetails_reportId_label);
 		reportIdText = toolkit.createText(client, "", SWT.SINGLE);
-				
-		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, s1);
-		// toolkit.paintBordersFor(s1);
-		s1.setClient(client);
+		reportIdText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		// Name
+		toolkit.createLabel(client,
+				Messages.GenericReportLoaderDetails_reportName_label);
+		reportNameText = toolkit.createText(client, "", SWT.SINGLE);
+		reportNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		// Description
+		toolkit.createLabel(client,
+				Messages.GenericReportLoaderDetails_reportDesc_label);
+		reportDescText = toolkit.createText(client, "", SWT.MULTI);
+		reportDescText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		
+		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, client);
 	}
 
 	protected void update() {
 		if (reportLoader == null) {
 			return;
 		}
-		reportIdText.setText(reportLoader.getReportId()); 
+		reportIdText.setText(reportLoader.getReportId());
+		reportNameText.setText(reportLoader.getName());
+		reportDescText.setText(reportLoader.getDescription());
 		// for (int i=0; i<TypeOne.CHOICES.length; i++) {
 		// choices[i].setSelection(input!=null && input.getChoice()==i);
 		// }

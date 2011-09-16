@@ -5,6 +5,8 @@ import java.io.IOException;
 public abstract class AbstractReportLoader implements IReportLoader {
 
 	private String reportId;
+	private String name;
+	private String description;
 	private IReportProcessorType processorType;
 
 	public boolean canSupportFormat(IReportFormat format) throws IOException,
@@ -27,5 +29,23 @@ public abstract class AbstractReportLoader implements IReportLoader {
 	public void setProcessorType(IReportProcessorType processorType) {
 		this.processorType = processorType;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	
 
 }
