@@ -5,6 +5,8 @@ import java.util.List;
 
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModule;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntry;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessorType;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessors;
 
 public class ReportModule extends ReportBaseModule implements IReportModule {
@@ -32,6 +34,15 @@ public class ReportModule extends ReportBaseModule implements IReportModule {
 
 	public void setProcessors(IReportProcessors processors) {
 		this.processors = processors;
+	}
+	
+	public List<IReportLoader> getAllReportLoaders() {
+		List<IReportLoader> reportLoaders =new ArrayList<IReportLoader>();
+		List<IReportProcessorType> processorTypes = processors.getProcessorTypes();
+		for (IReportProcessorType processorType : processorTypes) {
+			reportLoaders.addAll(processorType.getReportLoaders());
+		}
+		return reportLoaders;
 	}
 
 }

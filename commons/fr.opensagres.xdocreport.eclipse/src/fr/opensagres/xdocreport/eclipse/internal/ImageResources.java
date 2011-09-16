@@ -20,12 +20,13 @@ public class ImageResources {
 	private static final String PATH_OBJ = ICONS_PATH + "obj16/"; //$NON-NLS-1$
 
 	public static final String IMG_MODULE = "module";
-	public static final String IMG_FORMAT_DOCX = "docx";
+	public static final String IMG_TH_HORIZONTAL = "th_horizontal";
+	public static final String IMG_TH_VERTICAL = "th_vertical";
 
 	public static void initialize(ImageRegistry imageRegistry) {
-		registerImage(imageRegistry, IMG_FORMAT_DOCX, PATH_OBJ
-				+ "format/docx.png");
 		registerImage(imageRegistry, IMG_MODULE, PATH_OBJ + "module.gif");
+		registerImage(imageRegistry, IMG_TH_HORIZONTAL, PATH_OBJ + "th_horizontal.gif");		
+		registerImage(imageRegistry, IMG_TH_VERTICAL, PATH_OBJ + "th_vertical.gif");
 	}
 
 	private static void registerImage(ImageRegistry registry, String key,
