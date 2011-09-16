@@ -5,9 +5,9 @@
    <extension
          point="fr.opensagres.xdocreport.eclipse.reportEngines">
       <reportEngine
-            id="xdocreport"
-            name="XDocReport"
-            description="XDocReport"
+            id="fr.opensagres.xdocreport.eclipse.reporting.xdocreport"
+            name="%reportEngine.name"
+            description="%reportEngine.description"
             class="fr.opensagres.xdocreport.eclipse.reporting.xdocreport.internal.XDocReportEngine"  />          	        
    </extension>
      

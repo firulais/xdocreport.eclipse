@@ -5,14 +5,14 @@ import java.io.OutputStream;
 
 public interface IReportEngine {
 
-	void process(IReportProcessor processor, Object model,
+	void process(IReportLoader reportLoader, Object model,
 			ReportConfiguration options, OutputStream out) throws IOException,
 			ReportException;
 
-	ReportMimeMapping getMimeMapping(IReportProcessor processor,
+	ReportMimeMapping getMimeMapping(IReportLoader reportLoader,
 			ReportConfiguration options) throws IOException, ReportException;
 
-	boolean canSupportFormat(IReportProcessor processor, IReportFormat format)
+	boolean canSupportFormat(IReportLoader reportLoader, IReportFormat format)
 			throws IOException, ReportException;
 
 }

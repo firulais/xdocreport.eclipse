@@ -68,12 +68,12 @@ public class ReportMimeMapping {
 		return result.toString();
 	}
 
-	public File formatFile(File tempBaseDir, IReportProcessor processor) {
-		String filename = formatFileName(processor);
+	public File formatFile(File tempBaseDir, IReportLoader reportLoader) {
+		String filename = formatFileName(reportLoader);
 		return new File(tempBaseDir, filename);
 	}
 
-	public String formatFileName(IReportProcessor processor) {
-		return formatFileName(processor.getReportId());
+	public String formatFileName(IReportLoader reportLoader) {
+		return formatFileName(reportLoader.getReportId());
 	}
 }

@@ -1,5 +1,6 @@
 package fr.opensagres.xdocreport.eclipse.internal.extensions.reporting;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,8 +12,9 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 
 import fr.opensagres.xdocreport.eclipse.PlatformXDocReport;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.AbstractReportLoader;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportEngine;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportFormat;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessor;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessorType;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessorTypeRegistry;
@@ -26,6 +28,7 @@ public class ReportProcessorTypeRegistry extends AbstractRegistry implements
 	private static final String REPORT_PROCESSORS_EXTENSION_POINT = "reportProcessors";
 
 	private static final String REPORT_PROCESSOR_ELT = "reportProcessor";
+	private static final String REPORT_LOADER_ELT = "reportLoader";
 
 	private static final String REPORT_ENGINE_ID_ATTR = "reportEngineId";
 
@@ -84,15 +87,40 @@ public class ReportProcessorTypeRegistry extends AbstractRegistry implements
 
 				}
 
+
 				ReportProcessorType processorType = new ReportProcessorType(id,
 						processor, engine);
 				processorType.setName(name);
 				processorType.setDescription(description);
+				// List of reportLoader.
+				List<IReportLoader> reportLoaders = parseReportLoaders(processorType, ce);
+
+				processorType.setReportLoaders(reportLoaders);
 
 				processorTypes.put(processorType.getId(), processorType);
 			}
 		}
 
+	}
+
+	private List<IReportLoader> parseReportLoaders(ReportProcessorType processorType, IConfigurationElement cf) {
+		List<IReportLoader> reportLoaders = new ArrayList<IReportLoader>();
+		for (IConfigurationElement ce : cf.getChildren()) {
+			if (REPORT_LOADER_ELT.equals(ce.getName())) {
+				AbstractReportLoader reportLoader = null;
+				try {
+					reportLoader = (AbstractReportLoader) ce
+							.createExecutableExtension(CLASS_ATTR);
+					reportLoader.setProcessorType(processorType);
+					reportLoader.setReportId(ce.getAttribute(ID_ATTR));					
+					reportLoaders.add(reportLoader);
+				} catch (CoreException e) {
+					e.printStackTrace();
+
+				}
+			}
+		}
+		return reportLoaders;
 	}
 
 	@Override

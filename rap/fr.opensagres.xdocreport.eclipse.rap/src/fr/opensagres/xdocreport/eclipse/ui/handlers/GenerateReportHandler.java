@@ -12,23 +12,23 @@ import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportEngine;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessor;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportConfiguration;
 import fr.opensagres.xdocreport.eclipse.utils.URLHelper;
 
 public class GenerateReportHandler extends AbstractGenerateReportHandler {
- 
+
 	public static final String REPORT_SERVICE_HANDLER = "generateReportServiceHandler";
 
 	@Override
 	protected void generateReport(ExecutionEvent event,
-			ContextHandlerEvent contextEvent, IReportProcessor processor,
+			ContextHandlerEvent contextEvent, IReportLoader reportLoader,
 			IReportEngine engine, ReportConfiguration options, Object model)
 			throws ExecutionException {
-		
+
 		IServiceManager manager = RWT.getServiceManager();
-		IServiceHandler handler = new GenerateReportServiceHandler(processor,
-				engine, options, model);
+		IServiceHandler handler = new GenerateReportServiceHandler(
+				reportLoader, engine, options, model);
 		manager.registerServiceHandler(REPORT_SERVICE_HANDLER, handler);
 
 		IWorkbenchBrowserSupport browserSupport = PlatformUI.getWorkbench()
@@ -37,7 +37,7 @@ public class GenerateReportHandler extends AbstractGenerateReportHandler {
 			IWebBrowser browser = browserSupport.createBrowser(
 					IWorkbenchBrowserSupport.AS_EDITOR, "My", "Name",
 					"My tooltip");
-			
+
 			browser.openURL(new URL(createDownloadUrl()));
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -58,5 +58,4 @@ public class GenerateReportHandler extends AbstractGenerateReportHandler {
 		return encodedURL;
 	}
 
-	
 }

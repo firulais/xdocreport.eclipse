@@ -12,35 +12,37 @@ import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.core.utils.StringUtils;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportEngine;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.AbstractReportEngine;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportFormat;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessor;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportConfiguration;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportException;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportMimeMapping;
+import fr.opensagres.xdocreport.eclipse.reporting.xdocreport.XDocReportLoader;
 import fr.opensagres.xdocreport.eclipse.reporting.xdocreport.XDocReportProcessor;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.ITemplateEngine;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
-public class XDocReportEngine implements IReportEngine {
+public class XDocReportEngine extends AbstractReportEngine {
 
 	private static final String REPORT_MIME_MAPPING_KEY = "___ReportMimeMapping";
 
-	public void process(IReportProcessor p, Object model,
+	public void process(IReportLoader loader, Object model,
 			ReportConfiguration configuration, OutputStream out)
 			throws IOException, ReportException {
-		XDocReportProcessor processor = (XDocReportProcessor) p;
+		XDocReportLoader reportLoader = (XDocReportLoader) loader;
 		// 1) Get XDoc report
 		try {
-			IXDocReport report = internalGetReport(processor);
+			IXDocReport report = internalGetReport(reportLoader);
 			Options options = getOptionsConverter(configuration, report,
-					processor);
+					reportLoader);
 			if (options == null) {
-				doProcessReport(report, processor, model, out);
+				doProcessReport(report, reportLoader, model, out);
 			} else {
-				doProcessReportWithConverter(report, processor, model, options,
-						out);
+				doProcessReportWithConverter(report, reportLoader, model,
+						options, out);
 			}
 		} catch (XDocReportException e) {
 			throw new ReportException(e);
@@ -50,16 +52,16 @@ public class XDocReportEngine implements IReportEngine {
 
 	/**
 	 * 
-	 * @param processor
+	 * @param reportLoader
 	 * @return
 	 * @throws IOException
 	 * @throws XDocReportException
 	 */
-	protected IXDocReport getReport(XDocReportProcessor processor)
+	protected IXDocReport getReport(XDocReportLoader reportLoader)
 			throws IOException, ReportException, XDocReportException {
-		XDocReportRegistry registry = getRegistry(processor);
+		XDocReportRegistry registry = getRegistry(reportLoader);
 		// 1) Get report id
-		String reportId = getReportId(processor);
+		String reportId = getReportId(reportLoader);
 		if (StringUtils.isNotEmpty(reportId)) {
 			// Search if report is cached in the registry
 			IXDocReport report = registry.getReport(reportId);
@@ -67,21 +69,21 @@ public class XDocReportEngine implements IReportEngine {
 				return report;
 			}
 		}
-		return loadReport(reportId, registry, processor);
+		return loadReport(reportId, registry, reportLoader);
 	}
 
-	protected String getReportId(XDocReportProcessor processor) {
-		return processor.getReportId();
+	protected String getReportId(XDocReportLoader reportLoader) {
+		return reportLoader.getReportId();
 	}
 
-	protected XDocReportRegistry getRegistry(XDocReportProcessor processor) {
+	protected XDocReportRegistry getRegistry(XDocReportLoader reportLoader) {
 		return XDocReportRegistry.getRegistry();
 	}
 
 	private IXDocReport loadReport(String reportId,
-			XDocReportRegistry registry, XDocReportProcessor processor)
+			XDocReportRegistry registry, XDocReportLoader reportLoader)
 			throws XDocReportException, IOException {
-		InputStream sourceStream = getSourceStream(reportId, processor);
+		InputStream sourceStream = getSourceStream(reportId, reportLoader);
 		if (sourceStream == null) {
 			throw new XDocReportException("Input stream is null with reportId="
 					+ reportId);
@@ -90,61 +92,63 @@ public class XDocReportEngine implements IReportEngine {
 		// 3) Get template engine to use for the report
 		ITemplateEngine templateEngine = null;
 
-		String templateEngineKind = getTemplateEngineKind(reportId, processor);
+		String templateEngineKind = getTemplateEngineKind(reportId,
+				reportLoader);
 		if (StringUtils.isNotEmpty(templateEngineKind)) {
 			// 3.1) Load report with template engine kind
 			report = registry.loadReport(sourceStream, reportId,
 					templateEngineKind);
 		} else {
 			// 3.1) Load report with template engine
-			templateEngine = getTemplateEngine(reportId, processor);
+			templateEngine = getTemplateEngine(reportId, reportLoader);
 			report = registry
 					.loadReport(sourceStream, reportId, templateEngine);
 		}
 
 		// 6) Set FieldsMetaData
-		FieldsMetadata fieldsMetadata = getFieldsMetadata(reportId, processor);
+		FieldsMetadata fieldsMetadata = getFieldsMetadata(reportId,
+				reportLoader);
 		report.setFieldsMetadata(fieldsMetadata);
 
 		// 7) Set cache
 		report.setCacheOriginalDocument(isCacheOriginalDocument(reportId,
-				processor));
+				reportLoader));
 		return report;
 	}
 
 	private boolean isCacheOriginalDocument(String reportId,
-			XDocReportProcessor processor) {
+			XDocReportLoader reportLoader) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	private FieldsMetadata getFieldsMetadata(String reportId,
-			XDocReportProcessor processor) {
-		return processor.getFieldsMetadata();
+			XDocReportLoader reportLoader) {
+		return reportLoader.getFieldsMetadata();
 	}
 
 	private ITemplateEngine getTemplateEngine(String reportId,
-			XDocReportProcessor processor) {
+			XDocReportLoader reportLoader) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	private String getTemplateEngineKind(String reportId,
-			XDocReportProcessor processor) {
-		return processor.getTemplateEngineKind();
+			XDocReportLoader reportLoader) {
+		return reportLoader.getTemplateEngineKind();
 	}
 
 	private InputStream getSourceStream(String reportId,
-			XDocReportProcessor processor) {
-		return processor.getSourceStream();
+			XDocReportLoader reportLoader) {
+		return reportLoader.getSourceStream();
 	}
 
 	private void doProcessReport(IXDocReport report,
-			XDocReportProcessor processor, Object model, OutputStream out)
+			XDocReportLoader reportLoader, Object model, OutputStream out)
 			throws XDocReportException, IOException {
 		// 1) Prepare Java model context
 		IContext context = report.createContext();
-		populateContext(context, model, processor);
+		populateContext(context, model, reportLoader);
 
 		// if (StringUtils.isEmpty(entryName)) {
 		// 2) Prepare HTTP response content type
@@ -161,12 +165,14 @@ public class XDocReportEngine implements IReportEngine {
 	}
 
 	private void populateContext(IContext context, Object model,
-			XDocReportProcessor processor) {
-		processor.populateContext(context, model);
+			XDocReportLoader reportLoader) {
+		IReportProcessor processor = reportLoader.getProcessorType()
+				.getProcessor();
+		((XDocReportProcessor) processor).populateContext(context, model);
 	}
 
 	protected Options getOptionsConverter(ReportConfiguration configuration,
-			IXDocReport report, XDocReportProcessor processor) {
+			IXDocReport report, XDocReportLoader reportLoader) {
 		if (configuration == null) {
 			return null;
 		}
@@ -187,20 +193,20 @@ public class XDocReportEngine implements IReportEngine {
 		return true;
 	}
 
-	public ReportMimeMapping getMimeMapping(IReportProcessor p,
+	public ReportMimeMapping getMimeMapping(IReportLoader loader,
 			ReportConfiguration configuration) throws IOException,
 			ReportException {
-		XDocReportProcessor processor = (XDocReportProcessor) p;
+		XDocReportLoader reportLoader = (XDocReportLoader) loader;
 		try {
 			String key = getMimeMappingKey(configuration);
-			IXDocReport report = internalGetReport(processor);
+			IXDocReport report = internalGetReport(reportLoader);
 			ReportMimeMapping mimeMapping = (ReportMimeMapping) report
 					.getData(key);
 			if (mimeMapping == null) {
 
 				if (isFormatConverter(report, configuration.getFormat())) {
 					Options options = getOptionsConverter(configuration,
-							report, processor);
+							report, reportLoader);
 					if (options == null) {
 						return null;
 					}
@@ -230,11 +236,11 @@ public class XDocReportEngine implements IReportEngine {
 				mimeMapping.getMimeType());
 	}
 
-	public boolean canSupportFormat(IReportProcessor p, IReportFormat format)
+	public boolean canSupportFormat(IReportLoader loader, IReportFormat format)
 			throws IOException, ReportException {
-		XDocReportProcessor processor = (XDocReportProcessor) p;
+		XDocReportLoader reportLoader = (XDocReportLoader) loader;
 		try {
-			IXDocReport report = internalGetReport(processor);
+			IXDocReport report = internalGetReport(reportLoader);
 			if (format.getId().equalsIgnoreCase(report.getKind())) {
 				// ex : docx, odt, etc
 				return true;
@@ -247,9 +253,9 @@ public class XDocReportEngine implements IReportEngine {
 		}
 	}
 
-	private IXDocReport internalGetReport(XDocReportProcessor processor)
+	private IXDocReport internalGetReport(XDocReportLoader reportLoader)
 			throws IOException, ReportException, XDocReportException {
-		IXDocReport report = getReport(processor);
+		IXDocReport report = getReport(reportLoader);
 		if (report == null) {
 			throw new ReportException("Cannot get XDoc Report");
 		}
@@ -264,7 +270,7 @@ public class XDocReportEngine implements IReportEngine {
 	 * 
 	 */
 	private void doProcessReportWithConverter(IXDocReport report,
-			XDocReportProcessor processor, Object model, Options options,
+			XDocReportLoader reportLoader, Object model, Options options,
 			OutputStream out) throws XDocReportException, IOException,
 			ReportException {
 		IContext context = null;
@@ -272,7 +278,7 @@ public class XDocReportEngine implements IReportEngine {
 		if (templateEngine != null) {
 			// 1) Prepare Java model context
 			context = report.createContext();
-			populateContext(context, model, processor);
+			populateContext(context, model, reportLoader);
 		}
 
 		// 2) Get converter

@@ -4,8 +4,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportEngine;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessor;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessorType;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportConfiguration;
 
 public abstract class AbstractGenerateReportHandler extends
@@ -15,18 +14,17 @@ public abstract class AbstractGenerateReportHandler extends
 	protected Object execute(ExecutionEvent event,
 			ContextHandlerEvent contextEvent) throws ExecutionException {
 		Object model = contextEvent.getModel();
-		ReportConfiguration options = contextEvent.getReportOptions();
+		ReportConfiguration options = contextEvent.getReportConfiguration();
 
-		IReportProcessorType processorType = contextEvent
-				.getReportProcessorType();
-		IReportProcessor processor = processorType.getProcessor();
-		IReportEngine engine = processorType.getEngine();
-		generateReport(event, contextEvent, processor, engine, options, model);
+		IReportLoader reportLoader = contextEvent
+				.getReportLoader();
+		IReportEngine engine = reportLoader.getProcessorType().getEngine();
+		generateReport(event, contextEvent, reportLoader, engine, options, model);
 		return null;
 	}
 
 	protected abstract void generateReport(ExecutionEvent event,
-			ContextHandlerEvent contextEvent, IReportProcessor processor,
+			ContextHandlerEvent contextEvent, IReportLoader reportLoader,
 			IReportEngine engine, ReportConfiguration options, Object model)
 			throws ExecutionException;
 

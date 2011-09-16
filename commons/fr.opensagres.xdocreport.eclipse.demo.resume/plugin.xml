@@ -21,27 +21,35 @@
 	                   icon="icons/obj16/reporting_resume.gif" />	                   
 	        </entries>
 	        <reportProcessors commandId="fr.opensagres.xdocreport.eclipse.ui.handlers.GenerateReportHandler">
-	        	<reportProcessor reportProcessorId="resume1" />
-	        	<reportProcessor reportProcessorId="resume2" />
-	        	<reportProcessor reportProcessorId="resume3" />
+	        	<reportProcessor reportProcessorId="fr.opensagres.xdocreport.eclipse.demo.resume.reporting.xdocreport" />
+	        	<!--<reportProcessor reportProcessorId="resume2" />
+	        	<reportProcessor reportProcessorId="resume3" />-->
 	        </reportProcessors>	        
       </reportModule>
    </extension>
    
    <extension
          point="fr.opensagres.xdocreport.eclipse.reportProcessors">
-         <reportProcessor id="resume1"
-         				  name="Resume 1"
-         				  reportEngineId="xdocreport"
-         				  class="fr.opensagres.xdocreport.eclipse.demo.resume.internal.reporting.DocxResumeReportProcessor" />
-		 <reportProcessor id="resume2"
-		 				  name="Resume 2"
-         				  reportEngineId="xdocreport"
-         				  class="fr.opensagres.xdocreport.eclipse.demo.resume.internal.reporting.DocxReportProcessor2" />         				  
-		 <reportProcessor id="resume3"
-		 				  name="Resume 3"		 
-         				  reportEngineId="xdocreport"
-         				  class="fr.opensagres.xdocreport.eclipse.demo.resume.internal.reporting.ODTResumeReportProcessor" />         				  
+         <reportProcessor id="fr.opensagres.xdocreport.eclipse.demo.resume.reporting.xdocreport"
+         				  name="Resume with XDocReport"
+         				  reportEngineId="fr.opensagres.xdocreport.eclipse.reporting.xdocreport"
+         				  class="fr.opensagres.xdocreport.eclipse.demo.resume.internal.reporting.ResumeReportProcessor" >
+         				  <!-- Resume with docx -->
+         				  <reportLoader
+         				  		  id="resume.xdocreport.docx"
+         				  		  name="Resume from docx" 
+         				  		  class="fr.opensagres.xdocreport.eclipse.demo.resume.internal.reporting.DocxResumeReportLoader" />
+         				  <!-- Resume with another docx -->         				  		  
+						  <reportLoader
+         				  		  id="resume.xdocreport.docx2"
+         				  		  name="Resume2 from docx" 
+         				  		  class="fr.opensagres.xdocreport.eclipse.demo.resume.internal.reporting.DocxResumeReportLoader2" />
+         				  <!-- Resume with ODT -->         				  		           				  		  
+						  <reportLoader
+         				  		  id="resume.xdocreport.odt"
+         				  		  name="Resume from ODT" 
+         				  		  class="fr.opensagres.xdocreport.eclipse.demo.resume.internal.reporting.ODTResumeReportLoader" />         				  		  
+         </reportProcessor>				         				  
 	</extension>
 
   <extension

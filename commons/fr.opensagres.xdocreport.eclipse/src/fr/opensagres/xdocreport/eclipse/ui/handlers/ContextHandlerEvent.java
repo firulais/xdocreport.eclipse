@@ -3,22 +3,22 @@ package fr.opensagres.xdocreport.eclipse.ui.handlers;
 import org.eclipse.swt.widgets.Event;
 
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntry;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessorType;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportConfiguration;
 
 public class ContextHandlerEvent extends Event {
 
 	private final IReportModuleEntry sourceEntry;
 	private final Object model;
-	private final ReportConfiguration options;
-	private final IReportProcessorType processorType;
+	private final ReportConfiguration configuration;
+	private final IReportLoader reportLoader;
 
 	public ContextHandlerEvent(IReportModuleEntry sourceEntry, Object model,
-			IReportProcessorType processorType, ReportConfiguration options) {
+			IReportLoader reportLoader, ReportConfiguration configuration) {
 		this.sourceEntry = sourceEntry;
 		this.model = model;
-		this.options = options;
-		this.processorType = processorType;
+		this.configuration = configuration;
+		this.reportLoader = reportLoader;
 	}
 
 	public ContextHandlerEvent(IReportModuleEntry sourceEntry, Object model) {
@@ -33,11 +33,11 @@ public class ContextHandlerEvent extends Event {
 		return model;
 	}
 
-	public ReportConfiguration getReportOptions() {
-		return options;
+	public ReportConfiguration getReportConfiguration() {
+		return configuration;
 	}
 
-	public IReportProcessorType getReportProcessorType() {
-		return processorType;
+	public IReportLoader getReportLoader() {
+		return reportLoader;
 	}
 }

@@ -10,6 +10,7 @@ import org.eclipse.rwt.service.IServiceHandler;
 import org.eclipse.rwt.service.IServiceManager;
 
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportEngine;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessor;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportMimeMapping;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportConfiguration;
@@ -29,14 +30,14 @@ public class GenerateReportServiceHandler implements IServiceHandler {
 	private static final String CONTENT_DISPOSITION_HEADER = "Content-Disposition";
 	private static final String ATTACHMENT_FILENAME = "attachment; filename=\"";
 
-	private final IReportProcessor processor;
+	private final IReportLoader reportLoader;
 	private final IReportEngine engine;
 	private final ReportConfiguration options;
 	private final Object model;
 
-	public GenerateReportServiceHandler(IReportProcessor processor,
+	public GenerateReportServiceHandler(IReportLoader reportLoader,
 			IReportEngine engine, ReportConfiguration options, Object model) {
-		this.processor = processor;
+		this.reportLoader = reportLoader;
 		this.engine = engine;
 		this.options = options;
 		this.model = model;
@@ -45,17 +46,17 @@ public class GenerateReportServiceHandler implements IServiceHandler {
 	public void service() throws IOException, ServletException {
 		HttpServletResponse response = RWT.getResponse();
 		try {
-			ReportMimeMapping mimeMapping = engine.getMimeMapping(processor,
+			ReportMimeMapping mimeMapping = engine.getMimeMapping(reportLoader,
 					options);
 			response.setContentType(mimeMapping.getMimeType());
 
-			String fileName = mimeMapping.formatFileName(processor);
+			String fileName = mimeMapping.formatFileName(reportLoader);
 			String contentDisposition = getContentDisposition(fileName);
 			response.setHeader(CONTENT_DISPOSITION_HEADER, contentDisposition);
 
 			// disableHTTPResponCache(response);
 
-			engine.process(processor, model, options,
+			engine.process(reportLoader, model, options,
 					response.getOutputStream());
 
 		} catch (Throwable e) {

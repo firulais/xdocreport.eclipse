@@ -1,5 +1,6 @@
 package fr.opensagres.xdocreport.eclipse.ui.editors;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +18,10 @@ import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModule;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntry;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntryProvider;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportFormat;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessorType;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessors;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportException;
 import fr.opensagres.xdocreport.eclipse.ui.actions.ActionMenu;
 import fr.opensagres.xdocreport.eclipse.ui.actions.GenerationReportAction;
 
@@ -98,8 +101,20 @@ public abstract class AbstractFormEditor<Model> extends FormEditor implements
 			List<IReportProcessorType> processorTypes, IReportFormat format) {
 		List<Action> actions = new ArrayList<Action>();
 		for (IReportProcessorType processorType : processorTypes) {
-			actions.add(new GenerationReportAction(this, this, processorType,
-					format, this.getSite()));
+			List<IReportLoader> reportLoaders = processorType.getReportLoaders();
+			for (IReportLoader reportLoader : reportLoaders) {
+				
+				try {
+					if (reportLoader.canSupportFormat(format)) {
+						actions.add(new GenerationReportAction(this, this, reportLoader,
+								format, this.getSite()));	
+					}
+				} catch (IOException e) {					
+					e.printStackTrace();
+				} catch (ReportException e) {
+					e.printStackTrace();
+				}
+			}			
 		}
 		return actions;
 	}

@@ -47,6 +47,7 @@
    <element name="reportProcessor">
       <complexType>
          <sequence>
+            <element ref="reportLoader" minOccurs="1" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="id" type="string" use="required">
             <annotation>
@@ -86,6 +87,42 @@
                </documentation>
                <appinfo>
                   <meta.attribute kind="java" basedOn=":fr.opensagres.xdocreport.eclipse.report.IReportProcessor"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="reportLoader">
+      <complexType>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="description" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn=":fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader"/>
                </appinfo>
             </annotation>
          </attribute>

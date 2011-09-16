@@ -1,6 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Xdocreport
+Bundle-Name: %pluginName
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
 Bundle-SymbolicName: fr.opensagres.xdocreport.eclipse.report.xdocreport;singleton:=true
 Bundle-Version: 0.0.1.qualifier
 Bundle-Activator: fr.opensagres.xdocreport.eclipse.reporting.xdocreport.internal.Activator

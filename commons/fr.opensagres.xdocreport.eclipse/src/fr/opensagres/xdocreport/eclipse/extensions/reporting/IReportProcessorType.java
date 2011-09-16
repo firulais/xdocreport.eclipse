@@ -12,6 +12,8 @@ public interface IReportProcessorType {
 	
 	IReportEngine getEngine();
 	
+	List<IReportLoader> getReportLoaders();
+	
 	List<IReportFormat> getSupportedFormats();
 
 	boolean canSupportFormat(IReportFormat format);

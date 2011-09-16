@@ -5,6 +5,7 @@ import java.util.List;
 
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportEngine;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportFormat;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessor;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessorType;
 
@@ -15,6 +16,7 @@ public class ReportProcessorType implements IReportProcessorType {
 	private String description;
 	private final IReportProcessor processor;
 	private final IReportEngine engine;
+	private  List<IReportLoader> reportLoaders;
 	private final List<IReportFormat> supportedFormats;
 
 	public ReportProcessorType(String id, IReportProcessor processor,
@@ -53,13 +55,26 @@ public class ReportProcessorType implements IReportProcessorType {
 		return engine;
 	}
 
+	public List<IReportLoader> getReportLoaders() {
+		return reportLoaders;
+	}
+	
+	public void setReportLoaders(List<IReportLoader> reportLoaders) {
+		this.reportLoaders = reportLoaders;
+	}
+	
 	public List<IReportFormat> getSupportedFormats() {
 		return supportedFormats;
 	}
 
 	public boolean canSupportFormat(IReportFormat format) {
 		try {
-			return processor.canSupportFormat(getEngine(), format);
+			for (IReportLoader reportLoader : reportLoaders) {
+				if (reportLoader.canSupportFormat(format)) {
+					return true;
+				}
+			}
+			return false;
 		} catch (Throwable e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

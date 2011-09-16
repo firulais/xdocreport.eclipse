@@ -8,24 +8,24 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.ui.PartInitException;
 
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportEngine;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessor;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportMimeMapping;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportConfiguration;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportMimeMapping;
 
 public class GenerateReportHandler extends AbstractGenerateReportHandler {
 
 	@Override
 	protected void generateReport(ExecutionEvent event,
-			ContextHandlerEvent contextEvent, IReportProcessor processor,
+			ContextHandlerEvent contextEvent, IReportLoader reportLoader,
 			IReportEngine engine, ReportConfiguration options, Object model)
 			throws ExecutionException {
 		try {
-			ReportMimeMapping mimeMapping = engine.getMimeMapping(processor,
+			ReportMimeMapping mimeMapping = engine.getMimeMapping(reportLoader,
 					options);
 			File file = mimeMapping.formatFile(options.getTempBaseDir(),
-					processor);
+					reportLoader);
 			FileOutputStream out = new FileOutputStream(file);
-			engine.process(processor, model, options, out);
+			engine.process(reportLoader, model, options, out);
 
 			try {
 				ContextHandlerUtils.openSystemExternalEditor(event, file, false);
