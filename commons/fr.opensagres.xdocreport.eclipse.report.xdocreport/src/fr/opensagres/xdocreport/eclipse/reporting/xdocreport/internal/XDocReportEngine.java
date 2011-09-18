@@ -166,8 +166,7 @@ public class XDocReportEngine extends AbstractReportEngine {
 
 	private void populateContext(IContext context, Object model,
 			XDocReportLoader reportLoader) {
-		IReportProcessor processor = reportLoader.getProcessorType()
-				.getProcessor();
+		IReportProcessor processor = reportLoader.getProcessor();
 		((XDocReportProcessor) processor).populateContext(context, model);
 	}
 

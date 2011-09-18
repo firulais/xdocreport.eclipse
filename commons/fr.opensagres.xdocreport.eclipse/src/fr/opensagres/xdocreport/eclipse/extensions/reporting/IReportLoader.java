@@ -13,7 +13,7 @@ public interface IReportLoader {
 
 	InputStream getSourceStream();
 
-	IReportProcessorType getProcessorType();
+	IReportProcessor getProcessor();
 
 	boolean canSupportFormat(IReportFormat format) throws IOException,
 			ReportException;

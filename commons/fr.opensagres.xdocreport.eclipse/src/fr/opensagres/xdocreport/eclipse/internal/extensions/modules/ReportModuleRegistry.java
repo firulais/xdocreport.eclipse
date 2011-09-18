@@ -7,15 +7,11 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionDelta;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.resource.JFaceResources;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import fr.opensagres.xdocreport.eclipse.PlatformXDocReport;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModule;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleRegistry;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessorType;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessor;
 import fr.opensagres.xdocreport.eclipse.internal.Activator;
 import fr.opensagres.xdocreport.eclipse.registry.AbstractRegistry;
 
@@ -126,7 +122,7 @@ public class ReportModuleRegistry extends AbstractRegistry implements
 
 	private void parseReportProcessors(IConfigurationElement ce,
 			ReportModule module) {
-		IReportProcessorType processorType = null;
+		IReportProcessor processor = null;
 		String commandId = ce.getAttribute(COMMAND_ID_ATTR);
 		ReportProcessors processors = new ReportProcessors(commandId);
 		module.setProcessors(processors);
@@ -136,12 +132,12 @@ public class ReportModuleRegistry extends AbstractRegistry implements
 				String reportProcessorId = cech
 						.getAttribute(REPORT_PROCESSOR_ID_ATTR);
 
-				processorType = PlatformXDocReport
-						.getReportProcessorTypeRegistry().getProcessorType(
+				processor = PlatformXDocReport
+						.getReportProcessorRegistry().getProcessor(
 								reportProcessorId);
 
-				if (processorType != null) {
-					processors.addProcessorType(processorType);
+				if (processor != null) {
+					processors.addProcessor(processor);
 				}
 			}
 		}

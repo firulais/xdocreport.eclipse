@@ -19,7 +19,7 @@ import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntry;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntryProvider;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportFormat;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessorType;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessor;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessors;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportException;
 import fr.opensagres.xdocreport.eclipse.ui.actions.ActionMenu;
@@ -83,13 +83,13 @@ public abstract class AbstractFormEditor<Model> extends FormEditor implements
 	protected void contributeReportProcessorsToToolbar(IToolBarManager manager) {
 
 		IReportProcessors processors = getReportProcessors();
-		if (processors == null || processors.getProcessorTypes().size() < 1) {
+		if (processors == null || processors.getProcessors().size() < 1) {
 			return;
 		}
 
-		Map<IReportFormat, List<IReportProcessorType>> supportedFormats = processors
+		Map<IReportFormat, List<IReportProcessor>> supportedFormats = processors
 				.getSupportedFormats();
-		for (Map.Entry<IReportFormat, List<IReportProcessorType>> supportedFormat : supportedFormats
+		for (Map.Entry<IReportFormat, List<IReportProcessor>> supportedFormat : supportedFormats
 				.entrySet()) {
 			Action runAction = new ActionMenu(getReportProcessorsAction(
 					supportedFormat.getValue(), supportedFormat.getKey()));
@@ -98,10 +98,10 @@ public abstract class AbstractFormEditor<Model> extends FormEditor implements
 	}
 
 	private List<Action> getReportProcessorsAction(
-			List<IReportProcessorType> processorTypes, IReportFormat format) {
+			List<IReportProcessor> processors, IReportFormat format) {
 		List<Action> actions = new ArrayList<Action>();
-		for (IReportProcessorType processorType : processorTypes) {
-			List<IReportLoader> reportLoaders = processorType.getReportLoaders();
+		for (IReportProcessor processor : processors) {
+			List<IReportLoader> reportLoaders = processor.getReportLoaders();
 			for (IReportLoader reportLoader : reportLoaders) {
 				
 				try {

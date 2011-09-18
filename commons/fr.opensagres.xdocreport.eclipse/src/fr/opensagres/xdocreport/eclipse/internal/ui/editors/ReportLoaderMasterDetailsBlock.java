@@ -28,7 +28,7 @@ import org.eclipse.ui.forms.widgets.Section;
 
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModule;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessorType;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessor;
 import fr.opensagres.xdocreport.eclipse.internal.ImageResources;
 import fr.opensagres.xdocreport.eclipse.internal.Messages;
 import fr.opensagres.xdocreport.eclipse.internal.ui.viewers.ReportLoaderContentProvider;
@@ -115,9 +115,9 @@ public class ReportLoaderMasterDetailsBlock extends MasterDetailsBlock
 		IStructuredSelection selection = (IStructuredSelection) moduleViewer
 				.getSelection();
 		if (!selection.isEmpty()) {
-			IReportProcessorType processorType = (IReportProcessorType) selection
+			IReportProcessor processor = (IReportProcessor) selection
 					.getFirstElement();
-			engineViewer.setInput(processorType.getReportLoaders());
+			engineViewer.setInput(processor.getReportLoaders());
 			engineViewer.refresh();
 		}
 	}
@@ -168,7 +168,7 @@ public class ReportLoaderMasterDetailsBlock extends MasterDetailsBlock
 
 	public Object getPageKey(Object object) {
 		IReportLoader reportLoader = (IReportLoader) object;
-		return reportLoader.getProcessorType().getEngine();
+		return reportLoader.getProcessor().getEngine();
 	}
 
 	public IDetailsPage getPage(Object key) {

@@ -19,8 +19,8 @@ import fr.opensagres.xdocreport.eclipse.PlatformXDocReport;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModule;
 import fr.opensagres.xdocreport.eclipse.internal.ui.viewers.ReportModuleContentProvider;
 import fr.opensagres.xdocreport.eclipse.internal.ui.viewers.ReportModuleLabelProvider;
-import fr.opensagres.xdocreport.eclipse.internal.ui.viewers.ReportProcessorTypeContentProvider;
-import fr.opensagres.xdocreport.eclipse.internal.ui.viewers.ReportProcessorTypeLabelProvider;
+import fr.opensagres.xdocreport.eclipse.internal.ui.viewers.ReportProcessorContentProvider;
+import fr.opensagres.xdocreport.eclipse.internal.ui.viewers.ReportProcessorLabelProvider;
 
 public class SelectModuleAndEngineWizardPage extends WizardPage {
 	private Composite composite_1;
@@ -83,9 +83,9 @@ public class SelectModuleAndEngineWizardPage extends WizardPage {
 		Combo processorCombo = new Combo(composite, SWT.READ_ONLY);
 		processorCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		final ComboViewer engineViewer = new ComboViewer(processorCombo);
-		engineViewer.setContentProvider(ReportProcessorTypeContentProvider
+		engineViewer.setContentProvider(ReportProcessorContentProvider
 				.getInstance());
-		engineViewer.setLabelProvider(ReportProcessorTypeLabelProvider
+		engineViewer.setLabelProvider(ReportProcessorLabelProvider
 				.getInstance());
 		
 		moduleCombo.addSelectionListener(new SelectionAdapter() {
@@ -130,7 +130,7 @@ public class SelectModuleAndEngineWizardPage extends WizardPage {
 		IStructuredSelection selection = (IStructuredSelection)moduleViewer.getSelection();
 		if (!selection.isEmpty()) {
 			IReportModule module = (IReportModule)selection.getFirstElement();
-			engineViewer.setInput(module.getProcessors().getProcessorTypes());
+			engineViewer.setInput(module.getProcessors().getProcessors());
 			engineViewer.refresh();
 		}
 	}

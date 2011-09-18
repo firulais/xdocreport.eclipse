@@ -7,8 +7,8 @@ public interface IReportProcessors {
 
 	String getCommandId();
 
-	List<IReportProcessorType> getProcessorTypes();
+	List<IReportProcessor> getProcessors();
 
-	Map<IReportFormat, List<IReportProcessorType>> getSupportedFormats();
+	Map<IReportFormat, List<IReportProcessor>> getSupportedFormats();
 
 }

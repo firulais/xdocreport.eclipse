@@ -18,7 +18,7 @@ public abstract class AbstractGenerateReportHandler extends
 
 		IReportLoader reportLoader = contextEvent
 				.getReportLoader();
-		IReportEngine engine = reportLoader.getProcessorType().getEngine();
+		IReportEngine engine = reportLoader.getProcessor().getEngine();
 		generateReport(event, contextEvent, reportLoader, engine, options, model);
 		return null;
 	}

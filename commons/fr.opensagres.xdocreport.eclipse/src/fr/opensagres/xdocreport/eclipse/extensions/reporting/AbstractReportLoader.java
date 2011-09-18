@@ -7,11 +7,11 @@ public abstract class AbstractReportLoader implements IReportLoader {
 	private String reportId;
 	private String name;
 	private String description;
-	private IReportProcessorType processorType;
+	private IReportProcessor processor;
 
 	public boolean canSupportFormat(IReportFormat format) throws IOException,
 			ReportException {
-		return getProcessorType().getEngine().canSupportFormat(this, format);
+		return getProcessor().getEngine().canSupportFormat(this, format);
 	}
 
 	public String getReportId() {
@@ -22,12 +22,12 @@ public abstract class AbstractReportLoader implements IReportLoader {
 		this.reportId = reportId;
 	}
 
-	public IReportProcessorType getProcessorType() {
-		return processorType;
+	public IReportProcessor getProcessor() {
+		return processor;
 	}
 
-	public void setProcessorType(IReportProcessorType processorType) {
-		this.processorType = processorType;
+	public void setProcessor(IReportProcessor processor) {
+		this.processor = processor;
 	}
 
 	public String getName() {
@@ -45,7 +45,5 @@ public abstract class AbstractReportLoader implements IReportLoader {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
 
 }

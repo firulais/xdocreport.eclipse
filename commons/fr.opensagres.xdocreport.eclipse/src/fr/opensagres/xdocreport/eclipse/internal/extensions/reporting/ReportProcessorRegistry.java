@@ -13,18 +13,18 @@ import org.eclipse.core.runtime.Platform;
 
 import fr.opensagres.xdocreport.eclipse.PlatformXDocReport;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.AbstractReportLoader;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.AbstractReportProcessor;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportEngine;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessor;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessorType;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessorTypeRegistry;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessorRegistry;
 import fr.opensagres.xdocreport.eclipse.internal.Activator;
 import fr.opensagres.xdocreport.eclipse.registry.AbstractRegistry;
 
-public class ReportProcessorTypeRegistry extends AbstractRegistry implements
-		IReportProcessorTypeRegistry {
+public class ReportProcessorRegistry extends AbstractRegistry implements
+		IReportProcessorRegistry {
 
-	private static final IReportProcessorTypeRegistry INSTANCE = new ReportProcessorTypeRegistry();
+	private static final IReportProcessorRegistry INSTANCE = new ReportProcessorRegistry();
 	private static final String REPORT_PROCESSORS_EXTENSION_POINT = "reportProcessors";
 
 	private static final String REPORT_PROCESSOR_ELT = "reportProcessor";
@@ -32,19 +32,19 @@ public class ReportProcessorTypeRegistry extends AbstractRegistry implements
 
 	private static final String REPORT_ENGINE_ID_ATTR = "reportEngineId";
 
-	private final Map<String, IReportProcessorType> processorTypes;
+	private final Map<String, IReportProcessor> processors;
 
-	public static IReportProcessorTypeRegistry getRegistry() {
+	public static IReportProcessorRegistry getRegistry() {
 		return INSTANCE;
 	}
 
-	private ReportProcessorTypeRegistry() {
-		this.processorTypes = new HashMap<String, IReportProcessorType>();
+	private ReportProcessorRegistry() {
+		this.processors = new HashMap<String, IReportProcessor>();
 	}
 
-	public IReportProcessorType getProcessorType(String id) {
+	public IReportProcessor getProcessor(String id) {
 		loadRegistryIfNedded();
-		return processorTypes.get(id);
+		return processors.get(id);
 	}
 
 	@Override
@@ -78,32 +78,33 @@ public class ReportProcessorTypeRegistry extends AbstractRegistry implements
 						.getReportEngineRegistry().getEngine(reportEngineId);
 
 				// Processor
-				IReportProcessor processor = null;
+				AbstractReportProcessor processor = null;
 				try {
-					processor = (IReportProcessor) ce
+					processor = (AbstractReportProcessor) ce
 							.createExecutableExtension(CLASS_ATTR);
 				} catch (CoreException e) {
 					e.printStackTrace();
 
 				}
 
-
-				ReportProcessorType processorType = new ReportProcessorType(id,
-						processor, engine);
-				processorType.setName(name);
-				processorType.setDescription(description);
+				processor.setId(id);
+				processor.setName(name);
+				processor.setDescription(description);
+				processor.setEngine(engine);
 				// List of reportLoader.
-				List<IReportLoader> reportLoaders = parseReportLoaders(processorType, ce);
+				List<IReportLoader> reportLoaders = parseReportLoaders(
+						processor, ce);
 
-				processorType.setReportLoaders(reportLoaders);
+				processor.setReportLoaders(reportLoaders);
 
-				processorTypes.put(processorType.getId(), processorType);
+				processors.put(processor.getId(), processor);
 			}
 		}
 
 	}
 
-	private List<IReportLoader> parseReportLoaders(ReportProcessorType processorType, IConfigurationElement cf) {
+	private List<IReportLoader> parseReportLoaders(IReportProcessor processor,
+			IConfigurationElement cf) {
 		List<IReportLoader> reportLoaders = new ArrayList<IReportLoader>();
 		for (IConfigurationElement ce : cf.getChildren()) {
 			if (REPORT_LOADER_ELT.equals(ce.getName())) {
@@ -111,10 +112,11 @@ public class ReportProcessorTypeRegistry extends AbstractRegistry implements
 				try {
 					reportLoader = (AbstractReportLoader) ce
 							.createExecutableExtension(CLASS_ATTR);
-					reportLoader.setProcessorType(processorType);
-					reportLoader.setReportId(ce.getAttribute(ID_ATTR));					
+					reportLoader.setProcessor(processor);
+					reportLoader.setReportId(ce.getAttribute(ID_ATTR));
 					reportLoader.setName(ce.getAttribute(NAME_ATTR));
-					reportLoader.setDescription(ce.getAttribute(DESCRIPTION_ATTR));
+					reportLoader.setDescription(ce
+							.getAttribute(DESCRIPTION_ATTR));
 					reportLoaders.add(reportLoader);
 				} catch (CoreException e) {
 					e.printStackTrace();

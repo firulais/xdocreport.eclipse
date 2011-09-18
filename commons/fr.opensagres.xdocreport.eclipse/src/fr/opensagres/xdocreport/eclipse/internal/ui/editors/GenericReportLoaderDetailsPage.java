@@ -191,7 +191,7 @@ public class GenericReportLoaderDetailsPage implements IDetailsPage {
 		if (reportLoader == null) {
 			return;
 		}
-		// reportEngineLabel.setText(reportLoader.getProcessorType().getEngine());
+		reportEngineLabel.setText(reportLoader.getProcessor().getEngine().getName());
 		reportIdText.setText(reportLoader.getReportId());
 		reportNameText.setText(reportLoader.getName());
 		reportDescText.setText(reportLoader.getDescription());
