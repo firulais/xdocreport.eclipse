@@ -10,45 +10,37 @@ import org.eclipse.core.runtime.IExtensionDelta;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.AbstractReportEngine;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportEngine;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportEngineRegistry;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportEngineType;
 import fr.opensagres.xdocreport.eclipse.internal.Activator;
 import fr.opensagres.xdocreport.eclipse.registry.AbstractRegistry;
 
-public class ReportEngineTypeRegistry extends AbstractRegistry implements
+public class ReportEngineRegistry extends AbstractRegistry implements
 		IReportEngineRegistry {
 
-	private static final IReportEngineRegistry INSTANCE = new ReportEngineTypeRegistry();
+	private static final IReportEngineRegistry INSTANCE = new ReportEngineRegistry();
 	private static final String REPORT_ENGINES_EXTENSION_POINT = "reportEngines";
 
 	private static final String REPORT_ENGINE_ELT = "reportEngine";
 
-	private final Map<String, IReportEngineType> engineTypes;
+	private final Map<String, IReportEngine> engines;
 
 	public static IReportEngineRegistry getRegistry() {
 		return INSTANCE;
 	}
 
-	private ReportEngineTypeRegistry() {
-		this.engineTypes = new HashMap<String, IReportEngineType>();
+	private ReportEngineRegistry() {
+		this.engines = new HashMap<String, IReportEngine>();
 	}
 
 	public IReportEngine getEngine(String id) {
-		IReportEngineType engineType = getEngineType(id);
-		if (engineType != null) {
-			return engineType.getEngine();
-		}
-		return null;
-	}
-
-	public IReportEngineType getEngineType(String id) {
 		loadRegistryIfNedded();
-		return engineTypes.get(id);
+		return engines.get(id);
 	}
 	
-	public Collection<IReportEngineType> getEngineTypes() {
-		return engineTypes.values();
+	public Collection<IReportEngine> getEngines() {
+		return engines.values();
 	}
 
 	@Override
@@ -75,9 +67,9 @@ public class ReportEngineTypeRegistry extends AbstractRegistry implements
 				name = ce.getAttribute(NAME_ATTR);
 				description = ce.getAttribute(DESCRIPTION_ATTR);
 
-				IReportEngine engine = null;
+				AbstractReportEngine engine = null;
 				try {
-					engine = (IReportEngine) ce
+					engine = (AbstractReportEngine) ce
 							.createExecutableExtension(CLASS_ATTR);
 				} catch (CoreException e) {
 					// TODO Auto-generated catch block
@@ -85,10 +77,11 @@ public class ReportEngineTypeRegistry extends AbstractRegistry implements
 
 				}
 
-				ReportEngineType engineType = new ReportEngineType(id, name, engine);
-				engineType.setDescription(description);
+				engine.setId(id);
+				engine.setName(name);
+				engine.setDescription(description);
 
-				engineTypes.put(engineType.getId(), engineType);
+				engines.put(engine.getId(), engine);
 			}
 		}
 

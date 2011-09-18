@@ -75,7 +75,7 @@
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":fr.opensagres.xdocreport.eclipse.report.IReportEngine"/>
+                  <meta.attribute kind="java" basedOn="fr.opensagres.xdocreport.eclipse.extensions.reporting.AbstractReportEngine:"/>
                </appinfo>
             </annotation>
          </attribute>

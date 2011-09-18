@@ -6,8 +6,6 @@ public interface IReportEngineRegistry {
 
 	IReportEngine getEngine(String id);
 
-	IReportEngineType getEngineType(String id);
-
-	Collection<IReportEngineType> getEngineTypes();
+	Collection<IReportEngine> getEngines();
 
 }

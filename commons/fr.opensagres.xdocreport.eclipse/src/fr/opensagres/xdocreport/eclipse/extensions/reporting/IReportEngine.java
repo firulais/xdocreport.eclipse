@@ -5,6 +5,12 @@ import java.io.OutputStream;
 
 public interface IReportEngine {
 
+	String getId();
+	
+	String getName();
+
+	String getDescription();
+	
 	void process(IReportLoader reportLoader, Object model,
 			ReportConfiguration options, OutputStream out) throws IOException,
 			ReportException;
