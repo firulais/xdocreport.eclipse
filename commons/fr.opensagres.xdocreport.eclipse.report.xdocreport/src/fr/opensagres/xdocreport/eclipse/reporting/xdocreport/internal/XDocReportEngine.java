@@ -27,9 +27,17 @@ import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
 public class XDocReportEngine extends AbstractReportEngine {
 
-	private static final String REPORT_MIME_MAPPING_KEY = "___ReportMimeMapping";
+	private final XDocReportRegistry registry;
 
-	public void process(IReportLoader loader, Object model,
+	public XDocReportEngine() {
+		this(XDocReportRegistry.getRegistry());
+	}
+
+	public XDocReportEngine(XDocReportRegistry registry) {
+		this.registry = registry;
+	}
+
+	public void generateReport(IReportLoader loader, Object model,
 			ReportConfiguration configuration, OutputStream out)
 			throws IOException, ReportException {
 		XDocReportLoader reportLoader = (XDocReportLoader) loader;
@@ -77,12 +85,12 @@ public class XDocReportEngine extends AbstractReportEngine {
 	}
 
 	protected XDocReportRegistry getRegistry(XDocReportLoader reportLoader) {
-		return XDocReportRegistry.getRegistry();
+		return registry;
 	}
 
 	private IXDocReport loadReport(String reportId,
 			XDocReportRegistry registry, XDocReportLoader reportLoader)
-			throws XDocReportException, IOException {
+			throws XDocReportException, IOException, ReportException {
 		InputStream sourceStream = getSourceStream(reportId, reportLoader);
 		if (sourceStream == null) {
 			throw new XDocReportException("Input stream is null with reportId="
@@ -139,7 +147,7 @@ public class XDocReportEngine extends AbstractReportEngine {
 	}
 
 	private InputStream getSourceStream(String reportId,
-			XDocReportLoader reportLoader) {
+			XDocReportLoader reportLoader) throws IOException, ReportException {
 		return reportLoader.getSourceStream();
 	}
 
@@ -185,7 +193,18 @@ public class XDocReportEngine extends AbstractReportEngine {
 		return Options.getFrom(report.getKind()).to(format.getId());
 	}
 
+	private boolean isFormatConverter(IXDocReport report,
+			ReportConfiguration configuration) {
+		if (configuration == null) {
+			return false;
+		}
+		return isFormatConverter(report, configuration.getFormat());
+	}
+
 	private boolean isFormatConverter(IXDocReport report, IReportFormat format) {
+		if (format == null) {
+			return false;
+		}
 		if (report.getKind().equals(format.getId())) {
 			return false;
 		}
@@ -203,7 +222,7 @@ public class XDocReportEngine extends AbstractReportEngine {
 					.getData(key);
 			if (mimeMapping == null) {
 
-				if (isFormatConverter(report, configuration.getFormat())) {
+				if (isFormatConverter(report, configuration)) {
 					Options options = getOptionsConverter(configuration,
 							report, reportLoader);
 					if (options == null) {
@@ -224,10 +243,6 @@ public class XDocReportEngine extends AbstractReportEngine {
 		} catch (XDocReportException e) {
 			throw new ReportException(e);
 		}
-	}
-
-	private String getMimeMappingKey(ReportConfiguration configuration) {
-		return REPORT_MIME_MAPPING_KEY + configuration.getFormat().getId();
 	}
 
 	private static ReportMimeMapping toReportMimeMapping(MimeMapping mimeMapping) {
@@ -287,5 +302,10 @@ public class XDocReportEngine extends AbstractReportEngine {
 		// request, response);
 		// 4) Generate report with conversion
 		report.convert(context, options, out);
+	}
+
+	public void unloadReport(IReportLoader reportLoader) {
+		getRegistry((XDocReportLoader) reportLoader).unregisterReport(
+				reportLoader.getReportId());
 	}
 }

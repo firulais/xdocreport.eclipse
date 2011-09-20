@@ -1,14 +1,16 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.reporting;
 
+import java.io.IOException;
 import java.io.InputStream;
 
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportException;
 import fr.opensagres.xdocreport.eclipse.reporting.xdocreport.XDocReportLoader;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
 public class DocxResumeReportLoader extends XDocReportLoader {
 
-	public InputStream getSourceStream() {
+	public InputStream doGetSourceStream() throws IOException, ReportException {
 		return ResumeReportProcessor.class.getResourceAsStream("Resume.docx");
 	}
 

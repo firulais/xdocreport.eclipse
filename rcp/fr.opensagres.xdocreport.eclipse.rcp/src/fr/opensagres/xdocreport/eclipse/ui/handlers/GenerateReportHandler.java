@@ -17,16 +17,23 @@ public class GenerateReportHandler extends AbstractGenerateReportHandler {
 	@Override
 	protected void generateReport(ExecutionEvent event,
 			ContextHandlerEvent contextEvent, IReportLoader reportLoader,
-			IReportEngine engine, ReportConfiguration options, Object model)
-			throws ExecutionException {
+			IReportEngine engine, ReportConfiguration configuration,
+			Object model) throws ExecutionException {
 		try {
 			ReportMimeMapping mimeMapping = engine.getMimeMapping(reportLoader,
-					options);
-			File file = mimeMapping.formatFile(options.getTempBaseDir(),
+					configuration);
+			File file = mimeMapping.formatFile(configuration.getTempBaseDir(),
 					reportLoader);
 			FileOutputStream out = new FileOutputStream(file);
-			engine.process(reportLoader, model, options, out);
-
+			
+			if (model == null) {
+				// model is null, open the report source
+				engine.writeReportSource(reportLoader, out);
+			}
+			else {
+				// model is filled, generate the report and open the generated report
+				engine.generateReport(reportLoader, model, configuration, out);
+			}
 			try {
 				ContextHandlerUtils.openSystemExternalEditor(event, file, false);
 			} catch (PartInitException e) {
@@ -36,6 +43,6 @@ public class GenerateReportHandler extends AbstractGenerateReportHandler {
 		} catch (Throwable e) {
 			throw new RuntimeException(e);
 		}
-
 	}
+
 }

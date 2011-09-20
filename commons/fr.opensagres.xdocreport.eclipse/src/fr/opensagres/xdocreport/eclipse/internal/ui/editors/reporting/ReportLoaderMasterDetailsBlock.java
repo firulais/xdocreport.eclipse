@@ -1,4 +1,4 @@
-package fr.opensagres.xdocreport.eclipse.internal.ui.editors;
+package fr.opensagres.xdocreport.eclipse.internal.ui.editors.reporting;
 
 import java.util.List;
 
@@ -33,6 +33,7 @@ import fr.opensagres.xdocreport.eclipse.internal.ImageResources;
 import fr.opensagres.xdocreport.eclipse.internal.Messages;
 import fr.opensagres.xdocreport.eclipse.internal.ui.viewers.ReportLoaderContentProvider;
 import fr.opensagres.xdocreport.eclipse.internal.ui.viewers.ReportLoaderLabelProvider;
+import fr.opensagres.xdocreport.eclipse.ui.editors.reporting.GenericReportLoaderDetailsPage;
 
 /**
  *
@@ -159,7 +160,7 @@ public class ReportLoaderMasterDetailsBlock extends MasterDetailsBlock
 
 	protected void registerPages(DetailsPart detailsPart) {
 		detailsPart.setPageProvider(this);
-		typeOneDetailsPage = new GenericReportLoaderDetailsPage();
+		typeOneDetailsPage = new GenericReportLoaderDetailsPage(page);
 		// detailsPart.registerPage(IReportLoader.class, new
 		// TypeOneDetailsPage());
 		// detailsPart.registerPage(TypeOne.class, new TypeOneDetailsPage());

@@ -1,8 +1,7 @@
-package fr.opensagres.xdocreport.eclipse.internal.ui.editors;
+package fr.opensagres.xdocreport.eclipse.ui.editors.reporting;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -15,34 +14,39 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.IDetailsPage;
 import org.eclipse.ui.forms.IFormPart;
 import org.eclipse.ui.forms.IManagedForm;
+import org.eclipse.ui.forms.editor.FormPage;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
+import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModule;
+import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntry;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportConfiguration;
 import fr.opensagres.xdocreport.eclipse.internal.Messages;
+import fr.opensagres.xdocreport.eclipse.ui.handlers.ContextHandlerEvent;
+import fr.opensagres.xdocreport.eclipse.ui.handlers.ContextHandlerUtils;
 
 public class GenericReportLoaderDetailsPage implements IDetailsPage {
 
+	private final FormPage page;
 	private IManagedForm mform;
 	private IReportLoader reportLoader;
-	// private TypeOne input;
-	private Button[] choices;
-
 	private Text reportIdText;
 	private Text reportNameText;
 	private Text reportDescText;
 	private Label reportEngineLabel;
 
-	public GenericReportLoaderDetailsPage() {
-
+	public GenericReportLoaderDetailsPage(FormPage page) {
+		this.page = page;
 	}
 
 	/*
@@ -87,7 +91,7 @@ public class GenericReportLoaderDetailsPage implements IDetailsPage {
 
 		Composite client = toolkit.createComposite(reportLoaderSection);
 		reportLoaderSection.setClient(client);
-		
+
 		// Create generic content
 		createGenericContent(toolkit, client);
 		createSpecificContent(toolkit, client);
@@ -132,14 +136,13 @@ public class GenericReportLoaderDetailsPage implements IDetailsPage {
 		toolkit.createLabel(parent,
 				Messages.GenericReportLoaderDetails_reportSource_label);
 		Composite sourceComposite = toolkit.createComposite(parent);
-		sourceComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));		
+		sourceComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		sourceComposite.setLayout(new GridLayout(2, false));
-		
+
 		// Modify button
 		Button addMultiBtn = new Button(sourceComposite, SWT.PUSH);
 		addMultiBtn.setText("Modify");
-		addMultiBtn
-				.setToolTipText("Launches file dialog for file selection.");
+		addMultiBtn.setToolTipText("Launches file dialog for file selection.");
 		// addMultiBtn.setLayoutData(factory.create());
 		addMultiBtn.addSelectionListener(new SelectionAdapter() {
 
@@ -160,8 +163,8 @@ public class GenericReportLoaderDetailsPage implements IDetailsPage {
 					File f = new File(selected);
 					try {
 						FileInputStream in = new FileInputStream(f);
-
-					} catch (FileNotFoundException e1) {
+						reportLoader.setSourceStream(in);						
+					} catch (Throwable e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
@@ -171,27 +174,37 @@ public class GenericReportLoaderDetailsPage implements IDetailsPage {
 		// View button
 		Button viewButton = new Button(sourceComposite, SWT.PUSH);
 		viewButton.setText("View");
-		viewButton
-				.setToolTipText("View the source document.");
+		viewButton.setToolTipText("View the source document.");
 		viewButton.addSelectionListener(new SelectionAdapter() {
-		
+
 			@Override
-			public void widgetSelected(SelectionEvent e) {
-				super.widgetSelected(e);
+			public void widgetSelected(SelectionEvent es) {
+				IReportModuleEntry entry = null;
+				Object model = null;
+				String commandId = "fr.opensagres.xdocreport.eclipse.ui.handlers.GenerateReportHandler";
+				try {
+					Event e = new ContextHandlerEvent(entry, model,
+							reportLoader, ReportConfiguration.DEFAULT);
+					ContextHandlerUtils.executeCommand(commandId,
+							page.getEditorSite(), e);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
-		
+
 	}
 
-	protected void createSpecificContent(FormToolkit toolkit, Composite client) {		
-		
+	protected void createSpecificContent(FormToolkit toolkit, Composite client) {
+
 	}
 
 	protected void update() {
 		if (reportLoader == null) {
 			return;
 		}
-		reportEngineLabel.setText(reportLoader.getProcessor().getEngine().getName());
+		reportEngineLabel.setText(reportLoader.getProcessor().getEngine()
+				.getName());
 		reportIdText.setText(reportLoader.getReportId());
 		reportNameText.setText(reportLoader.getName());
 		reportDescText.setText(reportLoader.getDescription());
@@ -227,7 +240,7 @@ public class GenericReportLoaderDetailsPage implements IDetailsPage {
 	 * @see org.eclipse.ui.forms.IDetailsPage#setFocus()
 	 */
 	public void setFocus() {
-		choices[0].setFocus();
+		reportIdText.setFocus();
 	}
 
 	/*

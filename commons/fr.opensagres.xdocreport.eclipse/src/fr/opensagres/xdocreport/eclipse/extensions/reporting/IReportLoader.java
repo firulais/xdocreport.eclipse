@@ -11,11 +11,15 @@ public interface IReportLoader {
 	
 	String getDescription();
 
-	InputStream getSourceStream();
+	InputStream getSourceStream() throws IOException, ReportException;
 
+	void setSourceStream(InputStream sourceStream) throws IOException, ReportException ;
+	
 	IReportProcessor getProcessor();
 
 	boolean canSupportFormat(IReportFormat format) throws IOException,
 			ReportException;
+
+	
 
 }

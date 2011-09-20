@@ -11,9 +11,8 @@ import org.eclipse.rwt.service.IServiceManager;
 
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportEngine;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessor;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportMimeMapping;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportConfiguration;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportMimeMapping;
 
 public class GenerateReportServiceHandler implements IServiceHandler {
 
@@ -32,14 +31,14 @@ public class GenerateReportServiceHandler implements IServiceHandler {
 
 	private final IReportLoader reportLoader;
 	private final IReportEngine engine;
-	private final ReportConfiguration options;
+	private final ReportConfiguration configuration;
 	private final Object model;
 
 	public GenerateReportServiceHandler(IReportLoader reportLoader,
 			IReportEngine engine, ReportConfiguration options, Object model) {
 		this.reportLoader = reportLoader;
 		this.engine = engine;
-		this.options = options;
+		this.configuration = options;
 		this.model = model;
 	}
 
@@ -47,7 +46,7 @@ public class GenerateReportServiceHandler implements IServiceHandler {
 		HttpServletResponse response = RWT.getResponse();
 		try {
 			ReportMimeMapping mimeMapping = engine.getMimeMapping(reportLoader,
-					options);
+					configuration);
 			response.setContentType(mimeMapping.getMimeType());
 
 			String fileName = mimeMapping.formatFileName(reportLoader);
@@ -56,8 +55,16 @@ public class GenerateReportServiceHandler implements IServiceHandler {
 
 			// disableHTTPResponCache(response);
 
-			engine.process(reportLoader, model, options,
-					response.getOutputStream());
+			if (model == null) {
+				// model is null, open the report source
+				engine.writeReportSource(reportLoader, response.getOutputStream());
+			}
+			else {
+				// model is filled, generate the report and open the generated report
+				engine.generateReport(reportLoader, model, configuration,
+						response.getOutputStream());
+			}
+			
 
 		} catch (Throwable e) {
 			throw new ServletException(e);

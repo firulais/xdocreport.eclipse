@@ -1,4 +1,4 @@
-package fr.opensagres.xdocreport.eclipse.internal.ui.editors;
+package fr.opensagres.xdocreport.eclipse.internal.ui.editors.reporting;
 
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;

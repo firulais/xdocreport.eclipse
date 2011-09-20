@@ -4,6 +4,7 @@ import java.io.File;
 
 public class ReportConfiguration {
 
+	public static ReportConfiguration DEFAULT = new ReportConfiguration(null);
 	private final File tempBaseDir;
 	private final IReportFormat format;
 

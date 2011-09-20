@@ -1,4 +1,4 @@
-package fr.opensagres.xdocreport.eclipse.internal.ui.editors;
+package fr.opensagres.xdocreport.eclipse.internal.ui.editors.reporting;
 
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntry;
 import fr.opensagres.xdocreport.eclipse.ui.editors.AbstractEditorInput;

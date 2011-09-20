@@ -1,4 +1,4 @@
-package fr.opensagres.xdocreport.eclipse.internal.ui.editors;
+package fr.opensagres.xdocreport.eclipse.internal.ui.editors.reporting;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.PartInitException;

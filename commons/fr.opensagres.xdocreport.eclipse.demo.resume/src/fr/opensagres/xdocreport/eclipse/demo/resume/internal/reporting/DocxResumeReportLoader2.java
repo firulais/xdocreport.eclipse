@@ -8,7 +8,7 @@ import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
 public class DocxResumeReportLoader2 extends XDocReportLoader {
 
-	public InputStream getSourceStream() {
+	public InputStream doGetSourceStream() {
 		return ResumeReportProcessor.class
 				.getResourceAsStream("Resume2.docx");
 	}
