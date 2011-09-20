@@ -12,5 +12,6 @@
 	</parent>
 	<modules>
 		<module>fr.opensagres.xdocreport.eclipse.rap</module>
+		<module>fr.opensagres.xdocreport.eclipse.rap.warproduct</module>
 	</modules>
 </project>
