@@ -6,7 +6,11 @@ import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 public abstract class XDocReportLoader extends AbstractReportLoader {
 
 	public abstract String getTemplateEngineKind();
-
+	
+	public void setTemplateEngineKind(String templateEngineKind) {
+		// TODO
+	}
+	
 	public abstract FieldsMetadata getFieldsMetadata();
 
 }

@@ -40,6 +40,7 @@ public class ReportEngineRegistry extends AbstractRegistry implements
 	}
 	
 	public Collection<IReportEngine> getEngines() {
+		loadRegistryIfNedded();
 		return engines.values();
 	}
 

@@ -7,14 +7,21 @@ Bundle-SymbolicName: fr.opensagres.xdocreport.eclipse.report.xdocreport;singleto
 Bundle-Version: 0.0.1.qualifier
 Bundle-Activator: fr.opensagres.xdocreport.eclipse.reporting.xdocreport.internal.Activator
 Require-Bundle: org.eclipse.core.runtime,
- fr.opensagres.xdocreport.eclipse;bundle-version="0.0.1"
+ fr.opensagres.xdocreport.eclipse;bundle-version="0.0.1",
+ org.eclipse.ui;resolution:=optional,
+ org.eclipse.rap.ui;resolution:=optional,
+ org.eclipse.rap.ui.forms;resolution:=optional,
+ org.eclipse.ui.forms;resolution:=optional
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: fr.opensagres.xdocreport.eclipse.reporting.xdocreport
 Import-Package: fr.opensagres.xdocreport.converter,
  fr.opensagres.xdocreport.core,
+ fr.opensagres.xdocreport.core.discovery,
  fr.opensagres.xdocreport.core.utils,
  fr.opensagres.xdocreport.document,
  fr.opensagres.xdocreport.document.registry,
  fr.opensagres.xdocreport.template,
- fr.opensagres.xdocreport.template.formatter
+ fr.opensagres.xdocreport.template.discovery,
+ fr.opensagres.xdocreport.template.formatter,
+ fr.opensagres.xdocreport.template.registry

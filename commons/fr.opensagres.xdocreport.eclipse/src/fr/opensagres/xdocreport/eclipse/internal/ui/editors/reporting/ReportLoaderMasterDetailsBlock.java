@@ -1,7 +1,10 @@
 package fr.opensagres.xdocreport.eclipse.internal.ui.editors.reporting;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -26,7 +29,9 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 
+import fr.opensagres.xdocreport.eclipse.PlatformXDocReport;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModule;
+import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportEngine;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessor;
 import fr.opensagres.xdocreport.eclipse.internal.ImageResources;
@@ -160,7 +165,7 @@ public class ReportLoaderMasterDetailsBlock extends MasterDetailsBlock
 
 	protected void registerPages(DetailsPart detailsPart) {
 		detailsPart.setPageProvider(this);
-		typeOneDetailsPage = new GenericReportLoaderDetailsPage(page);
+		typeOneDetailsPage = new GenericReportLoaderDetailsPage();
 		// detailsPart.registerPage(IReportLoader.class, new
 		// TypeOneDetailsPage());
 		// detailsPart.registerPage(TypeOne.class, new TypeOneDetailsPage());
@@ -173,7 +178,19 @@ public class ReportLoaderMasterDetailsBlock extends MasterDetailsBlock
 	}
 
 	public IDetailsPage getPage(Object key) {
-		// TODO Auto-generated method stub
-		return typeOneDetailsPage;
+		IReportEngine engine = (IReportEngine) key;
+
+		IDetailsPage page = null;
+		try {
+			page = PlatformXDocReport.getUIFragmentRegistry()
+					.createDetailsPage(engine.getId());
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (page == null) {
+			page = typeOneDetailsPage;
+		}
+		return page;
 	}
 }

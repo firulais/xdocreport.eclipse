@@ -10,7 +10,9 @@
 		schema="schema/reportProcessors.exsd" />
 	<extension-point id="reportFormats" name="%reportFormatsContributionName"
 		schema="schema/reportFormats.exsd" />
-						
+   <extension-point id="uiFragments" name="%uiFragmentsContributionName"
+		schema="schema/uiFragments.exsd" />
+								
    <extension
          id="application"
          point="org.eclipse.core.runtime.applications">

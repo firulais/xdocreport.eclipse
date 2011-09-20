@@ -37,7 +37,6 @@ import fr.opensagres.xdocreport.eclipse.ui.handlers.ContextHandlerUtils;
 
 public class GenericReportLoaderDetailsPage implements IDetailsPage {
 
-	private final FormPage page;
 	private IManagedForm mform;
 	private IReportLoader reportLoader;
 	private Text reportIdText;
@@ -45,9 +44,6 @@ public class GenericReportLoaderDetailsPage implements IDetailsPage {
 	private Text reportDescText;
 	private Label reportEngineLabel;
 
-	public GenericReportLoaderDetailsPage(FormPage page) {
-		this.page = page;
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -156,7 +152,7 @@ public class GenericReportLoaderDetailsPage implements IDetailsPage {
 				fd.setFilterExtensions(filterExt);
 				String[] filterNames = { "Text Files", "Word Document",
 						"Rich Text Format", "All Files" };
-				fd.setFilterNames(filterNames);
+				//fd.setFilterNames(filterNames);
 				String selected = fd.open();
 				if (selected != null && selected.length() > 0) {
 
@@ -186,13 +182,17 @@ public class GenericReportLoaderDetailsPage implements IDetailsPage {
 					Event e = new ContextHandlerEvent(entry, model,
 							reportLoader, ReportConfiguration.DEFAULT);
 					ContextHandlerUtils.executeCommand(commandId,
-							page.getEditorSite(), e);
+							getFormPage().getEditorSite(), e);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 
+	}
+	
+	protected FormPage getFormPage() {
+		return (FormPage)mform.getContainer();
 	}
 
 	protected void createSpecificContent(FormToolkit toolkit, Composite client) {
@@ -275,5 +275,9 @@ public class GenericReportLoaderDetailsPage implements IDetailsPage {
 
 	public boolean setFormInput(Object input) {
 		return false;
+	}
+	
+	public IReportLoader getReportLoader() {
+		return reportLoader;
 	}
 }

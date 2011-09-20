@@ -1,4 +1,4 @@
-package fr.opensagres.xdocreport.eclipse.reporting.xdocreport.internal;
+package fr.opensagres.xdocreport.eclipse.reporting.xdocreport;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,8 +19,6 @@ import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportProcessor;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportConfiguration;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportException;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportMimeMapping;
-import fr.opensagres.xdocreport.eclipse.reporting.xdocreport.XDocReportLoader;
-import fr.opensagres.xdocreport.eclipse.reporting.xdocreport.XDocReportProcessor;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.ITemplateEngine;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
