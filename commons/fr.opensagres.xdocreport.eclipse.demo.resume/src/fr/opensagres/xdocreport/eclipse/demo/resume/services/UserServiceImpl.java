@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.opensagres.xdocreport.document.images.ClassPathImageProvider;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.User;
 
 public class UserServiceImpl implements UserService {
@@ -16,11 +17,13 @@ public class UserServiceImpl implements UserService {
 		angelo.setId(currentId++);
 		angelo.setFirstName("Angelo");
 		angelo.setLastName("ZERR");
+		angelo.setPhoto(new ClassPathImageProvider(User.class, "AngeloZERR.jpg"));
 		users.put(angelo.getId(), angelo);
 		User pascal = new User();
 		pascal.setId(currentId++);
 		pascal.setFirstName("Pascal");
 		pascal.setLastName("Leclercq");
+		pascal.setPhoto(new ClassPathImageProvider(User.class, "PascalLeclercq.jpg"));
 		users.put(pascal.getId(), pascal);
 	}
 
