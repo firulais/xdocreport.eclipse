@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.6"?>
 
-<target name="XDocReport RAP target" sequenceNumber="98">
+<target name="XDocReport RAP target" sequenceNumber="99">
 <locations>
-<location includeAllPlatforms="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="fr.opensagres.xdocreport.converter.feature.feature.group" version="0.9.2.201109202042"/>
-<unit id="fr.opensagres.xdocreport.core.feature.feature.group" version="0.9.2.201109202042"/>
-<unit id="fr.opensagres.xdocreport.document.feature.feature.group" version="0.9.2.201109202042"/>
-<unit id="fr.opensagres.xdocreport.template.feature.feature.group" version="0.9.2.201109202042"/>
-<unit id="fr.opensagres.xdocreport.externals.feature.feature.group" version="0.9.2.201109202042"/>
-<unit id="fr.opensagres.xdocreport.thirdparties-extension.feature.feature.group" version="0.9.2.201109202042"/>
-<repository location="http://oss.opensagres.fr/xdocreport/p2/site/"/>
-</location>
 <location includeAllPlatforms="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.rap.incubator.feature.feature.group" version="1.4.0.201108091246"/>
 <repository location="http://download.eclipse.org/rt/rap/1.4/incubator"/>
@@ -20,6 +11,15 @@
 <unit id="org.eclipse.rap.runtime.requirements.feature.group" version="1.5.0.20110926-1711"/>
 <unit id="org.eclipse.rap.runtime.feature.group" version="1.5.0.20110926-1711"/>
 <repository location="http://download.eclipse.org/rt/rap/1.5/runtime"/>
+</location>
+<location includeAllPlatforms="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="fr.opensagres.xdocreport.converter.feature.feature.group" version="0.9.3.201110120056"/>
+<unit id="fr.opensagres.xdocreport.core.feature.feature.group" version="0.9.3.201110120056"/>
+<unit id="fr.opensagres.xdocreport.document.feature.feature.group" version="0.9.3.201110120056"/>
+<unit id="fr.opensagres.xdocreport.template.feature.feature.group" version="0.9.3.201110120056"/>
+<unit id="fr.opensagres.xdocreport.externals.feature.feature.group" version="0.9.3.201110120056"/>
+<unit id="fr.opensagres.xdocreport.thirdparties-extension.feature.feature.group" version="0.9.3.201110120056"/>
+<repository location="http://oss.opensagres.fr/xdocreport/p2/p2repository/target/site/"/>
 </location>
 </locations>
 <launcherArgs>
