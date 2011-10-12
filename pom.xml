@@ -55,7 +55,8 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
@@ -115,6 +116,15 @@
 			<url>http://download.eclipse.org/releases/indigo</url>
 			<!-- <url>file:/Users/pascalleclercq/devs/helios/org.eclipse.platform-3.6.2</url> -->
 		</repository>
-		
+		<repository>
+			<id>rap_incubator</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/rt/rap/1.4/incubator</url>
+		</repository>
+		<repository>
+			<id>rap</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/rt/rap/1.5/runtime</url>
+		</repository>
 	</repositories>
 </project>
