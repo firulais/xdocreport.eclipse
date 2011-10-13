@@ -10,8 +10,10 @@
 		<artifactId>xdocreport-eclipse</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
+	
 	<modules>
 		<module>fr.opensagres.xdocreport.eclipse.rcp</module>
-		<module>fr.opensagres.xdocreport.eclipse.product</module>
+		<module>fr.opensagres.xdocreport.eclipse.product.win32</module>
+		<module>fr.opensagres.xdocreport.eclipse.product.macosx</module> 
 	</modules>
 </project>
