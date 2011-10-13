@@ -120,5 +120,12 @@
           defaultHandler="fr.opensagres.xdocreport.eclipse.internal.handlers.ReportingHandler"
           name="New Report" />
  </extension>
-	
+	 <extension
+         id="XDocReport"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="fr.opensagres.xdocreport.eclipse.application"
+            name="fr.opensagres.xdocreport.eclipse.product">
+      </product>
+   </extension>
 </plugin>

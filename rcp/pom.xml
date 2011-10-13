@@ -12,5 +12,6 @@
 	</parent>
 	<modules>
 		<module>fr.opensagres.xdocreport.eclipse.rcp</module>
+		<module>fr.opensagres.xdocreport.eclipse.product</module>
 	</modules>
 </project>

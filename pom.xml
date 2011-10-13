@@ -33,21 +33,21 @@
 					<resolver>p2</resolver>
 					<pomDependencies>consider</pomDependencies>
 					<environments>
-						<environment>
+					<!-- 	<environment>
 							<os>linux</os>
 							<ws>gtk</ws>
 							<arch>x86_64</arch>
-						</environment>
+						</environment> -->
 						<environment>
 							<os>win32</os>
 							<ws>win32</ws>
 							<arch>x86</arch>
 						</environment>
-						<environment>
+						<!-- <environment>
 							<os>macosx</os>
 							<ws>carbon</ws>
 							<arch>x86</arch>
-						</environment>
+						</environment> -->
 					</environments>
 
 				</configuration>
@@ -109,7 +109,14 @@
 	</dependencies>
 
 	<repositories>
-                <!---->
+        <repository>
+			<id>xdcoreport</id>
+			<layout>p2</layout>
+			<url>http://oss.opensagres.fr/xdocreport/p2/p2repository/target/site/</url>
+			
+		</repository>
+                
+                
 		<repository>
 			<id>indigo</id>
 			<layout>p2</layout>
