@@ -30,9 +30,7 @@ public abstract class AbstractFormEditor<EditorInput extends IEditorInput> exten
 	public void doSave(IProgressMonitor monitor) {
 		onBeforeSave(monitor);
 		onSave(monitor);
-		onAfterSave(monitor);		
-		onSave(monitor);
-		
+		onAfterSave(monitor);				
 	}
 
 	protected void onBeforeSave(IProgressMonitor monitor) {

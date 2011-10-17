@@ -22,7 +22,7 @@ public class XDocReportApplicationWorkbenchWindowAdvisor extends WorkbenchWindow
 	public void preWindowOpen() {
 		IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
 		configurer.setInitialSize(new Point(900, 700));
-		configurer.setShowCoolBar(false);
+		configurer.setShowCoolBar(true);
 		configurer.setShowStatusLine(false);
 		configurer.setTitle(Messages.WorkbenchWindowConfigurer_title);
 	}

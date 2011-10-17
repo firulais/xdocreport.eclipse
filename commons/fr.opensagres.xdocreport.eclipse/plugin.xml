@@ -70,21 +70,32 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="menu:org.eclipse.ui.main.menu">
+            locationURI="menu:org.eclipse.ui.main.menu">                      
          <menu
                label="%ReportMenu.label">
-            <!--<command
-                    commandId="fr.opensagres.xdocreport.eclipse.report.new"
-                    label="%ReportNewMenu.label">
-            </command>-->
+	        <command
+	              commandId="org.eclipse.ui.file.save"
+	              style="push">    
+	        </command> 
             <command
                   commandId="org.eclipse.ui.file.exit"
                   label="%ReportExitMenu.label">
             </command>
          </menu>
       </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+               id="snippet.tree.toolbar1">
+            <command
+                  commandId="org.eclipse.ui.file.save"
+                  style="push">
+            </command>
+         </toolbar>
+      </menuContribution>            
    </extension>
-
+   
 	<extension
 	      point="fr.opensagres.xdocreport.eclipse.reportFormats">
 	   <reportFormat
