@@ -24,8 +24,7 @@ import fr.opensagres.xdocreport.eclipse.ui.editors.AbstractFormEditor;
 import fr.opensagres.xdocreport.eclipse.ui.editors.AbstractFormPage;
 
 public class OverviewPage extends AbstractFormPage<User> {
-	private DataBindingContext m_bindingContext;
-
+	
 	public static final String ID = "overview";
 	private Text firstNameText;
 	private GridData gd_lastNameText;
@@ -38,8 +37,8 @@ public class OverviewPage extends AbstractFormPage<User> {
 	}
 
 	@Override
-	protected void createFormContent(IManagedForm managedForm) {
-		super.createFormContent(managedForm);
+	protected void onCreateUI(IManagedForm managedForm) {	
+		super.onCreateUI(managedForm);
 		final ScrolledForm form = managedForm.getForm();
 		final FormToolkit toolkit = managedForm.getToolkit();
 		form.setText(Messages.ResumeFormEditor_OverviewPage_title);
@@ -107,7 +106,18 @@ public class OverviewPage extends AbstractFormPage<User> {
 
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
 
-		m_bindingContext = initDataBindings();
+	}
+	
+	@Override
+	protected void onBind(DataBindingContext bindingContext) {
+		IObservableValue firstNameTextObserveTextObserveWidget = SWTObservables.observeText(firstNameText, SWT.Modify);
+		IObservableValue getModel1FirstNameObserveValue = PojoObservables.observeValue(getModelObject(), "firstName");
+		bindingContext.bindValue(firstNameTextObserveTextObserveWidget, getModel1FirstNameObserveValue, null, null);
+		//
+		IObservableValue lastNameTextObserveTextObserveWidget = SWTObservables.observeText(lastNameText, SWT.Modify);
+		IObservableValue getModel1LastNameObserveValue = PojoObservables.observeValue(getModelObject(), "lastName");
+		bindingContext.bindValue(lastNameTextObserveTextObserveWidget, getModel1LastNameObserveValue, null, null);
+		
 	}
 
 //	private void createDecoratedTextField(String label, FormToolkit toolkit,
@@ -123,22 +133,19 @@ public class OverviewPage extends AbstractFormPage<User> {
 //		}
 //	}
 	
+
 	
-	public User getUser() {
-		return super.getModel();
-	}
-	
-	protected DataBindingContext initDataBindings() {
-		DataBindingContext bindingContext = new DataBindingContext();
-		//
-		IObservableValue firstNameTextObserveTextObserveWidget = SWTObservables.observeText(firstNameText, SWT.Modify);
-		IObservableValue getModel1FirstNameObserveValue = PojoObservables.observeValue(getUser(), "firstName");
-		bindingContext.bindValue(firstNameTextObserveTextObserveWidget, getModel1FirstNameObserveValue, null, null);
-		//
-		IObservableValue lastNameTextObserveTextObserveWidget = SWTObservables.observeText(lastNameText, SWT.Modify);
-		IObservableValue getModel1LastNameObserveValue = PojoObservables.observeValue(getUser(), "lastName");
-		bindingContext.bindValue(lastNameTextObserveTextObserveWidget, getModel1LastNameObserveValue, null, null);
-		//
-		return bindingContext;
-	}
+//	protected DataBindingContext initDataBindings() {
+//		DataBindingContext bindingContext = new DataBindingContext();
+//		//
+//		IObservableValue firstNameTextObserveTextObserveWidget = SWTObservables.observeText(firstNameText, SWT.Modify);
+//		IObservableValue getModel1FirstNameObserveValue = PojoObservables.observeValue(getUser(), "firstName");
+//		bindingContext.bindValue(firstNameTextObserveTextObserveWidget, getModel1FirstNameObserveValue, null, null);
+//		//
+//		IObservableValue lastNameTextObserveTextObserveWidget = SWTObservables.observeText(lastNameText, SWT.Modify);
+//		IObservableValue getModel1LastNameObserveValue = PojoObservables.observeValue(getUser(), "lastName");
+//		bindingContext.bindValue(lastNameTextObserveTextObserveWidget, getModel1LastNameObserveValue, null, null);
+//		//
+//		return bindingContext;
+//	}
 }

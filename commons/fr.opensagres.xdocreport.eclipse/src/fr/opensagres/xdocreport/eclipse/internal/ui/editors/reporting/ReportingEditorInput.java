@@ -1,7 +1,7 @@
 package fr.opensagres.xdocreport.eclipse.internal.ui.editors.reporting;
 
+import fr.opensagres.eclipse.forms.editor.AbstractEditorInput;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntry;
-import fr.opensagres.xdocreport.eclipse.ui.editors.AbstractEditorInput;
 
 public class ReportingEditorInput extends AbstractEditorInput {
 

@@ -38,5 +38,5 @@
 <booleanAttribute key="tracing" value="false"/>
 <booleanAttribute key="useCustomFeatures" value="false"/>
 <booleanAttribute key="useDefaultConfigArea" value="true"/>
-<stringAttribute key="workspace_bundles" value="fr.opensagres.xdocreport.eclipse.demo.lettrerelance@default:default,fr.opensagres.xdocreport.eclipse.demo.resume@default:default,fr.opensagres.xdocreport.eclipse.rap@default:false,fr.opensagres.xdocreport.eclipse.report.xdocreport@default:default,fr.opensagres.xdocreport.eclipse@default:default,org.eclipse.rap.singlesourcing@default:default"/>
+<stringAttribute key="workspace_bundles" value="fr.opensagres.xdocreport.eclipse.demo.lettrerelance@default:default,fr.opensagres.xdocreport.eclipse.demo.resume@default:default,fr.opensagres.xdocreport.eclipse.rap@default:false,fr.opensagres.xdocreport.eclipse.report.xdocreport@default:default,fr.opensagres.xdocreport.eclipse@default:default,org.eclipse.rap.singlesourcing@default:default,fr.opensagres.eclipse.forms@default:default"/>
 </launchConfiguration>

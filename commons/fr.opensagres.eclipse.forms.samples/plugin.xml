@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="fr.opensagres.eclipse.forms.samples.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="RCP Perspective"
+            class="fr.opensagres.eclipse.forms.samples.Perspective"
+            id="fr.opensagres.eclipse.forms.samples.perspective">
+      </perspective>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            name="View"
+            class="fr.opensagres.eclipse.forms.samples.View"
+            id="_a.view">
+      </view>
+   </extension>
+   
+  <extension
+        point="org.eclipse.ui.editors">
+     <editor
+           class="fr.opensagres.eclipse.forms.samples.editor.PersonEditor"           
+           extensions="*"
+           icon="icons/obj16/reporting.gif"
+           id="fr.opensagres.eclipse.forms.samples.editor.PersonEditor"
+           name="%ReportingEditor.name">
+     </editor>
+  </extension>
+  
+</plugin>

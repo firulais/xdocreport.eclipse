@@ -13,6 +13,7 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.forms.editor.FormEditor;
 
+import fr.opensagres.eclipse.forms.editor.ModelFormEditor;
 import fr.opensagres.xdocreport.eclipse.extensions.IModelProvider;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModule;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntry;
@@ -25,23 +26,8 @@ import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportException;
 import fr.opensagres.xdocreport.eclipse.ui.actions.ActionMenu;
 import fr.opensagres.xdocreport.eclipse.ui.actions.GenerationReportAction;
 
-public abstract class AbstractFormEditor<Model> extends FormEditor implements
+public abstract class AbstractFormEditor<Model> extends ModelFormEditor<ModelAndEntryEditorInput<Model>, Model> implements
 		IReportModuleEntryProvider, IModelProvider<Model> {
-
-	@Override
-	public void doSave(IProgressMonitor monitor) {
-
-	}
-
-	@Override
-	public void doSaveAs() {
-
-	}
-
-	@Override
-	public boolean isSaveAsAllowed() {
-		return false;
-	}
 
 	@Override
 	public void init(IEditorSite site, IEditorInput input)

@@ -23,7 +23,8 @@ public class UserServiceImpl implements UserService {
 		pascal.setId(currentId++);
 		pascal.setFirstName("Pascal");
 		pascal.setLastName("Leclercq");
-		pascal.setPhoto(new ClassPathImageProvider(User.class, "PascalLeclercq.jpg"));
+		pascal.setPhoto(new ClassPathImageProvider(User.class,
+				"PascalLeclercq.jpg"));
 		users.put(pascal.getId(), pascal);
 	}
 
@@ -32,12 +33,30 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public User findById(long id) {
+		User user = users.get(id);
+		if (user != null) {
+			return clone(user);
+		}
 		return users.get(id);
+	}
+
+	public User save(User user) {
+		users.put(user.getId(), user);
+		return clone(user);
 	}
 
 	public void createUser(User collaborateur) {
 		collaborateur.setId(currentId++);
 		users.put(collaborateur.getId(), collaborateur);
 
+	}
+
+	private User clone(User user) {
+		User newUser = new User();
+		newUser.setId(user.getId());
+		newUser.setFirstName(user.getFirstName());
+		newUser.setLastName(user.getLastName());
+		newUser.setPhoto(user.getPhoto());
+		return newUser;
 	}
 }

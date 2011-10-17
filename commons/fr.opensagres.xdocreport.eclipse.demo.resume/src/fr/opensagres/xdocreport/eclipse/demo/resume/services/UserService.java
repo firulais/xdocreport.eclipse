@@ -11,4 +11,6 @@ public interface UserService {
 	User findById(long id);
 
 	void createUser(User collaborateur);
+	
+	User save(User user);
 }
