@@ -87,7 +87,7 @@
             allPopups="false"
             locationURI="toolbar:org.eclipse.ui.main.toolbar">
          <toolbar
-               id="snippet.tree.toolbar1">
+               id="fr.opensagres.xdocreport.eclipse.toolbar">
             <command
                   commandId="org.eclipse.ui.file.save"
                   style="push">
