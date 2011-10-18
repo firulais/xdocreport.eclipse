@@ -17,11 +17,13 @@ import org.eclipse.ui.forms.widgets.TableWrapLayout;
 import fr.opensagres.eclipse.forms.editor.ModelFormEditor;
 import fr.opensagres.eclipse.forms.editor.ModelFormPage;
 import fr.opensagres.eclipse.forms.samples.model.Person;
+import fr.opensagres.eclipse.forms.widgets.DateTimeControl;
 
 public class OverviewPage extends ModelFormPage<Person> {
 
 	private Text personNameText;
 	private Label label;
+	private DateTimeControl birthDaydateTime;
 
 	public OverviewPage(ModelFormEditor editor) {
 		super(editor, "ID", "Person");
@@ -46,6 +48,10 @@ public class OverviewPage extends ModelFormPage<Person> {
 		toolkit.createLabel(parent, "Unique ID:");
 		label = toolkit.createLabel(parent, "");
 		label.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		toolkit.createLabel(parent, "Birthday");
+		birthDaydateTime = new DateTimeControl(parent, SWT.NONE, toolkit);
+		birthDaydateTime.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 	}
 
 	@Override
@@ -53,11 +59,10 @@ public class OverviewPage extends ModelFormPage<Person> {
 		dataBindingContext.bindValue(
 				SWTObservables.observeText(personNameText, SWT.Modify),
 				PojoObservables.observeValue(getModelObject(), "name"));
-		
-		dataBindingContext.bindValue(
-				SWTObservables.observeText(label),
+
+		dataBindingContext.bindValue(SWTObservables.observeText(label),
 				PojoObservables.observeValue(getModelObject(), "uniqueId"));
-		
+
 	}
 
 }

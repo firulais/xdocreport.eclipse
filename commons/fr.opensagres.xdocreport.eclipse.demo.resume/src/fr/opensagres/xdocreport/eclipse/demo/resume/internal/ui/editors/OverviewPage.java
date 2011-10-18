@@ -17,6 +17,7 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
+import fr.opensagres.eclipse.forms.widgets.DateTimeControl;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.User;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages;
 import fr.opensagres.xdocreport.eclipse.ui.FormLayoutFactory;
@@ -24,20 +25,20 @@ import fr.opensagres.xdocreport.eclipse.ui.editors.AbstractFormEditor;
 import fr.opensagres.xdocreport.eclipse.ui.editors.AbstractFormPage;
 
 public class OverviewPage extends AbstractFormPage<User> {
-	
+
 	public static final String ID = "overview";
 	private Text firstNameText;
 	private GridData gd_lastNameText;
 	private GridData gd_firstNameText;
 	private Text lastNameText;
-	private Text txtNewText;
+	private DateTimeControl birthDayDateTime;
 
 	public OverviewPage(AbstractFormEditor<User> editor) {
 		super(editor, ID, "Overview");
 	}
 
 	@Override
-	protected void onCreateUI(IManagedForm managedForm) {	
+	protected void onCreateUI(IManagedForm managedForm) {
 		super.onCreateUI(managedForm);
 		final ScrolledForm form = managedForm.getForm();
 		final FormToolkit toolkit = managedForm.getToolkit();
@@ -48,7 +49,8 @@ public class OverviewPage extends AbstractFormPage<User> {
 
 	private void fillBody(IManagedForm managedForm, FormToolkit toolkit) {
 		Composite body = managedForm.getForm().getBody();
-		TableWrapLayout tableWrapLayout = FormLayoutFactory.createFormTableWrapLayout(true, 2);
+		TableWrapLayout tableWrapLayout = FormLayoutFactory
+				.createFormTableWrapLayout(true, 2);
 		tableWrapLayout.numColumns = 1;
 		body.setLayout(tableWrapLayout);
 
@@ -70,16 +72,9 @@ public class OverviewPage extends AbstractFormPage<User> {
 		glayout.numColumns = 2;
 		sbody.setLayout(glayout);
 
-		// toolkit.createLabel(sbody, "Birthday:");
-		// DateTime birthday = new DateTime(sbody, SWT.CALENDAR);
-		// GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-		// gd.widthHint = 150;
-		// birthday.setLayoutData(gd);
-		// birthday
-
 		// First name
 		toolkit.createLabel(sbody, Messages.ResumeFormEditor_FirstName_label);
-		firstNameText = toolkit.createText(sbody, "", SWT.SINGLE);		
+		firstNameText = toolkit.createText(sbody, "", SWT.SINGLE);
 		gd_firstNameText = new GridData(GridData.FILL_HORIZONTAL);
 		gd_firstNameText.widthHint = 150;
 		firstNameText.setLayoutData(gd_firstNameText);
@@ -91,61 +86,65 @@ public class OverviewPage extends AbstractFormPage<User> {
 		gd_lastNameText.widthHint = 150;
 		lastNameText.setLayoutData(gd_lastNameText);
 
-		
-//		if (defaultValue != null) {
-//			text.setText(defaultValue);
-//		}
-		
-//		createDecoratedTextField(Messages.ResumeFormEditor_Birthday_label,
-//				toolkit, sbody, null, null);
-
-		toolkit.createLabel(sbody, Messages.ResumeFormEditor_Birthday_label);
-		txtNewText = managedForm.getToolkit().createText(sbody, "", SWT.NONE);
-		txtNewText.setText(Messages.OverviewPage_txtNewText_text);
-		txtNewText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		// Birthday
+		toolkit.createLabel(sbody, Messages.ResumeFormEditor_Birthday_label);		
+		birthDayDateTime = new DateTimeControl(sbody, SWT.NONE, SWT.SINGLE, SWT.FLAT, toolkit);
+		GridData gd_birthDayDateTimet = new GridData(GridData.FILL_HORIZONTAL);
+		gd_birthDayDateTimet.widthHint = 150;
+		birthDayDateTime.setLayoutData(gd_birthDayDateTimet);
 
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
 
 	}
-	
+
 	@Override
 	protected void onBind(DataBindingContext bindingContext) {
-		IObservableValue firstNameTextObserveTextObserveWidget = SWTObservables.observeText(firstNameText, SWT.Modify);
-		IObservableValue getModel1FirstNameObserveValue = PojoObservables.observeValue(getModelObject(), "firstName");
-		bindingContext.bindValue(firstNameTextObserveTextObserveWidget, getModel1FirstNameObserveValue, null, null);
+		IObservableValue firstNameTextObserveTextObserveWidget = SWTObservables
+				.observeText(firstNameText, SWT.Modify);
+		IObservableValue getModel1FirstNameObserveValue = PojoObservables
+				.observeValue(getModelObject(), "firstName");
+		bindingContext.bindValue(firstNameTextObserveTextObserveWidget,
+				getModel1FirstNameObserveValue, null, null);
 		//
-		IObservableValue lastNameTextObserveTextObserveWidget = SWTObservables.observeText(lastNameText, SWT.Modify);
-		IObservableValue getModel1LastNameObserveValue = PojoObservables.observeValue(getModelObject(), "lastName");
-		bindingContext.bindValue(lastNameTextObserveTextObserveWidget, getModel1LastNameObserveValue, null, null);
-		
+		IObservableValue lastNameTextObserveTextObserveWidget = SWTObservables
+				.observeText(lastNameText, SWT.Modify);
+		IObservableValue getModel1LastNameObserveValue = PojoObservables
+				.observeValue(getModelObject(), "lastName");
+		bindingContext.bindValue(lastNameTextObserveTextObserveWidget,
+				getModel1LastNameObserveValue, null, null);
+
 	}
 
-//	private void createDecoratedTextField(String label, FormToolkit toolkit,
-//			Composite parent, String defaultValue, final IMessageManager mmng) {
-//		toolkit.createLabel(parent, label);
-//		final Text text = toolkit.createText(parent, "", SWT.SINGLE);
-//		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-//		gd.widthHint = 150;
-//		text.setLayoutData(gd);
-//
-//		if (defaultValue != null) {
-//			text.setText(defaultValue);
-//		}
-//	}
-	
+	// private void createDecoratedTextField(String label, FormToolkit toolkit,
+	// Composite parent, String defaultValue, final IMessageManager mmng) {
+	// toolkit.createLabel(parent, label);
+	// final Text text = toolkit.createText(parent, "", SWT.SINGLE);
+	// GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+	// gd.widthHint = 150;
+	// text.setLayoutData(gd);
+	//
+	// if (defaultValue != null) {
+	// text.setText(defaultValue);
+	// }
+	// }
 
-	
-//	protected DataBindingContext initDataBindings() {
-//		DataBindingContext bindingContext = new DataBindingContext();
-//		//
-//		IObservableValue firstNameTextObserveTextObserveWidget = SWTObservables.observeText(firstNameText, SWT.Modify);
-//		IObservableValue getModel1FirstNameObserveValue = PojoObservables.observeValue(getUser(), "firstName");
-//		bindingContext.bindValue(firstNameTextObserveTextObserveWidget, getModel1FirstNameObserveValue, null, null);
-//		//
-//		IObservableValue lastNameTextObserveTextObserveWidget = SWTObservables.observeText(lastNameText, SWT.Modify);
-//		IObservableValue getModel1LastNameObserveValue = PojoObservables.observeValue(getUser(), "lastName");
-//		bindingContext.bindValue(lastNameTextObserveTextObserveWidget, getModel1LastNameObserveValue, null, null);
-//		//
-//		return bindingContext;
-//	}
+	// protected DataBindingContext initDataBindings() {
+	// DataBindingContext bindingContext = new DataBindingContext();
+	// //
+	// IObservableValue firstNameTextObserveTextObserveWidget =
+	// SWTObservables.observeText(firstNameText, SWT.Modify);
+	// IObservableValue getModel1FirstNameObserveValue =
+	// PojoObservables.observeValue(getUser(), "firstName");
+	// bindingContext.bindValue(firstNameTextObserveTextObserveWidget,
+	// getModel1FirstNameObserveValue, null, null);
+	// //
+	// IObservableValue lastNameTextObserveTextObserveWidget =
+	// SWTObservables.observeText(lastNameText, SWT.Modify);
+	// IObservableValue getModel1LastNameObserveValue =
+	// PojoObservables.observeValue(getUser(), "lastName");
+	// bindingContext.bindValue(lastNameTextObserveTextObserveWidget,
+	// getModel1LastNameObserveValue, null, null);
+	// //
+	// return bindingContext;
+	// }
 }

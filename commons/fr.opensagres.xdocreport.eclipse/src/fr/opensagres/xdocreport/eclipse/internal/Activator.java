@@ -1,15 +1,9 @@
 package fr.opensagres.xdocreport.eclipse.internal;
 
-import java.net.URL;
-
-import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -50,7 +44,7 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
-		super.stop(context);		
+		super.stop(context);
 	}
 
 	/**
@@ -76,7 +70,7 @@ public class Activator extends AbstractUIPlugin {
 
 	@Override
 	protected void initializeImageRegistry(ImageRegistry reg) {
-		super.initializeImageRegistry(reg);		
+		super.initializeImageRegistry(reg);
 		ImageResources.initialize(reg);
 	}
 
@@ -85,8 +79,8 @@ public class Activator extends AbstractUIPlugin {
 	 * <code>null</code> if there is no active workbench window. Returns
 	 * <code>null</code> if called from a non-UI thread.
 	 * 
-	 * @return the active workbench window, or <code>null</code> if there is
-	 *         no active workbench window or if called from a non-UI thread
+	 * @return the active workbench window, or <code>null</code> if there is no
+	 *         active workbench window or if called from a non-UI thread
 	 */
 	public static IWorkbenchWindow getActiveWorkbenchWindow() {
 		return getDefault().getWorkbench().getActiveWorkbenchWindow();
