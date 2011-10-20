@@ -19,7 +19,9 @@ public class ODTResumeReportLoader extends XDocReportLoader {
 
 	@Override
 	public FieldsMetadata getFieldsMetadata() {
-		return null;
+		FieldsMetadata metadata = new FieldsMetadata();
+		metadata.addFieldAsImage("resume.Photo");
+		return metadata;
 	}
 
 }

@@ -8,7 +8,8 @@ public class ResumeReportProcessor extends XDocReportProcessor {
 
 	@Override
 	public void populateContext(IContext context, Object model) {
-		Resume user = (Resume)model;
-		context.put("user", user.getOwner());
+		Resume resume = (Resume)model;
+		context.put("resume", resume);
+		context.put("person", resume.getOwner());
 	}
 }

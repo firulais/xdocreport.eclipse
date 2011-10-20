@@ -1,5 +1,7 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.services;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;

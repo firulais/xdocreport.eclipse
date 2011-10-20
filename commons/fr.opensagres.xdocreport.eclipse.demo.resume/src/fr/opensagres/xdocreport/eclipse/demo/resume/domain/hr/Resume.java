@@ -16,7 +16,7 @@ public class Resume {
 	private static final long serialVersionUID = 7407392831377640438L;
 
 	private static IImageProvider EMPTY_PHOTO = new ClassPathImageProvider(
-			Resume.class, "EmptyPhoto.png");
+			Resume.class, "EmptyPhoto.jpg");
 
 	// @Id
 	// @GeneratedValue
