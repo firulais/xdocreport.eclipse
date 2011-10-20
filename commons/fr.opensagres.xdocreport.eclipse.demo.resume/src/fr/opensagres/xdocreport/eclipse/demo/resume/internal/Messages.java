@@ -9,16 +9,21 @@ public class Messages extends NLS {
 	// Overview Page
 	public static String ResumeFormEditor_OverviewPage_title;
 	
-	public static String ResumeFormEditor_OverviewPage_GeneralInfo_desc;
+	// Overview/General Info section
 	public static String ResumeFormEditor_OverviewPage_GeneralInfo_title;
-
+	public static String ResumeFormEditor_OverviewPage_GeneralInfo_desc;
+	
 	public static String ResumeFormEditor_FirstName_label;
 	public static String ResumeFormEditor_LastName_label;
 	public static String ResumeFormEditor_Birthday_label;
 	public static String OverviewPage_lblNewLabel_text;
 	public static String OverviewPage_txtNewText_text;
+	
+	// Overview/Resume content section
+	public static String ResumeFormEditor_OverviewPage_ResumeContent_title;
+	public static String ResumeFormEditor_OverviewPage_ResumeContent_content;	
 
-	// Experiences Page
+	// Overview/Experiences Page
 	public static String ResumeFormEditor_ExperiencesPage_title;
 	
 	// Skills Page

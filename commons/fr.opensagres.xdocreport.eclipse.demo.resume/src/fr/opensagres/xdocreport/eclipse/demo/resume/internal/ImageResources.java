@@ -23,12 +23,18 @@ public class ImageResources {
 	public static final String IMG_NEW_RESUME = "new_resume";
 	public static final String IMG_SEARCH_RESUME = "search_resume";
 	public static final String IMG_RESUME = "resume";
+	public static final String IMG_OVERVIEW = "overview";
+	public static final String IMG_EXPERIENCES = "experiences";
+	public static final String IMG_SKILLS = "skills";
 
 	public static void initialize(ImageRegistry imageRegistry) {
 		registerImage(imageRegistry, IMG_NEW_RESUME, PATH_OBJ
 				+ "new_resume.gif");
 		registerImage(imageRegistry, IMG_SEARCH_RESUME, PATH_OBJ + "search.gif");
 		registerImage(imageRegistry, IMG_RESUME, PATH_OBJ + "resume.gif");
+		registerImage(imageRegistry, IMG_OVERVIEW, PATH_OBJ + "overview.gif");
+		registerImage(imageRegistry, IMG_EXPERIENCES, PATH_OBJ + "experiences.png");
+		registerImage(imageRegistry, IMG_SKILLS, PATH_OBJ + "skills.png");
 	}
 
 	private static void registerImage(ImageRegistry registry, String key,

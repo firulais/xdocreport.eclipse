@@ -6,24 +6,30 @@ import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.SWTException;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.IManagedForm;
+import org.eclipse.ui.forms.events.HyperlinkEvent;
+import org.eclipse.ui.forms.events.IHyperlinkListener;
+import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
-import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import fr.opensagres.eclipse.forms.widgets.DateTimeControl;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
+import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ImageResources;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages;
 import fr.opensagres.xdocreport.eclipse.ui.FormLayoutFactory;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormEditor;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormPage;
 
-public class OverviewPage extends ReportingFormPage<Resume> {
+public class OverviewPage extends ReportingFormPage<Resume> implements
+		IHyperlinkListener {
 
 	public static final String ID = "overview";
 	private Text firstNameText;
@@ -37,22 +43,40 @@ public class OverviewPage extends ReportingFormPage<Resume> {
 	}
 
 	@Override
+	protected Image getFormTitleImage() {
+		return ImageResources.getImage(ImageResources.IMG_OVERVIEW);
+	}
+
+	@Override
 	protected void fillBody(IManagedForm managedForm, FormToolkit toolkit) {
 		Composite body = managedForm.getForm().getBody();
-		TableWrapLayout tableWrapLayout = FormLayoutFactory
-				.createFormTableWrapLayout(true, 2);
-		tableWrapLayout.numColumns = 1;
-		body.setLayout(tableWrapLayout);
+		body.setLayout(FormLayoutFactory.createFormTableWrapLayout(true, 2));
 
 		Composite left = toolkit.createComposite(body);
 		left.setLayout(FormLayoutFactory
 				.createFormPaneTableWrapLayout(false, 1));
 		left.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
 
+		// General info section
+		createGeneralInfoSection(toolkit, left);
+
+		Composite right = toolkit.createComposite(body);
+		right.setLayout(FormLayoutFactory.createFormPaneTableWrapLayout(false,
+				1));
+		right.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
+
+		// Content section
+		createContentSection(toolkit, right);
+
+	}
+
+	private void createGeneralInfoSection(FormToolkit toolkit, Composite left) {
 		Section section = toolkit.createSection(left, Section.DESCRIPTION
 				| Section.TITLE_BAR);
 		section.setDescription(Messages.ResumeFormEditor_OverviewPage_GeneralInfo_desc);
 		section.setText(Messages.ResumeFormEditor_OverviewPage_GeneralInfo_title);
+		TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
+		section.setLayoutData(data);
 
 		Composite sbody = toolkit.createComposite(section);
 		section.setClient(sbody);
@@ -77,19 +101,68 @@ public class OverviewPage extends ReportingFormPage<Resume> {
 		lastNameText.setLayoutData(gd_lastNameText);
 
 		// Birthday
-		toolkit.createLabel(sbody, Messages.ResumeFormEditor_Birthday_label);		
-		birthDayDateTime = new DateTimeControl(sbody, SWT.NONE, SWT.SINGLE, SWT.FLAT, toolkit);
+		toolkit.createLabel(sbody, Messages.ResumeFormEditor_Birthday_label);
+		birthDayDateTime = new DateTimeControl(sbody, SWT.NONE, SWT.SINGLE,
+				SWT.FLAT, toolkit);
 		GridData gd_birthDayDateTimet = new GridData(GridData.FILL_HORIZONTAL);
 		gd_birthDayDateTimet.widthHint = 150;
 		birthDayDateTime.setLayoutData(gd_birthDayDateTimet);
-		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, birthDayDateTime);
-		
-		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
+		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit,
+				birthDayDateTime);
 
+		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
+	}
+
+	private void createContentSection(FormToolkit toolkit, Composite parent) {
+		Section section = toolkit.createSection(parent, Section.TITLE_BAR);
+		section.setText(Messages.ResumeFormEditor_OverviewPage_ResumeContent_title);
+		TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
+		section.setLayoutData(data);
+
+		Composite sbody = toolkit.createComposite(section);
+		section.setClient(sbody);
+
+		Composite container = createStaticSectionClient(toolkit, section);
+
+		FormText text = createClient(container,
+				Messages.ResumeFormEditor_OverviewPage_ResumeContent_content,
+				toolkit);
+		text.setImage("experiences_page", ImageResources.getImage(ImageResources.IMG_EXPERIENCES));
+		text.setImage("skills_page", ImageResources.getImage(ImageResources.IMG_SKILLS));
+		section.setClient(container);
+
+		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
+	}
+
+	protected final FormText createClient(Composite section, String content,
+			FormToolkit toolkit) {
+		FormText text = toolkit.createFormText(section, true);
+		try {
+			text.setText(content, true, false);
+		} catch (SWTException e) {
+			text.setText(e.getMessage(), false, false);
+		}
+		text.addHyperlinkListener(this);
+		return text;
+	}
+
+	protected Composite createStaticSectionClient(FormToolkit toolkit,
+			Composite parent) {
+		Composite container = toolkit.createComposite(parent, SWT.NONE);
+		container.setLayout(FormLayoutFactory
+				.createSectionClientTableWrapLayout(false, 1));
+		TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
+		container.setLayoutData(data);
+		return container;
 	}
 
 	@Override
 	protected void onBind(DataBindingContext bindingContext) {
+		onBindGeneralInfo(bindingContext);
+
+	}
+
+	private void onBindGeneralInfo(DataBindingContext bindingContext) {
 		IObservableValue firstNameTextObserveTextObserveWidget = SWTObservables
 				.observeText(firstNameText, SWT.Modify);
 		IObservableValue getModel1FirstNameObserveValue = PojoObservables
@@ -103,39 +176,19 @@ public class OverviewPage extends ReportingFormPage<Resume> {
 				.observeValue(getModelObject().getOwner(), "lastName");
 		bindingContext.bindValue(lastNameTextObserveTextObserveWidget,
 				getModel1LastNameObserveValue, null, null);
-
 	}
 
-	// private void createDecoratedTextField(String label, FormToolkit toolkit,
-	// Composite parent, String defaultValue, final IMessageManager mmng) {
-	// toolkit.createLabel(parent, label);
-	// final Text text = toolkit.createText(parent, "", SWT.SINGLE);
-	// GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-	// gd.widthHint = 150;
-	// text.setLayoutData(gd);
-	//
-	// if (defaultValue != null) {
-	// text.setText(defaultValue);
-	// }
-	// }
+	public void linkActivated(HyperlinkEvent e) {
+		String href = (String) e.getHref();
+		getEditor().setActivePage(href);
+	}
 
-	// protected DataBindingContext initDataBindings() {
-	// DataBindingContext bindingContext = new DataBindingContext();
-	// //
-	// IObservableValue firstNameTextObserveTextObserveWidget =
-	// SWTObservables.observeText(firstNameText, SWT.Modify);
-	// IObservableValue getModel1FirstNameObserveValue =
-	// PojoObservables.observeValue(getUser(), "firstName");
-	// bindingContext.bindValue(firstNameTextObserveTextObserveWidget,
-	// getModel1FirstNameObserveValue, null, null);
-	// //
-	// IObservableValue lastNameTextObserveTextObserveWidget =
-	// SWTObservables.observeText(lastNameText, SWT.Modify);
-	// IObservableValue getModel1LastNameObserveValue =
-	// PojoObservables.observeValue(getUser(), "lastName");
-	// bindingContext.bindValue(lastNameTextObserveTextObserveWidget,
-	// getModel1LastNameObserveValue, null, null);
-	// //
-	// return bindingContext;
-	// }
+	public void linkEntered(HyperlinkEvent e) {
+		// Do nothing
+	}
+
+	public void linkExited(HyperlinkEvent e) {
+		// Do nothing
+	}
+
 }

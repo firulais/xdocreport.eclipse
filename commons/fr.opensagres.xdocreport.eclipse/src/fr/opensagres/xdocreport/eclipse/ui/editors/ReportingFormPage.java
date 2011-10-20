@@ -1,6 +1,7 @@
 package fr.opensagres.xdocreport.eclipse.ui.editors;
 
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
@@ -18,7 +19,7 @@ public abstract class ReportingFormPage<Model> extends ModelFormPage<Model> {
 	public ReportingFormEditor<Model> getEditor() {
 		return (ReportingFormEditor<Model>) super.getEditor();
 	}
-	
+
 	@Override
 	protected void onCreateUI(IManagedForm managedForm) {
 		final ScrolledForm form = managedForm.getForm();
@@ -27,16 +28,25 @@ public abstract class ReportingFormPage<Model> extends ModelFormPage<Model> {
 
 		IToolBarManager manager = form.getToolBarManager();
 		getEditor().contributeToToolbar(manager);
-		form.updateToolBar();		
+		form.updateToolBar();
 		form.setText(getFormTitleText());
+		Image titleImage = getFormTitleImage();
+		if (titleImage != null) {
+			form.setImage(titleImage);
+		}
 		toolkit.decorateFormHeading(form.getForm());
 		fillBody(managedForm, toolkit);
 	}
-	
+
 	protected String getFormTitleText() {
 		return getTitle();
 	}
-	
-	protected abstract void fillBody(IManagedForm managedForm, FormToolkit toolkit);
+
+	protected Image getFormTitleImage() {
+		return null;
+	}
+
+	protected abstract void fillBody(IManagedForm managedForm,
+			FormToolkit toolkit);
 
 }

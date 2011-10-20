@@ -1,10 +1,12 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors;
 
 import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
+import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ImageResources;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormEditor;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormPage;
@@ -15,6 +17,11 @@ public class SkillsPage extends ReportingFormPage<Resume> {
 
 	public SkillsPage(ReportingFormEditor<Resume> editor) {
 		super(editor, ID, Messages.ResumeFormEditor_SkillsPage_title);
+	}
+	
+	@Override
+	protected Image getFormTitleImage() {
+		return ImageResources.getImage(ImageResources.IMG_SKILLS);
 	}
 
 	@Override
