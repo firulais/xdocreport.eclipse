@@ -12,14 +12,21 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowData;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.forms.events.HyperlinkAdapter;
+import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.ImageHyperlink;
 
 import fr.opensagres.eclipse.forms.internal.ImageResources;
 
 public class DateTimeControl extends Composite {
+
+	private static final String DEFAULT_PATTERN = "dd//MM/yyyy";
 
 	private final FormToolkit toolkit;
 	private Text dateFieldText;
@@ -27,8 +34,10 @@ public class DateTimeControl extends Composite {
 	private Date date;
 	private boolean allowPast;
 	private boolean suppressModifyEvent;
-	private String outputPattern = "dd//MM/yyyy";
+	private String outputPattern = DEFAULT_PATTERN;
 	private Image calendarImage;
+
+	private ImageHyperlink lookupHyperlink;
 
 	public DateTimeControl(Composite parent, int style, FormToolkit toolkit) {
 		this(parent, style, SWT.NONE, SWT.NONE, toolkit);
@@ -42,22 +51,36 @@ public class DateTimeControl extends Composite {
 		}
 		this.toolkit = toolkit;
 		GridLayout layout = new GridLayout();
-		layout.numColumns = 2;
+		layout.numColumns  = 2;
+		layout.makeColumnsEqualWidth=false;
 		this.setLayout(layout);
 
 		dateFieldText = createText(this, textStyle);
-		dateFieldText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-
-		lookupButton = createButton(this, buttonStyle);
-		lookupButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				lookupButtonClicked();
-			}
-		});
+		GridData d =new GridData(GridData.FILL_HORIZONTAL);
+		d.verticalAlignment = SWT.TOP;
+		dateFieldText.setLayoutData(d);
+		
 		this.calendarImage = ImageResources
 				.getImage(ImageResources.IMG_CALENDAR);
-		if (calendarImage != null) {
+		if (toolkit != null) {
+			lookupHyperlink = toolkit.createImageHyperlink(this, buttonStyle);
+
+			lookupHyperlink.setImage(calendarImage);
+			lookupHyperlink.addHyperlinkListener(new HyperlinkAdapter() {
+				@Override
+				public void linkActivated(HyperlinkEvent e) {
+					lookupButtonClicked();
+				}
+			});
+
+		} else {
+			lookupButton = createButton(this, buttonStyle);
+			lookupButton.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					lookupButtonClicked();
+				}
+			});
 			lookupButton.setImage(calendarImage);
 		}
 	}
@@ -90,6 +113,10 @@ public class DateTimeControl extends Composite {
 		return lookupButton;
 	}
 
+	public ImageHyperlink getLookupHyperlink() {
+		return lookupHyperlink;
+	}
+
 	public void setCalendarImage(Image calendarImage) {
 		Assert.isTrue(calendarImage == null || !calendarImage.isDisposed());
 		// Do not send changes if they are the same
@@ -97,7 +124,11 @@ public class DateTimeControl extends Composite {
 			return;
 		}
 		this.calendarImage = calendarImage;
-		getLookupButton().setImage(calendarImage);
+		if (getLookupHyperlink() != null) {
+			getLookupHyperlink().setImage(calendarImage);
+		} else {
+			getLookupButton().setImage(calendarImage);
+		}
 	}
 
 	/**
@@ -162,4 +193,11 @@ public class DateTimeControl extends Composite {
 		return date;
 	}
 
+	public void setOutputPattern(String outputPattern) {
+		this.outputPattern = outputPattern;
+	}
+
+	public String getOutputPattern() {
+		return outputPattern;
+	}
 }

@@ -2,9 +2,9 @@ package fr.opensagres.xdocreport.eclipse.demo.resume.services;
 
 public class ServicesProvider {
 
-	private static final UserService USER_SERVICE = new UserServiceImpl();
+	private static final ResumeService RESUME_SERVICE = new ResumeServiceImpl();
 
-	public static UserService getUserService() {
-		return USER_SERVICE;
+	public static ResumeService getResumeService() {
+		return RESUME_SERVICE;
 	}
 }

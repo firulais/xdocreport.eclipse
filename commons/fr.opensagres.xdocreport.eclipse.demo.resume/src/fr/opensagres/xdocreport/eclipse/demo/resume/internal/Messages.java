@@ -6,6 +6,7 @@ public class Messages extends NLS {
 
 	private static final String BUNDLE_NAME = "fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages";//$NON-NLS-1$
 
+	// Overview Page
 	public static String ResumeFormEditor_OverviewPage_title;
 	
 	public static String ResumeFormEditor_OverviewPage_GeneralInfo_desc;
@@ -16,6 +17,12 @@ public class Messages extends NLS {
 	public static String ResumeFormEditor_Birthday_label;
 	public static String OverviewPage_lblNewLabel_text;
 	public static String OverviewPage_txtNewText_text;
+
+	// Experiences Page
+	public static String ResumeFormEditor_ExperiencesPage_title;
+	
+	// Skills Page
+	public static String ResumeFormEditor_SkillsPage_title;
 
 	static {
 		// load message values from bundle file

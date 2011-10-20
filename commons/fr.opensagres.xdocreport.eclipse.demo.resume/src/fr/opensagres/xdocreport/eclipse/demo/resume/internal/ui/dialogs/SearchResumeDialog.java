@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.User;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 import fr.opensagres.xdocreport.eclipse.demo.resume.services.ServicesProvider;
 import fr.opensagres.xdocreport.eclipse.ui.dialogs.SearchDialog;
 
@@ -55,7 +55,7 @@ public class SearchResumeDialog extends SearchDialog {
 		viewer.setContentProvider(new ArrayContentProvider());
 		// Get the content for the viewer, setInput will call getElements in the
 		// contentProvider
-		viewer.setInput(ServicesProvider.getUserService().findAll());
+		viewer.setInput(ServicesProvider.getResumeService().findAll());
 
 		// Layout the viewer
 		GridData gridData = new GridData();
@@ -81,8 +81,8 @@ public class SearchResumeDialog extends SearchDialog {
 		col.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
-				User p = (User) element;
-				return p.getFirstName();
+				Resume p = (Resume) element;
+				return p.getOwner().getFirstName();
 			}
 		});
 
@@ -91,8 +91,8 @@ public class SearchResumeDialog extends SearchDialog {
 		col.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
-				User p = (User) element;
-				return p.getLastName();
+				Resume p = (Resume) element;
+				return p.getOwner().getLastName();
 			}
 		});
 
@@ -129,16 +129,16 @@ public class SearchResumeDialog extends SearchDialog {
 		return viewerColumn;
 
 	}
-	
-	 /*
-     * Overrides method from Dialog
-     */
-    protected void okPressed() {
-        // Build a list of selected children.
-        IStructuredSelection selection = (IStructuredSelection) viewer
-                .getSelection();
-        setResult(selection.toList());
-        super.okPressed();
-    }
+
+	/*
+	 * Overrides method from Dialog
+	 */
+	protected void okPressed() {
+		// Build a list of selected children.
+		IStructuredSelection selection = (IStructuredSelection) viewer
+				.getSelection();
+		setResult(selection.toList());
+		super.okPressed();
+	}
 
 }

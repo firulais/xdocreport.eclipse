@@ -2,6 +2,8 @@ package fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr;
 
 import java.util.Set;
 
+import fr.opensagres.xdocreport.document.images.ClassPathImageProvider;
+import fr.opensagres.xdocreport.document.images.IImageProvider;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
 
 //@Entity
@@ -12,6 +14,9 @@ public class Resume {
 	         * 
 	         */
 	private static final long serialVersionUID = 7407392831377640438L;
+
+	private static IImageProvider EMPTY_PHOTO = new ClassPathImageProvider(
+			Resume.class, "EmptyPhoto.png");
 
 	// @Id
 	// @GeneratedValue
@@ -39,6 +44,12 @@ public class Resume {
 	// @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	// @JoinColumn(name = "resume_fk")
 	private Set<Competence> competences;
+
+	private IImageProvider photo;
+
+	public Resume() {
+		this.photo = EMPTY_PHOTO;
+	}
 
 	public Long getId() {
 		return id;
@@ -118,4 +129,11 @@ public class Resume {
 		// firePropertyChange("competences", oldValue, competences);
 	}
 
+	public void setPhoto(IImageProvider photo) {
+		this.photo = photo;
+	}
+
+	public IImageProvider getPhoto() {
+		return photo;
+	}
 }

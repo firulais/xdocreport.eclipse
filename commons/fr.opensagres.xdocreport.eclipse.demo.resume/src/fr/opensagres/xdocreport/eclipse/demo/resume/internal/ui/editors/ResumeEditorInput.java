@@ -1,18 +1,18 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors;
 
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.User;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntry;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ModelAndEntryEditorInput;
 
-public class UserEditorInput extends ModelAndEntryEditorInput<User> {
+public class ResumeEditorInput extends ModelAndEntryEditorInput<Resume> {
 
-	public UserEditorInput(IReportModuleEntry entry, User user) {
+	public ResumeEditorInput(IReportModuleEntry entry, Resume user) {
 		super(entry, user);
 	}
 
 	public String getName() {
-		return (getModel() != null ? (getModel().getFirstName() + " " + getModel()
-				.getLastName()) : "New");
+		return (getModel() != null ? (getModel().getOwner().getFirstName()
+				+ " " + getModel().getOwner().getLastName()) : "New");
 	}
 
 	public String getToolTipText() {

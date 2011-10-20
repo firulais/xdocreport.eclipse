@@ -12,19 +12,18 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import fr.opensagres.eclipse.forms.widgets.DateTimeControl;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.User;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages;
 import fr.opensagres.xdocreport.eclipse.ui.FormLayoutFactory;
-import fr.opensagres.xdocreport.eclipse.ui.editors.AbstractFormEditor;
-import fr.opensagres.xdocreport.eclipse.ui.editors.AbstractFormPage;
+import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormEditor;
+import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormPage;
 
-public class OverviewPage extends AbstractFormPage<User> {
+public class OverviewPage extends ReportingFormPage<Resume> {
 
 	public static final String ID = "overview";
 	private Text firstNameText;
@@ -33,21 +32,12 @@ public class OverviewPage extends AbstractFormPage<User> {
 	private Text lastNameText;
 	private DateTimeControl birthDayDateTime;
 
-	public OverviewPage(AbstractFormEditor<User> editor) {
-		super(editor, ID, "Overview");
+	public OverviewPage(ReportingFormEditor<Resume> editor) {
+		super(editor, ID, Messages.ResumeFormEditor_OverviewPage_title);
 	}
 
 	@Override
-	protected void onCreateUI(IManagedForm managedForm) {
-		super.onCreateUI(managedForm);
-		final ScrolledForm form = managedForm.getForm();
-		final FormToolkit toolkit = managedForm.getToolkit();
-		form.setText(Messages.ResumeFormEditor_OverviewPage_title);
-		toolkit.decorateFormHeading(form.getForm());
-		fillBody(managedForm, toolkit);
-	}
-
-	private void fillBody(IManagedForm managedForm, FormToolkit toolkit) {
+	protected void fillBody(IManagedForm managedForm, FormToolkit toolkit) {
 		Composite body = managedForm.getForm().getBody();
 		TableWrapLayout tableWrapLayout = FormLayoutFactory
 				.createFormTableWrapLayout(true, 2);
@@ -92,7 +82,8 @@ public class OverviewPage extends AbstractFormPage<User> {
 		GridData gd_birthDayDateTimet = new GridData(GridData.FILL_HORIZONTAL);
 		gd_birthDayDateTimet.widthHint = 150;
 		birthDayDateTime.setLayoutData(gd_birthDayDateTimet);
-
+		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, birthDayDateTime);
+		
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
 
 	}
@@ -102,14 +93,14 @@ public class OverviewPage extends AbstractFormPage<User> {
 		IObservableValue firstNameTextObserveTextObserveWidget = SWTObservables
 				.observeText(firstNameText, SWT.Modify);
 		IObservableValue getModel1FirstNameObserveValue = PojoObservables
-				.observeValue(getModelObject(), "firstName");
+				.observeValue(getModelObject().getOwner(), "firstName");
 		bindingContext.bindValue(firstNameTextObserveTextObserveWidget,
 				getModel1FirstNameObserveValue, null, null);
 		//
 		IObservableValue lastNameTextObserveTextObserveWidget = SWTObservables
 				.observeText(lastNameText, SWT.Modify);
 		IObservableValue getModel1LastNameObserveValue = PojoObservables
-				.observeValue(getModelObject(), "lastName");
+				.observeValue(getModelObject().getOwner(), "lastName");
 		bindingContext.bindValue(lastNameTextObserveTextObserveWidget,
 				getModel1LastNameObserveValue, null, null);
 

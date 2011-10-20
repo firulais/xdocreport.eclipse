@@ -19,14 +19,14 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.User;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 
 /**
  * This page thanks the user for taking the survey
  */
 class CollaborateurWizardPage extends WizardPage {
 
-	private final User collaborateur;
+	private final Resume collaborateur;
 	private Text lastNameText;
 	private Text firstNameText;
 
@@ -35,7 +35,7 @@ class CollaborateurWizardPage extends WizardPage {
 	 * 
 	 * @param collaborateur
 	 */
-	public CollaborateurWizardPage(User collaborateur) {
+	public CollaborateurWizardPage(Resume collaborateur) {
 		super("Thanks");
 		this.collaborateur = collaborateur;
 		setTitle("Last page");
@@ -59,8 +59,8 @@ class CollaborateurWizardPage extends WizardPage {
 	}
 
 	public void updateData() {
-		collaborateur.setFirstName(firstNameText.getText());
-		collaborateur.setLastName(lastNameText.getText());
+		collaborateur.getOwner().setFirstName(firstNameText.getText());
+		collaborateur.getOwner().setLastName(lastNameText.getText());
 
 	}
 }
