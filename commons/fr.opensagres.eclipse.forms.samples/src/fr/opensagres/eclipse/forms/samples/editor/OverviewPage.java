@@ -18,12 +18,15 @@ import fr.opensagres.eclipse.forms.editor.ModelFormEditor;
 import fr.opensagres.eclipse.forms.editor.ModelFormPage;
 import fr.opensagres.eclipse.forms.samples.model.Person;
 import fr.opensagres.eclipse.forms.widgets.DateTimeControl;
+import fr.opensagres.eclipse.forms.widgets.PhotoControl;
+import fr.opensagres.eclipse.forms.widgets.SimpleWikiText;
 
 public class OverviewPage extends ModelFormPage<Person> {
 
 	private Text personNameText;
 	private Label label;
 	private DateTimeControl birthDaydateTime;
+	private SimpleWikiText commentsText;
 
 	public OverviewPage(ModelFormEditor editor) {
 		super(editor, "ID", "Person");
@@ -49,9 +52,27 @@ public class OverviewPage extends ModelFormPage<Person> {
 		label = toolkit.createLabel(parent, "");
 		label.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
+		// Date control
 		toolkit.createLabel(parent, "Birthday");
 		birthDaydateTime = new DateTimeControl(parent, SWT.NONE, toolkit);
 		birthDaydateTime.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		// Photo control
+		Label photoLabel = toolkit.createLabel(parent, "Photo");
+		GridData data = new GridData();
+		data.verticalAlignment = SWT.TOP;
+		photoLabel.setLayoutData(data);
+		PhotoControl photoControl = new PhotoControl(parent, SWT.NONE,
+				SWT.BORDER, toolkit);
+		photoControl.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		photoControl.setImageStream(OverviewPage.class
+				.getResourceAsStream("EmptyPhoto.jpg"));
+
+		// Wiki comments
+		toolkit.createLabel(parent, "Wiki Comments");
+		commentsText = new SimpleWikiText(parent, SWT.NONE, SWT.BORDER, toolkit);
+		commentsText.setLayoutData(new GridData(GridData.FILL_BOTH));
+
 	}
 
 	@Override

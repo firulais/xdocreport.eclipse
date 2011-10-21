@@ -1,10 +1,15 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Set;
 
 import fr.opensagres.xdocreport.document.images.ClassPathImageProvider;
 import fr.opensagres.xdocreport.document.images.IImageProvider;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
+import fr.opensagres.xdocreport.eclipse.utils.ByteArrayOutputStream;
+import fr.opensagres.xdocreport.eclipse.utils.IOUtils;
 
 //@Entity
 //@Table(name = "T_RESUME", schema = "hr")
@@ -135,5 +140,11 @@ public class Resume {
 
 	public IImageProvider getPhoto() {
 		return photo;
+	}
+	
+	public InputStream getPhotoAsStream() throws IOException {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		((ClassPathImageProvider)getPhoto()).write(out);
+		return new ByteArrayInputStream(out.toByteArray());
 	}
 }

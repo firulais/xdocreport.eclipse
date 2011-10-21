@@ -24,11 +24,10 @@ import org.eclipse.ui.forms.widgets.ImageHyperlink;
 
 import fr.opensagres.eclipse.forms.internal.ImageResources;
 
-public class DateTimeControl extends Composite {
+public class DateTimeControl extends BaseComposite {
 
 	private static final String DEFAULT_PATTERN = "dd//MM/yyyy";
 
-	private final FormToolkit toolkit;
 	private Text dateFieldText;
 	private Button lookupButton;
 	private Date date;
@@ -45,11 +44,7 @@ public class DateTimeControl extends Composite {
 
 	public DateTimeControl(Composite parent, int compositeStyle, int textStyle,
 			int buttonStyle, FormToolkit toolkit) {
-		super(parent, compositeStyle);
-		if (toolkit != null) {
-			toolkit.adapt(this);
-		}
-		this.toolkit = toolkit;
+		super(parent, compositeStyle, toolkit);
 		GridLayout layout = new GridLayout();
 		layout.numColumns  = 2;
 		layout.makeColumnsEqualWidth=false;
@@ -83,26 +78,6 @@ public class DateTimeControl extends Composite {
 			});
 			lookupButton.setImage(calendarImage);
 		}
-	}
-
-	protected Text createText(Composite parent, int style) {
-		FormToolkit toolkit = getToolkit();
-		if (toolkit != null) {
-			return toolkit.createText(parent, "", style);
-		}
-		return new Text(parent, style);
-	}
-
-	protected Button createButton(Composite parent, int style) {
-		FormToolkit toolkit = getToolkit();
-		if (toolkit != null) {
-			return toolkit.createButton(parent, "", style);
-		}
-		return new Button(parent, style);
-	}
-
-	public FormToolkit getToolkit() {
-		return toolkit;
 	}
 
 	public Text getDateFieldText() {

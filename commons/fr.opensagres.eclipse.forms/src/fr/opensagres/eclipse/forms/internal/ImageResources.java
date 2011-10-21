@@ -20,9 +20,11 @@ public class ImageResources {
 	private static final String PATH_OBJ = ICONS_PATH + "obj16/"; //$NON-NLS-1$
 
 	public static final String IMG_CALENDAR = "calendar";
+	public static final String IMG_DEFAULT_PHOTO = "default_photo";
 
 	public static void initialize(ImageRegistry imageRegistry) {
 		registerImage(imageRegistry, IMG_CALENDAR, PATH_OBJ + "calendar.png");
+		registerImage(imageRegistry, IMG_DEFAULT_PHOTO, PATH_OBJ + "default_photo.jpg");
 	}
 
 	private static void registerImage(ImageRegistry registry, String key,
