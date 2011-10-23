@@ -13,6 +13,7 @@ public class Experience {
 	// @Id
 	// @GeneratedValue
 	private Long id;
+	private String projectName;
 	// @Column
 	private Date startDate;
 	// @Column
@@ -70,5 +71,12 @@ public class Experience {
 		// Object oldValue = this.mission;
 		this.mission = mission;
 		// irePropertyChange("mission", oldValue, mission);
+	}
+	
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+	public String getProjectName() {
+		return projectName;
 	}
 }

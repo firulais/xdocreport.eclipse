@@ -1,13 +1,14 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.services;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import fr.opensagres.xdocreport.document.images.ClassPathImageProvider;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Experience;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 
 public class ResumeServiceImpl implements ResumeService {
@@ -18,32 +19,70 @@ public class ResumeServiceImpl implements ResumeService {
 		resumes = new HashMap<Long, Resume>();
 
 		// Angelo
-		NaturalPerson angelo = new NaturalPerson();
-		angelo.setId(currentId++);
-		angelo.setFirstName("Angelo");
-		angelo.setLastName("ZERR");
-
-		Resume angeloResume = new Resume();
-		angeloResume.setId(currentId++);
-		angeloResume.setOwner(angelo);
-		angeloResume.setPhoto(new ClassPathImageProvider(Resume.class,
-				"AngeloZERR.jpg"));
-
+		Resume angeloResume = createAngeloResume();
 		resumes.put(angeloResume.getId(), angeloResume);
 
 		// Pascal
-		NaturalPerson pascal = new NaturalPerson();
-		pascal.setId(currentId++);
-		pascal.setFirstName("Pascal");
-		pascal.setLastName("Leclercq");
+		Resume pascalResume = createPascalResume();
+		resumes.put(pascalResume.getId(), pascalResume);
+	}
 
-		Resume pascalResume = new Resume();
-		pascalResume.setId(currentId++);
-		pascalResume.setOwner(pascal);
-		pascalResume.setPhoto(new ClassPathImageProvider(Resume.class,
+	private static Resume createAngeloResume() {
+		// Angelo
+		NaturalPerson person = new NaturalPerson();
+		person.setId(currentId++);
+		person.setFirstName("Angelo");
+		person.setLastName("ZERR");
+
+		Resume resume = new Resume();
+		resume.setId(currentId++);
+		resume.setOwner(person);
+		resume.setPhoto(new ClassPathImageProvider(Resume.class,
+				"AngeloZERR.jpg"));
+
+		Set<Experience> experiences = new HashSet<Experience>();
+		resume.setExperiences(experiences);
+		
+		Experience experience = null;
+
+		// Experience 1
+		experience = new Experience();
+		experience.setId(currentId++);
+		experience.setProjectName("Projet SIDoc");
+		experience.setMission("Conception / Développement");
+		experience
+				.setContext("Mise en place de l'application WEB de diffusion (qui sera accéssible dans les accueils des CAF) qui permet de publier les documents XML produits par l'application WEB de production.");
+		experiences.add(experience);
+
+		// Experience 2
+		experience = new Experience();
+		experience.setId(currentId++);
+		experience.setProjectName("ERP AgroV3");
+		experience.setMission("Conception / Développement");
+		experience
+				.setContext("Conception et développement de fonctionnalités dans le  module VENTES/ACHATS et COMPTABILITE de l'ERP agrolimentaire AgroV3 de INFOLOGIC. Cet ERP est basé sur les technologies d'Eclipse SWT et JFace.");
+		experiences.add(experience);
+
+		return resume;
+	}
+
+	private static Resume createPascalResume() {
+		// Pascal
+		NaturalPerson person = new NaturalPerson();
+		person.setId(currentId++);
+		person.setFirstName("Pascal");
+		person.setLastName("Leclercq");
+
+		Resume resume = new Resume();
+		resume.setId(currentId++);
+		resume.setOwner(person);
+		resume.setPhoto(new ClassPathImageProvider(Resume.class,
 				"PascalLeclercq.jpg"));
 
-		resumes.put(pascalResume.getId(), pascalResume);
+		Set<Experience> experiences = new HashSet<Experience>();
+		resume.setExperiences(experiences);
+
+		return resume;
 	}
 
 	public Collection<Resume> findAll() {
@@ -67,16 +106,27 @@ public class ResumeServiceImpl implements ResumeService {
 	}
 
 	private Resume clone(Resume resume) {
-		NaturalPerson person= resume.getOwner();
+		NaturalPerson person = resume.getOwner();
 		NaturalPerson newPerson = clone(person);
-		
+
 		Resume newResume = new Resume();
 		newResume.setId(resume.getId());
 		newResume.setOwner(newPerson);
 		newResume.setPhoto(resume.getPhoto());
+
+		// Experiences
+		Set<Experience> experiences = resume.getExperiences();
+		if (experiences != null) {
+			Set<Experience> newExperiences = new HashSet<Experience>();
+			for (Experience experience : experiences) {
+				newExperiences.add(clone(experience));
+			}
+			newResume.setExperiences(newExperiences);
+		}
+
 		return newResume;
 	}
-	
+
 	private NaturalPerson clone(NaturalPerson person) {
 		NaturalPerson newPerson = new NaturalPerson();
 		newPerson.setId(person.getId());
@@ -84,5 +134,16 @@ public class ResumeServiceImpl implements ResumeService {
 		newPerson.setFirstName(person.getFirstName());
 		newPerson.setBirthDate(person.getBirthDate());
 		return newPerson;
+	}
+
+	private Experience clone(Experience experience) {
+		Experience newExperience = new Experience();
+		newExperience.setId(experience.getId());
+		newExperience.setProjectName(experience.getProjectName());
+		newExperience.setContext(experience.getContext());
+		newExperience.setMission(experience.getMission());
+		newExperience.setEndDate(experience.getEndDate());
+		newExperience.setStartDate(experience.getStartDate());
+		return newExperience;
 	}
 }

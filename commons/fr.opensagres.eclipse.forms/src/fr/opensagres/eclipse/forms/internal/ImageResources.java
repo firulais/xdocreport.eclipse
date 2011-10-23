@@ -21,10 +21,14 @@ public class ImageResources {
 
 	public static final String IMG_CALENDAR = "calendar";
 	public static final String IMG_DEFAULT_PHOTO = "default_photo";
+	public static final String IMG_TH_HORIZONTAL = "th_horizontal";
+	public static final String IMG_TH_VERTICAL = "th_vertical";
 
 	public static void initialize(ImageRegistry imageRegistry) {
 		registerImage(imageRegistry, IMG_CALENDAR, PATH_OBJ + "calendar.png");
 		registerImage(imageRegistry, IMG_DEFAULT_PHOTO, PATH_OBJ + "default_photo.jpg");
+		registerImage(imageRegistry, IMG_TH_HORIZONTAL, PATH_OBJ + "th_horizontal.gif");		
+		registerImage(imageRegistry, IMG_TH_VERTICAL, PATH_OBJ + "th_vertical.gif");
 	}
 
 	private static void registerImage(ImageRegistry registry, String key,

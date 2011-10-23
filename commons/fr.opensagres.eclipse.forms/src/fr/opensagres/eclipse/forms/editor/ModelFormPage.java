@@ -27,7 +27,7 @@ public abstract class ModelFormPage<Model> extends AbstractFormPage {
 		getEditor().bind(this, dataBindingContext);
 	}
 
-	protected Model getModelObject() {
+	public Model getModelObject() {
 		return (Model) getEditor().getModelObject();
 	}
 

@@ -26,7 +26,7 @@ import fr.opensagres.eclipse.forms.internal.ImageResources;
 
 public class DateTimeControl extends BaseComposite {
 
-	private static final String DEFAULT_PATTERN = "dd//MM/yyyy";
+	private static final String DEFAULT_PATTERN = "dd/MM/yyyy";
 
 	private Text dateFieldText;
 	private Button lookupButton;
