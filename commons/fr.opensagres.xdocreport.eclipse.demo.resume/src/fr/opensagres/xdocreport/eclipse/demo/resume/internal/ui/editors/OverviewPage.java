@@ -1,6 +1,5 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import org.eclipse.core.databinding.DataBindingContext;
@@ -26,15 +25,13 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 
 import fr.opensagres.eclipse.forms.widgets.DateTimeControl;
 import fr.opensagres.eclipse.forms.widgets.PhotoControl;
-import fr.opensagres.xdocreport.document.images.ClassPathImageProvider;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ImageResources;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages;
 import fr.opensagres.xdocreport.eclipse.ui.FormLayoutFactory;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormEditor;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormPage;
-import fr.opensagres.xdocreport.eclipse.utils.ByteArrayOutputStream;
-import fr.opensagres.xdocreport.eclipse.utils.IOUtils;
 
 public class OverviewPage extends ReportingFormPage<Resume> implements
 		IHyperlinkListener {
@@ -53,7 +50,7 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 
 	@Override
 	protected Image getFormTitleImage() {
-		return ImageResources.getImage(ImageResources.IMG_OVERVIEW);
+		return ImageResources.getImage(ImageResources.IMG_OVERVIEW_16);
 	}
 
 	@Override
@@ -148,10 +145,14 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 		FormText text = createClient(container,
 				Messages.ResumeFormEditor_OverviewPage_ResumeContent_content,
 				toolkit);
+		text.setImage("diploma_page",
+				ImageResources.getImage(ImageResources.IMG_DIPLOMA_16));
 		text.setImage("experiences_page",
-				ImageResources.getImage(ImageResources.IMG_EXPERIENCES));
+				ImageResources.getImage(ImageResources.IMG_EXPERIENCES_16));
 		text.setImage("skills_page",
-				ImageResources.getImage(ImageResources.IMG_SKILLS));
+				ImageResources.getImage(ImageResources.IMG_SKILLS_16));
+		text.setImage("hobbies_page",
+				ImageResources.getImage(ImageResources.IMG_HOBBIES_16));
 		section.setClient(container);
 
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
@@ -179,8 +180,7 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 		return container;
 	}
 
-	@Override
-	protected void onBind(DataBindingContext bindingContext) {
+	public void onBind(DataBindingContext bindingContext) {
 		onBindGeneralInfo(bindingContext);
 
 	}
@@ -189,33 +189,34 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 		IObservableValue firstNameTextObserveTextObserveWidget = SWTObservables
 				.observeText(firstNameText, SWT.Modify);
 		IObservableValue getModel1FirstNameObserveValue = PojoObservables
-				.observeValue(getModelObject().getOwner(), "firstName");
+				.observeValue(getModelObject().getOwner(),
+						NaturalPerson.FIRST_NAME_PROPERTY);
 		bindingContext.bindValue(firstNameTextObserveTextObserveWidget,
 				getModel1FirstNameObserveValue, null, null);
 		//
 		IObservableValue lastNameTextObserveTextObserveWidget = SWTObservables
 				.observeText(lastNameText, SWT.Modify);
 		IObservableValue getModel1LastNameObserveValue = PojoObservables
-				.observeValue(getModelObject().getOwner(), "lastName");
+				.observeValue(getModelObject().getOwner(),
+						NaturalPerson.LAST_NAME_PROPERTY);
 		bindingContext.bindValue(lastNameTextObserveTextObserveWidget,
 				getModel1LastNameObserveValue, null, null);
 
 		// TODO : bind image photo with IImageProvider of the model.
-		// for the moment, just load the image from the model		
+		// for the moment, just load the image from the model
 		try {
 			photo.setImageStream(getModelObject().getPhotoAsStream());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-//		IObservableValue photoObserveImageObserveWidget = SWTObservables
-//				.observeImage(photo.getPhotoLabel());
-//		IObservableValue getModelPhotoObserveValue = PojoObservables
-//				.observeValue(getModelObject().getOwner(), "lastName");
-//		bindingContext.bindValue(lastNameTextObserveTextObserveWidget,
-//				getModel1LastNameObserveValue, null, null);
+
+		// IObservableValue photoObserveImageObserveWidget = SWTObservables
+		// .observeImage(photo.getPhotoLabel());
+		// IObservableValue getModelPhotoObserveValue = PojoObservables
+		// .observeValue(getModelObject().getOwner(), "lastName");
+		// bindingContext.bindValue(lastNameTextObserveTextObserveWidget,
+		// getModel1LastNameObserveValue, null, null);
 
 	}
 

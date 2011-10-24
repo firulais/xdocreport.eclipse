@@ -12,6 +12,8 @@ import org.eclipse.core.databinding.observable.IChangeListener;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.IEditorInput;
 
+import fr.opensagres.eclipse.forms.IBindableAware;
+
 public abstract class ModelFormEditor<EditorInput extends IEditorInput, Model>
 		extends AbstractFormEditor<EditorInput> {
 
@@ -39,7 +41,7 @@ public abstract class ModelFormEditor<EditorInput extends IEditorInput, Model>
 
 	private ChangeTracker changeTracker;
 	private boolean initializeBinding;
-	private final List<ModelFormPage<?>> pagesAlreadyBounded;
+	private final List<IBindableAware> pagesAlreadyBounded;
 	private final Map<String, DataBindingContext> dataBindingContextCahe;
 
 	private Model model;
@@ -47,7 +49,7 @@ public abstract class ModelFormEditor<EditorInput extends IEditorInput, Model>
 
 	public ModelFormEditor() {
 		this.initializeBinding = false;
-		this.pagesAlreadyBounded = new ArrayList<ModelFormPage<?>>();
+		this.pagesAlreadyBounded = new ArrayList<IBindableAware>();
 		this.dataBindingContextCahe = new HashMap<String, DataBindingContext>();
 	}
 
@@ -70,7 +72,7 @@ public abstract class ModelFormEditor<EditorInput extends IEditorInput, Model>
 		return (Model) model;
 	}
 
-	protected synchronized void bind(ModelFormPage<?> page,
+	protected synchronized void bind(IBindableAware page,
 			DataBindingContext dataBindingContext) {
 		try {
 			changeTracker.setEnabled(false);
@@ -126,7 +128,7 @@ public abstract class ModelFormEditor<EditorInput extends IEditorInput, Model>
 			dataBindingContext.dispose();
 		}
 
-		for (ModelFormPage<?> page : pagesAlreadyBounded) {
+		for (IBindableAware page : pagesAlreadyBounded) {
 			page.bind();
 		}
 		dirtyFlag.setDirty(false);

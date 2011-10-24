@@ -20,7 +20,7 @@ public class ExperienceLabelProvider extends LabelProvider {
 	@Override
 	public String getText(Object element) {
 		if (element instanceof Experience) {
-			return ((Experience) element).getProjectName();
+			return ((Experience) element).getTitle();
 		}
 		return super.getText(element);
 	}

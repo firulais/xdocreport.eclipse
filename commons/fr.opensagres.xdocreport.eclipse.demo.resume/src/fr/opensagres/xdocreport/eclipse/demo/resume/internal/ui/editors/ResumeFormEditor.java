@@ -16,8 +16,10 @@ public class ResumeFormEditor extends ReportingFormEditor<Resume> {
 	protected void doAddPages() {
 		try {
 			addPage(new OverviewPage(this));
+			addPage(new DiplomasPage(this));
 			addPage(new ExperiencesPage(this));
 			addPage(new SkillsPage(this));
+			addPage(new HobbiesPage(this));
 		} catch (PartInitException e) {
 			e.printStackTrace();
 		}

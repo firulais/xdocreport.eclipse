@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class NaturalPerson extends Person {
 
+	public static final String FIRST_NAME_PROPERTY = "firstName";
+	public static final String LAST_NAME_PROPERTY = "lastName";
 	/**
      * 
      */
@@ -143,9 +145,9 @@ public class NaturalPerson extends Person {
 	}
 
 	public void setCurrentEmployer(Collaboration currentEmployer) {
-		//Object oldValue = this.currentEmployer;
+		// Object oldValue = this.currentEmployer;
 		this.currentEmployer = currentEmployer;
-		//firePropertyChange("currentEmployer", oldValue, currentEmployer);
+		// firePropertyChange("currentEmployer", oldValue, currentEmployer);
 	}
 
 }

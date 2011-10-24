@@ -11,23 +11,22 @@ import fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormEditor;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormPage;
 
-public class SkillsPage extends ReportingFormPage<Resume> {
+public class HobbiesPage extends ReportingFormPage<Resume> {
 
-	public static final String ID = "skills";
+	public static final String ID = "hobbies";
 
-	public SkillsPage(ReportingFormEditor<Resume> editor) {
-		super(editor, ID, Messages.ResumeFormEditor_SkillsPage_title);
+	public HobbiesPage(ReportingFormEditor<Resume> editor) {
+		super(editor, ID, Messages.ResumeFormEditor_HobbiesPage_title);
 	}
 	
 	@Override
 	protected Image getFormTitleImage() {
-		return ImageResources.getImage(ImageResources.IMG_SKILLS_16);
+		return ImageResources.getImage(ImageResources.IMG_HOBBIES_24);
 	}
 
 	@Override
 	protected void fillBody(IManagedForm managedForm, FormToolkit toolkit) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	public void onBind(DataBindingContext dataBindingContext) {

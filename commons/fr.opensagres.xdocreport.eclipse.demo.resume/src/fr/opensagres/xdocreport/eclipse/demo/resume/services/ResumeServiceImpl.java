@@ -8,6 +8,7 @@ import java.util.Set;
 
 import fr.opensagres.xdocreport.document.images.ClassPathImageProvider;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Diploma;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Experience;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 
@@ -40,27 +41,39 @@ public class ResumeServiceImpl implements ResumeService {
 		resume.setPhoto(new ClassPathImageProvider(Resume.class,
 				"AngeloZERR.jpg"));
 
+		// Diplomas
+		Set<Diploma> diplomas = new HashSet<Diploma>();
+		resume.setDiplomas(diplomas);
+
+		Diploma diploma = null;
+
+		diploma = new Diploma();
+		diploma.setId(currentId++);
+		diploma.setLabel("Diplôme d’ingénieur en informatique");
+		diploma.setInstitute("INSA de Lyon");
+		diplomas.add(diploma);
+
+		// Experiences
 		Set<Experience> experiences = new HashSet<Experience>();
 		resume.setExperiences(experiences);
-		
 		Experience experience = null;
 
 		// Experience 1
 		experience = new Experience();
 		experience.setId(currentId++);
-		experience.setProjectName("Projet SIDoc");
+		experience.setTitle("Projet SIDoc");
 		experience.setMission("Conception / Développement");
 		experience
-				.setContext("Mise en place de l'application WEB de diffusion (qui sera accéssible dans les accueils des CAF) qui permet de publier les documents XML produits par l'application WEB de production.");
+				.setDetail("Mise en place de l'application WEB de diffusion (qui sera accéssible dans les accueils des CAF) qui permet de publier les documents XML produits par l'application WEB de production.");
 		experiences.add(experience);
 
 		// Experience 2
 		experience = new Experience();
 		experience.setId(currentId++);
-		experience.setProjectName("ERP AgroV3");
+		experience.setTitle("ERP AgroV3");
 		experience.setMission("Conception / Développement");
 		experience
-				.setContext("Conception et développement de fonctionnalités dans le  module VENTES/ACHATS et COMPTABILITE de l'ERP agrolimentaire AgroV3 de INFOLOGIC. Cet ERP est basé sur les technologies d'Eclipse SWT et JFace.");
+				.setDetail("Conception et développement de fonctionnalités dans le  module VENTES/ACHATS et COMPTABILITE de l'ERP agrolimentaire AgroV3 de INFOLOGIC. Cet ERP est basé sur les technologies d'Eclipse SWT et JFace.");
 		experiences.add(experience);
 
 		return resume;
@@ -114,6 +127,16 @@ public class ResumeServiceImpl implements ResumeService {
 		newResume.setOwner(newPerson);
 		newResume.setPhoto(resume.getPhoto());
 
+		// Diplomas
+		Set<Diploma> diplomas = resume.getDiplomas();
+		if (diplomas != null) {
+			Set<Diploma> newDiplomas = new HashSet<Diploma>();
+			for (Diploma diploma : diplomas) {
+				newDiplomas.add(clone(diploma));
+			}
+			newResume.setDiplomas(newDiplomas);
+		}
+
 		// Experiences
 		Set<Experience> experiences = resume.getExperiences();
 		if (experiences != null) {
@@ -139,11 +162,20 @@ public class ResumeServiceImpl implements ResumeService {
 	private Experience clone(Experience experience) {
 		Experience newExperience = new Experience();
 		newExperience.setId(experience.getId());
-		newExperience.setProjectName(experience.getProjectName());
-		newExperience.setContext(experience.getContext());
+		newExperience.setTitle(experience.getTitle());
+		newExperience.setDetail(experience.getDetail());
 		newExperience.setMission(experience.getMission());
 		newExperience.setEndDate(experience.getEndDate());
 		newExperience.setStartDate(experience.getStartDate());
 		return newExperience;
+	}
+
+	private Diploma clone(Diploma diploma) {
+		Diploma newDiploma = new Diploma();
+		newDiploma.setId(diploma.getId());
+		newDiploma.setLabel(diploma.getLabel());
+		newDiploma.setInstitute(diploma.getInstitute());
+		;
+		return newDiploma;
 	}
 }

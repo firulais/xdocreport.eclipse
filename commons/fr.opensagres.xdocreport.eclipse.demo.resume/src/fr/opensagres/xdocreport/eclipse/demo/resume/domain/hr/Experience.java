@@ -10,10 +10,13 @@ public class Experience {
          * 
          */
 	private static final long serialVersionUID = 8846754655040768127L;
+	public static final String TITLE_PROPERTY = "title";
+	public static final String MISSION_PROPERTY = "mission";
+	public static final String DETAIL_PROPERTY = "detail";
 	// @Id
 	// @GeneratedValue
 	private Long id;
-	private String projectName;
+	private String title;
 	// @Column
 	private Date startDate;
 	// @Column
@@ -53,11 +56,11 @@ public class Experience {
 		// firePropertyChange("endDate", oldValue, endDate);
 	}
 
-	public String getContext() {
+	public String getDetail() {
 		return context;
 	}
 
-	public void setContext(String context) {
+	public void setDetail(String context) {
 		// Object oldValue = this.context;
 		this.context = context;
 		// firePropertyChange("context", oldValue, context);
@@ -72,11 +75,12 @@ public class Experience {
 		this.mission = mission;
 		// irePropertyChange("mission", oldValue, mission);
 	}
-	
-	public void setProjectName(String projectName) {
-		this.projectName = projectName;
+
+	public String getTitle() {
+		return title;
 	}
-	public String getProjectName() {
-		return projectName;
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 }

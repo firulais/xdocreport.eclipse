@@ -1,10 +1,15 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr;
 
 public class Diploma {
+	
+	public static final String LABEL_PROPERTY = "label";
+	public static final String INSTITUTE_PROPERTY = "institute";
+	
 	/**
      * 
      */
 	private static final long serialVersionUID = 2452995207655152758L;
+	
 	// @Id
 	// @GeneratedValue
 	private Long id;

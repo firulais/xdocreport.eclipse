@@ -26,8 +26,7 @@ public abstract class ModelMasterDetailsFormPage<Model> extends
 		block.createContent(managedForm);
 	}
 
-	@Override
-	protected void onBind(DataBindingContext dataBindingContext) {
+	public void onBind(DataBindingContext dataBindingContext) {
 		block.onBind(dataBindingContext);
 	}
 

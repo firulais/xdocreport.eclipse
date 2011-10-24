@@ -42,8 +42,7 @@ public class AdressPage extends ModelFormPage<Person> {
 
 	}
 
-	@Override
-	protected void onBind(DataBindingContext dataBindingContext) {
+	public void onBind(DataBindingContext dataBindingContext) {
 		dataBindingContext.bindValue(
 				SWTObservables.observeText(personNameText, SWT.Modify),
 				PojoObservables.observeValue(getModelObject(), "name"));

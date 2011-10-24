@@ -3,13 +3,15 @@ package fr.opensagres.eclipse.forms;
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.forms.IDetailsPageProvider;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.MasterDetailsBlock;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 
 import fr.opensagres.eclipse.forms.internal.ImageResources;
 
-public abstract class AbstractMasterDetailsBlock extends MasterDetailsBlock {
+public abstract class AbstractMasterDetailsBlock extends MasterDetailsBlock
+		implements IDetailsPageProvider {
 
 	@Override
 	protected final void createMasterPart(IManagedForm managedForm,
@@ -29,7 +31,7 @@ public abstract class AbstractMasterDetailsBlock extends MasterDetailsBlock {
 
 	protected abstract void onCreateUI(IManagedForm managedForm,
 			Composite parent);
-	
+
 	protected void createToolBarActions(IManagedForm managedForm) {
 		final ScrolledForm form = managedForm.getForm();
 		Action haction = new Action("hor", Action.AS_RADIO_BUTTON) { //$NON-NLS-1$
@@ -55,4 +57,7 @@ public abstract class AbstractMasterDetailsBlock extends MasterDetailsBlock {
 		form.getToolBarManager().add(haction);
 		form.getToolBarManager().add(vaction);
 	}
-}
+
+	protected void registerPages(org.eclipse.ui.forms.DetailsPart detailsPart) {
+		detailsPart.setPageProvider(this);
+	}}

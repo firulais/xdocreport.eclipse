@@ -20,21 +20,20 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
 import fr.opensagres.eclipse.forms.ModelMasterDetailsBlock;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Experience;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Diploma;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages;
-import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers.ExperienceContentProvider;
-import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers.ExperienceLabelProvider;
+import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers.DiplomaContentProvider;
+import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers.DiplomaLabelProvider;
 
-public class ExperiencesMasterDetailsBlock extends
-		ModelMasterDetailsBlock<Resume> {
+public class DiplomasMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 
-	private ExperienceDetailsPage experienceDetailsPage;
+	private DiplomaDetailsPage diplomaDetailsPage;
 	private TableViewer viewer;
 
-	public ExperiencesMasterDetailsBlock(ExperiencesPage experiencesPage) {
-		super(experiencesPage);
-		this.experienceDetailsPage = new ExperienceDetailsPage();
+	public DiplomasMasterDetailsBlock(DiplomasPage diplomasPage) {
+		super(diplomasPage);
+		this.diplomaDetailsPage = new DiplomaDetailsPage();
 	}
 
 	@Override
@@ -43,8 +42,8 @@ public class ExperiencesMasterDetailsBlock extends
 		FormToolkit toolkit = managedForm.getToolkit();
 		Section section = toolkit.createSection(parent, Section.DESCRIPTION
 				| Section.TITLE_BAR);
-		section.setText(Messages.ResumeFormEditor_ExperiencesPage_ExperiencesMasterDetailsBlock_title); //$NON-NLS-1$
-		section.setDescription(Messages.ResumeFormEditor_ExperiencesPage_ExperiencesMasterDetailsBlock_desc); //$NON-NLS-1$
+		section.setText(Messages.ResumeFormEditor_DiplomasPage_DiplomasMasterDetailsBlock_title); //$NON-NLS-1$
+		section.setDescription(Messages.ResumeFormEditor_DiplomasPage_DiplomasMasterDetailsBlock_desc); //$NON-NLS-1$
 		section.marginWidth = 10;
 		section.marginHeight = 5;
 
@@ -55,11 +54,11 @@ public class ExperiencesMasterDetailsBlock extends
 		layout.marginHeight = 2;
 		client.setLayout(layout);
 
-		Table experiencesTable = toolkit.createTable(client, SWT.NULL);
+		Table diplomasTable = toolkit.createTable(client, SWT.NULL);
 		GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.heightHint = 20;
 		gd.widthHint = 100;
-		experiencesTable.setLayoutData(gd);
+		diplomasTable.setLayoutData(gd);
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, client);
 
 		Button b = toolkit.createButton(client, "Add", SWT.PUSH); //$NON-NLS-1$
@@ -69,27 +68,27 @@ public class ExperiencesMasterDetailsBlock extends
 
 		final SectionPart spart = new SectionPart(section);
 		managedForm.addPart(spart);
-		viewer = new TableViewer(experiencesTable);
+		viewer = new TableViewer(diplomasTable);
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			public void selectionChanged(SelectionChangedEvent event) {
 				managedForm.fireSelectionChanged(spart, event.getSelection());
 			}
 		});
-		viewer.setContentProvider(ExperienceContentProvider.getInstance());
-		viewer.setLabelProvider(ExperienceLabelProvider.getInstance());
+		viewer.setContentProvider(DiplomaContentProvider.getInstance());
+		viewer.setLabelProvider(DiplomaLabelProvider.getInstance());
 	}
 
 	@Override
 	public void onBind(DataBindingContext dataBindingContext) {
-		Set<Experience> experiences = getModelObject().getExperiences();
-		if (experiences == null) {
-			getModelObject().setExperiences(experiences);
+		Set<Diploma> diplomas = getModelObject().getDiplomas();
+		if (diplomas == null) {
+			getModelObject().setDiplomas(diplomas);
 		}
-		viewer.setInput(experiences);
+		viewer.setInput(diplomas);
 	}
 
 	public IDetailsPage getPage(Object key) {
-		return experienceDetailsPage;
+		return diplomaDetailsPage;
 	}
 
 	public Object getPageKey(Object object) {

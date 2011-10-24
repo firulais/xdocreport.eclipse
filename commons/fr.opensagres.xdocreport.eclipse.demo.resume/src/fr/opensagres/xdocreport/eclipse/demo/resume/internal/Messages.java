@@ -24,14 +24,31 @@ public class Messages extends NLS {
 	public static String ResumeFormEditor_OverviewPage_ResumeContent_title;
 	public static String ResumeFormEditor_OverviewPage_ResumeContent_content;	
 
-	// Overview/Experiences Page
+	// Diploma Page
+	public static String ResumeFormEditor_DiplomasPage_title;
+	public static String ResumeFormEditor_DiplomasPage_DiplomasMasterDetailsBlock_title;
+	public static String ResumeFormEditor_DiplomasPage_DiplomasMasterDetailsBlock_desc;
+	public static String ResumeFormEditor_DiplomasPage_DiplomaDetailsPage_title;
+	public static String ResumeFormEditor_DiplomasPage_DiplomaDetailsPage_desc;
+	public static String ResumeFormEditor_DiplomasPage_DiplomaDetailsPage_diplomaLabel_label;
+	public static String ResumeFormEditor_DiplomasPage_DiplomaDetailsPage_diplomaInstitute_label;
+	
+	// Experiences Page
 	public static String ResumeFormEditor_ExperiencesPage_title;
 	public static String ResumeFormEditor_ExperiencesPage_ExperiencesMasterDetailsBlock_title;
 	public static String ResumeFormEditor_ExperiencesPage_ExperiencesMasterDetailsBlock_desc;
+	public static String ResumeFormEditor_ExperiencesPage_ExperienceDetailsPage_title;
+	public static String ResumeFormEditor_ExperiencesPage_ExperienceDetailsPage_desc;
+	public static String ResumeFormEditor_ExperiencesPage_ExperienceDetailsPage_experienceTitle_label;
+	public static String ResumeFormEditor_ExperiencesPage_ExperienceDetailsPage_experienceMission_label;
+	public static String ResumeFormEditor_ExperiencesPage_ExperienceDetailsPage_experienceDetail_label;
 	
 	// Skills Page
 	public static String ResumeFormEditor_SkillsPage_title;
 
+	// Hobbies Page
+	public static String ResumeFormEditor_HobbiesPage_title;
+	
 	static {
 		// load message values from bundle file
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

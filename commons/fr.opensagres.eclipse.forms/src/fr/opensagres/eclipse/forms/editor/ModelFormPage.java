@@ -3,9 +3,10 @@ package fr.opensagres.eclipse.forms.editor;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.ui.forms.IManagedForm;
 
-public abstract class ModelFormPage<Model> extends AbstractFormPage {
+import fr.opensagres.eclipse.forms.IBindableAware;
 
-	private DataBindingContext dataBindingContext;
+public abstract class ModelFormPage<Model> extends AbstractFormPage implements
+		IBindableAware {
 
 	public ModelFormPage(ModelFormEditor editor, String id, String title) {
 		super(editor, id, title);
@@ -21,7 +22,7 @@ public abstract class ModelFormPage<Model> extends AbstractFormPage {
 		bind();
 	}
 
-	protected void bind() {
+	public void bind() {
 		DataBindingContext dataBindingContext = getEditor()
 				.getDatabindingContext(getDatabindingContentId());
 		getEditor().bind(this, dataBindingContext);
@@ -30,8 +31,6 @@ public abstract class ModelFormPage<Model> extends AbstractFormPage {
 	public Model getModelObject() {
 		return (Model) getEditor().getModelObject();
 	}
-
-	protected abstract void onBind(DataBindingContext dataBindingContext);
 
 	protected String getDatabindingContentId() {
 		return ModelFormEditor.SHARED_DATABINDING_CONTEXT_ID;

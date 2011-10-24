@@ -56,4 +56,8 @@ public class SimpleWikiText extends BaseComposite {
 		text.setLayoutData(new GridData(GridData.FILL_BOTH));
 		return text;
 	}
+	
+	public Text getTextarea() {
+		return text;
+	}
 }
