@@ -82,7 +82,16 @@ public class PhotoControl extends BaseComposite {
 		if (photo != null && photo != defaultImage) {
 			photo.dispose();
 		}
-		this.photo = new Image(super.getDisplay(), imageData);
+
+		int height = imageData.height;
+		int width = imageData.width;
+
+		float ratio = Math.max(height / 50, width / 50);
+
+		final ImageData resized = imageData.scaledTo((int) (height / ratio),
+				(int) (width / ratio));
+
+		this.photo = new Image(super.getDisplay(), resized);
 		photoLabel.setImage(photo);
 		// Problem when image is uploaded and has not the same size, how to
 		// recompute layout?
