@@ -25,25 +25,24 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
 import fr.opensagres.eclipse.forms.ModelMasterDetailsBlock;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Experience;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Hobby;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages;
-import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers.ExperienceContentProvider;
-import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers.ExperienceLabelProvider;
+import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers.HobbyContentProvider;
+import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers.HobbyLabelProvider;
 
-public class ExperiencesMasterDetailsBlock extends
-		ModelMasterDetailsBlock<Resume> {
+public class HobbiesMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 
 	private static final Integer ADD_BUTTON_INDEX = 1;
 	private static final Integer REMOVE_BUTTON_INDEX = 2;
 
-	private ExperienceDetailsPage experienceDetailsPage;
+	private HobbyDetailsPage hobbyDetailsPage;
 	private TableViewer viewer;
 	private Button removeButton;
 
-	public ExperiencesMasterDetailsBlock(ExperiencesPage experiencesPage) {
-		super(experiencesPage);
-		this.experienceDetailsPage = new ExperienceDetailsPage();
+	public HobbiesMasterDetailsBlock(HobbiesPage hobbiesPage) {
+		super(hobbiesPage);
+		this.hobbyDetailsPage = new HobbyDetailsPage();
 	}
 
 	@Override
@@ -52,8 +51,8 @@ public class ExperiencesMasterDetailsBlock extends
 		FormToolkit toolkit = managedForm.getToolkit();
 		Section section = toolkit.createSection(parent, Section.DESCRIPTION
 				| Section.TITLE_BAR);
-		section.setText(Messages.ResumeFormEditor_ExperiencesPage_ExperiencesMasterDetailsBlock_title); //$NON-NLS-1$
-		section.setDescription(Messages.ResumeFormEditor_ExperiencesPage_ExperiencesMasterDetailsBlock_desc); //$NON-NLS-1$
+		section.setText(Messages.ResumeFormEditor_HobbiesPage_HobbiesMasterDetailsBlock_title); //$NON-NLS-1$
+		section.setDescription(Messages.ResumeFormEditor_HobbiesPage_HobbiesMasterDetailsBlock_desc); //$NON-NLS-1$
 		section.marginWidth = 10;
 		section.marginHeight = 5;
 
@@ -64,20 +63,20 @@ public class ExperiencesMasterDetailsBlock extends
 		layout.marginHeight = 2;
 		client.setLayout(layout);
 
-		Table experiencesTable = toolkit.createTable(client, SWT.MULTI);
+		Table hobbiesTable = toolkit.createTable(client, SWT.MULTI);
 		GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.heightHint = 20;
 		gd.widthHint = 100;
-		experiencesTable.setLayoutData(gd);
+		hobbiesTable.setLayoutData(gd);
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, client);
 
 		createButtons(toolkit, client);
-		
+
 		section.setClient(client);
-		
+
 		final SectionPart spart = new SectionPart(section);
 		managedForm.addPart(spart);
-		viewer = new TableViewer(experiencesTable);
+		viewer = new TableViewer(hobbiesTable);
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			public void selectionChanged(SelectionChangedEvent event) {
 				IStructuredSelection selection = (IStructuredSelection) event
@@ -89,8 +88,8 @@ public class ExperiencesMasterDetailsBlock extends
 				removeButton.setEnabled(true);
 			}
 		});
-		viewer.setContentProvider(ExperienceContentProvider.getInstance());
-		viewer.setLabelProvider(ExperienceLabelProvider.getInstance());
+		viewer.setContentProvider(HobbyContentProvider.getInstance());
+		viewer.setLabelProvider(HobbyLabelProvider.getInstance());
 	}
 
 	private void createButtons(FormToolkit toolkit, Composite parent) {
@@ -134,23 +133,23 @@ public class ExperiencesMasterDetailsBlock extends
 	}
 
 	protected void handleAddButton() {
-		Experience experience = new Experience();
-		experience.setTitle("New experience");
-		getExperiences().add(experience);
-		viewer.add(experience);
-		viewer.setSelection(new StructuredSelection(experience));
+		Hobby hobby = new Hobby();
+		hobby.setLabel("New hobby");
+		getHobbies().add(hobby);
+		viewer.add(hobby);
+		viewer.setSelection(new StructuredSelection(hobby));
 	}
 
 	protected void handleRemoveButton() {
 		IStructuredSelection selection = (IStructuredSelection) viewer
 				.getSelection();
 		if (!selection.isEmpty()) {
-			Experience experience = null;
-			Object[] experiences = selection.toArray();
-			for (int i = 0; i < experiences.length; i++) {
-				experience = (Experience) experiences[i];
-				getExperiences().remove(experience);
-				viewer.remove(experience);
+			Hobby hobby = null;
+			Object[] hobbies = selection.toArray();
+			for (int i = 0; i < hobbies.length; i++) {
+				hobby = (Hobby) hobbies[i];
+				getHobbies().remove(hobby);
+				viewer.remove(hobby);
 			}
 			viewer.refresh();
 		}
@@ -164,21 +163,21 @@ public class ExperiencesMasterDetailsBlock extends
 
 	@Override
 	public void onBind(DataBindingContext dataBindingContext) {
-		Set<Experience> experiences = getExperiences();
-		viewer.setInput(experiences);
+		Set<Hobby> hobbies = getHobbies();
+		viewer.setInput(hobbies);
 	}
 
-	private Set<Experience> getExperiences() {
-		Set<Experience> experiences = getModelObject().getExperiences();
-		if (experiences == null) {
-			experiences = new HashSet<Experience>();
-			getModelObject().setExperiences(experiences);
+	private Set<Hobby> getHobbies() {
+		Set<Hobby> hobbies = getModelObject().getHobbies();
+		if (hobbies == null) {
+			hobbies = new HashSet<Hobby>();
+			getModelObject().setHobbies(hobbies);
 		}
-		return experiences;
+		return hobbies;
 	}
 
 	public IDetailsPage getPage(Object key) {
-		return experienceDetailsPage;
+		return hobbyDetailsPage;
 	}
 
 	public Object getPageKey(Object object) {

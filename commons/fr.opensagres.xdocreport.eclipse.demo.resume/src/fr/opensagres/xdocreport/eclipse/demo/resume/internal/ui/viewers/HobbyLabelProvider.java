@@ -4,16 +4,17 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Diploma;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Hobby;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ImageResources;
 
-public class DiplomaLabelProvider extends LabelProvider {
+public class HobbyLabelProvider extends LabelProvider {
 
-	private static DiplomaLabelProvider instance;
+	private static HobbyLabelProvider instance;
 
-	public static DiplomaLabelProvider getInstance() {
-		synchronized (DiplomaLabelProvider.class) {
+	public static HobbyLabelProvider getInstance() {
+		synchronized (HobbyLabelProvider.class) {
 			if (instance == null) {
-				instance = new DiplomaLabelProvider();
+				instance = new HobbyLabelProvider();
 			}
 			return instance;
 		}
@@ -21,16 +22,16 @@ public class DiplomaLabelProvider extends LabelProvider {
 
 	@Override
 	public String getText(Object element) {
-		if (element instanceof Diploma) {
-			return ((Diploma) element).getLabel();
+		if (element instanceof Hobby) {
+			return ((Hobby) element).getLabel();
 		}
 		return super.getText(element);
 	}
 
 	@Override
 	public Image getImage(Object element) {
-		if (element instanceof Diploma) {
-			return ImageResources.getImage(ImageResources.IMG_DIPLOMA_16);
+		if (element instanceof Hobby) {
+			return ImageResources.getImage(ImageResources.IMG_HOBBIES_16);
 		}
 		return super.getImage(element);
 	}

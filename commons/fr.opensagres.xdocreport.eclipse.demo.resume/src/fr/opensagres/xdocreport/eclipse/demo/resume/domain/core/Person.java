@@ -1,6 +1,9 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.domain.core;
 
 public class Person {
+	
+	public static final String EMAIL_PROPERTY = "email";
+	
 	/**
      * 
      */

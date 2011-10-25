@@ -29,9 +29,6 @@ public abstract class AbstractMasterDetailsBlock extends MasterDetailsBlock
 
 	}
 
-	protected abstract void onCreateUI(IManagedForm managedForm,
-			Composite parent);
-
 	protected void createToolBarActions(IManagedForm managedForm) {
 		final ScrolledForm form = managedForm.getForm();
 		Action haction = new Action("hor", Action.AS_RADIO_BUTTON) { //$NON-NLS-1$
@@ -60,4 +57,8 @@ public abstract class AbstractMasterDetailsBlock extends MasterDetailsBlock
 
 	protected void registerPages(org.eclipse.ui.forms.DetailsPart detailsPart) {
 		detailsPart.setPageProvider(this);
-	}}
+	}
+	
+	protected abstract void onCreateUI(IManagedForm managedForm,
+			Composite parent);
+}

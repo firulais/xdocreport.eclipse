@@ -26,6 +26,7 @@ public class DocxResumeReportLoader extends XDocReportLoader {
 		metadata.addFieldAsList("experiences.Title");
 		metadata.addFieldAsList("experiences.Detail");
 		metadata.addFieldAsList("diplomas.Label");
+		metadata.addFieldAsList("hobbies.Label");
 		return metadata;
 	}
 
