@@ -3,6 +3,7 @@ package fr.opensagres.eclipse.forms.widgets;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -30,7 +31,7 @@ public class SimpleWikiText extends BaseComposite {
 	}
 
 	private ToolBar createToolBar(Composite parent) {
-	    toolBar = new ToolBar(parent, SWT.NULL);
+	    toolBar = new ToolBar(parent, SWT.BORDER);
 	    GridData gd_toolBar = new GridData(GridData.FILL_HORIZONTAL);
 	    gd_toolBar.horizontalAlignment = SWT.FILL;
 	    gd_toolBar.grabExcessVerticalSpace = false;
@@ -40,15 +41,15 @@ public class SimpleWikiText extends BaseComposite {
 	        setStyle(event.widget);
 	      }
 	    };
-	    boldButton = new ToolItem(toolBar, SWT.CHECK);
-	    boldButton.setImage(ImageResources.getImage( "icons/b_bold.gif"));
-	    boldButton.setText("B");
+	    boldButton = new ToolItem(toolBar, SWT.PUSH);
+	    boldButton.setImage(ImageResources.getImage( "icons/obj16/b_bold.gif"));
+	    //boldButton.setText("B");
 	    //boldButton.setImage(images.Bold);
 	    boldButton.setToolTipText("Bold");
 	    boldButton.addSelectionListener(listener);
-	    italicButton = new ToolItem(toolBar, SWT.CHECK);
-	    italicButton.setImage(ImageResources.getImage( "icons/b_italic.gif"));
-	    italicButton.setText("I");
+	    italicButton = new ToolItem(toolBar, SWT.PUSH);
+	    italicButton.setImage(ImageResources.getImage( "icons/obj16/b_italic.gif"));
+	    //italicButton.setText("I");
 	    //italicButton.setImage(images.Italic);
 	    italicButton.setToolTipText("Italic");
 	    italicButton.addSelectionListener(listener);
@@ -56,6 +57,25 @@ public class SimpleWikiText extends BaseComposite {
 	}
 
 	private void setStyle(Widget widget) {
+		//String selected = text.getSelectionText();
+		Point selection=text.getSelection();
+		if(boldButton.equals(widget))
+		//if not empty
+		if(selection.x!=selection.y){
+			//find for "selected" and put <b>selected</b> around
+			
+			String fullText=text.getText();
+			StringBuffer buffer= new StringBuffer(fullText);
+			
+			//first insert the ending tag "</b>"
+			buffer.insert(selection.y, "</b>");
+			//then insert the beginning tag
+			buffer.insert(selection.x, "<b>");
+			text.setText(buffer.toString());
+		}
+
+		
+		
 		
 		
 	}
