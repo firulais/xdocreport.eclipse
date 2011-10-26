@@ -25,11 +25,12 @@ public class PhotoControl extends BaseComposite {
 	private final Button uploadButton;
 	private Image photo;
 	private Image defaultImage;
+	private static final String IMG_DEFAULT_PHOTO = "icons/obj16/default_photo.jpg";
 
 	public PhotoControl(Composite parent, int compositeStyle, int labelStyle,
 			FormToolkit toolkit) {
 		this(parent, compositeStyle, labelStyle, ImageResources
-				.getImage(ImageResources.IMG_DEFAULT_PHOTO), toolkit);
+				.getImage(PhotoControl.IMG_DEFAULT_PHOTO), toolkit);
 	}
 
 	public PhotoControl(Composite parent, int compositeStyle, int labelStyle,

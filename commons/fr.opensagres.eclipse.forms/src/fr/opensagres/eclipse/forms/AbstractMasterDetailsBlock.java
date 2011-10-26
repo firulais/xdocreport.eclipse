@@ -13,6 +13,9 @@ import fr.opensagres.eclipse.forms.internal.ImageResources;
 public abstract class AbstractMasterDetailsBlock extends MasterDetailsBlock
 		implements IDetailsPageProvider {
 
+	private static final String IMG_TH_HORIZONTAL = "icons/obj16/th_horizontal.gif";
+	private static final String IMG_TH_VERTICAL = "icons/obj16/th_vertical.gif";
+
 	@Override
 	protected final void createMasterPart(IManagedForm managedForm,
 			Composite parent) {
@@ -43,7 +46,7 @@ public abstract class AbstractMasterDetailsBlock extends MasterDetailsBlock
 		haction.setChecked(true);
 		//		haction.setToolTipText(Messages.getString("ScrolledPropertiesBlock.horizontal")); //$NON-NLS-1$
 		haction.setImageDescriptor(ImageResources
-				.getImageDescriptor(ImageResources.IMG_TH_HORIZONTAL));
+				.getImageDescriptor(AbstractMasterDetailsBlock.IMG_TH_HORIZONTAL));
 		Action vaction = new Action("ver", Action.AS_RADIO_BUTTON) { //$NON-NLS-1$
 			public void run() {
 				sashForm.setOrientation(SWT.VERTICAL);
@@ -53,7 +56,7 @@ public abstract class AbstractMasterDetailsBlock extends MasterDetailsBlock
 		vaction.setChecked(false);
 		//		vaction.setToolTipText(Messages.getString("ScrolledPropertiesBlock.vertical")); //$NON-NLS-1$
 		vaction.setImageDescriptor(ImageResources
-				.getImageDescriptor(ImageResources.IMG_TH_VERTICAL));
+				.getImageDescriptor(AbstractMasterDetailsBlock.IMG_TH_VERTICAL));
 		form.getToolBarManager().add(haction);
 		form.getToolBarManager().add(vaction);
 	}

@@ -38,6 +38,8 @@ public class DateTimeControl extends BaseComposite {
 
 	private ImageHyperlink lookupHyperlink;
 
+	public static final String IMG_CALENDAR = "icons/obj16/calendar.png";
+
 	public DateTimeControl(Composite parent, int style, FormToolkit toolkit) {
 		this(parent, style, SWT.NONE, SWT.NONE, toolkit);
 	}
@@ -56,7 +58,7 @@ public class DateTimeControl extends BaseComposite {
 		dateFieldText.setLayoutData(d);
 		
 		this.calendarImage = ImageResources
-				.getImage(ImageResources.IMG_CALENDAR);
+				.getImage(DateTimeControl.IMG_CALENDAR);
 		if (toolkit != null) {
 			lookupHyperlink = toolkit.createImageHyperlink(this, buttonStyle);
 
