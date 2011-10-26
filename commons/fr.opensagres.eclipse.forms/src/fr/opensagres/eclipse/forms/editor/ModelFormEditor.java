@@ -18,7 +18,7 @@ public abstract class ModelFormEditor<EditorInput extends IEditorInput, Model>
 		extends AbstractFormEditor<EditorInput> {
 
 	public static final String SHARED_DATABINDING_CONTEXT_ID = "___SharedDBC";
-	
+
 	protected final class DirtyFlag implements IChangeListener {
 
 		private boolean dirty = false;
@@ -116,7 +116,8 @@ public abstract class ModelFormEditor<EditorInput extends IEditorInput, Model>
 
 	@Override
 	protected void onSave(IProgressMonitor monitor) {
-		Collection<DataBindingContext> dataBindingContexts = dataBindingContextCahe.values();
+		Collection<DataBindingContext> dataBindingContexts = dataBindingContextCahe
+				.values();
 		for (DataBindingContext dataBindingContext : dataBindingContexts) {
 			dataBindingContext.updateModels();
 		}
@@ -132,6 +133,20 @@ public abstract class ModelFormEditor<EditorInput extends IEditorInput, Model>
 			page.bind();
 		}
 		dirtyFlag.setDirty(false);
+	}
+
+	@Override
+	public void dispose() {
+		super.dispose();
+		Collection<DataBindingContext> dataBindingContexts = dataBindingContextCahe
+				.values();
+		for (DataBindingContext dataBindingContext : dataBindingContexts) {
+			dataBindingContext.dispose();
+		}
+		dataBindingContextCahe.clear();
+		pagesAlreadyBounded.clear();
+		dirtyFlag = null;
+		model = null;
 	}
 
 	protected void onReload(Model modelObject) {

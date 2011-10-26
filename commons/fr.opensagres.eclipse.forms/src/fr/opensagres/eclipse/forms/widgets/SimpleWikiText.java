@@ -31,7 +31,7 @@ public class SimpleWikiText extends BaseComposite {
 
 	private ToolBar createToolBar(Composite parent) {
 	    toolBar = new ToolBar(parent, SWT.NULL);
-	    GridData gd_toolBar = new GridData(GridData.FILL_VERTICAL);
+	    GridData gd_toolBar = new GridData(GridData.FILL_HORIZONTAL);
 	    gd_toolBar.horizontalAlignment = SWT.FILL;
 	    gd_toolBar.grabExcessVerticalSpace = false;
 	    toolBar.setLayoutData(gd_toolBar);
@@ -42,13 +42,13 @@ public class SimpleWikiText extends BaseComposite {
 	    };
 	    boldButton = new ToolItem(toolBar, SWT.CHECK);
 	    boldButton.setImage(ImageResources.getImage( "icons/b_bold.gif"));
-	    boldButton.setText("Bold");
+	    boldButton.setText("B");
 	    //boldButton.setImage(images.Bold);
 	    boldButton.setToolTipText("Bold");
 	    boldButton.addSelectionListener(listener);
 	    italicButton = new ToolItem(toolBar, SWT.CHECK);
 	    italicButton.setImage(ImageResources.getImage( "icons/b_italic.gif"));
-	    italicButton.setText("Italic");
+	    italicButton.setText("I");
 	    //italicButton.setImage(images.Italic);
 	    italicButton.setToolTipText("Italic");
 	    italicButton.addSelectionListener(listener);
@@ -61,8 +61,13 @@ public class SimpleWikiText extends BaseComposite {
 	}
 	
 	private Text createTextarea(Composite parent, int style) {
-		Text text =  super.createText(parent, style | SWT.MULTI);
-		text.setLayoutData(new GridData(GridData.FILL_BOTH));
+		Text text =  super.createText(parent, style | SWT.MULTI | SWT.WRAP);
+		GridData spec = new GridData();
+	    spec.horizontalAlignment = GridData.FILL;
+	    spec.grabExcessHorizontalSpace = true;
+	    spec.verticalAlignment = GridData.FILL;
+	    spec.grabExcessVerticalSpace = true;
+	    text.setLayoutData(spec);
 		return text;
 	}
 	

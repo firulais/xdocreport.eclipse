@@ -2,7 +2,6 @@ package fr.opensagres.xdocreport.eclipse.internal.ui.viewers;
 
 import org.eclipse.jface.viewers.LabelProvider;
 
-import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModule;
 import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader;
 
 public class ReportLoaderLabelProvider extends LabelProvider {

@@ -22,7 +22,6 @@ import fr.opensagres.xdocreport.eclipse.PlatformXDocReport;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportBaseModule;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModule;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntry;
-import fr.opensagres.xdocreport.eclipse.internal.Activator;
 import fr.opensagres.xdocreport.eclipse.internal.ImageResources;
 import fr.opensagres.xdocreport.eclipse.internal.extensions.modules.ReportBaseModule;
 import fr.opensagres.xdocreport.eclipse.ui.handlers.ContextHandlerUtils;

@@ -43,6 +43,7 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 	private Text lastNameText;
 	private DateTimeControl birthDayDateTime;
 	private PhotoControl photo;
+	private Text emailText;
 
 	public OverviewPage(ReportingFormEditor<Resume> editor) {
 		super(editor, ID, Messages.ResumeFormEditor_OverviewPage_title);
@@ -93,21 +94,27 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 		sbody.setLayout(glayout);
 
 		// First name
-		toolkit.createLabel(sbody, Messages.ResumeFormEditor_FirstName_label);
+		toolkit.createLabel(
+				sbody,
+				Messages.ResumeFormEditor_OverviewPage_GeneralInfo_FirstName_label);
 		firstNameText = toolkit.createText(sbody, "", SWT.SINGLE);
 		gd_firstNameText = new GridData(GridData.FILL_HORIZONTAL);
 		gd_firstNameText.widthHint = 150;
 		firstNameText.setLayoutData(gd_firstNameText);
 
 		// Last name
-		toolkit.createLabel(sbody, Messages.ResumeFormEditor_LastName_label);
+		toolkit.createLabel(
+				sbody,
+				Messages.ResumeFormEditor_OverviewPage_GeneralInfo_LastName_label);
 		lastNameText = toolkit.createText(sbody, "", SWT.SINGLE);
 		gd_lastNameText = new GridData(GridData.FILL_HORIZONTAL);
 		gd_lastNameText.widthHint = 150;
 		lastNameText.setLayoutData(gd_lastNameText);
 
 		// Birthday
-		toolkit.createLabel(sbody, Messages.ResumeFormEditor_Birthday_label);
+		toolkit.createLabel(
+				sbody,
+				Messages.ResumeFormEditor_OverviewPage_GeneralInfo_Birthday_label);
 		birthDayDateTime = new DateTimeControl(sbody, SWT.NONE, SWT.SINGLE,
 				SWT.FLAT, toolkit);
 		GridData gd_birthDayDateTimet = new GridData(GridData.FILL_HORIZONTAL);
@@ -116,9 +123,17 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit,
 				birthDayDateTime);
 
+		// Email
+		toolkit.createLabel(sbody,
+				Messages.ResumeFormEditor_OverviewPage_GeneralInfo_Email_label);
+		emailText = toolkit.createText(sbody, "", SWT.SINGLE);
+		GridData gd_emailText = new GridData(GridData.FILL_HORIZONTAL);
+		gd_emailText.widthHint = 150;
+		emailText.setLayoutData(gd_emailText);
+
 		// Photo
 		Label photoLabel = toolkit.createLabel(sbody,
-				Messages.ResumeFormEditor_Photo_label);
+				Messages.ResumeFormEditor_OverviewPage_GeneralInfo_Photo_label);
 		GridData gd_photoLabel = new GridData();
 		gd_photoLabel.verticalAlignment = SWT.TOP;
 		photoLabel.setLayoutData(gd_photoLabel);
@@ -186,6 +201,7 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 	}
 
 	private void onBindGeneralInfo(DataBindingContext bindingContext) {
+		// bind first name
 		IObservableValue firstNameTextObserveTextObserveWidget = SWTObservables
 				.observeText(firstNameText, SWT.Modify);
 		IObservableValue getModel1FirstNameObserveValue = PojoObservables
@@ -193,7 +209,7 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 						NaturalPerson.FIRST_NAME_PROPERTY);
 		bindingContext.bindValue(firstNameTextObserveTextObserveWidget,
 				getModel1FirstNameObserveValue, null, null);
-		//
+		// bind last name
 		IObservableValue lastNameTextObserveTextObserveWidget = SWTObservables
 				.observeText(lastNameText, SWT.Modify);
 		IObservableValue getModel1LastNameObserveValue = PojoObservables
@@ -202,6 +218,16 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 		bindingContext.bindValue(lastNameTextObserveTextObserveWidget,
 				getModel1LastNameObserveValue, null, null);
 
+		// bind email
+		IObservableValue emailTextObserveTextObserveWidget = SWTObservables
+				.observeText(emailText, SWT.Modify);
+		IObservableValue personEmailObserveValue = PojoObservables
+				.observeValue(getModelObject().getOwner(),
+						NaturalPerson.EMAIL_PROPERTY);
+		bindingContext.bindValue(emailTextObserveTextObserveWidget,
+				personEmailObserveValue, null, null);
+
+		
 		// TODO : bind image photo with IImageProvider of the model.
 		// for the moment, just load the image from the model
 		try {

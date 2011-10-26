@@ -6,6 +6,10 @@ public class Messages extends NLS {
 
 	private static final String BUNDLE_NAME = "fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages";//$NON-NLS-1$
 
+	// Buttons
+	public static String addButton_label;
+	public static String removeButton_label;
+
 	// Overview Page
 	public static String ResumeFormEditor_OverviewPage_title;
 	
@@ -13,12 +17,11 @@ public class Messages extends NLS {
 	public static String ResumeFormEditor_OverviewPage_GeneralInfo_title;
 	public static String ResumeFormEditor_OverviewPage_GeneralInfo_desc;
 	
-	public static String ResumeFormEditor_FirstName_label;
-	public static String ResumeFormEditor_LastName_label;
-	public static String ResumeFormEditor_Birthday_label;
-	public static String ResumeFormEditor_Photo_label;
-	public static String OverviewPage_lblNewLabel_text;
-	public static String OverviewPage_txtNewText_text;
+	public static String ResumeFormEditor_OverviewPage_GeneralInfo_FirstName_label;
+	public static String ResumeFormEditor_OverviewPage_GeneralInfo_LastName_label;
+	public static String ResumeFormEditor_OverviewPage_GeneralInfo_Birthday_label;
+	public static String ResumeFormEditor_OverviewPage_GeneralInfo_Email_label;
+	public static String ResumeFormEditor_OverviewPage_GeneralInfo_Photo_label;
 	
 	// Overview/Resume content section
 	public static String ResumeFormEditor_OverviewPage_ResumeContent_title;
@@ -48,6 +51,11 @@ public class Messages extends NLS {
 
 	// Hobbies Page
 	public static String ResumeFormEditor_HobbiesPage_title;
+	public static String ResumeFormEditor_HobbiesPage_HobbiesMasterDetailsBlock_title;
+	public static String ResumeFormEditor_HobbiesPage_HobbiesMasterDetailsBlock_desc;
+	public static String ResumeFormEditor_HobbiesPage_HobbyDetailsPage_title;
+	public static String ResumeFormEditor_HobbiesPage_HobbyDetailsPage_desc;
+	public static String ResumeFormEditor_HobbiesPage_HobbyDetailsPage_hobbyLabel_label;
 	
 	static {
 		// load message values from bundle file

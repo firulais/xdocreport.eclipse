@@ -9,7 +9,6 @@ import fr.opensagres.xdocreport.document.images.ClassPathImageProvider;
 import fr.opensagres.xdocreport.document.images.IImageProvider;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
 import fr.opensagres.xdocreport.eclipse.utils.ByteArrayOutputStream;
-import fr.opensagres.xdocreport.eclipse.utils.IOUtils;
 
 //@Entity
 //@Table(name = "T_RESUME", schema = "hr")
@@ -48,7 +47,9 @@ public class Resume {
 	private Set<Diploma> diplomas;
 	// @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	// @JoinColumn(name = "resume_fk")
-	private Set<Competence> competences;
+	private Set<Skill> skills;
+
+	private Set<Hobby> hobbies;
 
 	private IImageProvider photo;
 
@@ -124,13 +125,13 @@ public class Resume {
 		// firePropertyChange("diplomas", oldValue, diplomas);
 	}
 
-	public Set<Competence> getCompetences() {
-		return competences;
+	public Set<Skill> getSkills() {
+		return skills;
 	}
 
-	public void setCompetences(Set<Competence> competences) {
+	public void setSkills(Set<Skill> skills) {
 		// Object oldValue = this.competences;
-		this.competences = competences;
+		this.skills = skills;
 		// firePropertyChange("competences", oldValue, competences);
 	}
 
@@ -141,10 +142,18 @@ public class Resume {
 	public IImageProvider getPhoto() {
 		return photo;
 	}
-	
+
+	public void setHobbies(Set<Hobby> hobbies) {
+		this.hobbies = hobbies;
+	}
+
+	public Set<Hobby> getHobbies() {
+		return hobbies;
+	}
+
 	public InputStream getPhotoAsStream() throws IOException {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		((ClassPathImageProvider)getPhoto()).write(out);
+		((ClassPathImageProvider) getPhoto()).write(out);
 		return new ByteArrayInputStream(out.toByteArray());
 	}
 }

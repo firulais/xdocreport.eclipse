@@ -37,7 +37,7 @@ public abstract class ReportingFormEditor<Model> extends ModelFormEditor<ModelAn
 	}
 
 	public Model getModel() {
-		return ((ModelAndEntryEditorInput<Model>) getEditorInput()).getModel();
+		return getModelObject();
 	}
 
 	public IReportModuleEntry getEntry() {

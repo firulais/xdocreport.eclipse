@@ -21,8 +21,8 @@
 <stringAttribute key="org.eclipse.rap.launch.contextpath" value="test"/>
 <stringAttribute key="org.eclipse.rap.launch.dataLocation" value="${workspace_loc}/.metadata/.plugins/org.eclipse.rap.ui.launch/RAPXDocReport"/>
 <stringAttribute key="org.eclipse.rap.launch.entryPoint" value="fr.opensagres.xdocreport.eclipse.application"/>
-<stringAttribute key="org.eclipse.rap.launch.libraryVariant" value="STANDARD"/>
-<stringAttribute key="org.eclipse.rap.launch.logLevel" value="OFF"/>
+<stringAttribute key="org.eclipse.rap.launch.libraryVariant" value="DEBUG"/>
+<stringAttribute key="org.eclipse.rap.launch.logLevel" value="FINE"/>
 <booleanAttribute key="org.eclipse.rap.launch.openBrowser" value="true"/>
 <intAttribute key="org.eclipse.rap.launch.port" value="8081"/>
 <stringAttribute key="org.eclipse.rap.launch.servletName" value="xdocreport"/>
@@ -38,5 +38,5 @@
 <booleanAttribute key="tracing" value="false"/>
 <booleanAttribute key="useCustomFeatures" value="false"/>
 <booleanAttribute key="useDefaultConfigArea" value="true"/>
-<stringAttribute key="workspace_bundles" value="fr.opensagres.xdocreport.eclipse.demo.lettrerelance@default:default,fr.opensagres.xdocreport.eclipse.demo.resume@default:default,fr.opensagres.xdocreport.eclipse.rap@default:false,fr.opensagres.xdocreport.eclipse.report.xdocreport@default:default,fr.opensagres.xdocreport.eclipse@default:default,org.eclipse.rap.singlesourcing@default:default,fr.opensagres.eclipse.forms@default:default"/>
+<stringAttribute key="workspace_bundles" value="fr.opensagres.eclipse.forms@default:default,fr.opensagres.xdocreport.eclipse.demo.lettrerelance@default:default,fr.opensagres.xdocreport.eclipse.demo.resume@default:default,fr.opensagres.xdocreport.eclipse.rap@default:false,fr.opensagres.xdocreport.eclipse.report.xdocreport@default:default,fr.opensagres.xdocreport.eclipse@default:default,fr.opensagres.xdocreport.template.velocity@default:false,fr.opensagres.xdocreport.template@default:default,org.eclipse.rap.singlesourcing@default:default"/>
 </launchConfiguration>

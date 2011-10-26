@@ -9,11 +9,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
-import org.eclipse.ui.forms.widgets.TableWrapData;
-import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import fr.opensagres.eclipse.forms.editor.ModelDetailsPage;
 import fr.opensagres.eclipse.forms.widgets.SimpleWikiText;
@@ -29,11 +28,8 @@ public class ExperienceDetailsPage extends ModelDetailsPage<Experience> {
 	@Override
 	protected void onCreateUI(Composite parent) {
 
-		TableWrapLayout layout = new TableWrapLayout();
-		layout.topMargin = 5;
-		layout.leftMargin = 5;
-		layout.rightMargin = 2;
-		layout.bottomMargin = 2;
+		GridLayout layout = new GridLayout();
+		layout.numColumns = 1;
 		parent.setLayout(layout);
 
 		FormToolkit toolkit = getManagedForm().getToolkit();
@@ -46,9 +42,7 @@ public class ExperienceDetailsPage extends ModelDetailsPage<Experience> {
 		experienceDetailSection
 				.setDescription(Messages.ResumeFormEditor_ExperiencesPage_ExperienceDetailsPage_desc); //$NON-NLS-1$
 
-		TableWrapData td = new TableWrapData(TableWrapData.FILL,
-				TableWrapData.TOP);
-		td.grabHorizontal = true;
+		GridData td = new GridData(GridData.FILL_HORIZONTAL | GridData.FILL_VERTICAL);
 		experienceDetailSection.setLayoutData(td);
 
 		Composite client = toolkit.createComposite(experienceDetailSection);
@@ -82,9 +76,12 @@ public class ExperienceDetailsPage extends ModelDetailsPage<Experience> {
 				GridData.FILL_HORIZONTAL));
 
 		// Experience detail
-		toolkit.createLabel(
-				parent,
-				Messages.ResumeFormEditor_ExperiencesPage_ExperienceDetailsPage_experienceDetail_label);
+		Label experienceDetailLabel = toolkit
+				.createLabel(
+						parent,
+						Messages.ResumeFormEditor_ExperiencesPage_ExperienceDetailsPage_experienceDetail_label);
+		GridData data = new GridData(GridData.VERTICAL_ALIGN_BEGINNING);
+		experienceDetailLabel.setLayoutData(data);
 		experienceDetailWikiText = new SimpleWikiText(parent, SWT.NONE,
 				SWT.NONE, toolkit);
 		experienceDetailWikiText
@@ -114,7 +111,7 @@ public class ExperienceDetailsPage extends ModelDetailsPage<Experience> {
 		IObservableValue experienceDetailTextObserveTextObserveWidget = SWTObservables
 				.observeText(experienceDetailWikiText.getTextarea(), SWT.Modify);
 		IObservableValue modelExperienceDetailObserveValue = PojoObservables
-				.observeValue(getModelObject(),Experience.DETAIL_PROPERTY);
+				.observeValue(getModelObject(), Experience.DETAIL_PROPERTY);
 		bindingContext.bindValue(experienceDetailTextObserveTextObserveWidget,
 				modelExperienceDetailObserveValue, null, null);
 	}

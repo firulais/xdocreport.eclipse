@@ -6,96 +6,30 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import fr.opensagres.xdocreport.document.images.ClassPathImageProvider;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Diploma;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Experience;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Hobby;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 
 public class ResumeServiceImpl implements ResumeService {
 
 	private static final Map<Long, Resume> resumes;
-	private static long currentId = 0;
+	static long currentId = 0;
 	static {
 		resumes = new HashMap<Long, Resume>();
 
 		// Angelo
-		Resume angeloResume = createAngeloResume();
+		Resume angeloResume = new AngeloResume();
 		resumes.put(angeloResume.getId(), angeloResume);
 
 		// Pascal
-		Resume pascalResume = createPascalResume();
+		Resume pascalResume = new PascalResume();
 		resumes.put(pascalResume.getId(), pascalResume);
-	}
 
-	private static Resume createAngeloResume() {
-		// Angelo
-		NaturalPerson person = new NaturalPerson();
-		person.setId(currentId++);
-		person.setFirstName("Angelo");
-		person.setLastName("ZERR");
-
-		Resume resume = new Resume();
-		resume.setId(currentId++);
-		resume.setOwner(person);
-		resume.setPhoto(new ClassPathImageProvider(Resume.class,
-				"AngeloZERR.jpg"));
-
-		// Diplomas
-		Set<Diploma> diplomas = new HashSet<Diploma>();
-		resume.setDiplomas(diplomas);
-
-		Diploma diploma = null;
-
-		diploma = new Diploma();
-		diploma.setId(currentId++);
-		diploma.setLabel("Diplôme d’ingénieur en informatique");
-		diploma.setInstitute("INSA de Lyon");
-		diplomas.add(diploma);
-
-		// Experiences
-		Set<Experience> experiences = new HashSet<Experience>();
-		resume.setExperiences(experiences);
-		Experience experience = null;
-
-		// Experience 1
-		experience = new Experience();
-		experience.setId(currentId++);
-		experience.setTitle("Projet SIDoc");
-		experience.setMission("Conception / Développement");
-		experience
-				.setDetail("Mise en place de l'application WEB de diffusion (qui sera accéssible dans les accueils des CAF) qui permet de publier les documents XML produits par l'application WEB de production.");
-		experiences.add(experience);
-
-		// Experience 2
-		experience = new Experience();
-		experience.setId(currentId++);
-		experience.setTitle("ERP AgroV3");
-		experience.setMission("Conception / Développement");
-		experience
-				.setDetail("Conception et développement de fonctionnalités dans le  module VENTES/ACHATS et COMPTABILITE de l'ERP agrolimentaire AgroV3 de INFOLOGIC. Cet ERP est basé sur les technologies d'Eclipse SWT et JFace.");
-		experiences.add(experience);
-
-		return resume;
-	}
-
-	private static Resume createPascalResume() {
-		// Pascal
-		NaturalPerson person = new NaturalPerson();
-		person.setId(currentId++);
-		person.setFirstName("Pascal");
-		person.setLastName("Leclercq");
-
-		Resume resume = new Resume();
-		resume.setId(currentId++);
-		resume.setOwner(person);
-		resume.setPhoto(new ClassPathImageProvider(Resume.class,
-				"PascalLeclercq.jpg"));
-
-		Set<Experience> experiences = new HashSet<Experience>();
-		resume.setExperiences(experiences);
-
-		return resume;
+		// Amine
+		Resume amineResume = new AmineResume();
+		resumes.put(amineResume.getId(), amineResume);
 	}
 
 	public Collection<Resume> findAll() {
@@ -147,6 +81,16 @@ public class ResumeServiceImpl implements ResumeService {
 			newResume.setExperiences(newExperiences);
 		}
 
+		// Hobbies
+		Set<Hobby> hobbies = resume.getHobbies();
+		if (hobbies != null) {
+			Set<Hobby> newHobbies = new HashSet<Hobby>();
+			for (Hobby hobby : hobbies) {
+				newHobbies.add(clone(hobby));
+			}
+			newResume.setHobbies(newHobbies);
+		}
+
 		return newResume;
 	}
 
@@ -156,12 +100,17 @@ public class ResumeServiceImpl implements ResumeService {
 		newPerson.setLastName(person.getLastName());
 		newPerson.setFirstName(person.getFirstName());
 		newPerson.setBirthDate(person.getBirthDate());
+		newPerson.setEmail(person.getEmail());
 		return newPerson;
 	}
 
 	private Experience clone(Experience experience) {
 		Experience newExperience = new Experience();
-		newExperience.setId(experience.getId());
+		Long id = experience.getId();
+		if (id == null) {
+			id = currentId++;
+		}
+		newExperience.setId(id);
 		newExperience.setTitle(experience.getTitle());
 		newExperience.setDetail(experience.getDetail());
 		newExperience.setMission(experience.getMission());
@@ -172,10 +121,24 @@ public class ResumeServiceImpl implements ResumeService {
 
 	private Diploma clone(Diploma diploma) {
 		Diploma newDiploma = new Diploma();
-		newDiploma.setId(diploma.getId());
+		Long id = diploma.getId();
+		if (id == null) {
+			id = currentId++;
+		}
+		newDiploma.setId(id);
 		newDiploma.setLabel(diploma.getLabel());
 		newDiploma.setInstitute(diploma.getInstitute());
-		;
 		return newDiploma;
+	}
+
+	private Hobby clone(Hobby hobby) {
+		Hobby newHobby = new Hobby();
+		Long id = hobby.getId();
+		if (id == null) {
+			id = currentId++;
+		}
+		newHobby.setId(id);
+		newHobby.setLabel(hobby.getLabel());
+		return newHobby;
 	}
 }

@@ -9,7 +9,6 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader;
 import fr.opensagres.xdocreport.eclipse.reporting.xdocreport.XDocReportLoader;
 import fr.opensagres.xdocreport.eclipse.reporting.xdocreport.internal.Messages;
 import fr.opensagres.xdocreport.eclipse.reporting.xdocreport.internal.ui.viewers.TemplateEngineDiscoveryContentProvider;

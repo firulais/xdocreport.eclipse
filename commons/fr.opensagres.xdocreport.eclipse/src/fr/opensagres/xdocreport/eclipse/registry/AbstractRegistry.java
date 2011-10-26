@@ -74,7 +74,7 @@ public abstract class AbstractRegistry implements IRegistryChangeListener {
 		String strIcon = cfig.getAttribute(ICON_ATTR);//$NON-NLS-1$
 		if (strIcon != null) {
 			return AbstractUIPlugin.imageDescriptorFromPlugin(
-					cfig.getNamespace(), strIcon);
+					cfig.getNamespaceIdentifier(), strIcon);
 		}
 		return null;
 
