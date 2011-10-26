@@ -27,6 +27,9 @@ public class PhotoControl extends BaseComposite {
 	private Image defaultImage;
 	private static final String IMG_DEFAULT_PHOTO = "icons/obj16/default_photo.jpg";
 
+	/**
+	 * @wbp.parser.constructor
+	 */
 	public PhotoControl(Composite parent, int compositeStyle, int labelStyle,
 			FormToolkit toolkit) {
 		this(parent, compositeStyle, labelStyle, ImageResources
@@ -46,21 +49,25 @@ public class PhotoControl extends BaseComposite {
 
 	private Label createLabelImage(Composite parent, int style) {
 		Label label = super.createLabel(parent, style);
-		label.setLayoutData(new GridData(GridData.FILL_VERTICAL));
+		label.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, true, 1, 1));
 		return label;
 	}
 
 	private Button createUploadButton() {
-		Button button = super.createButton(this, SWT.NONE);
-		button.setText("Modify");
-		button.setLayoutData(new GridData(GridData.FILL_VERTICAL));
-		button.addSelectionListener(new SelectionAdapter() {
+		Button btnChange = super.createButton(this, SWT.NONE);
+		btnChange.setText("Change");
+		GridData gd_btnChange = new GridData(GridData.BEGINNING);
+		gd_btnChange.grabExcessHorizontalSpace = true;
+		gd_btnChange.horizontalAlignment = SWT.FILL;
+		gd_btnChange.verticalAlignment = SWT.TOP;
+		btnChange.setLayoutData(gd_btnChange);
+		btnChange.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleUploadImage();
 			}
 		});
-		return button;
+		return btnChange;
 	}
 
 	private void handleUploadImage() {
