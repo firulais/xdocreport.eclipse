@@ -12,6 +12,8 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
+import fr.opensagres.eclipse.forms.internal.ImageResources;
+
 public class SimpleWikiText extends BaseComposite {
 
 	private Text text;
@@ -29,17 +31,24 @@ public class SimpleWikiText extends BaseComposite {
 
 	private ToolBar createToolBar(Composite parent) {
 	    toolBar = new ToolBar(parent, SWT.NULL);
-	    toolBar.setLayoutData(new GridData(GridData.FILL_VERTICAL));
+	    GridData gd_toolBar = new GridData(GridData.FILL_VERTICAL);
+	    gd_toolBar.horizontalAlignment = SWT.FILL;
+	    gd_toolBar.grabExcessVerticalSpace = false;
+	    toolBar.setLayoutData(gd_toolBar);
 	    SelectionAdapter listener = new SelectionAdapter() {
 	      public void widgetSelected(SelectionEvent event) {
 	        setStyle(event.widget);
 	      }
 	    };
 	    boldButton = new ToolItem(toolBar, SWT.CHECK);
+	    boldButton.setImage(ImageResources.getImage( "icons/b_bold.gif"));
+	    boldButton.setText("Bold");
 	    //boldButton.setImage(images.Bold);
 	    boldButton.setToolTipText("Bold");
 	    boldButton.addSelectionListener(listener);
 	    italicButton = new ToolItem(toolBar, SWT.CHECK);
+	    italicButton.setImage(ImageResources.getImage( "icons/b_italic.gif"));
+	    italicButton.setText("Italic");
 	    //italicButton.setImage(images.Italic);
 	    italicButton.setToolTipText("Italic");
 	    italicButton.addSelectionListener(listener);
