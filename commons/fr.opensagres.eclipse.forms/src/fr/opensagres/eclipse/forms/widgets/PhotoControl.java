@@ -57,7 +57,6 @@ public class PhotoControl extends BaseComposite {
 		Button btnChange = super.createButton(this, SWT.NONE);
 		btnChange.setText("Change");
 		GridData gd_btnChange = new GridData(GridData.BEGINNING);
-		gd_btnChange.grabExcessHorizontalSpace = true;
 		gd_btnChange.horizontalAlignment = SWT.FILL;
 		gd_btnChange.verticalAlignment = SWT.TOP;
 		btnChange.setLayoutData(gd_btnChange);
