@@ -2,6 +2,8 @@ package fr.opensagres.xdocreport.eclipse.demo.resume.domain.core;
 
 import java.util.Date;
 
+import javax.validation.constraints.Size;
+
 public class NaturalPerson extends Person {
 
 	public static final String FIRST_NAME_PROPERTY = "firstName";
@@ -34,8 +36,10 @@ public class NaturalPerson extends Person {
 	private MaritalStatus maritalStatus;
 
 	// @Column(length=100,nullable=false)
+	@Size(min=1)
 	private String firstName;
 	// @Column(length=100,nullable=false)
+	@Size(min=1)
 	private String lastName;
 	// @Column
 	private Date birthDate;

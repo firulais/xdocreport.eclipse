@@ -1,7 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Forms
-Bundle-SymbolicName: fr.opensagres.eclipse.forms
 Bundle-Version: 0.0.1.qualifier
 Bundle-Activator: fr.opensagres.eclipse.forms.internal.Activator
 Require-Bundle: org.eclipse.core.runtime,
@@ -18,5 +17,8 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: fr.opensagres.eclipse.forms,
  fr.opensagres.eclipse.forms.editor,
+ fr.opensagres.eclipse.forms.validation,
  fr.opensagres.eclipse.forms.widgets
+Bundle-SymbolicName: fr.opensagres.eclipse.forms
+Import-Package: org.eclipse.jface.databinding.swt
 

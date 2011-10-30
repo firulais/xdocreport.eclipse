@@ -28,4 +28,6 @@ Import-Package: fr.opensagres.eclipse.forms,
  fr.opensagres.eclipse.forms.editor,
  fr.opensagres.eclipse.forms.widgets,
  fr.opensagres.xdocreport.core.document,
- fr.opensagres.xdocreport.document.images
+ fr.opensagres.xdocreport.document.images,
+ javax.validation.constraints,
+ org.eclipse.core.databinding.validation.jsr303

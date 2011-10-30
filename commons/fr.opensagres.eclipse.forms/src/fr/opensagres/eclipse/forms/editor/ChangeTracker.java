@@ -12,6 +12,7 @@ package fr.opensagres.eclipse.forms.editor;
 
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 import org.eclipse.core.databinding.Binding;
 import org.eclipse.core.databinding.DataBindingContext;
@@ -36,8 +37,8 @@ public class ChangeTracker {
 
 	private final IChangeListener CHANGE_LISTENER = new IChangeListener() {
 
-		public void handleChange(ChangeEvent event) {
-			if(!isEnabled()) {
+		public void handleChange(ChangeEvent event) {			
+			if (!isEnabled()) {
 				return;
 			}
 			for (IChangeListener changeListener : changeListeners) {
@@ -51,13 +52,15 @@ public class ChangeTracker {
 
 		@Override
 		public void handleRemove(int index, Object element) {
-			Assert.isTrue(element instanceof Binding, element + " is not a Binding");
+			Assert.isTrue(element instanceof Binding, element
+					+ " is not a Binding");
 			removeObservable(((Binding) element).getModel());
 		}
 
 		@Override
 		public void handleAdd(int index, Object element) {
-			Assert.isTrue(element instanceof Binding, element + " is not a Binding");
+			Assert.isTrue(element instanceof Binding, element
+					+ " is not a Binding");
 			addObservable(((Binding) element).getModel());
 		}
 	};
@@ -74,13 +77,15 @@ public class ChangeTracker {
 
 		@Override
 		public void handleRemove(int index, Object element) {
-			Assert.isTrue(element instanceof Binding, element + " is not a Binding");
+			Assert.isTrue(element instanceof Binding, element
+					+ " is not a Binding");
 			removeObservable(((Binding) element).getTarget());
 		}
 
 		@Override
 		public void handleAdd(int index, Object element) {
-			Assert.isTrue(element instanceof Binding, element + " is not a Binding");
+			Assert.isTrue(element instanceof Binding, element
+					+ " is not a Binding");
 			addObservable(((Binding) element).getTarget());
 		}
 	};
@@ -105,22 +110,42 @@ public class ChangeTracker {
 
 	@SuppressWarnings("unchecked")
 	public void trackModelObservables(DataBindingContext bindings) {
-		for (Iterator<Binding> iterator = bindings.getBindings().iterator(); iterator.hasNext();) {
+		for (Iterator<Binding> iterator = bindings.getBindings().iterator(); iterator
+				.hasNext();) {
 			Binding binding = iterator.next();
 			addObservable(binding.getModel());
 		}
 
-		bindings.getBindings().addListChangeListener(BINDINGS_MODEL_CHANGE_LISTENER);
+		bindings.getBindings().addListChangeListener(
+				BINDINGS_MODEL_CHANGE_LISTENER);
 	}
 
 	@SuppressWarnings("unchecked")
 	public void trackTargetObservables(DataBindingContext bindings) {
-		for (Iterator<Binding> iterator = bindings.getBindings().iterator(); iterator.hasNext();) {
+		for (Iterator<Binding> iterator = bindings.getBindings().iterator(); iterator
+				.hasNext();) {
 			Binding binding = iterator.next();
 			addObservable(binding.getTarget());
 		}
 
-		bindings.getBindings().addListChangeListener(BINDINGS_TARGET_CHANGE_LISTENER);
+		bindings.getBindings().addListChangeListener(
+				BINDINGS_TARGET_CHANGE_LISTENER);
+	}
+
+	public void trackTargetObservables(DataBindingContext dataBindingContext,
+			List<Binding> ignoreBindings) {
+		for (Iterator<Binding> iterator = dataBindingContext.getBindings()
+				.iterator(); iterator.hasNext();) {
+			Binding binding = iterator.next();
+			if (!ignoreBindings.contains(binding)) {
+				addObservable(binding.getTarget());
+			}
+		}
+		if (ignoreBindings.size() == 0) {
+			dataBindingContext.getBindings().addListChangeListener(
+					BINDINGS_TARGET_CHANGE_LISTENER);
+		}
+
 	}
 
 	public void addChangeListener(IChangeListener changeListener) {
@@ -132,9 +157,9 @@ public class ChangeTracker {
 	}
 
 	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;		
+		this.enabled = enabled;
 	}
-	
+
 	public boolean isEnabled() {
 		return enabled;
 	}

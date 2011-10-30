@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.PojoObservables;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.core.databinding.validation.jsr303.Jsr303BeansUpdateValueStrategyFactory;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
@@ -201,6 +202,7 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 	}
 
 	private void onBindGeneralInfo(DataBindingContext bindingContext) {
+
 		// bind first name
 		IObservableValue firstNameTextObserveTextObserveWidget = SWTObservables
 				.observeText(firstNameText, SWT.Modify);
@@ -208,7 +210,10 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 				.observeValue(getModelObject().getOwner(),
 						NaturalPerson.FIRST_NAME_PROPERTY);
 		bindingContext.bindValue(firstNameTextObserveTextObserveWidget,
-				getModel1FirstNameObserveValue, null, null);
+				getModel1FirstNameObserveValue,
+				Jsr303BeansUpdateValueStrategyFactory
+						.create(getModel1FirstNameObserveValue), null);
+
 		// bind last name
 		IObservableValue lastNameTextObserveTextObserveWidget = SWTObservables
 				.observeText(lastNameText, SWT.Modify);
@@ -216,7 +221,9 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 				.observeValue(getModelObject().getOwner(),
 						NaturalPerson.LAST_NAME_PROPERTY);
 		bindingContext.bindValue(lastNameTextObserveTextObserveWidget,
-				getModel1LastNameObserveValue, null, null);
+				getModel1LastNameObserveValue,
+				Jsr303BeansUpdateValueStrategyFactory
+						.create(getModel1LastNameObserveValue), null);
 
 		// bind email
 		IObservableValue emailTextObserveTextObserveWidget = SWTObservables
@@ -227,7 +234,6 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 		bindingContext.bindValue(emailTextObserveTextObserveWidget,
 				personEmailObserveValue, null, null);
 
-		
 		// TODO : bind image photo with IImageProvider of the model.
 		// for the moment, just load the image from the model
 		try {
