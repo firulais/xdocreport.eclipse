@@ -26,13 +26,28 @@ public class SimpleWikiText extends BaseComposite {
 	private ToolBar toolBar;
 	private ToolItem boldButton;
 	private ToolItem italicButton;
+	private ToolItem underlineButton;
+	private ToolItem alignLeftButton;
+	private ToolItem alignCenterButton;
+	private ToolItem alignRightButton;
+	//TODO	private ToolItem insertLinkButton;
+	//TODO private ToolItem insertImageButton;
+	//TODO	private ToolItem numberedListButton;
+	//TODOprivate ToolItem bulletedListButton;
 
 	public SimpleWikiText(Composite parent, int compositeStyle, int textStyle,
 			FormToolkit toolkit) {
 		super(parent, compositeStyle, toolkit);
 		this.setLayout(new GridLayout());
 		this.toolBar = createToolBar(this);
-		text = createTextarea(this, textStyle);
+		final Composite comp = new Composite(this, SWT.NONE);
+		comp.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		GridLayout gl_comp = new GridLayout();
+		gl_comp.marginWidth = 0;
+		gl_comp.horizontalSpacing = 0;
+		comp.setLayout(gl_comp);
+	
+		text = createTextarea(comp, textStyle);
 	}
 
 	private ToolBar createToolBar(Composite parent) {
@@ -46,61 +61,85 @@ public class SimpleWikiText extends BaseComposite {
 				setStyle(event.widget);
 			}
 		};
-		boldButton = new ToolItem(toolBar, SWT.PUSH);
-		boldButton.setImage(ImageResources.getImage("icons/obj16/b_bold.gif"));
-		// boldButton.setText("B");
-		// boldButton.setImage(images.Bold);
-		boldButton.setToolTipText("Bold");
-		boldButton.addSelectionListener(listener);
-		italicButton = new ToolItem(toolBar, SWT.PUSH);
-		italicButton.setImage(ImageResources
-				.getImage("icons/obj16/b_italic.gif"));
-		// italicButton.setText("I");
-		// italicButton.setImage(images.Italic);
-		italicButton.setToolTipText("Italic");
-		italicButton.addSelectionListener(listener);
+		
+		boldButton=createToolItem(listener,"icons/obj16/b_bold.gif","Bold");
+
+		italicButton=createToolItem(listener,"icons/obj16/b_italic.gif","Italic");
+		
+		underlineButton=createToolItem(listener,"icons/obj16/b_underline.gif","Underline");
+
+		alignLeftButton=createToolItem(listener,"icons/obj16/b_aleft.gif","Align Left");
+		alignCenterButton=createToolItem(listener,"icons/obj16/b_acenter.gif","Align Center");
+		alignRightButton=createToolItem(listener,"icons/obj16/b_aright.gif","Align Right");
+	//	insertLinkButton=createToolItem(listener,"icons/obj16/b_url.gif","Insert Link");
 		return toolBar;
 	}
 
+	private ToolItem createToolItem(SelectionAdapter listener, String icon, String toolTipText) {
+		ToolItem	newItem = new ToolItem(toolBar, SWT.PUSH);
+		newItem.setImage(ImageResources.getImage(icon));
+		newItem.setToolTipText(toolTipText);
+		newItem.addSelectionListener(listener);
+		return newItem;
+	}
+
 	private void setStyle(Widget widget) {
+		String startTag="";
+		String endTag="";
 		// if not empty
 		Point selection = text.getSelection();
 		if (selection.x != selection.y) {
 			if (boldButton.equals(widget)) {
-				// find for "selected" and put <b>selected</b> around
-				String fullText = text.getText();
-				StringBuffer buffer = new StringBuffer(fullText);
-				// first insert the ending tag "</b>"
-				buffer.insert(selection.y, "</b>");
-				// then insert the beginning tag
-				buffer.insert(selection.x, "<b>");
-				text.setText(buffer.toString());
-				
+				startTag="<b>";
+				endTag="</b>";
 			}
 			else if (italicButton.equals(widget)) {
-				// find for "selected" and put <b>selected</b> around
-				String fullText = text.getText();
-				StringBuffer buffer = new StringBuffer(fullText);
-				// first insert the ending tag "</b>"
-				buffer.insert(selection.y, "</i>");
-				// then insert the beginning tag
-				buffer.insert(selection.x, "<i>");
-				text.setText(buffer.toString());
+				startTag="<i>";
+				endTag="</i>";
+
 			}
+			else if(underlineButton.equals(widget)){
+				startTag="<u>";
+				endTag="</u>";
+			}else if(alignLeftButton.equals(widget)){
+				startTag="<P align=\"left\">";
+				endTag="</p>";
+			}else if(alignCenterButton.equals(widget)){
+				startTag="<P align=\"center\">";
+				endTag="</p>";
+			}else if(alignRightButton.equals(widget)){
+				startTag="<P align=\"right\">";
+				endTag="</p>";
+			}
+			
+			
+			applyTags(startTag,endTag);
 		
 		}
+	}
+	private void applyTags(String startTag, String endTag) {
+		String fullText = text.getText();
+		StringBuffer buffer = new StringBuffer(fullText);
+		Point selection = text.getSelection();
+		// first insert the ending tag ex: "</b>"
+		buffer.insert(selection.y, endTag);
+		// then insert the beginning tag ex: "<b>" 
+		buffer.insert(selection.x, startTag);
+		text.setText(buffer.toString());
+		text.setFocus();
+		text.setSelection(selection.x);
+		//might have full selection instead:
+		//text.setSelection(selection.x,selection.y+startTag.length()+endTag.length());
+		
 	}
 	Browser preview;
 	private Text createTextarea(Composite parent, int style) {
 		final Text text = super.createText(parent, style | SWT.MULTI | SWT.WRAP);
-		GridData spec = new GridData();
-		spec.horizontalAlignment = GridData.FILL;
-		spec.grabExcessHorizontalSpace = true;
-		spec.verticalAlignment = GridData.FILL;
-		spec.grabExcessVerticalSpace = true;
-		text.setLayoutData(spec);
+		text.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+
 		Group grpPreview = new Group(parent,SWT.NONE);
-		grpPreview.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		
+		grpPreview.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		grpPreview.setText("Preview...");
 		grpPreview.setLayout(new FillLayout());
 		preview = new Browser(grpPreview,SWT.NONE);
