@@ -33,7 +33,7 @@ public class AngeloResume extends Resume {
 
 		diploma = new Diploma();
 		diploma.setId(ResumeServiceImpl.currentId++);
-		diploma.setLabel("Diplôme d’ingénieur en informatique");
+		diploma.setLabel("DiplÃ´me d'ingÃ©nieur en informatique");
 		diploma.setInstitute("INSA de Lyon");
 		diplomas.add(diploma);
 
@@ -46,18 +46,18 @@ public class AngeloResume extends Resume {
 		experience = new Experience();
 		experience.setId(ResumeServiceImpl.currentId++);
 		experience.setTitle("Projet SIDoc");
-		experience.setMission("Conception / Développement");
+		experience.setMission("Conception / DÃ©veloppement");
 		experience
-				.setDetail("Mise en place de l'application WEB de diffusion (qui sera accéssible dans les accueils des CAF) qui permet de publier les documents XML produits par l'application WEB de production.");
+				.setDetail("Mise en place de l'application WEB de diffusion (qui sera accessible dans les accueils des CAF) qui permet de publier les documents XML produits par l'application WEB de production.");
 		experiences.add(experience);
 
 		// Experience 2
 		experience = new Experience();
 		experience.setId(ResumeServiceImpl.currentId++);
 		experience.setTitle("ERP AgroV3");
-		experience.setMission("Conception / Développement");
+		experience.setMission("Conception / DÃ©veloppement");
 		experience
-				.setDetail("Conception et développement de fonctionnalités dans le  module VENTES/ACHATS et COMPTABILITE de l'ERP agrolimentaire AgroV3 de INFOLOGIC. Cet ERP est basé sur les technologies d'Eclipse SWT et JFace.");
+				.setDetail("Conception et dÃ©veloppement de fonctionnalitÃ©s dans le  module VENTES/ACHATS et COMPTABILITE de l'ERP agrolimentaire AgroV3 de INFOLOGIC. Cet ERP est basÃ© sur les technologies d'Eclipse SWT et JFace.");
 		experiences.add(experience);
 		
 		// Hobbies
