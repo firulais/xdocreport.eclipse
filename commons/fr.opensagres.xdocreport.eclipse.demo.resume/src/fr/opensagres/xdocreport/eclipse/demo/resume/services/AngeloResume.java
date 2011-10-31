@@ -48,7 +48,7 @@ public class AngeloResume extends Resume {
 		experience.setTitle("Projet SIDoc");
 		experience.setMission("Conception / Développement");
 		experience
-				.setDetail("Mise en place de l'application WEB de diffusion (qui sera accessible dans les accueils des CAF) qui permet de publier les documents XML produits par l'application WEB de production.");
+				.setDetail("Mise en place de l'application <b>WEB de diffusion</b> (qui sera accessible dans les accueils des CAF) qui permet de publier les documents XML produits par l'application WEB de production.");
 		experiences.add(experience);
 
 		// Experience 2
@@ -57,7 +57,7 @@ public class AngeloResume extends Resume {
 		experience.setTitle("ERP AgroV3");
 		experience.setMission("Conception / Développement");
 		experience
-				.setDetail("Conception et développement de fonctionnalités dans le  module VENTES/ACHATS et COMPTABILITE de l'ERP agrolimentaire AgroV3 de INFOLOGIC. Cet ERP est basé sur les technologies d'Eclipse SWT et JFace.");
+				.setDetail("Conception et développement de fonctionnalités dans le  module VENTES/ACHATS et COMPTABILITE de l'ERP agrolimentaire AgroV3 de <b>INFOLOGIC</b>. Cet ERP est basé sur les technologies d'<b>Eclipse SWT et JFace</b>.");
 		experiences.add(experience);
 		
 		// Hobbies

@@ -7,6 +7,7 @@ import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportException;
 import fr.opensagres.xdocreport.eclipse.reporting.xdocreport.XDocReportLoader;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
+import fr.opensagres.xdocreport.template.textstyling.SyntaxKind;
 
 public class DocxResumeReportLoader extends XDocReportLoader {
 
@@ -25,6 +26,7 @@ public class DocxResumeReportLoader extends XDocReportLoader {
 		metadata.addFieldAsImage("photo", "resume.Photo");
 		metadata.addFieldAsList("experiences.Title");
 		metadata.addFieldAsList("experiences.Detail");
+		metadata.addFieldAsTextStyling("experiences.Detail", SyntaxKind.Html);
 		metadata.addFieldAsList("diplomas.Label");
 		metadata.addFieldAsList("hobbies.Label");
 		return metadata;
