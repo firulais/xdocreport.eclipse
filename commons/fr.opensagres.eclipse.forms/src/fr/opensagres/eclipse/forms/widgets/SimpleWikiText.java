@@ -11,7 +11,9 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
@@ -27,13 +29,13 @@ public class SimpleWikiText extends BaseComposite {
 	private ToolItem boldButton;
 	private ToolItem italicButton;
 	private ToolItem underlineButton;
-	private ToolItem alignLeftButton;
-	private ToolItem alignCenterButton;
-	private ToolItem alignRightButton;
-	//TODO	private ToolItem insertLinkButton;
+//	private ToolItem alignLeftButton;
+//	private ToolItem alignCenterButton;
+//	private ToolItem alignRightButton;
+	private ToolItem insertLinkButton;
 	//TODO private ToolItem insertImageButton;
-	//TODO	private ToolItem numberedListButton;
-	//TODOprivate ToolItem bulletedListButton;
+	private ToolItem numberedListButton;
+	private ToolItem bulletedListButton;
 
 	public SimpleWikiText(Composite parent, int compositeStyle, int textStyle,
 			FormToolkit toolkit) {
@@ -68,10 +70,12 @@ public class SimpleWikiText extends BaseComposite {
 		
 		underlineButton=createToolItem(listener,"icons/obj16/b_underline.gif","Underline");
 
-		alignLeftButton=createToolItem(listener,"icons/obj16/b_aleft.gif","Align Left");
-		alignCenterButton=createToolItem(listener,"icons/obj16/b_acenter.gif","Align Center");
-		alignRightButton=createToolItem(listener,"icons/obj16/b_aright.gif","Align Right");
-	//	insertLinkButton=createToolItem(listener,"icons/obj16/b_url.gif","Insert Link");
+//		alignLeftButton=createToolItem(listener,"icons/obj16/b_aleft.gif","Align Left");
+//		alignCenterButton=createToolItem(listener,"icons/obj16/b_acenter.gif","Align Center");
+//		alignRightButton=createToolItem(listener,"icons/obj16/b_aright.gif","Align Right");
+		insertLinkButton=createToolItem(listener,"icons/obj16/b_url.gif","Insert Link");
+		numberedListButton=createToolItem(listener,"icons/obj16/b_numlist.gif","Numbered List");
+		bulletedListButton=createToolItem(listener,"icons/obj16/b_bulletlist.gif","Bullet List");
 		return toolBar;
 	}
 
@@ -101,16 +105,30 @@ public class SimpleWikiText extends BaseComposite {
 			else if(underlineButton.equals(widget)){
 				startTag="<u>";
 				endTag="</u>";
-			}else if(alignLeftButton.equals(widget)){
-				startTag="<P align=\"left\">";
-				endTag="</p>";
-			}else if(alignCenterButton.equals(widget)){
-				startTag="<P align=\"center\">";
-				endTag="</p>";
-			}else if(alignRightButton.equals(widget)){
-				startTag="<P align=\"right\">";
-				endTag="</p>";
-			}
+//			}else if(alignLeftButton.equals(widget)){
+//				startTag="<P align=\"left\">";
+//				endTag="</p>";
+//			}else if(alignCenterButton.equals(widget)){
+//				startTag="<P align=\"center\">";
+//				endTag="</p>";
+//			}else if(alignRightButton.equals(widget)){
+//				startTag="<P align=\"right\">";
+//				endTag="</p>";
+			} else if (insertLinkButton.equals(widget)){
+				//TODO : dialog box to prompt for a URL..
+				startTag="<a href=\"TODO\">";
+				endTag="</a>";
+				
+			} else if (numberedListButton.equals(widget)){
+				//TODO : split into different <li> ?
+				startTag="<ol><li>";
+				endTag="</li></ol>";
+				
+			} else if(bulletedListButton.equals(widget)){
+				//TODO : split into different <li> ?
+				startTag="<ul><li>";
+				endTag="</li></ul>";
+			}	
 			
 			
 			applyTags(startTag,endTag);
