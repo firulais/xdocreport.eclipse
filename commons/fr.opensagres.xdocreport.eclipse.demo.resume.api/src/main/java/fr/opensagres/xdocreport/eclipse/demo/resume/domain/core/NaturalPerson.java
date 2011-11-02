@@ -2,6 +2,7 @@ package fr.opensagres.xdocreport.eclipse.demo.resume.domain.core;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class NaturalPerson extends Person {
@@ -31,15 +32,17 @@ public class NaturalPerson extends Person {
 
 	}
 
-	// @Enumerated(EnumType.STRING)
-	// @Column(length=10)
+	@NotNull
+	//@Enumerated(EnumType.STRING)
+	//@Column(length = 10)
 	private MaritalStatus maritalStatus;
 
 	// @Column(length=100,nullable=false)
-	@Size(min=1)
+	
+	@Size(min = 1)
 	private String firstName;
 	// @Column(length=100,nullable=false)
-	@Size(min=1)
+	@Size(min = 1)
 	private String lastName;
 	// @Column
 	private Date birthDate;

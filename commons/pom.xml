@@ -15,5 +15,8 @@
 		<module>fr.opensagres.xdocreport.eclipse.demo.lettrerelance</module>
 		<module>fr.opensagres.xdocreport.eclipse.demo.resume</module>
 		<module>fr.opensagres.xdocreport.eclipse.report.xdocreport</module>
+		<module>
+			fr.opensagres.xdocreport.eclipse.demo.resume.api
+		</module>
 	</modules>
 </project>
