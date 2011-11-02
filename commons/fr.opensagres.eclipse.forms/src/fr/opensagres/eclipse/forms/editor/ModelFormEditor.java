@@ -41,7 +41,7 @@ public abstract class ModelFormEditor<EditorInput extends IEditorInput, Model>
 		}
 	}
 
-	private ChangeTracker changeTracker;
+	private ChangeTracker changeTracker= new ChangeTracker();
 	private boolean initializeBinding;
 	private final List<IBindableAware> pagesAlreadyBounded;
 	private final Map<String, DataBindingContextWrapper> dataBindingContextCahe;
@@ -62,7 +62,7 @@ public abstract class ModelFormEditor<EditorInput extends IEditorInput, Model>
 		// // Load model
 		reload();
 		dirtyFlag = new DirtyFlag();
-		changeTracker = new ChangeTracker();
+		
 		changeTracker.addChangeListener(dirtyFlag);
 	}
 
