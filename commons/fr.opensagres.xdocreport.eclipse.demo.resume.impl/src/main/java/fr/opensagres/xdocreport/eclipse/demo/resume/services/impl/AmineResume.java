@@ -1,22 +1,21 @@
-package fr.opensagres.xdocreport.eclipse.demo.resume.services;
+package fr.opensagres.xdocreport.eclipse.demo.resume.services.impl;
 
 import fr.opensagres.xdocreport.document.images.ClassPathImageProvider;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 
-public class PascalResume extends Resume {
+public class AmineResume extends Resume {
 
-	public PascalResume() {
+	public AmineResume() {
 		// Pascal
 		NaturalPerson person = new NaturalPerson();
 		person.setId(ResumeServiceImpl.currentId++);
-		person.setFirstName("Pascal");
-		person.setLastName("Leclercq");
-		person.setEmail("pascal.leclercq@gmail.com");
+		person.setFirstName("Amine");
+		person.setLastName("Bousta");
 
 		super.setId(ResumeServiceImpl.currentId++);
 		super.setOwner(person);
 		super.setPhoto(new ClassPathImageProvider(Resume.class,
-				"PascalLeclercq.jpg"));
+				"AmineBousta.jpg"));
 	}
 }

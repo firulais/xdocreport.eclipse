@@ -18,5 +18,8 @@
 		<module>
 			fr.opensagres.xdocreport.eclipse.demo.resume.api
 		</module>
+		<module>
+			fr.opensagres.xdocreport.eclipse.demo.resume.impl
+		</module>
 	</modules>
 </project>

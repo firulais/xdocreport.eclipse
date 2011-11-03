@@ -1,4 +1,4 @@
-package fr.opensagres.xdocreport.eclipse.demo.resume.services;
+package fr.opensagres.xdocreport.eclipse.demo.resume.services.impl;
 
 import java.util.HashSet;
 import java.util.Set;
