@@ -1,7 +1,5 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors;
 
-import java.io.IOException;
-
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.PojoObservables;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
@@ -237,12 +235,7 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 
 		// TODO : bind image photo with IImageProvider of the model.
 		// for the moment, just load the image from the model
-		try {
-			photo.setImageStream(getModelObject().getPhotoAsStream());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		photo.setImageStream(getModelObject().getPhoto().getImageStream());
 
 		// IObservableValue photoObserveImageObserveWidget = SWTObservables
 		// .observeImage(photo.getPhotoLabel());

@@ -1,6 +1,8 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.services;
 
-import fr.opensagres.xdocreport.document.images.ClassPathImageProvider;
+import java.io.IOException;
+
+import fr.opensagres.xdocreport.document.images.ByteArrayImageProvider;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 
@@ -16,7 +18,11 @@ public class PascalResume extends Resume {
 
 		super.setId(ResumeServiceImpl.currentId++);
 		super.setOwner(person);
-		super.setPhoto(new ClassPathImageProvider(Resume.class,
-				"PascalLeclercq.jpg"));
+		try {
+			super.setPhoto(new ByteArrayImageProvider(Resume.class
+					.getResourceAsStream("PascalLeclercq.jpg")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

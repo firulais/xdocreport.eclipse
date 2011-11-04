@@ -1,9 +1,10 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.services;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-import fr.opensagres.xdocreport.document.images.ClassPathImageProvider;
+import fr.opensagres.xdocreport.document.images.ByteArrayImageProvider;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Diploma;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Experience;
@@ -19,11 +20,15 @@ public class AngeloResume extends Resume {
 		person.setFirstName("Angelo");
 		person.setLastName("ZERR");
 		person.setEmail("angelo.zerr@gmail.com");
-		
+
 		super.setId(ResumeServiceImpl.currentId++);
 		super.setOwner(person);
-		super.setPhoto(new ClassPathImageProvider(Resume.class,
-				"AngeloZERR.jpg"));
+		try {
+			super.setPhoto(new ByteArrayImageProvider(Resume.class
+					.getResourceAsStream("AngeloZERR.jpg")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		// Diplomas
 		Set<Diploma> diplomas = new HashSet<Diploma>();
@@ -59,24 +64,24 @@ public class AngeloResume extends Resume {
 		experience
 				.setDetail("Conception et développement de fonctionnalités dans le  module VENTES/ACHATS et COMPTABILITE de l'ERP agrolimentaire AgroV3 de <b>INFOLOGIC</b>. Cet ERP est basé sur les technologies d'<b>Eclipse SWT et JFace</b>.");
 		experiences.add(experience);
-		
+
 		// Hobbies
-		Set<Hobby> hobbies =new HashSet<Hobby>();
+		Set<Hobby> hobbies = new HashSet<Hobby>();
 		super.setHobbies(hobbies);
 		Hobby hobby = null;
-		
+
 		// Hobby 1
 		hobby = new Hobby();
 		hobby.setId(ResumeServiceImpl.currentId++);
 		hobby.setLabel("Sport: Badminton.");
 		hobbies.add(hobby);
-		
+
 		// Hobby 2
 		hobby = new Hobby();
 		hobby.setId(ResumeServiceImpl.currentId++);
 		hobby.setLabel("Musique : pratique la batterie dans un groupe.");
 		hobbies.add(hobby);
-		
+
 		// Hobby 3
 		hobby = new Hobby();
 		hobby.setId(ResumeServiceImpl.currentId++);

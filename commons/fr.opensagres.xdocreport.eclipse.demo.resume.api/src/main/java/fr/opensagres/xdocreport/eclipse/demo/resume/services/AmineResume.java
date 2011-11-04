@@ -1,6 +1,8 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.services;
 
-import fr.opensagres.xdocreport.document.images.ClassPathImageProvider;
+import java.io.IOException;
+
+import fr.opensagres.xdocreport.document.images.ByteArrayImageProvider;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 
@@ -15,7 +17,12 @@ public class AmineResume extends Resume {
 
 		super.setId(ResumeServiceImpl.currentId++);
 		super.setOwner(person);
-		super.setPhoto(new ClassPathImageProvider(Resume.class,
-				"AmineBousta.jpg"));
+		try {
+			super.setPhoto(new ByteArrayImageProvider(Resume.class
+					.getResourceAsStream("AmineBousta.jpg")));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
