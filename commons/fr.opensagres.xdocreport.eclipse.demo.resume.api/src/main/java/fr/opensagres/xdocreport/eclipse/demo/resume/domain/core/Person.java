@@ -1,5 +1,8 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.domain.core;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class Person {
 	
 	public static final String EMAIL_PROPERTY = "email";
@@ -9,6 +12,8 @@ public class Person {
      */
     private static final long serialVersionUID = 298482050929739147L;
     //@Column(length=100,nullable=false)
+    @Size(max=100)
+    @Pattern(regexp = ".+@.+\\.[a-z]+")
     private String email;
 
     //@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)

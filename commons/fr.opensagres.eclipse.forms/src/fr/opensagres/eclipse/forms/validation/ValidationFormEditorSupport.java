@@ -8,9 +8,13 @@ import org.eclipse.core.databinding.observable.value.ValueChangeEvent;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.databinding.swt.ISWTObservable;
 import org.eclipse.jface.dialogs.IMessageProvider;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.IFormPage;
+import org.eclipse.ui.forms.widgets.Form;
+import org.eclipse.ui.forms.widgets.ScrolledForm;
 
 public class ValidationFormEditorSupport {
 
@@ -37,6 +41,9 @@ public class ValidationFormEditorSupport {
 		if (formPage == null) {
 			return;
 		}
+		if (isDisposed(formPage)) {
+			return;
+		}
 		for (Object o : ctx.getBindings()) {
 			Binding binding = (Binding) o;
 			IStatus status = (IStatus) binding.getValidationStatus().getValue();
@@ -59,6 +66,26 @@ public class ValidationFormEditorSupport {
 			}
 		}
 
+	}
+
+	private static boolean isDisposed(IFormPage formPage) {
+		IManagedForm managedForm = formPage.getManagedForm();
+		if (managedForm == null) {
+			return true;
+		}
+		ScrolledForm scrolledForm = managedForm.getForm();
+		if (scrolledForm == null || scrolledForm.isDisposed()) {
+			return true;
+		}
+		Form form = scrolledForm.getForm();
+		if (form == null || form.isDisposed()) {
+			return true;
+		}
+		Composite head = form.getHead();
+		if (head == null || head.isDisposed()) {
+			return true;
+		}
+		return false;
 	}
 
 	public static int getMessageType(IStatus status) {

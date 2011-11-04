@@ -232,7 +232,8 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 				.observeValue(getModelObject().getOwner(),
 						NaturalPerson.EMAIL_PROPERTY);
 		bindingContext.bindValue(emailTextObserveTextObserveWidget,
-				personEmailObserveValue, null, null);
+				personEmailObserveValue, Jsr303BeansUpdateValueStrategyFactory
+						.create(personEmailObserveValue), null);
 
 		// TODO : bind image photo with IImageProvider of the model.
 		// for the moment, just load the image from the model
