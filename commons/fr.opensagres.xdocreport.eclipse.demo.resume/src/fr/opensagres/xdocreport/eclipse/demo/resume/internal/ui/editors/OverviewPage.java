@@ -1,7 +1,5 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors;
 
-import java.io.IOException;
-
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.PojoObservables;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
@@ -26,7 +24,9 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 
 import fr.opensagres.eclipse.forms.widgets.DateTimeControl;
 import fr.opensagres.eclipse.forms.widgets.PhotoControl;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.Address;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.Person;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ImageResources;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages;
@@ -45,6 +45,9 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 	private DateTimeControl birthDayDateTime;
 	private PhotoControl photo;
 	private Text emailText;
+	private Text zipCodeText;
+	private Text cityText;
+	private Text streetText;
 
 	public OverviewPage(ReportingFormEditor<Resume> editor) {
 		super(editor, ID, Messages.ResumeFormEditor_OverviewPage_title);
@@ -67,6 +70,9 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 
 		// General info section
 		createGeneralInfoSection(toolkit, left);
+
+		// Address section
+		createAddressSection(toolkit, left);
 
 		Composite right = toolkit.createComposite(body);
 		right.setLayout(FormLayoutFactory.createFormPaneTableWrapLayout(false,
@@ -147,6 +153,49 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
 	}
 
+	private void createAddressSection(FormToolkit toolkit, Composite parent) {
+		Section section = toolkit.createSection(parent, Section.DESCRIPTION
+				| Section.TITLE_BAR);
+		section.setDescription(Messages.ResumeFormEditor_OverviewPage_Address_desc);
+		section.setText(Messages.ResumeFormEditor_OverviewPage_Address_title);
+		TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
+		section.setLayoutData(data);
+
+		Composite sbody = toolkit.createComposite(section);
+		section.setClient(sbody);
+
+		GridLayout glayout = new GridLayout();
+		// glayout.horizontalSpacing = 10;
+		glayout.numColumns = 2;
+		sbody.setLayout(glayout);
+
+		// Street
+		toolkit.createLabel(sbody,
+				Messages.ResumeFormEditor_OverviewPage_Address_Street_label);
+		streetText = toolkit.createText(sbody, "", SWT.SINGLE);
+		GridData streetData = new GridData(GridData.FILL_HORIZONTAL);
+		streetData.widthHint = 150;
+		streetText.setLayoutData(streetData);
+
+		// Zip Code
+		toolkit.createLabel(sbody,
+				Messages.ResumeFormEditor_OverviewPage_Address_ZipCode_label);
+		zipCodeText = toolkit.createText(sbody, "", SWT.SINGLE);
+		GridData zipCodeData = new GridData(GridData.FILL_HORIZONTAL);
+		zipCodeData.widthHint = 150;
+		zipCodeText.setLayoutData(zipCodeData);
+
+		// City
+		toolkit.createLabel(sbody,
+				Messages.ResumeFormEditor_OverviewPage_Address_City_label);
+		cityText = toolkit.createText(sbody, "", SWT.SINGLE);
+		GridData cityData = new GridData(GridData.FILL_HORIZONTAL);
+		cityData.widthHint = 150;
+		cityText.setLayoutData(cityData);
+
+		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
+	}
+
 	private void createContentSection(FormToolkit toolkit, Composite parent) {
 		Section section = toolkit.createSection(parent, Section.TITLE_BAR);
 		section.setText(Messages.ResumeFormEditor_OverviewPage_ResumeContent_title);
@@ -198,7 +247,7 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 
 	public void onBind(DataBindingContext bindingContext) {
 		onBindGeneralInfo(bindingContext);
-
+		onBindAddress(bindingContext);
 	}
 
 	private void onBindGeneralInfo(DataBindingContext bindingContext) {
@@ -232,16 +281,12 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 				.observeValue(getModelObject().getOwner(),
 						NaturalPerson.EMAIL_PROPERTY);
 		bindingContext.bindValue(emailTextObserveTextObserveWidget,
-				personEmailObserveValue, null, null);
+				personEmailObserveValue, Jsr303BeansUpdateValueStrategyFactory
+						.create(personEmailObserveValue), null);
 
 		// TODO : bind image photo with IImageProvider of the model.
 		// for the moment, just load the image from the model
-		try {
-			photo.setImageStream(getModelObject().getPhotoAsStream());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		photo.setImageStream(getModelObject().getPhoto().getImageStream());
 
 		// IObservableValue photoObserveImageObserveWidget = SWTObservables
 		// .observeImage(photo.getPhotoLabel());
@@ -249,6 +294,40 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 		// .observeValue(getModelObject().getOwner(), "lastName");
 		// bindingContext.bindValue(lastNameTextObserveTextObserveWidget,
 		// getModel1LastNameObserveValue, null, null);
+
+	}
+
+	private void onBindAddress(DataBindingContext bindingContext) {
+
+		// bind Street
+		IObservableValue streetTextObserveTextObserveWidget = SWTObservables
+				.observeText(streetText, SWT.Modify);
+		IObservableValue addressStreetObserveValue = PojoObservables
+				.observeValue(getModelObject().getOwner(),
+						Person.ADDRESS_PROPERTY + "."
+								+ Address.STREET_PROPERTY);
+		bindingContext.bindValue(streetTextObserveTextObserveWidget,
+				addressStreetObserveValue, null, null);
+
+		// bind city
+		IObservableValue cityTextObserveTextObserveWidget = SWTObservables
+				.observeText(cityText, SWT.Modify);
+		IObservableValue addressCityObserveValue = PojoObservables
+				.observeValue(getModelObject().getOwner(),
+						Person.ADDRESS_PROPERTY + "."
+								+ Address.CITY_PROPERTY);
+		bindingContext.bindValue(cityTextObserveTextObserveWidget,
+				addressCityObserveValue, null, null);
+		
+		// bind Zip Code
+		IObservableValue zipCodeTextObserveTextObserveWidget = SWTObservables
+				.observeText(zipCodeText, SWT.Modify);
+		IObservableValue addressZipCodeObserveValue = PojoObservables
+				.observeValue(getModelObject().getOwner(),
+						Person.ADDRESS_PROPERTY + "."
+								+ Address.ZIPCODE_PROPERTY);
+		bindingContext.bindValue(zipCodeTextObserveTextObserveWidget,
+				addressZipCodeObserveValue, null, null);
 
 	}
 

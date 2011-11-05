@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
 
+import fr.opensagres.xdocreport.document.images.ByteArrayImageProvider;
 import fr.opensagres.xdocreport.document.images.ClassPathImageProvider;
 import fr.opensagres.xdocreport.document.images.IImageProvider;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
@@ -19,9 +20,16 @@ public class Resume {
 	         */
 	private static final long serialVersionUID = 7407392831377640438L;
 
-	private static IImageProvider EMPTY_PHOTO = new ClassPathImageProvider(
-			Resume.class, "EmptyPhoto.jpg");
+	private static ByteArrayImageProvider EMPTY_PHOTO;
 
+	static {
+		try {
+			EMPTY_PHOTO = new ByteArrayImageProvider(
+					Resume.class.getResourceAsStream("EmptyPhoto.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	// @Id
 	// @GeneratedValue
 	private Long id;
@@ -51,7 +59,7 @@ public class Resume {
 
 	private Set<Hobby> hobbies;
 
-	private IImageProvider photo;
+	private ByteArrayImageProvider photo;
 
 	public Resume() {
 		this.photo = EMPTY_PHOTO;
@@ -135,11 +143,11 @@ public class Resume {
 		// firePropertyChange("competences", oldValue, competences);
 	}
 
-	public void setPhoto(IImageProvider photo) {
+	public void setPhoto(ByteArrayImageProvider photo) {
 		this.photo = photo;
 	}
 
-	public IImageProvider getPhoto() {
+	public ByteArrayImageProvider getPhoto() {
 		return photo;
 	}
 
@@ -151,9 +159,5 @@ public class Resume {
 		return hobbies;
 	}
 
-	public InputStream getPhotoAsStream() throws IOException {
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		((ClassPathImageProvider) getPhoto()).write(out);
-		return new ByteArrayInputStream(out.toByteArray());
-	}
+
 }

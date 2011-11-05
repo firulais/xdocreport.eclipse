@@ -25,6 +25,7 @@
       <plugin id="fr.opensagres.xdocreport.document.pptx" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.eclipse"/>
       <plugin id="fr.opensagres.xdocreport.eclipse.demo.lettrerelance"/>
+      <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume.api"/>
       <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume"/>
       <plugin id="fr.opensagres.xdocreport.eclipse.rap" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.eclipse.report.xdocreport"/>
