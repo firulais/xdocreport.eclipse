@@ -6,8 +6,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.springframework.stereotype.Service;
-
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Diploma;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Experience;
@@ -15,7 +13,7 @@ import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Hobby;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 import fr.opensagres.xdocreport.eclipse.demo.resume.services.ResumeService;
 
-@Service("resumeService")
+
 public class ResumeServiceImpl implements ResumeService {
 
 	private static final Map<Long, Resume> resumes;

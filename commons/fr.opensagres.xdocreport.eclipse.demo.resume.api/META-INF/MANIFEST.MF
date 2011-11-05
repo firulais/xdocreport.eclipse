@@ -11,4 +11,4 @@ Import-Package: fr.opensagres.xdocreport.document.images,
  javax.validation.constraints;version="1.0.0.GA"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5,
  JavaSE-1.6
-Require-Bundle: org.springframework.beans;bundle-version="3.0.6"
+Require-Bundle: org.springframework.beans

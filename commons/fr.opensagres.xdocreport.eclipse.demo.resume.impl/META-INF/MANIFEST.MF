@@ -2,13 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Impl
 Bundle-SymbolicName: fr.opensagres.xdocreport.eclipse.demo.resume.impl
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 0.0.1.qualifier
 Export-Package: fr.opensagres.xdocreport.eclipse.demo.resume.services.impl
 Import-Package: fr.opensagres.xdocreport.document.images,
  fr.opensagres.xdocreport.eclipse.demo.resume.domain.core,
  fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr,
- fr.opensagres.xdocreport.eclipse.demo.resume.services,
- org.springframework.stereotype;version="3.0.5.RELEASE"
+ fr.opensagres.xdocreport.eclipse.demo.resume.services
 Bundle-RequiredExecutionEnvironment: J2SE-1.5,
  JavaSE-1.6
-Require-Bundle: org.springframework.beans;bundle-version="3.0.5"
+Require-Bundle: org.springframework.beans
