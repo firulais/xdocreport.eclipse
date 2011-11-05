@@ -24,7 +24,9 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 
 import fr.opensagres.eclipse.forms.widgets.DateTimeControl;
 import fr.opensagres.eclipse.forms.widgets.PhotoControl;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.Address;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.Person;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ImageResources;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages;
@@ -33,230 +35,313 @@ import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormEditor;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormPage;
 
 public class OverviewPage extends ReportingFormPage<Resume> implements
-                IHyperlinkListener {
+		IHyperlinkListener {
 
-        public static final String ID = "overview";
-        private Text firstNameText;
-        private GridData gd_lastNameText;
-        private GridData gd_firstNameText;
-        private Text lastNameText;
-        private DateTimeControl birthDayDateTime;
-        private PhotoControl photo;
-        private Text emailText;
+	public static final String ID = "overview";
+	private Text firstNameText;
+	private GridData gd_lastNameText;
+	private GridData gd_firstNameText;
+	private Text lastNameText;
+	private DateTimeControl birthDayDateTime;
+	private PhotoControl photo;
+	private Text emailText;
+	private Text zipCodeText;
+	private Text cityText;
+	private Text streetText;
 
-        public OverviewPage(ReportingFormEditor<Resume> editor) {
-                super(editor, ID, Messages.ResumeFormEditor_OverviewPage_title);
-        }
+	public OverviewPage(ReportingFormEditor<Resume> editor) {
+		super(editor, ID, Messages.ResumeFormEditor_OverviewPage_title);
+	}
 
-        @Override
-        protected Image getFormTitleImage() {
-                return ImageResources.getImage(ImageResources.IMG_OVERVIEW_16);
-        }
+	@Override
+	protected Image getFormTitleImage() {
+		return ImageResources.getImage(ImageResources.IMG_OVERVIEW_16);
+	}
 
-        @Override
-        protected void fillBody(IManagedForm managedForm, FormToolkit toolkit) {
-                Composite body = managedForm.getForm().getBody();
-                body.setLayout(FormLayoutFactory.createFormTableWrapLayout(true, 2));
+	@Override
+	protected void fillBody(IManagedForm managedForm, FormToolkit toolkit) {
+		Composite body = managedForm.getForm().getBody();
+		body.setLayout(FormLayoutFactory.createFormTableWrapLayout(true, 2));
 
-                Composite left = toolkit.createComposite(body);
-                left.setLayout(FormLayoutFactory
-                                .createFormPaneTableWrapLayout(false, 1));
-                left.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
+		Composite left = toolkit.createComposite(body);
+		left.setLayout(FormLayoutFactory
+				.createFormPaneTableWrapLayout(false, 1));
+		left.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
 
-                // General info section
-                createGeneralInfoSection(toolkit, left);
+		// General info section
+		createGeneralInfoSection(toolkit, left);
 
-                Composite right = toolkit.createComposite(body);
-                right.setLayout(FormLayoutFactory.createFormPaneTableWrapLayout(false,
-                                1));
-                right.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
+		// Address section
+		createAddressSection(toolkit, left);
 
-                // Content section
-                createContentSection(toolkit, right);
+		Composite right = toolkit.createComposite(body);
+		right.setLayout(FormLayoutFactory.createFormPaneTableWrapLayout(false,
+				1));
+		right.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
 
-        }
+		// Content section
+		createContentSection(toolkit, right);
 
-        private void createGeneralInfoSection(FormToolkit toolkit, Composite left) {
-                Section section = toolkit.createSection(left, Section.DESCRIPTION
-                                | Section.TITLE_BAR);
-                section.setDescription(Messages.ResumeFormEditor_OverviewPage_GeneralInfo_desc);
-                section.setText(Messages.ResumeFormEditor_OverviewPage_GeneralInfo_title);
-                TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
-                section.setLayoutData(data);
+	}
 
-                Composite sbody = toolkit.createComposite(section);
-                section.setClient(sbody);
+	private void createGeneralInfoSection(FormToolkit toolkit, Composite left) {
+		Section section = toolkit.createSection(left, Section.DESCRIPTION
+				| Section.TITLE_BAR);
+		section.setDescription(Messages.ResumeFormEditor_OverviewPage_GeneralInfo_desc);
+		section.setText(Messages.ResumeFormEditor_OverviewPage_GeneralInfo_title);
+		TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
+		section.setLayoutData(data);
 
-                GridLayout glayout = new GridLayout();
-                // glayout.horizontalSpacing = 10;
-                glayout.numColumns = 2;
-                sbody.setLayout(glayout);
+		Composite sbody = toolkit.createComposite(section);
+		section.setClient(sbody);
 
-                // First name
-                toolkit.createLabel(
-                                sbody,
-                                Messages.ResumeFormEditor_OverviewPage_GeneralInfo_FirstName_label);
-                firstNameText = toolkit.createText(sbody, "", SWT.SINGLE);
-                gd_firstNameText = new GridData(GridData.FILL_HORIZONTAL);
-                gd_firstNameText.widthHint = 150;
-                firstNameText.setLayoutData(gd_firstNameText);
+		GridLayout glayout = new GridLayout();
+		// glayout.horizontalSpacing = 10;
+		glayout.numColumns = 2;
+		sbody.setLayout(glayout);
 
-                // Last name
-                toolkit.createLabel(
-                                sbody,
-                                Messages.ResumeFormEditor_OverviewPage_GeneralInfo_LastName_label);
-                lastNameText = toolkit.createText(sbody, "", SWT.SINGLE);
-                gd_lastNameText = new GridData(GridData.FILL_HORIZONTAL);
-                gd_lastNameText.widthHint = 150;
-                lastNameText.setLayoutData(gd_lastNameText);
+		// First name
+		toolkit.createLabel(
+				sbody,
+				Messages.ResumeFormEditor_OverviewPage_GeneralInfo_FirstName_label);
+		firstNameText = toolkit.createText(sbody, "", SWT.SINGLE);
+		gd_firstNameText = new GridData(GridData.FILL_HORIZONTAL);
+		gd_firstNameText.widthHint = 150;
+		firstNameText.setLayoutData(gd_firstNameText);
 
-                // Birthday
-                toolkit.createLabel(
-                                sbody,
-                                Messages.ResumeFormEditor_OverviewPage_GeneralInfo_Birthday_label);
-                birthDayDateTime = new DateTimeControl(sbody, SWT.NONE, SWT.SINGLE,
-                                SWT.FLAT, toolkit);
-                GridData gd_birthDayDateTimet = new GridData(GridData.FILL_HORIZONTAL);
-                gd_birthDayDateTimet.widthHint = 150;
-                birthDayDateTime.setLayoutData(gd_birthDayDateTimet);
-                SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit,
-                                birthDayDateTime);
+		// Last name
+		toolkit.createLabel(
+				sbody,
+				Messages.ResumeFormEditor_OverviewPage_GeneralInfo_LastName_label);
+		lastNameText = toolkit.createText(sbody, "", SWT.SINGLE);
+		gd_lastNameText = new GridData(GridData.FILL_HORIZONTAL);
+		gd_lastNameText.widthHint = 150;
+		lastNameText.setLayoutData(gd_lastNameText);
 
-                // Email
-                toolkit.createLabel(sbody,
-                                Messages.ResumeFormEditor_OverviewPage_GeneralInfo_Email_label);
-                emailText = toolkit.createText(sbody, "", SWT.SINGLE);
-                GridData gd_emailText = new GridData(GridData.FILL_HORIZONTAL);
-                gd_emailText.widthHint = 150;
-                emailText.setLayoutData(gd_emailText);
+		// Birthday
+		toolkit.createLabel(
+				sbody,
+				Messages.ResumeFormEditor_OverviewPage_GeneralInfo_Birthday_label);
+		birthDayDateTime = new DateTimeControl(sbody, SWT.NONE, SWT.SINGLE,
+				SWT.FLAT, toolkit);
+		GridData gd_birthDayDateTimet = new GridData(GridData.FILL_HORIZONTAL);
+		gd_birthDayDateTimet.widthHint = 150;
+		birthDayDateTime.setLayoutData(gd_birthDayDateTimet);
+		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit,
+				birthDayDateTime);
 
-                // Photo
-                Label photoLabel = toolkit.createLabel(sbody,
-                                Messages.ResumeFormEditor_OverviewPage_GeneralInfo_Photo_label);
-                GridData gd_photoLabel = new GridData();
-                gd_photoLabel.verticalAlignment = SWT.TOP;
-                photoLabel.setLayoutData(gd_photoLabel);
-                photo = new PhotoControl(sbody, SWT.NONE, SWT.BORDER, toolkit);
-                GridData gd_photo = new GridData(GridData.FILL_HORIZONTAL);
-                gd_photo.widthHint = 150;
-                photo.setLayoutData(gd_photo);
-                SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, photo);
+		// Email
+		toolkit.createLabel(sbody,
+				Messages.ResumeFormEditor_OverviewPage_GeneralInfo_Email_label);
+		emailText = toolkit.createText(sbody, "", SWT.SINGLE);
+		GridData gd_emailText = new GridData(GridData.FILL_HORIZONTAL);
+		gd_emailText.widthHint = 150;
+		emailText.setLayoutData(gd_emailText);
 
-                SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
-        }
+		// Photo
+		Label photoLabel = toolkit.createLabel(sbody,
+				Messages.ResumeFormEditor_OverviewPage_GeneralInfo_Photo_label);
+		GridData gd_photoLabel = new GridData();
+		gd_photoLabel.verticalAlignment = SWT.TOP;
+		photoLabel.setLayoutData(gd_photoLabel);
+		photo = new PhotoControl(sbody, SWT.NONE, SWT.BORDER, toolkit);
+		GridData gd_photo = new GridData(GridData.FILL_HORIZONTAL);
+		gd_photo.widthHint = 150;
+		photo.setLayoutData(gd_photo);
+		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, photo);
 
-        private void createContentSection(FormToolkit toolkit, Composite parent) {
-                Section section = toolkit.createSection(parent, Section.TITLE_BAR);
-                section.setText(Messages.ResumeFormEditor_OverviewPage_ResumeContent_title);
-                TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
-                section.setLayoutData(data);
+		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
+	}
 
-                Composite sbody = toolkit.createComposite(section);
-                section.setClient(sbody);
+	private void createAddressSection(FormToolkit toolkit, Composite parent) {
+		Section section = toolkit.createSection(parent, Section.DESCRIPTION
+				| Section.TITLE_BAR);
+		section.setDescription(Messages.ResumeFormEditor_OverviewPage_Address_desc);
+		section.setText(Messages.ResumeFormEditor_OverviewPage_Address_title);
+		TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
+		section.setLayoutData(data);
 
-                Composite container = createStaticSectionClient(toolkit, section);
+		Composite sbody = toolkit.createComposite(section);
+		section.setClient(sbody);
 
-                FormText text = createClient(container,
-                                Messages.ResumeFormEditor_OverviewPage_ResumeContent_content,
-                                toolkit);
-                text.setImage("diploma_page",
-                                ImageResources.getImage(ImageResources.IMG_DIPLOMA_16));
-                text.setImage("experiences_page",
-                                ImageResources.getImage(ImageResources.IMG_EXPERIENCES_16));
-                text.setImage("skills_page",
-                                ImageResources.getImage(ImageResources.IMG_SKILLS_16));
-                text.setImage("hobbies_page",
-                                ImageResources.getImage(ImageResources.IMG_HOBBIES_16));
-                section.setClient(container);
+		GridLayout glayout = new GridLayout();
+		// glayout.horizontalSpacing = 10;
+		glayout.numColumns = 2;
+		sbody.setLayout(glayout);
 
-                SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
-        }
+		// Street
+		toolkit.createLabel(sbody,
+				Messages.ResumeFormEditor_OverviewPage_Address_Street_label);
+		streetText = toolkit.createText(sbody, "", SWT.SINGLE);
+		GridData streetData = new GridData(GridData.FILL_HORIZONTAL);
+		streetData.widthHint = 150;
+		streetText.setLayoutData(streetData);
 
-        protected final FormText createClient(Composite section, String content,
-                        FormToolkit toolkit) {
-                FormText text = toolkit.createFormText(section, true);
-                try {
-                        text.setText(content, true, false);
-                } catch (SWTException e) {
-                        text.setText(e.getMessage(), false, false);
-                }
-                text.addHyperlinkListener(this);
-                return text;
-        }
+		// Zip Code
+		toolkit.createLabel(sbody,
+				Messages.ResumeFormEditor_OverviewPage_Address_ZipCode_label);
+		zipCodeText = toolkit.createText(sbody, "", SWT.SINGLE);
+		GridData zipCodeData = new GridData(GridData.FILL_HORIZONTAL);
+		zipCodeData.widthHint = 150;
+		zipCodeText.setLayoutData(zipCodeData);
 
-        protected Composite createStaticSectionClient(FormToolkit toolkit,
-                        Composite parent) {
-                Composite container = toolkit.createComposite(parent, SWT.NONE);
-                container.setLayout(FormLayoutFactory
-                                .createSectionClientTableWrapLayout(false, 1));
-                TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
-                container.setLayoutData(data);
-                return container;
-        }
+		// City
+		toolkit.createLabel(sbody,
+				Messages.ResumeFormEditor_OverviewPage_Address_City_label);
+		cityText = toolkit.createText(sbody, "", SWT.SINGLE);
+		GridData cityData = new GridData(GridData.FILL_HORIZONTAL);
+		cityData.widthHint = 150;
+		cityText.setLayoutData(cityData);
 
-        public void onBind(DataBindingContext bindingContext) {
-                onBindGeneralInfo(bindingContext);
+		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
+	}
 
-        }
+	private void createContentSection(FormToolkit toolkit, Composite parent) {
+		Section section = toolkit.createSection(parent, Section.TITLE_BAR);
+		section.setText(Messages.ResumeFormEditor_OverviewPage_ResumeContent_title);
+		TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
+		section.setLayoutData(data);
 
-        private void onBindGeneralInfo(DataBindingContext bindingContext) {
+		Composite sbody = toolkit.createComposite(section);
+		section.setClient(sbody);
 
-                // bind first name
-                IObservableValue firstNameTextObserveTextObserveWidget = SWTObservables
-                                .observeText(firstNameText, SWT.Modify);
-                IObservableValue getModel1FirstNameObserveValue = PojoObservables
-                                .observeValue(getModelObject().getOwner(),
-                                                NaturalPerson.FIRST_NAME_PROPERTY);
-                bindingContext.bindValue(firstNameTextObserveTextObserveWidget,
-                                getModel1FirstNameObserveValue,
-                                Jsr303BeansUpdateValueStrategyFactory
-                                                .create(getModel1FirstNameObserveValue), null);
+		Composite container = createStaticSectionClient(toolkit, section);
 
-                // bind last name
-                IObservableValue lastNameTextObserveTextObserveWidget = SWTObservables
-                                .observeText(lastNameText, SWT.Modify);
-                IObservableValue getModel1LastNameObserveValue = PojoObservables
-                                .observeValue(getModelObject().getOwner(),
-                                                NaturalPerson.LAST_NAME_PROPERTY);
-                bindingContext.bindValue(lastNameTextObserveTextObserveWidget,
-                                getModel1LastNameObserveValue,
-                                Jsr303BeansUpdateValueStrategyFactory
-                                                .create(getModel1LastNameObserveValue), null);
+		FormText text = createClient(container,
+				Messages.ResumeFormEditor_OverviewPage_ResumeContent_content,
+				toolkit);
+		text.setImage("diploma_page",
+				ImageResources.getImage(ImageResources.IMG_DIPLOMA_16));
+		text.setImage("experiences_page",
+				ImageResources.getImage(ImageResources.IMG_EXPERIENCES_16));
+		text.setImage("skills_page",
+				ImageResources.getImage(ImageResources.IMG_SKILLS_16));
+		text.setImage("hobbies_page",
+				ImageResources.getImage(ImageResources.IMG_HOBBIES_16));
+		section.setClient(container);
 
-                // bind email
-                IObservableValue emailTextObserveTextObserveWidget = SWTObservables
-                                .observeText(emailText, SWT.Modify);
-                IObservableValue personEmailObserveValue = PojoObservables
-                                .observeValue(getModelObject().getOwner(),
-                                                NaturalPerson.EMAIL_PROPERTY);
-                bindingContext.bindValue(emailTextObserveTextObserveWidget,
-                                personEmailObserveValue, Jsr303BeansUpdateValueStrategyFactory
-                                                .create(personEmailObserveValue), null);
+		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
+	}
 
-                // TODO : bind image photo with IImageProvider of the model.
-                // for the moment, just load the image from the model
-                photo.setImageStream(getModelObject().getPhoto().getImageStream());
+	protected final FormText createClient(Composite section, String content,
+			FormToolkit toolkit) {
+		FormText text = toolkit.createFormText(section, true);
+		try {
+			text.setText(content, true, false);
+		} catch (SWTException e) {
+			text.setText(e.getMessage(), false, false);
+		}
+		text.addHyperlinkListener(this);
+		return text;
+	}
 
-                // IObservableValue photoObserveImageObserveWidget = SWTObservables
-                // .observeImage(photo.getPhotoLabel());
-                // IObservableValue getModelPhotoObserveValue = PojoObservables
-                // .observeValue(getModelObject().getOwner(), "lastName");
-                // bindingContext.bindValue(lastNameTextObserveTextObserveWidget,
-                // getModel1LastNameObserveValue, null, null);
+	protected Composite createStaticSectionClient(FormToolkit toolkit,
+			Composite parent) {
+		Composite container = toolkit.createComposite(parent, SWT.NONE);
+		container.setLayout(FormLayoutFactory
+				.createSectionClientTableWrapLayout(false, 1));
+		TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
+		container.setLayoutData(data);
+		return container;
+	}
 
-        }
+	public void onBind(DataBindingContext bindingContext) {
+		onBindGeneralInfo(bindingContext);
+		onBindAddress(bindingContext);
+	}
 
-        public void linkActivated(HyperlinkEvent e) {
-                String href = (String) e.getHref();
-                getEditor().setActivePage(href);
-        }
+	private void onBindGeneralInfo(DataBindingContext bindingContext) {
 
-        public void linkEntered(HyperlinkEvent e) {
-                // Do nothing
-        }
+		// bind first name
+		IObservableValue firstNameTextObserveTextObserveWidget = SWTObservables
+				.observeText(firstNameText, SWT.Modify);
+		IObservableValue getModel1FirstNameObserveValue = PojoObservables
+				.observeValue(getModelObject().getOwner(),
+						NaturalPerson.FIRST_NAME_PROPERTY);
+		bindingContext.bindValue(firstNameTextObserveTextObserveWidget,
+				getModel1FirstNameObserveValue,
+				Jsr303BeansUpdateValueStrategyFactory
+						.create(getModel1FirstNameObserveValue), null);
 
-        public void linkExited(HyperlinkEvent e) {
-                // Do nothing
-        }
+		// bind last name
+		IObservableValue lastNameTextObserveTextObserveWidget = SWTObservables
+				.observeText(lastNameText, SWT.Modify);
+		IObservableValue getModel1LastNameObserveValue = PojoObservables
+				.observeValue(getModelObject().getOwner(),
+						NaturalPerson.LAST_NAME_PROPERTY);
+		bindingContext.bindValue(lastNameTextObserveTextObserveWidget,
+				getModel1LastNameObserveValue,
+				Jsr303BeansUpdateValueStrategyFactory
+						.create(getModel1LastNameObserveValue), null);
+
+		// bind email
+		IObservableValue emailTextObserveTextObserveWidget = SWTObservables
+				.observeText(emailText, SWT.Modify);
+		IObservableValue personEmailObserveValue = PojoObservables
+				.observeValue(getModelObject().getOwner(),
+						NaturalPerson.EMAIL_PROPERTY);
+		bindingContext.bindValue(emailTextObserveTextObserveWidget,
+				personEmailObserveValue, Jsr303BeansUpdateValueStrategyFactory
+						.create(personEmailObserveValue), null);
+
+		// TODO : bind image photo with IImageProvider of the model.
+		// for the moment, just load the image from the model
+		photo.setImageStream(getModelObject().getPhoto().getImageStream());
+
+		// IObservableValue photoObserveImageObserveWidget = SWTObservables
+		// .observeImage(photo.getPhotoLabel());
+		// IObservableValue getModelPhotoObserveValue = PojoObservables
+		// .observeValue(getModelObject().getOwner(), "lastName");
+		// bindingContext.bindValue(lastNameTextObserveTextObserveWidget,
+		// getModel1LastNameObserveValue, null, null);
+
+	}
+
+	private void onBindAddress(DataBindingContext bindingContext) {
+
+		// bind Street
+		IObservableValue streetTextObserveTextObserveWidget = SWTObservables
+				.observeText(streetText, SWT.Modify);
+		IObservableValue addressStreetObserveValue = PojoObservables
+				.observeValue(getModelObject().getOwner(),
+						Person.ADDRESS_PROPERTY + "."
+								+ Address.STREET_PROPERTY);
+		bindingContext.bindValue(streetTextObserveTextObserveWidget,
+				addressStreetObserveValue, null, null);
+
+		// bind city
+		IObservableValue cityTextObserveTextObserveWidget = SWTObservables
+				.observeText(cityText, SWT.Modify);
+		IObservableValue addressCityObserveValue = PojoObservables
+				.observeValue(getModelObject().getOwner(),
+						Person.ADDRESS_PROPERTY + "."
+								+ Address.CITY_PROPERTY);
+		bindingContext.bindValue(cityTextObserveTextObserveWidget,
+				addressCityObserveValue, null, null);
+		
+		// bind Zip Code
+		IObservableValue zipCodeTextObserveTextObserveWidget = SWTObservables
+				.observeText(zipCodeText, SWT.Modify);
+		IObservableValue addressZipCodeObserveValue = PojoObservables
+				.observeValue(getModelObject().getOwner(),
+						Person.ADDRESS_PROPERTY + "."
+								+ Address.ZIPCODE_PROPERTY);
+		bindingContext.bindValue(zipCodeTextObserveTextObserveWidget,
+				addressZipCodeObserveValue, null, null);
+
+	}
+
+	public void linkActivated(HyperlinkEvent e) {
+		String href = (String) e.getHref();
+		getEditor().setActivePage(href);
+	}
+
+	public void linkEntered(HyperlinkEvent e) {
+		// Do nothing
+	}
+
+	public void linkExited(HyperlinkEvent e) {
+		// Do nothing
+	}
 
 }
