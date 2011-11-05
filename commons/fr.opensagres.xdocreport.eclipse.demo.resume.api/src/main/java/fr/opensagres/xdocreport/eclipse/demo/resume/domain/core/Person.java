@@ -6,6 +6,7 @@ import javax.validation.constraints.Size;
 public class Person {
 	
 	public static final String EMAIL_PROPERTY = "email";
+	public static final String ADDRESS_PROPERTY = "address";
 	
 	/**
      * 

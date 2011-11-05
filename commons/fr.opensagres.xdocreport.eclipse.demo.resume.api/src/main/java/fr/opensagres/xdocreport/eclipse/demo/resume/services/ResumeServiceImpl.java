@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.Address;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Diploma;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Experience;
@@ -101,6 +102,7 @@ public class ResumeServiceImpl implements ResumeService {
 		newPerson.setFirstName(person.getFirstName());
 		newPerson.setBirthDate(person.getBirthDate());
 		newPerson.setEmail(person.getEmail());
+		newPerson.setAddress(clone(person.getAddress()));
 		return newPerson;
 	}
 
@@ -140,5 +142,24 @@ public class ResumeServiceImpl implements ResumeService {
 		newHobby.setId(id);
 		newHobby.setLabel(hobby.getLabel());
 		return newHobby;
+	}
+	
+	private Address clone(Address address) {
+		if (address == null) {
+			return null;
+		}
+		Address newAddress = new Address();
+		Long id = address.getId();
+		if (id == null) {
+			id = currentId++;
+		}
+		newAddress.setId(id);
+		newAddress.setCity(address.getCity());
+		newAddress.setStreet(address.getStreet());
+		newAddress.setZipCode(address.getZipCode());
+		newAddress.setFax(address.getFax());
+		newAddress.setTelephone(address.getTelephone());
+		newAddress.setCountry(address.getCountry());
+		return newAddress;
 	}
 }

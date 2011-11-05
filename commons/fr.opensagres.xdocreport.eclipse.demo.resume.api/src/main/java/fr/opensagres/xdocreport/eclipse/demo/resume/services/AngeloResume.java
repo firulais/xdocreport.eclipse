@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import fr.opensagres.xdocreport.document.images.ByteArrayImageProvider;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.Address;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Diploma;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Experience;
@@ -29,7 +30,15 @@ public class AngeloResume extends Resume {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
+		// Address
+		Address address =new Address();
+		address.setId(ResumeServiceImpl.currentId++);
+		address.setStreet("5 rue Frederic Mistral");
+		address.setCity("Saint Paul 3 Châteaux");
+		address.setZipCode("26130");
+		person.setAddress(address);
+		
 		// Diplomas
 		Set<Diploma> diplomas = new HashSet<Diploma>();
 		super.setDiplomas(diplomas);

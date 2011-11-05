@@ -5,9 +5,19 @@ public class Address {
      * 
      */
     private static final long serialVersionUID = 9217187221005720810L;
+    
+    public static final String STREET_PROPERTY = "street";
+    public static final String ZIPCODE_PROPERTY = "zipCode";
+    public static final String CITY_PROPERTY = "city";
+    public static final String COUNTRY_PROPERTY = "country";
+    public static final String TELEPHONE_PROPERTY = "telephone";
+    public static final String FAX_PROPERTY = "fax";    
+	
     //@Id
      //@GeneratedValue 
     private Long id;
+  //@Column
+    private String street;
     //@Column
     private String zipCode;
     //@Column
@@ -30,6 +40,13 @@ public class Address {
             //firePropertyChange("id", oldValue, id);
     }
 
+    public String getStreet() {
+		return street;
+	}
+    public void setStreet(String street) {
+		this.street = street;
+	}
+    
     public String getZipCode() {
             return zipCode;
     }
