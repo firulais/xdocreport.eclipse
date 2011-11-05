@@ -31,7 +31,7 @@
 				<version>${tycho-version}</version>
 				<configuration>
 					<resolver>p2</resolver>
-					<pomDependencies>consider</pomDependencies>
+					<!-- <pomDependencies>consider</pomDependencies>
 					<environments>
 						<environment>
 							<os>linux</os>
@@ -48,7 +48,7 @@
 							<ws>carbon</ws>
 							<arch>x86</arch>
 						</environment>
-					</environments>
+					</environments> -->
 				</configuration>
 			</plugin>
 		</plugins>
@@ -93,15 +93,11 @@
 
 
 	<repositories>
-	
         <repository>
 			<id>xdcoreport</id>
 			<layout>p2</layout>
 			<url>http://oss.opensagres.fr/xdocreport/p2/p2repository/target/site/</url>
-			
 		</repository>
-                
-                
 		<repository>
 			<id>indigo</id>
 			<layout>p2</layout>
@@ -118,15 +114,6 @@
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/rt/rap/1.5/runtime</url>
 		</repository>
-		
-		
-	
 	</repositories>
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-beans</artifactId>
-			<version>3.0.6.RELEASE</version>
-		</dependency>
-	</dependencies>
+	
 </project>
