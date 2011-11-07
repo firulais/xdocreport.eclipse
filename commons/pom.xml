@@ -9,6 +9,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<modules>
+		<module>fr.opensagres.xdocreport.eclipse.demo.resume.domain.core</module>
 		<module>fr.opensagres.eclipse.forms</module>
 		<module>org.eclipse.rap.singlesourcing</module>
 		<module>fr.opensagres.xdocreport.eclipse</module>
@@ -21,5 +22,6 @@
 		<module>
 			fr.opensagres.xdocreport.eclipse.demo.resume.impl
 		</module>
+		
 	</modules>
 </project>
