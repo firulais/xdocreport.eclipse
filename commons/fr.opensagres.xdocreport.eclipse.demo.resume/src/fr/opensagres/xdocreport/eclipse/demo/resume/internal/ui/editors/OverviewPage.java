@@ -1,12 +1,9 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors;
 
-import java.io.ByteArrayInputStream;
-
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.beans.BeansObservables;
 import org.eclipse.core.databinding.beans.PojoObservables;
-import org.eclipse.core.databinding.conversion.IConverter;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.validation.jsr303.Jsr303BeansUpdateValueStrategyFactory;
 import org.eclipse.jface.databinding.swt.SWTObservables;
@@ -14,11 +11,9 @@ import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.IManagedForm;
@@ -29,8 +24,13 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 
+import fr.opensagres.eclipse.forms.conversion.DateConverterRegistry;
+import fr.opensagres.eclipse.forms.conversion.DateToStringConverter;
+import fr.opensagres.eclipse.forms.conversion.StringToDateConverter;
+import fr.opensagres.eclipse.forms.conversion.StringToDateValidator;
 import fr.opensagres.eclipse.forms.widgets.DateTimeControl;
 import fr.opensagres.eclipse.forms.widgets.PhotoControl;
+import fr.opensagres.xdocreport.eclipse.PlatformXDocReport;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.Address;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.Person;
@@ -131,6 +131,7 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 				Messages.ResumeFormEditor_OverviewPage_GeneralInfo_Birthday_label);
 		birthDayDateTime = new DateTimeControl(sbody, SWT.NONE, SWT.SINGLE,
 				SWT.FLAT, toolkit);
+		birthDayDateTime.setOutputPattern(PlatformXDocReport.getDatePattern());
 		GridData gd_birthDayDateTimet = new GridData(GridData.FILL_HORIZONTAL);
 		gd_birthDayDateTimet.widthHint = 150;
 		birthDayDateTime.setLayoutData(gd_birthDayDateTimet);
@@ -281,6 +282,24 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 				Jsr303BeansUpdateValueStrategyFactory
 						.create(getModel1LastNameObserveValue), null);
 
+		// bind birthday
+		StringToDateConverter stringToDateConverter = DateConverterRegistry
+				.getStringToDateConverter(PlatformXDocReport.getDatePattern());
+		DateToStringConverter dateToStringConverter = DateConverterRegistry
+				.getDateToStringConverter(PlatformXDocReport.getDatePattern());
+		IObservableValue birthDayDateTimeObserveTextObserveWidget = SWTObservables
+				.observeText(birthDayDateTime.getDateFieldText(), SWT.Modify);
+		IObservableValue personBirthDayObserveValue = PojoObservables
+				.observeValue(getModelObject().getOwner(),
+						NaturalPerson.BIRTH_DATE_PROPERTY);
+		bindingContext.bindValue(
+				birthDayDateTimeObserveTextObserveWidget,
+				personBirthDayObserveValue,
+				new UpdateValueStrategy().setAfterGetValidator(
+						new StringToDateValidator(stringToDateConverter))
+						.setConverter(stringToDateConverter),
+				new UpdateValueStrategy().setConverter(dateToStringConverter));
+
 		// bind email
 		IObservableValue emailTextObserveTextObserveWidget = SWTObservables
 				.observeText(emailText, SWT.Modify);
@@ -297,19 +316,7 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 		IObservableValue personPhotoObserveValue = PojoObservables
 				.observeValue(getModelObject(), Resume.PICTURE_PROPERTY);
 		bindingContext.bindValue(photoObserveImageObserveWidget,
-				personPhotoObserveValue,
-				null, null);
-
-		// TODO : bind image photo with IImageProvider of the model.
-		// for the moment, just load the image from the model
-		// photo.setImageStream(getModelObject().getPhoto().getImageStream());
-
-		// IObservableValue photoObserveImageObserveWidget = SWTObservables
-		// .observeImage(photo.getPhotoLabel());
-		// IObservableValue getModelPhotoObserveValue = PojoObservables
-		// .observeValue(getModelObject().getOwner(), "lastName");
-		// bindingContext.bindValue(lastNameTextObserveTextObserveWidget,
-		// getModel1LastNameObserveValue, null, null);
+				personPhotoObserveValue, null, null);
 
 	}
 

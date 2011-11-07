@@ -1,5 +1,7 @@
 package fr.opensagres.eclipse.forms.widgets;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,8 +14,6 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowData;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
@@ -38,7 +38,11 @@ public class DateTimeControl extends BaseComposite {
 
 	private ImageHyperlink lookupHyperlink;
 
+	private DateFormat formatter;
+
 	public static final String IMG_CALENDAR = "icons/obj16/calendar.png";
+
+	public static final String OWNER_DATETIME_CONTROL = "___DateTimeControl";
 
 	public DateTimeControl(Composite parent, int style, FormToolkit toolkit) {
 		this(parent, style, SWT.NONE, SWT.NONE, toolkit);
@@ -48,15 +52,16 @@ public class DateTimeControl extends BaseComposite {
 			int buttonStyle, FormToolkit toolkit) {
 		super(parent, compositeStyle, toolkit);
 		GridLayout layout = new GridLayout();
-		layout.numColumns  = 2;
-		layout.makeColumnsEqualWidth=false;
+		layout.numColumns = 2;
+		layout.makeColumnsEqualWidth = false;
 		this.setLayout(layout);
 
 		dateFieldText = createText(this, textStyle);
-		GridData d =new GridData(GridData.FILL_HORIZONTAL);
+		dateFieldText.setData(OWNER_DATETIME_CONTROL, this);
+		GridData d = new GridData(GridData.FILL_HORIZONTAL);
 		d.verticalAlignment = SWT.TOP;
 		dateFieldText.setLayoutData(d);
-		
+
 		this.calendarImage = ImageResources
 				.getImage(DateTimeControl.IMG_CALENDAR);
 		if (toolkit != null) {
@@ -114,9 +119,16 @@ public class DateTimeControl extends BaseComposite {
 	 */
 	private void lookupButtonClicked() {
 		DateTimeDialog dialog = new DateTimeDialog(getShell(), getToolkit());
+		//
+		Date d = getDate(dateFieldText.getText());
+		if (d != null) {
+			date = d;
+		} else {
+			if (date == null)
+				date = new Date();
+		}
+
 		Calendar cal = Calendar.getInstance();
-		if (date == null)
-			date = new Date();
 		cal.setTime(date);
 
 		dialog.setInitialDate(cal);
@@ -140,6 +152,14 @@ public class DateTimeControl extends BaseComposite {
 		// }
 	}
 
+	private Date getDate(String text) {
+		try {
+			return getFormatter().parse(text);
+		} catch (ParseException e) {
+			return null;
+		}
+	}
+
 	/**
 	 * @param date
 	 *            The date to set. May be null to indicate that no date should
@@ -148,19 +168,20 @@ public class DateTimeControl extends BaseComposite {
 	public void setDate(Date date) {
 		this.date = date;
 		if (date != null) {
-			suppressModifyEvent = true;
+			// suppressModifyEvent = true;
 			try {
 				dateFieldText.setText(format(date));
 			} finally {
-				suppressModifyEvent = false;
+				// suppressModifyEvent = false;
 			}
+		} else {
+			dateFieldText.setText("");
 		}
 		// this .dateParseException = null;
 	}
 
 	protected String format(Date date) {
-		SimpleDateFormat sdf = new SimpleDateFormat(outputPattern);
-		return sdf.format(date);
+		return getFormatter().format(date);
 	}
 
 	/**
@@ -172,9 +193,17 @@ public class DateTimeControl extends BaseComposite {
 
 	public void setOutputPattern(String outputPattern) {
 		this.outputPattern = outputPattern;
+		this.formatter = null;
 	}
 
 	public String getOutputPattern() {
 		return outputPattern;
+	}
+
+	public DateFormat getFormatter() {
+		if (formatter == null) {
+			formatter = new SimpleDateFormat(getOutputPattern());
+		}
+		return formatter;
 	}
 }

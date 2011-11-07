@@ -42,10 +42,18 @@ public class DateTimeDialog extends Dialog {
 	protected Control createDialogArea(Composite parent) {
 		Composite page = (Composite) super.createDialogArea(parent);
 		int numColumns = 1;
-		this.date = Calendar.getInstance();
-		this.calendarDateTime = createDateTimeCalendar(page);
 		page.setLayout(new GridLayout(numColumns, false));
+		this.calendarDateTime = createDateTimeCalendar(page);
+		updateDateTime();		
 		return page;
+	}
+
+	private void updateDateTime() {
+		if (date == null) {
+			this.date = Calendar.getInstance();
+		}
+		this.calendarDateTime.setDate(date.get(Calendar.YEAR),
+				date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH));
 	}
 
 	protected DateTime createDateTimeCalendar(Composite parent) {
@@ -56,39 +64,41 @@ public class DateTimeDialog extends Dialog {
 		dateTime.setLayoutData(new GridData(GridData.FILL_BOTH));
 		return dateTime;
 	}
-	
+
 	/**
-     * Set the initial date to show in this dialog. This must be called
-     * before {@link #open()} to have any effect. Internally, a copy of
-     * the given {@link Calendar} instance is used. The given instance
-     * is never changed. Call {@link #getDate()} to get the date selected
-     * by the user after {@link #open()} returns.
-     * @param initialDate The initial date to set
-     */
-    public void setInitialDate(Calendar initialDate) {
-        date = (Calendar) initialDate.clone();
-    }
+	 * Set the initial date to show in this dialog. This must be called before
+	 * {@link #open()} to have any effect. Internally, a copy of the given
+	 * {@link Calendar} instance is used. The given instance is never changed.
+	 * Call {@link #getDate()} to get the date selected by the user after
+	 * {@link #open()} returns.
+	 * 
+	 * @param initialDate
+	 *            The initial date to set
+	 */
+	public void setInitialDate(Calendar initialDate) {
+		date = (Calendar) initialDate.clone();
+	}
 
-    public Calendar getDate() {
-        return date;
-    }
+	public Calendar getDate() {
+		return date;
+	}
 
-    @Override
-    protected void okPressed() {
-        getButton(OK).setFocus();
+	@Override
+	protected void okPressed() {
+		getButton(OK).setFocus();
 
-        if (calendarDateTime != null) {
-            date.set(Calendar.YEAR, calendarDateTime.getYear());
-            date.set(Calendar.MONTH, calendarDateTime.getMonth());
-            date.set(Calendar.DAY_OF_MONTH, calendarDateTime.getDay());
-        }
+		if (calendarDateTime != null) {
+			date.set(Calendar.YEAR, calendarDateTime.getYear());
+			date.set(Calendar.MONTH, calendarDateTime.getMonth());
+			date.set(Calendar.DAY_OF_MONTH, calendarDateTime.getDay());
+		}
 
 		// if (timeDateTime != null) {
 		// date.set(Calendar.HOUR_OF_DAY, timeDateTime.getHours());
 		// date.set(Calendar.MINUTE, timeDateTime.getMinutes());
 		// date.set(Calendar.SECOND, timeDateTime.getSeconds());
 		// }
-        super .okPressed();
-    }
+		super.okPressed();
+	}
 
 }

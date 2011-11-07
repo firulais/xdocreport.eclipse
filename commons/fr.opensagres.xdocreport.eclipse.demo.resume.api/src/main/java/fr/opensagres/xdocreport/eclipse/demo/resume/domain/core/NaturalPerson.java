@@ -9,6 +9,7 @@ public class NaturalPerson extends Person {
 
 	public static final String FIRST_NAME_PROPERTY = "firstName";
 	public static final String LAST_NAME_PROPERTY = "lastName";
+	public static final String BIRTH_DATE_PROPERTY = "birthDate";
 	/**
      * 
      */
