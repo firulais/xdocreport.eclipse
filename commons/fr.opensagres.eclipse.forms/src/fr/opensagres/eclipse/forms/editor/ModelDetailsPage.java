@@ -11,9 +11,16 @@ import fr.opensagres.eclipse.forms.IBindableAware;
 public abstract class ModelDetailsPage<Model> extends AbstractDetailsPage
 		implements IBindableAware {
 
+	private static final String DETAIL_DATABINDING_CONTEXT_ID = "___Detail_DBC";
+	
 	private DataBindingContext dataBindingContext;
 	private Model modelObject;
+	private String databindingContentId;
 
+	public ModelDetailsPage() {
+		this.databindingContentId = DETAIL_DATABINDING_CONTEXT_ID;
+	}
+	
 	public void selectionChanged(IFormPart part, ISelection selection) {
 		IStructuredSelection ssel = (IStructuredSelection) selection;
 		if (ssel.size() == 1) {
@@ -37,8 +44,7 @@ public abstract class ModelDetailsPage<Model> extends AbstractDetailsPage
 	}
 
 	private String getDatabindingContentId() {
-		// TODO Auto-generated method stub
-		return "AAAAAAAAAAAAAAAAAAAAAAA";
+		return databindingContentId;
 	}
 
 	public Model getModelObject() {

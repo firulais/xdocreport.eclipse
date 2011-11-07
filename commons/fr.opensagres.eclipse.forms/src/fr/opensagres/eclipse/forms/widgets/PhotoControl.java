@@ -1,9 +1,16 @@
 package fr.opensagres.eclipse.forms.widgets;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
+import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -16,40 +23,37 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.internal.dialogs.DialogUtil;
 
-import fr.opensagres.eclipse.forms.internal.ImageResources;
+import fr.opensagres.eclipse.forms.internal.IOUtils;
 
-public class PhotoControl extends BaseComposite {
+public class PhotoControl extends BaseComposite implements
+		PropertyChangeListener {
 
 	private final Label photoLabel;
 	private final Button uploadButton;
-	private Image photo;
-	private Image defaultImage;
-	private static final String IMG_DEFAULT_PHOTO = "icons/obj16/default_photo.jpg";
+	private byte[] imageByteArray;
+	private Image resizedPhotoImage;
 
-	/**
-	 * @wbp.parser.constructor
-	 */
+	public static final String IMAGE_BYTEARRAY_PROPERTY = "imageByteArray";
+
+	private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
+			this);
+
 	public PhotoControl(Composite parent, int compositeStyle, int labelStyle,
 			FormToolkit toolkit) {
-		this(parent, compositeStyle, labelStyle, ImageResources
-				.getImage(PhotoControl.IMG_DEFAULT_PHOTO), toolkit);
-	}
-
-	public PhotoControl(Composite parent, int compositeStyle, int labelStyle,
-			Image defaultImage, FormToolkit toolkit) {
 		super(parent, compositeStyle, toolkit);
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 2;
 		this.setLayout(layout);
-		this.defaultImage = defaultImage;
 		this.photoLabel = createLabelImage(this, labelStyle);
 		this.uploadButton = createUploadButton();
 	}
 
 	private Label createLabelImage(Composite parent, int style) {
 		Label label = super.createLabel(parent, style);
-		label.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, true, 1, 1));
+		label.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, true, 1,
+				1));
 		return label;
 	}
 
@@ -80,32 +84,68 @@ public class PhotoControl extends BaseComposite {
 				FileInputStream in = new FileInputStream(f);
 				setImageStream(in);
 			} catch (Throwable e) {
+				e.printStackTrace();
 			}
 		}
-	}
-
-	public void setImageStream(InputStream stream) {
-		ImageData imageData = new ImageData(stream);
-		if (photo != null && photo != defaultImage) {
-			photo.dispose();
-		}
-
-		int height = imageData.height;
-		int width = imageData.width;
-
-		float ratio = Math.max(height / 50, width / 50);
-
-		final ImageData resized = imageData.scaledTo((int) (height / ratio),
-				(int) (width / ratio));
-
-		this.photo = new Image(super.getDisplay(), resized);
-		photoLabel.setImage(photo);
-		// Problem when image is uploaded and has not the same size, how to
-		// recompute layout?
-		// this.layout();
 	}
 
 	public Label getPhotoLabel() {
 		return photoLabel;
 	}
+
+	public Button getUploadButton() {
+		return uploadButton;
+	}
+
+	public void addPropertyChangeListener(String propertyName,
+			PropertyChangeListener listener) {
+		propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
+	}
+
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		propertyChangeSupport.removePropertyChangeListener(listener);
+	}
+
+	public void propertyChange(PropertyChangeEvent arg0) {
+
+	}
+
+	public void setImageStream(InputStream stream) throws IOException {
+		setImageByteArray(IOUtils.toByteArray(stream));
+	}
+
+	public InputStream getImageStream() {
+		return new ByteArrayInputStream(getImageByteArray());
+	}
+
+	public void setImageByteArray(byte[] imageByteArray) {
+		byte[] oldImageByteArray = this.imageByteArray;
+		this.imageByteArray = imageByteArray;
+		ImageData imageData = new ImageData(new ByteArrayInputStream(
+				imageByteArray));
+		if (this.resizedPhotoImage != null && !resizedPhotoImage.isDisposed()) {
+			this.resizedPhotoImage.dispose();
+		}
+		int height = imageData.height;
+		int width = imageData.width;
+
+		float ratio = Math.max(height / 50, width / 50);
+
+		final ImageData resizedImageData = ratio > 0 ? imageData.scaledTo(
+				(int) (height / ratio), (int) (width / ratio)) : imageData;
+
+		this.resizedPhotoImage = new Image(super.getDisplay(), resizedImageData);
+		photoLabel.setImage(resizedPhotoImage);
+		// Problem when image is uploaded and has not the same size, how to
+		// recompute layout?
+		// this.layout();
+
+		propertyChangeSupport.firePropertyChange(IMAGE_BYTEARRAY_PROPERTY,
+				oldImageByteArray, imageByteArray);
+	}
+
+	public byte[] getImageByteArray() {
+		return imageByteArray;
+	}
+
 }
