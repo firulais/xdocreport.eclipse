@@ -1,7 +1,12 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors;
 
+import java.io.ByteArrayInputStream;
+
 import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.UpdateValueStrategy;
+import org.eclipse.core.databinding.beans.BeansObservables;
 import org.eclipse.core.databinding.beans.PojoObservables;
+import org.eclipse.core.databinding.conversion.IConverter;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.validation.jsr303.Jsr303BeansUpdateValueStrategyFactory;
 import org.eclipse.jface.databinding.swt.SWTObservables;
@@ -9,9 +14,11 @@ import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.IManagedForm;
@@ -284,9 +291,18 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 				personEmailObserveValue, Jsr303BeansUpdateValueStrategyFactory
 						.create(personEmailObserveValue), null);
 
+		// bind photo
+		IObservableValue photoObserveImageObserveWidget = BeansObservables
+				.observeValue(photo, PhotoControl.IMAGE_BYTEARRAY_PROPERTY);
+		IObservableValue personPhotoObserveValue = PojoObservables
+				.observeValue(getModelObject(), Resume.PICTURE_PROPERTY);
+		bindingContext.bindValue(photoObserveImageObserveWidget,
+				personPhotoObserveValue,
+				null, null);
+
 		// TODO : bind image photo with IImageProvider of the model.
 		// for the moment, just load the image from the model
-		photo.setImageStream(getModelObject().getPhoto().getImageStream());
+		// photo.setImageStream(getModelObject().getPhoto().getImageStream());
 
 		// IObservableValue photoObserveImageObserveWidget = SWTObservables
 		// .observeImage(photo.getPhotoLabel());
@@ -304,8 +320,7 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 				.observeText(streetText, SWT.Modify);
 		IObservableValue addressStreetObserveValue = PojoObservables
 				.observeValue(getModelObject().getOwner(),
-						Person.ADDRESS_PROPERTY + "."
-								+ Address.STREET_PROPERTY);
+						Person.ADDRESS_PROPERTY + "." + Address.STREET_PROPERTY);
 		bindingContext.bindValue(streetTextObserveTextObserveWidget,
 				addressStreetObserveValue, null, null);
 
@@ -314,11 +329,10 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 				.observeText(cityText, SWT.Modify);
 		IObservableValue addressCityObserveValue = PojoObservables
 				.observeValue(getModelObject().getOwner(),
-						Person.ADDRESS_PROPERTY + "."
-								+ Address.CITY_PROPERTY);
+						Person.ADDRESS_PROPERTY + "." + Address.CITY_PROPERTY);
 		bindingContext.bindValue(cityTextObserveTextObserveWidget,
 				addressCityObserveValue, null, null);
-		
+
 		// bind Zip Code
 		IObservableValue zipCodeTextObserveTextObserveWidget = SWTObservables
 				.observeText(zipCodeText, SWT.Modify);

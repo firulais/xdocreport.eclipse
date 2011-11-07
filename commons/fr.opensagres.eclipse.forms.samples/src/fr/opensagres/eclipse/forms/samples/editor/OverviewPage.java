@@ -1,5 +1,7 @@
 package fr.opensagres.eclipse.forms.samples.editor;
 
+import java.io.IOException;
+
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.PojoObservables;
 import org.eclipse.jface.databinding.swt.SWTObservables;
@@ -65,8 +67,13 @@ public class OverviewPage extends ModelFormPage<Person> {
 		PhotoControl photoControl = new PhotoControl(parent, SWT.NONE,
 				SWT.BORDER, toolkit);
 		photoControl.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		photoControl.setImageStream(OverviewPage.class
-				.getResourceAsStream("EmptyPhoto.jpg"));
+		try {
+			photoControl.setImageStream(OverviewPage.class
+					.getResourceAsStream("EmptyPhoto.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		// Wiki comments
 		toolkit.createLabel(parent, "Wiki Comments");
