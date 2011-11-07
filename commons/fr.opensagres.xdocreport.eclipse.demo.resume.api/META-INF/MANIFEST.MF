@@ -6,7 +6,6 @@ Bundle-Version: 0.0.1.qualifier
 Export-Package: fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr,
  fr.opensagres.xdocreport.eclipse.demo.resume.services
 Import-Package: fr.opensagres.xdocreport.document.images,
- fr.opensagres.xdocreport.eclipse.demo.resume.domain.core,
  fr.opensagres.xdocreport.eclipse.utils,
  javax.validation.constraints;version="1.0.0.GA"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5,
