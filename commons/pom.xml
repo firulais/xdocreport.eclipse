@@ -22,6 +22,9 @@
 		<module>
 			fr.opensagres.xdocreport.eclipse.demo.resume.impl
 		</module>
-		
+
+		<module>
+			fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr
+		</module>
 	</modules>
 </project>

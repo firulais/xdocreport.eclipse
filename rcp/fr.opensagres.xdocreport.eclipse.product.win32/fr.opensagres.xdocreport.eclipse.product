@@ -40,6 +40,8 @@
       <plugin id="fr.opensagres.xdocreport.eclipse.demo.lettrerelance"/>
       <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume"/>
       <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume.api"/>
+      <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume.domain.core"/>
+      <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr"/>
       <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume.impl"/>
       <plugin id="fr.opensagres.xdocreport.eclipse.rcp" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.eclipse.report.xdocreport"/>
