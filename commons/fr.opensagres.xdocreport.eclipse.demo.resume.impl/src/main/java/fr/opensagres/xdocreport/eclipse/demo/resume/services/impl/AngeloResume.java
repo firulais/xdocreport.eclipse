@@ -1,6 +1,7 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.services.impl;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,7 +21,11 @@ public class AngeloResume extends Resume {
 		person.setFirstName("Angelo");
 		person.setLastName("ZERR");
 		person.setEmail("angelo.zerr@gmail.com");
-
+		try {
+			person.setBirthDate(DateUtils.toDate("24/02/1977", DateUtils.FRENCH_PATTERN));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		super.setId(ResumeServiceImpl.currentId++);
 		super.setOwner(person);
 		try {
