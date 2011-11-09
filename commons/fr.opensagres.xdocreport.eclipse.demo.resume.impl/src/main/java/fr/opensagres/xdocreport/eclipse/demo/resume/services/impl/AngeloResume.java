@@ -90,6 +90,11 @@ public class AngeloResume extends Resume {
 		experience.setMission("Conception / Développement");
 		experience
 				.setDetail("Mise en place de l'application <b>WEB de diffusion</b> (qui sera accessible dans les accueils des CAF) qui permet de publier les documents XML produits par l'application WEB de production.");
+		try {
+			experience.setStartDate(DateUtils.toDate("01/04/2009", DateUtils.FRENCH_PATTERN));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		experiences.add(experience);
 
 		// Experience 2
@@ -99,6 +104,12 @@ public class AngeloResume extends Resume {
 		experience.setMission("Conception / Développement");
 		experience
 				.setDetail("Conception et développement de fonctionnalités dans le  module VENTES/ACHATS et COMPTABILITE de l'ERP agrolimentaire AgroV3 de <b>INFOLOGIC</b>. Cet ERP est basé sur les technologies d'<b>Eclipse SWT et JFace</b>.");
+		try {
+			experience.setStartDate(DateUtils.toDate("01/08/2007", DateUtils.FRENCH_PATTERN));
+			experience.setEndDate(DateUtils.toDate("31/03/2009", DateUtils.FRENCH_PATTERN));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		experiences.add(experience);
 
 		// Hobbies

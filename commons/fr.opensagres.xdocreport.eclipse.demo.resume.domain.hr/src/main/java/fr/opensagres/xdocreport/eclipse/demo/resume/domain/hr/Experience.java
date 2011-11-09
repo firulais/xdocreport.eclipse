@@ -10,6 +10,9 @@ public class Experience {
          * 
          */
 	private static final long serialVersionUID = 8846754655040768127L;
+	
+	public static final String START_DATE_PROPERTY = "startDate";
+	public static final String END_DATE_PROPERTY = "endDate";
 	public static final String TITLE_PROPERTY = "title";
 	public static final String MISSION_PROPERTY = "mission";
 	public static final String DETAIL_PROPERTY = "detail";
@@ -22,7 +25,7 @@ public class Experience {
 	// @Column
 	private Date endDate;
 	// @Column
-	private String context;
+	private String detail;
 	// @Column
 	private String mission;
 
@@ -57,12 +60,12 @@ public class Experience {
 	}
 
 	public String getDetail() {
-		return context;
+		return detail;
 	}
 
 	public void setDetail(String context) {
 		// Object oldValue = this.context;
-		this.context = context;
+		this.detail = context;
 		// firePropertyChange("context", oldValue, context);
 	}
 
