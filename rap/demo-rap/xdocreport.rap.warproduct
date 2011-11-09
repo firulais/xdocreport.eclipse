@@ -7,9 +7,13 @@
       <plugin id="com.lowagie.text"/>
       <plugin id="com.springsource.freemarker"/>
       <plugin id="com.springsource.javax.servlet"/>
+      <plugin id="com.springsource.javax.validation"/>
       <plugin id="com.springsource.javax.xml.stream"/>
+      <plugin id="com.springsource.org.aopalliance"/>
+      <plugin id="com.springsource.org.apache.commons.logging"/>
       <plugin id="com.springsource.org.apache.xmlbeans"/>
       <plugin id="com.springsource.org.dom4j"/>
+      <plugin id="com.springsource.org.hibernate.validator"/>
       <plugin id="fr.opensagres.eclipse.forms"/>
       <plugin id="fr.opensagres.org.apache.poi.osgi"/>
       <plugin id="fr.opensagres.org.openxmlformats.schemas"/>
@@ -25,14 +29,18 @@
       <plugin id="fr.opensagres.xdocreport.document.pptx" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.eclipse"/>
       <plugin id="fr.opensagres.xdocreport.eclipse.demo.lettrerelance"/>
-      <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume.api"/>
       <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume"/>
+      <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume.api"/>
+      <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume.domain.core"/>
+      <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr"/>
+      <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume.impl"/>
       <plugin id="fr.opensagres.xdocreport.eclipse.rap" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.eclipse.report.xdocreport"/>
       <plugin id="fr.opensagres.xdocreport.itext.extension"/>
       <plugin id="fr.opensagres.xdocreport.template"/>
       <plugin id="fr.opensagres.xdocreport.template.freemarker" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.template.velocity" fragment="true"/>
+      <plugin id="javax.validation.osgi.config.fragment.hibernatevalidator" fragment="true"/>
       <plugin id="javax.xml"/>
       <plugin id="org.apache.commons.collections"/>
       <plugin id="org.apache.commons.fileupload"/>
@@ -50,6 +58,7 @@
       <plugin id="org.eclipse.core.databinding.beans"/>
       <plugin id="org.eclipse.core.databinding.observable"/>
       <plugin id="org.eclipse.core.databinding.property"/>
+      <plugin id="org.eclipse.core.databinding.validation.jsr303"/>
       <plugin id="org.eclipse.core.expressions"/>
       <plugin id="org.eclipse.core.jobs"/>
       <plugin id="org.eclipse.core.runtime"/>
@@ -62,6 +71,9 @@
       <plugin id="org.eclipse.equinox.registry"/>
       <plugin id="org.eclipse.equinox.servletbridge"/>
       <plugin id="org.eclipse.equinox.servletbridge.extensionbundle" fragment="true"/>
+      <plugin id="org.eclipse.gemini.blueprint.core"/>
+      <plugin id="org.eclipse.gemini.blueprint.extender"/>
+      <plugin id="org.eclipse.gemini.blueprint.io"/>
       <plugin id="org.eclipse.help"/>
       <plugin id="org.eclipse.osgi"/>
       <plugin id="org.eclipse.osgi.services"/>
@@ -80,6 +92,14 @@
       <plugin id="org.eclipse.rap.ui.workbench"/>
       <plugin id="org.odftoolkit.odfdom-java"/>
       <plugin id="org.odftoolkit.odfdom.converter"/>
+      <plugin id="org.springframework.aop"/>
+      <plugin id="org.springframework.asm"/>
+      <plugin id="org.springframework.beans"/>
+      <plugin id="org.springframework.context"/>
+      <plugin id="org.springframework.core"/>
+      <plugin id="org.springframework.expression"/>
+      <plugin id="slf4j.api"/>
+      <plugin id="slf4j.simple" fragment="true"/>
    </plugins>
 
    <configurations>
@@ -87,9 +107,13 @@
       <plugin id="com.lowagie.text" autoStart="true" startLevel="0" />
       <plugin id="com.springsource.freemarker" autoStart="true" startLevel="0" />
       <plugin id="com.springsource.javax.servlet" autoStart="true" startLevel="0" />
+      <plugin id="com.springsource.javax.validation" autoStart="true" startLevel="0" />
       <plugin id="com.springsource.javax.xml.stream" autoStart="true" startLevel="0" />
+      <plugin id="com.springsource.org.aopalliance" autoStart="true" startLevel="0" />
+      <plugin id="com.springsource.org.apache.commons.logging" autoStart="true" startLevel="0" />
       <plugin id="com.springsource.org.apache.xmlbeans" autoStart="true" startLevel="0" />
       <plugin id="com.springsource.org.dom4j" autoStart="true" startLevel="0" />
+      <plugin id="com.springsource.org.hibernate.validator" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.eclipse.forms" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.org.apache.poi.osgi" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.org.openxmlformats.schemas" autoStart="true" startLevel="0" />
@@ -99,6 +123,10 @@
       <plugin id="fr.opensagres.xdocreport.eclipse" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.xdocreport.eclipse.demo.lettrerelance" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume" autoStart="true" startLevel="0" />
+      <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume.api" autoStart="true" startLevel="0" />
+      <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume.domain.core" autoStart="true" startLevel="0" />
+            <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr" autoStart="true" startLevel="0" />
+      <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume.impl" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.xdocreport.eclipse.report.xdocreport" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.xdocreport.itext.extension" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.xdocreport.template" autoStart="true" startLevel="0" />
@@ -119,6 +147,7 @@
       <plugin id="org.eclipse.core.databinding.beans" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.core.databinding.observable" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.core.databinding.property" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.databinding.validation.jsr303" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.core.expressions" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.core.jobs" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
@@ -130,6 +159,9 @@
       <plugin id="org.eclipse.equinox.preferences" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.registry" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.servletbridge" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.gemini.blueprint.core" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.gemini.blueprint.extender" autoStart="true" startLevel="5" />
+      <plugin id="org.eclipse.gemini.blueprint.io" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.help" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.osgi" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.osgi.services" autoStart="true" startLevel="0" />
@@ -148,6 +180,13 @@
       <plugin id="org.eclipse.rap.ui.workbench" autoStart="true" startLevel="0" />
       <plugin id="org.odftoolkit.odfdom-java" autoStart="true" startLevel="0" />
       <plugin id="org.odftoolkit.odfdom.converter" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.aop" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.asm" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.beans" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.context" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.core" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.expression" autoStart="true" startLevel="0" />
+      <plugin id="slf4j.api" autoStart="true" startLevel="0" />
    </configurations>
 
    <warConfiguration webXml="/demo-rap/WEB-INF/web.xml" launchIni="/demo-rap/WEB-INF/launch.ini">
