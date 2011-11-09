@@ -24,8 +24,8 @@ public class ImageResources {
 	public static final String IMG_SEARCH_RESUME_16 = "search_resume_16";
 	public static final String IMG_RESUME_16 = "resume_16";
 	public static final String IMG_OVERVIEW_16 = "overview_16";
-	public static final String IMG_DIPLOMA_16 = "diploma_16";
-	public static final String IMG_DIPLOMA_24 = "diploma_24";
+	public static final String IMG_EDUCATION_16 = "education_16";
+	public static final String IMG_EDUCATION_24 = "education_24";
 	public static final String IMG_EXPERIENCES_16 = "experiences_16";
 	public static final String IMG_SKILLS_16 = "skills_16";
 	public static final String IMG_HOBBIES_16 = "hobbies_16";
@@ -39,10 +39,10 @@ public class ImageResources {
 		registerImage(imageRegistry, IMG_RESUME_16, PATH_OBJ_16 + "resume.gif");
 		registerImage(imageRegistry, IMG_OVERVIEW_16, PATH_OBJ_16
 				+ "overview.gif");
-		registerImage(imageRegistry, IMG_DIPLOMA_16, PATH_OBJ_16
-				+ "diploma.png");
-		registerImage(imageRegistry, IMG_DIPLOMA_24, PATH_OBJ_24
-				+ "diploma.png");
+		registerImage(imageRegistry, IMG_EDUCATION_16, PATH_OBJ_16
+				+ "education.png");
+		registerImage(imageRegistry, IMG_EDUCATION_24, PATH_OBJ_24
+				+ "education.png");
 		registerImage(imageRegistry, IMG_EXPERIENCES_16, PATH_OBJ_16
 				+ "experiences.png");
 		registerImage(imageRegistry, IMG_SKILLS_16, PATH_OBJ_16 + "skills.png");

@@ -4,17 +4,16 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Education;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Hobby;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ImageResources;
 
-public class HobbyLabelProvider extends LabelProvider {
+public class EducationLabelProvider extends LabelProvider {
 
-	private static HobbyLabelProvider instance;
+	private static EducationLabelProvider instance;
 
-	public static HobbyLabelProvider getInstance() {
-		synchronized (HobbyLabelProvider.class) {
+	public static EducationLabelProvider getInstance() {
+		synchronized (EducationLabelProvider.class) {
 			if (instance == null) {
-				instance = new HobbyLabelProvider();
+				instance = new EducationLabelProvider();
 			}
 			return instance;
 		}
@@ -22,16 +21,16 @@ public class HobbyLabelProvider extends LabelProvider {
 
 	@Override
 	public String getText(Object element) {
-		if (element instanceof Hobby) {
-			return ((Hobby) element).getLabel();
+		if (element instanceof Education) {
+			return ((Education) element).getLabel();
 		}
 		return super.getText(element);
 	}
 
 	@Override
 	public Image getImage(Object element) {
-		if (element instanceof Hobby) {
-			return ImageResources.getImage(ImageResources.IMG_HOBBIES_16);
+		if (element instanceof Education) {
+			return ImageResources.getImage(ImageResources.IMG_EDUCATION_16);
 		}
 		return super.getImage(element);
 	}

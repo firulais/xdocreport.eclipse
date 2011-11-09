@@ -209,8 +209,8 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 		FormText text = createClient(container,
 				Messages.ResumeFormEditor_OverviewPage_ResumeContent_content,
 				toolkit);
-		text.setImage("diploma_page",
-				ImageResources.getImage(ImageResources.IMG_DIPLOMA_16));
+		text.setImage("educations_page",
+				ImageResources.getImage(ImageResources.IMG_EDUCATION_16));
 		text.setImage("experiences_page",
 				ImageResources.getImage(ImageResources.IMG_EXPERIENCES_16));
 		text.setImage("skills_page",

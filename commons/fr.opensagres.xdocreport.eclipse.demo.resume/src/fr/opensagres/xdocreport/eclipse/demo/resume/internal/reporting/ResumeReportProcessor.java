@@ -12,7 +12,7 @@ public class ResumeReportProcessor extends XDocReportProcessor {
 		context.put("resume", resume);
 		context.put("person", resume.getOwner());
 		context.put("experiences", resume.getExperiences());
-		context.put("diplomas", resume.getDiplomas());
+		context.put("diplomas", resume.getEducations());
 		context.put("hobbies", resume.getHobbies());
 	}
 }
