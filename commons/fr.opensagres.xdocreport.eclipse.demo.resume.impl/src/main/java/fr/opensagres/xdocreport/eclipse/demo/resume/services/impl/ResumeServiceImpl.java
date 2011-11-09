@@ -13,18 +13,9 @@ import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Experience;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Hobby;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 import fr.opensagres.xdocreport.eclipse.demo.resume.services.ResumeService;
-import fr.opensagres.xdocreport.eclipse.demo.resume.services.dao.ResumeDao;
-import fr.opensagres.xdocreport.eclipse.demo.resume.services.dao.hibernate.AmineResume;
-import fr.opensagres.xdocreport.eclipse.demo.resume.services.dao.hibernate.AngeloResume;
-import fr.opensagres.xdocreport.eclipse.demo.resume.services.dao.hibernate.PascalResume;
 
 public class ResumeServiceImpl implements ResumeService {
 
-	private ResumeDao resumeDao;
-	
-	public void setResumeDao(ResumeDao resumeDao) {
-		this.resumeDao = resumeDao;
-	}
 	private static final Map<Long, Resume> resumes;
 	static long currentId = 0;
 	static {
