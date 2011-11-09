@@ -66,7 +66,7 @@ public class ExperienceDetailsPage extends ModelDetailsPage<Experience> {
 
 	private void createBodyContent(FormToolkit toolkit, Composite parent) {
 		GridLayout glayout = new GridLayout();
-		glayout.numColumns = 2;
+		glayout.numColumns = 4;
 		parent.setLayout(glayout);
 
 		// Start date
@@ -102,16 +102,18 @@ public class ExperienceDetailsPage extends ModelDetailsPage<Experience> {
 				parent,
 				Messages.ResumeFormEditor_ExperiencesPage_ExperienceDetailsPage_experienceTitle_label);
 		experienceTitleText = toolkit.createText(parent, "", SWT.SINGLE);
-		experienceTitleText
-				.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		data = new GridData(GridData.FILL_HORIZONTAL);
+		data.horizontalSpan = 3;
+		experienceTitleText.setLayoutData(data);
 
 		// Experience mission
 		toolkit.createLabel(
 				parent,
 				Messages.ResumeFormEditor_ExperiencesPage_ExperienceDetailsPage_experienceMission_label);
 		experienceMissionText = toolkit.createText(parent, "", SWT.SINGLE);
-		experienceMissionText.setLayoutData(new GridData(
-				GridData.FILL_HORIZONTAL));
+		data = new GridData(GridData.FILL_HORIZONTAL);
+		data.horizontalSpan = 3;
+		experienceMissionText.setLayoutData(data);
 
 		// Experience detail
 		Label experienceDetailLabel = toolkit
@@ -122,8 +124,9 @@ public class ExperienceDetailsPage extends ModelDetailsPage<Experience> {
 		experienceDetailLabel.setLayoutData(data);
 		experienceDetailWikiText = new SimpleWikiText(parent, SWT.NONE,
 				SWT.NONE, toolkit);
-		experienceDetailWikiText
-				.setLayoutData(new GridData(GridData.FILL_BOTH));
+		data = new GridData(GridData.FILL_BOTH);
+		data.horizontalSpan = 3;
+		experienceDetailWikiText.setLayoutData(data);
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit,
 				experienceDetailWikiText);
 	}
