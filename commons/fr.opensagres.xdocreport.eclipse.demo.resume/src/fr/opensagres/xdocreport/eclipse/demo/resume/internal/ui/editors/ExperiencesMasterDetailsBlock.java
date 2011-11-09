@@ -30,6 +30,7 @@ import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers.ExperienceContentProvider;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers.ExperienceLabelProvider;
+import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers.ExperiencesViewerComparator;
 
 public class ExperiencesMasterDetailsBlock extends
 		ModelMasterDetailsBlock<Resume> {
@@ -72,9 +73,9 @@ public class ExperiencesMasterDetailsBlock extends
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, client);
 
 		createButtons(toolkit, client);
-		
+
 		section.setClient(client);
-		
+
 		final SectionPart spart = new SectionPart(section);
 		managedForm.addPart(spart);
 		viewer = new TableViewer(experiencesTable);
@@ -91,6 +92,7 @@ public class ExperiencesMasterDetailsBlock extends
 		});
 		viewer.setContentProvider(ExperienceContentProvider.getInstance());
 		viewer.setLabelProvider(ExperienceLabelProvider.getInstance());
+		viewer.setComparator(ExperiencesViewerComparator.getInstance());
 	}
 
 	private void createButtons(FormToolkit toolkit, Composite parent) {

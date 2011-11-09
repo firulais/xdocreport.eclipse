@@ -3,7 +3,7 @@ package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Diploma;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Education;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Hobby;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ImageResources;
 

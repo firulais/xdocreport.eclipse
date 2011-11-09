@@ -4,7 +4,7 @@ Bundle-Name: Impl
 Bundle-SymbolicName: fr.opensagres.xdocreport.eclipse.demo.resume.impl
 Bundle-Version: 0.0.1.qualifier
 Export-Package: fr.opensagres.xdocreport.eclipse.demo.resume.services.impl
-Import-Package: fr.opensagres.xdocreport.document.images,
+Import-Package: fr.opensagres.xdocreport.core.io,
  fr.opensagres.xdocreport.eclipse.demo.resume.domain.core,
  fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr,
  fr.opensagres.xdocreport.eclipse.demo.resume.services

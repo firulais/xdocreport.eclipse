@@ -83,5 +83,13 @@
            name="Search Resume">
      </command>
   </extension>
+  <extension
+        point="org.eclipse.ui.services">
+     <serviceFactory
+           factoryClass="org.eclipse.springframework.util.SpringExtensionFactory:resumeServiceFactory">
+        <service
+              serviceClass="fr.opensagres.xdocreport.eclipse.demo.resume.services.ResumeService"></service>
+     </serviceFactory>
+  </extension>
   
 </plugin>

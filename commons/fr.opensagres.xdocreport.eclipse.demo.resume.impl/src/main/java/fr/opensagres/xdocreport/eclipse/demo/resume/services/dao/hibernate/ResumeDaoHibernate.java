@@ -1,4 +1,4 @@
-package fr.opensagres.xdocreport.eclipse.demo.resume.services.impl;
+package fr.opensagres.xdocreport.eclipse.demo.resume.services.dao.hibernate;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -12,19 +12,10 @@ import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Education;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Experience;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Hobby;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
-import fr.opensagres.xdocreport.eclipse.demo.resume.services.ResumeService;
 import fr.opensagres.xdocreport.eclipse.demo.resume.services.dao.ResumeDao;
-import fr.opensagres.xdocreport.eclipse.demo.resume.services.dao.hibernate.AmineResume;
-import fr.opensagres.xdocreport.eclipse.demo.resume.services.dao.hibernate.AngeloResume;
-import fr.opensagres.xdocreport.eclipse.demo.resume.services.dao.hibernate.PascalResume;
 
-public class ResumeServiceImpl implements ResumeService {
+public class ResumeDaoHibernate implements ResumeDao {
 
-	private ResumeDao resumeDao;
-	
-	public void setResumeDao(ResumeDao resumeDao) {
-		this.resumeDao = resumeDao;
-	}
 	private static final Map<Long, Resume> resumes;
 	static long currentId = 0;
 	static {
@@ -71,16 +62,15 @@ public class ResumeServiceImpl implements ResumeService {
 		newResume.setId(resume.getId());
 		newResume.setOwner(newPerson);
 		newResume.setPicture(resume.getPicture());
-		newResume.setTitle(resume.getTitle());
-		
-		// Educations
+
+		// Diplomas
 		Set<Education> educations = resume.getEducations();
 		if (educations != null) {
-			Set<Education> newEducations = new HashSet<Education>();
-			for (Education education : educations) {
-				newEducations.add(clone(education));
+			Set<Education> newDiplomas = new HashSet<Education>();
+			for (Education diploma : educations) {
+				newDiplomas.add(clone(diploma));
 			}
-			newResume.setEducations(newEducations);
+			newResume.setEducations(educations);
 		}
 
 		// Experiences
@@ -132,17 +122,16 @@ public class ResumeServiceImpl implements ResumeService {
 		return newExperience;
 	}
 
-	private Education clone(Education education) {
-		Education newEducation = new Education();
-		Long id = education.getId();
+	private Education clone(Education diploma) {
+		Education newDiploma = new Education();
+		Long id = diploma.getId();
 		if (id == null) {
 			id = currentId++;
 		}
-		newEducation.setId(id);
-		newEducation.setDate(education.getDate());
-		newEducation.setLabel(education.getLabel());
-		newEducation.setInstitute(education.getInstitute());
-		return newEducation;
+		newDiploma.setId(id);
+		newDiploma.setLabel(diploma.getLabel());
+		newDiploma.setInstitute(diploma.getInstitute());
+		return newDiploma;
 	}
 
 	private Hobby clone(Hobby hobby) {

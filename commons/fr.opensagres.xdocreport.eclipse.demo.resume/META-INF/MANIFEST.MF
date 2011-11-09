@@ -34,4 +34,5 @@ Import-Package: fr.opensagres.eclipse.forms,
  fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr,
  fr.opensagres.xdocreport.eclipse.demo.resume.services,
  javax.validation.constraints,
- org.eclipse.core.databinding.validation.jsr303
+ org.eclipse.core.databinding.validation.jsr303,
+ org.eclipse.springframework.util

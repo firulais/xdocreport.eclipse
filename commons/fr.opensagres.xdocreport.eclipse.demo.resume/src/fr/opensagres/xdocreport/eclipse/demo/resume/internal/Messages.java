@@ -21,7 +21,6 @@ public class Messages extends NLS {
 	public static String ResumeFormEditor_OverviewPage_GeneralInfo_LastName_label;
 	public static String ResumeFormEditor_OverviewPage_GeneralInfo_Birthday_label;
 	public static String ResumeFormEditor_OverviewPage_GeneralInfo_Email_label;
-	public static String ResumeFormEditor_OverviewPage_GeneralInfo_Photo_label;
 
 	// Overview/Adress section
 	public static String ResumeFormEditor_OverviewPage_Address_title;
@@ -38,14 +37,21 @@ public class Messages extends NLS {
 	public static String ResumeFormEditor_OverviewPage_ResumeContent_title;
 	public static String ResumeFormEditor_OverviewPage_ResumeContent_content;
 
-	// Diploma Page
-	public static String ResumeFormEditor_DiplomasPage_title;
-	public static String ResumeFormEditor_DiplomasPage_DiplomasMasterDetailsBlock_title;
-	public static String ResumeFormEditor_DiplomasPage_DiplomasMasterDetailsBlock_desc;
-	public static String ResumeFormEditor_DiplomasPage_DiplomaDetailsPage_title;
-	public static String ResumeFormEditor_DiplomasPage_DiplomaDetailsPage_desc;
-	public static String ResumeFormEditor_DiplomasPage_DiplomaDetailsPage_diplomaLabel_label;
-	public static String ResumeFormEditor_DiplomasPage_DiplomaDetailsPage_diplomaInstitute_label;
+	// Overview/General Info section
+	public static String ResumeFormEditor_OverviewPage_ResumeInfo_title;
+	public static String ResumeFormEditor_OverviewPage_ResumeInfo_desc;
+	public static String ResumeFormEditor_OverviewPage_ResumeInfo_Title_label;
+	public static String ResumeFormEditor_OverviewPage_ResumeInfo_Photo_label;
+	
+	// Educations Page
+	public static String ResumeFormEditor_EducationsPage_title;
+	public static String ResumeFormEditor_EducationsPage_EducationsMasterDetailsBlock_title;
+	public static String ResumeFormEditor_EducationsPage_EducationsMasterDetailsBlock_desc;
+	public static String ResumeFormEditor_EducationsPage_EducationDetailsPage_title;
+	public static String ResumeFormEditor_EducationsPage_EducationDetailsPage_desc;	
+	public static String ResumeFormEditor_EducationsPage_EducationDetailsPage_educationDate_label;
+	public static String ResumeFormEditor_EducationsPage_EducationDetailsPage_educationLabel_label;
+	public static String ResumeFormEditor_EducationsPage_EducationDetailsPage_educationInstitute_label;
 
 	// Experiences Page
 	public static String ResumeFormEditor_ExperiencesPage_title;
@@ -53,6 +59,8 @@ public class Messages extends NLS {
 	public static String ResumeFormEditor_ExperiencesPage_ExperiencesMasterDetailsBlock_desc;
 	public static String ResumeFormEditor_ExperiencesPage_ExperienceDetailsPage_title;
 	public static String ResumeFormEditor_ExperiencesPage_ExperienceDetailsPage_desc;
+	public static String ResumeFormEditor_ExperiencesPage_ExperienceDetailsPage_experienceStartDate_label;
+	public static String ResumeFormEditor_ExperiencesPage_ExperienceDetailsPage_experienceEndDate_label;
 	public static String ResumeFormEditor_ExperiencesPage_ExperienceDetailsPage_experienceTitle_label;
 	public static String ResumeFormEditor_ExperiencesPage_ExperienceDetailsPage_experienceMission_label;
 	public static String ResumeFormEditor_ExperiencesPage_ExperienceDetailsPage_experienceDetail_label;

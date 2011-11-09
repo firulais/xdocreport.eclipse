@@ -1,15 +1,19 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr;
 
-public class Diploma {
-	
+import java.util.Calendar;
+import java.util.Date;
+
+public class Education {
+
+	public static final String DATE_PROPERTY = "date";
 	public static final String LABEL_PROPERTY = "label";
 	public static final String INSTITUTE_PROPERTY = "institute";
-	
+
 	/**
      * 
      */
 	private static final long serialVersionUID = 2452995207655152758L;
-	
+
 	// @Id
 	// @GeneratedValue
 	private Long id;
@@ -21,10 +25,14 @@ public class Diploma {
 	private String label;
 
 	// @Column
-	private String period;
+	private Date date;
 
 	public Long getId() {
 		return id;
+	}
+
+	public Date getDate() {
+		return date;
 	}
 
 	public String getInstitute() {
@@ -35,14 +43,12 @@ public class Diploma {
 		return label;
 	}
 
-	public String getPeriod() {
-		return period;
+	public void setId(long id) {
+		this.id = id;
 	}
 
-	public void setId(long id) {
-
-		this.id = id;
-
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public void setInstitute(String institute) {
@@ -57,10 +63,12 @@ public class Diploma {
 		// firePropertyChange("label", oldValue, label);
 	}
 
-	public void setPeriod(String period) {
-		// Object oldValue = this.period;
-		this.period = period;
-		// firePropertyChange("period", oldValue, period);
+	public int getDateYear() {
+		if (date == null) {
+			return 0;
+		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		return calendar.get(Calendar.YEAR);
 	}
-
 }

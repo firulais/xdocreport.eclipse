@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
 
-//import fr.opensagres.xdocreport.document.images.ByteArrayImageProvider;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
+
 
 //@Entity
 //@Table(name = "T_RESUME", schema = "hr")
@@ -24,7 +24,7 @@ public class Resume {
 	private String title;
 
 	// @Column
-	private byte[] picture=new byte[0];
+	private byte[] picture;
 
 	// @Column(name = "owner_id", unique = true)
 	private Long ownerId;
@@ -45,6 +45,10 @@ public class Resume {
 
 	private Set<Hobby> hobbies;
 
+	/**
+	 * @deprecated use byte[] as much as possible
+	 */
+	//private ByteArrayImageProvider photo;
 
 	public Resume() {
 //		this.photo = new ByteArrayImageProvider((byte[]) null);
@@ -91,8 +95,25 @@ public class Resume {
 		// firePropertyChange("picture", oldValue, picture);
 	}
 
-	
+	/**
+	 * @deprecated use byte[] as much as possible
+	 * @return
+	 */
+	public InputStream getPictureAsStream() {
+		if (picture == null) {
+			return null;
+		}
+		return new ByteArrayInputStream(picture);
+	}
 
+	/**
+	 *
+	 * @param picture
+	 * @throws IOException
+	 */
+//	public void setPictureAsStream(InputStream picture) throws IOException {
+//		this.setPicture(IOUtils.toByteArray(picture));
+//	}
 
 	public NaturalPerson getOwner() {
 		return owner;
@@ -144,7 +165,9 @@ public class Resume {
 		// firePropertyChange("competences", oldValue, competences);
 	}
 
-	
+//	public ByteArrayImageProvider getPhoto() {
+//		return photo;
+//	}
 
 	public void setHobbies(Set<Hobby> hobbies) {
 		this.hobbies = hobbies;

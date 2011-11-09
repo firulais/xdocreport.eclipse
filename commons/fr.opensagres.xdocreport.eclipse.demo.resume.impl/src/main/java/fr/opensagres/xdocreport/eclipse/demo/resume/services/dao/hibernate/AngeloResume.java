@@ -1,23 +1,25 @@
-package fr.opensagres.xdocreport.eclipse.demo.resume.services.impl;
+package fr.opensagres.xdocreport.eclipse.demo.resume.services.dao.hibernate;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Set;
 
+import fr.opensagres.xdocreport.core.io.IOUtils;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.Address;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Diploma;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Education;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Experience;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Hobby;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
+import fr.opensagres.xdocreport.eclipse.demo.resume.services.impl.DateUtils;
 
 public class AngeloResume extends Resume {
 
 	public AngeloResume() {
 		// Angelo
 		NaturalPerson person = new NaturalPerson();
-		person.setId(ResumeServiceImpl.currentId++);
+		person.setId(ResumeDaoHibernate.currentId++);
 		person.setFirstName("Angelo");
 		person.setLastName("ZERR");
 		person.setEmail("angelo.zerr@gmail.com");
@@ -26,18 +28,24 @@ public class AngeloResume extends Resume {
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
-		super.setId(ResumeServiceImpl.currentId++);
+		super.setId(ResumeDaoHibernate.currentId++);
 		super.setOwner(person);
 		try {
-			super.setPictureAsStream(Resume.class
-					.getResourceAsStream("AngeloZERR.jpg"));
+//			InputStream in =Resume.class
+//					.getResourceAsStream("AngeloZERR.jpg");
+//			IOUtils.toByteArray(Resume.class
+//					.getResourceAsStream("AngeloZERR.jpg"));
+			setPicture(IOUtils.toByteArray(Resume.class
+					.getResourceAsStream("AngeloZERR.jpg")));
+//			super.setPictureAsStream(Resume.class
+//					.getResourceAsStream("AngeloZERR.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		// Address
 		Address address = new Address();
-		address.setId(ResumeServiceImpl.currentId++);
+		address.setId(ResumeDaoHibernate.currentId++);
 		person.setAddress(address);
 
 		address.setStreet("5 avenue Frederic Mistral");
@@ -45,16 +53,16 @@ public class AngeloResume extends Resume {
 		address.setZipCode("26130");
 
 		// Diplomas
-		Set<Diploma> diplomas = new HashSet<Diploma>();
-		super.setDiplomas(diplomas);
+		Set<Education> educations = new HashSet<Education>();
 
-		Diploma diploma = null;
+		setEducations(educations);
+		Education diploma = null;
 
-		diploma = new Diploma();
-		diploma.setId(ResumeServiceImpl.currentId++);
+		diploma = new Education();
+		diploma.setId(ResumeDaoHibernate.currentId++);
 		diploma.setLabel("Diplôme d'ingénieur en informatique");
 		diploma.setInstitute("INSA de Lyon");
-		diplomas.add(diploma);
+		educations.add(diploma);
 
 		// Experiences
 		Set<Experience> experiences = new HashSet<Experience>();
@@ -63,7 +71,7 @@ public class AngeloResume extends Resume {
 
 		// Experience 1
 		experience = new Experience();
-		experience.setId(ResumeServiceImpl.currentId++);
+		experience.setId(ResumeDaoHibernate.currentId++);
 		experience.setTitle("Projet SIDoc");
 		experience.setMission("Conception / Développement");
 		experience
@@ -72,7 +80,7 @@ public class AngeloResume extends Resume {
 
 		// Experience 2
 		experience = new Experience();
-		experience.setId(ResumeServiceImpl.currentId++);
+		experience.setId(ResumeDaoHibernate.currentId++);
 		experience.setTitle("ERP AgroV3");
 		experience.setMission("Conception / Développement");
 		experience
@@ -86,19 +94,19 @@ public class AngeloResume extends Resume {
 
 		// Hobby 1
 		hobby = new Hobby();
-		hobby.setId(ResumeServiceImpl.currentId++);
+		hobby.setId(ResumeDaoHibernate.currentId++);
 		hobby.setLabel("Sport: Badminton.");
 		hobbies.add(hobby);
 
 		// Hobby 2
 		hobby = new Hobby();
-		hobby.setId(ResumeServiceImpl.currentId++);
+		hobby.setId(ResumeDaoHibernate.currentId++);
 		hobby.setLabel("Musique : pratique la batterie dans un groupe.");
 		hobbies.add(hobby);
 
 		// Hobby 3
 		hobby = new Hobby();
-		hobby.setId(ResumeServiceImpl.currentId++);
+		hobby.setId(ResumeDaoHibernate.currentId++);
 		hobby.setLabel("Projets Open source");
 		hobbies.add(hobby);
 	}

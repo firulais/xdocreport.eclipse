@@ -7,8 +7,12 @@
 			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
 			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
-	<!-- <bean
-		class="fr.opensagres.xdocreport.eclipse.demo.resume.services.ServicesProvider">
-		<property name="resumeService" ref="resumeService" />
-	</bean> -->
+
+	<bean id="resumeService"
+		class="fr.opensagres.xdocreport.eclipse.demo.resume.services.impl.ResumeServiceImpl">
+		<property name="resumeDao" ref="resumeDao" />
+	</bean>
+
+	<bean id="resumeDao"
+		class="fr.opensagres.xdocreport.eclipse.demo.resume.services.dao.hibernate.ResumeDaoHibernate" />
 </beans>

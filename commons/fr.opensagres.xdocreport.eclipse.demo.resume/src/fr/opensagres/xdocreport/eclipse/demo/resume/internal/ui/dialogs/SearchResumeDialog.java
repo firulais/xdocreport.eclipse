@@ -15,9 +15,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.PlatformUI;
 
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
-import fr.opensagres.xdocreport.eclipse.demo.resume.services.ServicesProvider;
+import fr.opensagres.xdocreport.eclipse.demo.resume.services.ResumeService;
 import fr.opensagres.xdocreport.eclipse.ui.dialogs.SearchDialog;
 
 public class SearchResumeDialog extends SearchDialog {
@@ -41,6 +42,7 @@ public class SearchResumeDialog extends SearchDialog {
 				| GridData.HORIZONTAL_ALIGN_FILL));
 		createViewer(parent);
 
+		
 		return parent;
 	}
 
@@ -53,9 +55,10 @@ public class SearchResumeDialog extends SearchDialog {
 		table.setLinesVisible(true);
 
 		viewer.setContentProvider(new ArrayContentProvider());
+		ResumeService resumeService=(ResumeService)PlatformUI.getWorkbench().getService(ResumeService.class);
 		// Get the content for the viewer, setInput will call getElements in the
 		// contentProvider
-		viewer.setInput(ServicesProvider.getResumeService().findAll());
+		viewer.setInput(resumeService.findAll());
 
 		// Layout the viewer
 		GridData gridData = new GridData();
