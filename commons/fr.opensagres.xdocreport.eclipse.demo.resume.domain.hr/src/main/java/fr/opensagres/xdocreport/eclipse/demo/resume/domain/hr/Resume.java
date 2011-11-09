@@ -5,9 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
 
-import fr.opensagres.xdocreport.document.images.ByteArrayImageProvider;
+//import fr.opensagres.xdocreport.document.images.ByteArrayImageProvider;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
-import fr.opensagres.xdocreport.eclipse.utils.IOUtils;
 
 //@Entity
 //@Table(name = "T_RESUME", schema = "hr")
@@ -25,7 +24,7 @@ public class Resume {
 	private String title;
 
 	// @Column
-	private byte[] picture;
+	private byte[] picture=new byte[0];
 
 	// @Column(name = "owner_id", unique = true)
 	private Long ownerId;
@@ -39,23 +38,22 @@ public class Resume {
 
 	// @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	// @JoinColumn(name = "resume_fk")
-	private Set<Diploma> diplomas;
+	private Set<Education> educations;
 	// @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	// @JoinColumn(name = "resume_fk")
 	private Set<Skill> skills;
 
 	private Set<Hobby> hobbies;
 
-	private ByteArrayImageProvider photo;
 
 	public Resume() {
-		this.photo = new ByteArrayImageProvider((byte[]) null);
-		try {
-			setPicture(IOUtils.toByteArray(Resume.class
-					.getResourceAsStream("EmptyPhoto.jpg")));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		this.photo = new ByteArrayImageProvider((byte[]) null);
+//		try {
+//			setPicture(IOUtils.toByteArray(Resume.class
+//					.getResourceAsStream("EmptyPhoto.jpg")));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	public Long getId() {
@@ -83,26 +81,18 @@ public class Resume {
 	public void setPicture(byte[] picture) {
 		// Object oldValue = this.picture;
 		this.picture = picture;
-		this.photo.setImageByteArray(picture);
-		try {
-			this.photo.getImageInfo();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		this.photo.setImageByteArray(picture);
+//		try {
+//			this.photo.getImageInfo();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		// firePropertyChange("picture", oldValue, picture);
 	}
 
-	public InputStream getPictureAsStream() {
-		if (picture == null) {
-			return null;
-		}
-		return new ByteArrayInputStream(picture);
-	}
+	
 
-	public void setPictureAsStream(InputStream picture) throws IOException {
-		this.setPicture(IOUtils.toByteArray(picture));
-	}
 
 	public NaturalPerson getOwner() {
 		return owner;
@@ -134,13 +124,13 @@ public class Resume {
 		// firePropertyChange("experiences", oldValue, experiences);
 	}
 
-	public Set<Diploma> getDiplomas() {
-		return diplomas;
+	public Set<Education> getEducations() {
+		return educations;
 	}
 
-	public void setDiplomas(Set<Diploma> diplomas) {
+	public void setEducations(Set<Education> educations) {
 		// Object oldValue = this.diplomas;
-		this.diplomas = diplomas;
+		this.educations = educations;
 		// firePropertyChange("diplomas", oldValue, diplomas);
 	}
 
@@ -154,9 +144,7 @@ public class Resume {
 		// firePropertyChange("competences", oldValue, competences);
 	}
 
-	public ByteArrayImageProvider getPhoto() {
-		return photo;
-	}
+	
 
 	public void setHobbies(Set<Hobby> hobbies) {
 		this.hobbies = hobbies;
