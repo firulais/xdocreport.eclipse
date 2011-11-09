@@ -15,8 +15,20 @@ import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 public class AngeloResume extends Resume {
 
 	public AngeloResume() {
-		// Angelo
+		// resume
+		super.setId(ResumeServiceImpl.currentId++);
+		try {
+			super.setPictureAsStream(Resume.class
+					.getResourceAsStream("AngeloZERR.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		super.setTitle("Ingénieur Etude JEE/Eclipse RCP.");
+
+		
+		// Person
 		NaturalPerson person = new NaturalPerson();
+		super.setOwner(person);
 		person.setId(ResumeServiceImpl.currentId++);
 		person.setFirstName("Angelo");
 		person.setLastName("ZERR");
@@ -25,14 +37,6 @@ public class AngeloResume extends Resume {
 			person.setBirthDate(DateUtils.toDate("24/02/1977", DateUtils.FRENCH_PATTERN));
 		} catch (ParseException e1) {
 			e1.printStackTrace();
-		}
-		super.setId(ResumeServiceImpl.currentId++);
-		super.setOwner(person);
-		try {
-			super.setPictureAsStream(Resume.class
-					.getResourceAsStream("AngeloZERR.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 
 		// Address

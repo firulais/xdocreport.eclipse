@@ -62,7 +62,8 @@ public class ResumeServiceImpl implements ResumeService {
 		newResume.setId(resume.getId());
 		newResume.setOwner(newPerson);
 		newResume.setPicture(resume.getPicture());
-
+		newResume.setTitle(resume.getTitle());
+		
 		// Diplomas
 		Set<Diploma> diplomas = resume.getDiplomas();
 		if (diplomas != null) {

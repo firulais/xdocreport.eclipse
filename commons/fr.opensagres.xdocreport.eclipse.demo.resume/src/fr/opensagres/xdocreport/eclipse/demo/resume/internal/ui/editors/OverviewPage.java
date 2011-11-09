@@ -14,6 +14,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.IManagedForm;
@@ -55,6 +56,7 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 	private Text zipCodeText;
 	private Text cityText;
 	private Text streetText;
+	private Control resumeTitleText;
 
 	public OverviewPage(ReportingFormEditor<Resume> editor) {
 		super(editor, ID, Messages.ResumeFormEditor_OverviewPage_title);
@@ -89,6 +91,7 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 		// Content section
 		createContentSection(toolkit, right);
 
+		createResumeInfoSection(toolkit, right);
 	}
 
 	private void createGeneralInfoSection(FormToolkit toolkit, Composite left) {
@@ -145,18 +148,6 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 		GridData gd_emailText = new GridData(GridData.FILL_HORIZONTAL);
 		gd_emailText.widthHint = 150;
 		emailText.setLayoutData(gd_emailText);
-
-		// Photo
-		Label photoLabel = toolkit.createLabel(sbody,
-				Messages.ResumeFormEditor_OverviewPage_GeneralInfo_Photo_label);
-		GridData gd_photoLabel = new GridData();
-		gd_photoLabel.verticalAlignment = SWT.TOP;
-		photoLabel.setLayoutData(gd_photoLabel);
-		photo = new PhotoControl(sbody, SWT.NONE, SWT.BORDER, toolkit);
-		GridData gd_photo = new GridData(GridData.FILL_HORIZONTAL);
-		gd_photo.widthHint = 150;
-		photo.setLayoutData(gd_photo);
-		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, photo);
 
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
 	}
@@ -231,6 +222,45 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
 	}
 
+	private void createResumeInfoSection(FormToolkit toolkit, Composite left) {
+		Section section = toolkit.createSection(left, Section.DESCRIPTION
+				| Section.TITLE_BAR);
+		section.setDescription(Messages.ResumeFormEditor_OverviewPage_ResumeInfo_desc);
+		section.setText(Messages.ResumeFormEditor_OverviewPage_ResumeInfo_title);
+		TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
+		section.setLayoutData(data);
+
+		Composite sbody = toolkit.createComposite(section);
+		section.setClient(sbody);
+
+		GridLayout glayout = new GridLayout();
+		// glayout.horizontalSpacing = 10;
+		glayout.numColumns = 2;
+		sbody.setLayout(glayout);
+
+		// Resume title
+		toolkit.createLabel(sbody,
+				Messages.ResumeFormEditor_OverviewPage_ResumeInfo_Title_label);
+		resumeTitleText = toolkit.createText(sbody, "", SWT.SINGLE);
+		GridData resumeTitleData = new GridData(GridData.FILL_HORIZONTAL);
+		resumeTitleData.widthHint = 150;
+		resumeTitleText.setLayoutData(resumeTitleData);
+		
+		// Photo
+		Label photoLabel = toolkit.createLabel(sbody,
+				Messages.ResumeFormEditor_OverviewPage_ResumeInfo_Photo_label);
+		GridData gd_photoLabel = new GridData();
+		gd_photoLabel.verticalAlignment = SWT.TOP;
+		photoLabel.setLayoutData(gd_photoLabel);
+		photo = new PhotoControl(sbody, SWT.NONE, SWT.BORDER, toolkit);
+		GridData gd_photo = new GridData(GridData.FILL_HORIZONTAL);
+		gd_photo.widthHint = 150;
+		photo.setLayoutData(gd_photo);
+		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, photo);
+
+		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
+	}
+
 	protected final FormText createClient(Composite section, String content,
 			FormToolkit toolkit) {
 		FormText text = toolkit.createFormText(section, true);
@@ -256,6 +286,7 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 	public void onBind(DataBindingContext bindingContext) {
 		onBindGeneralInfo(bindingContext);
 		onBindAddress(bindingContext);
+		onBindResumeInfo(bindingContext);
 	}
 
 	private void onBindGeneralInfo(DataBindingContext bindingContext) {
@@ -310,14 +341,6 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 				personEmailObserveValue, Jsr303BeansUpdateValueStrategyFactory
 						.create(personEmailObserveValue), null);
 
-		// bind photo
-		IObservableValue photoObserveImageObserveWidget = BeansObservables
-				.observeValue(photo, PhotoControl.IMAGE_BYTEARRAY_PROPERTY);
-		IObservableValue personPhotoObserveValue = PojoObservables
-				.observeValue(getModelObject(), Resume.PICTURE_PROPERTY);
-		bindingContext.bindValue(photoObserveImageObserveWidget,
-				personPhotoObserveValue, null, null);
-
 	}
 
 	private void onBindAddress(DataBindingContext bindingContext) {
@@ -350,6 +373,27 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 		bindingContext.bindValue(zipCodeTextObserveTextObserveWidget,
 				addressZipCodeObserveValue, null, null);
 
+	}
+
+	private void onBindResumeInfo(DataBindingContext bindingContext) {
+
+		// bind resume title
+		IObservableValue resumeTitleTextObserveTextObserveWidget = SWTObservables
+				.observeText(resumeTitleText, SWT.Modify);
+		IObservableValue personEmailObserveValue = PojoObservables
+				.observeValue(getModelObject(),
+						Resume.TITLE_PROPERTY);
+		bindingContext.bindValue(resumeTitleTextObserveTextObserveWidget,
+				personEmailObserveValue, Jsr303BeansUpdateValueStrategyFactory
+						.create(personEmailObserveValue), null);
+
+		// bind photo
+		IObservableValue photoObserveImageObserveWidget = BeansObservables
+				.observeValue(photo, PhotoControl.IMAGE_BYTEARRAY_PROPERTY);
+		IObservableValue personPhotoObserveValue = PojoObservables
+				.observeValue(getModelObject(), Resume.PICTURE_PROPERTY);
+		bindingContext.bindValue(photoObserveImageObserveWidget,
+				personPhotoObserveValue, null, null);
 	}
 
 	public void linkActivated(HyperlinkEvent e) {

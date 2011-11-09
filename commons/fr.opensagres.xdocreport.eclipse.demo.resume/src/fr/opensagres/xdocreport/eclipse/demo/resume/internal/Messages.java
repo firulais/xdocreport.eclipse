@@ -21,7 +21,6 @@ public class Messages extends NLS {
 	public static String ResumeFormEditor_OverviewPage_GeneralInfo_LastName_label;
 	public static String ResumeFormEditor_OverviewPage_GeneralInfo_Birthday_label;
 	public static String ResumeFormEditor_OverviewPage_GeneralInfo_Email_label;
-	public static String ResumeFormEditor_OverviewPage_GeneralInfo_Photo_label;
 
 	// Overview/Adress section
 	public static String ResumeFormEditor_OverviewPage_Address_title;
@@ -38,6 +37,12 @@ public class Messages extends NLS {
 	public static String ResumeFormEditor_OverviewPage_ResumeContent_title;
 	public static String ResumeFormEditor_OverviewPage_ResumeContent_content;
 
+	// Overview/General Info section
+	public static String ResumeFormEditor_OverviewPage_ResumeInfo_title;
+	public static String ResumeFormEditor_OverviewPage_ResumeInfo_desc;
+	public static String ResumeFormEditor_OverviewPage_ResumeInfo_Title_label;
+	public static String ResumeFormEditor_OverviewPage_ResumeInfo_Photo_label;
+	
 	// Diploma Page
 	public static String ResumeFormEditor_DiplomasPage_title;
 	public static String ResumeFormEditor_DiplomasPage_DiplomasMasterDetailsBlock_title;
