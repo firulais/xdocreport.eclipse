@@ -1,6 +1,6 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr;
 
-public class Diploma {
+public class Education {
 	
 	public static final String LABEL_PROPERTY = "label";
 	public static final String INSTITUTE_PROPERTY = "institute";
