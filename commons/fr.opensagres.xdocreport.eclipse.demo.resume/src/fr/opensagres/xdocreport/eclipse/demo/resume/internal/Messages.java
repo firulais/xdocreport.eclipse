@@ -43,12 +43,13 @@ public class Messages extends NLS {
 	public static String ResumeFormEditor_OverviewPage_ResumeInfo_Title_label;
 	public static String ResumeFormEditor_OverviewPage_ResumeInfo_Photo_label;
 	
-	// Education Page
+	// Educations Page
 	public static String ResumeFormEditor_EducationsPage_title;
 	public static String ResumeFormEditor_EducationsPage_EducationsMasterDetailsBlock_title;
 	public static String ResumeFormEditor_EducationsPage_EducationsMasterDetailsBlock_desc;
 	public static String ResumeFormEditor_EducationsPage_EducationDetailsPage_title;
-	public static String ResumeFormEditor_EducationsPage_EducationDetailsPage_desc;
+	public static String ResumeFormEditor_EducationsPage_EducationDetailsPage_desc;	
+	public static String ResumeFormEditor_EducationsPage_EducationDetailsPage_educationDate_label;
 	public static String ResumeFormEditor_EducationsPage_EducationDetailsPage_educationLabel_label;
 	public static String ResumeFormEditor_EducationsPage_EducationDetailsPage_educationInstitute_label;
 

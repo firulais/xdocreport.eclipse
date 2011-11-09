@@ -1,5 +1,6 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,6 +10,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -30,8 +33,10 @@ import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers.EducationContentProvider;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers.EducationLabelProvider;
+import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers.EducationViewerComparator;
 
-public class EducationsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
+public class EducationsMasterDetailsBlock extends
+		ModelMasterDetailsBlock<Resume> {
 
 	private static final Integer ADD_BUTTON_INDEX = 1;
 	private static final Integer REMOVE_BUTTON_INDEX = 2;
@@ -90,6 +95,7 @@ public class EducationsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume
 		});
 		viewer.setContentProvider(EducationContentProvider.getInstance());
 		viewer.setLabelProvider(EducationLabelProvider.getInstance());
+		viewer.setComparator(EducationViewerComparator.getInstance());
 	}
 
 	private void createButtons(FormToolkit toolkit, Composite parent) {

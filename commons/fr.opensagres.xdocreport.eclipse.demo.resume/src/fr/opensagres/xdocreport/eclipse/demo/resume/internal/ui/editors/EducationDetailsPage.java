@@ -1,6 +1,7 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors;
 
 import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.beans.PojoObservables;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.jface.databinding.swt.SWTObservables;
@@ -15,7 +16,14 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
+import fr.opensagres.eclipse.forms.conversion.DateConverterRegistry;
+import fr.opensagres.eclipse.forms.conversion.DateToStringConverter;
+import fr.opensagres.eclipse.forms.conversion.StringToDateConverter;
+import fr.opensagres.eclipse.forms.conversion.StringToDateValidator;
 import fr.opensagres.eclipse.forms.editor.ModelDetailsPage;
+import fr.opensagres.eclipse.forms.widgets.DateTimeControl;
+import fr.opensagres.xdocreport.eclipse.PlatformXDocReport;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Education;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages;
 
@@ -23,6 +31,7 @@ public class EducationDetailsPage extends ModelDetailsPage<Education> {
 
 	private Text educationLabelText;
 	private Text educationInstituteText;
+	private DateTimeControl educationDateTime;
 
 	@Override
 	protected void onCreateUI(Composite parent) {
@@ -63,12 +72,26 @@ public class EducationDetailsPage extends ModelDetailsPage<Education> {
 		glayout.numColumns = 2;
 		parent.setLayout(glayout);
 
+		// Education date
+		toolkit.createLabel(
+				parent,
+				Messages.ResumeFormEditor_EducationsPage_EducationDetailsPage_educationDate_label);
+		educationDateTime = new DateTimeControl(parent, SWT.NONE, SWT.SINGLE,
+				SWT.FLAT, toolkit);
+		educationDateTime.setOutputPattern(PlatformXDocReport.getDatePattern());
+		GridData data = new GridData(GridData.FILL_HORIZONTAL);
+		data.widthHint = 150;
+		educationDateTime.setLayoutData(data);
+		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit,
+				educationDateTime);
+
 		// Education label
 		toolkit.createLabel(
 				parent,
 				Messages.ResumeFormEditor_EducationsPage_EducationDetailsPage_educationLabel_label);
 		educationLabelText = toolkit.createText(parent, "", SWT.SINGLE);
-		educationLabelText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		educationLabelText
+				.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		// Education institute
 		toolkit.createLabel(
@@ -81,6 +104,25 @@ public class EducationDetailsPage extends ModelDetailsPage<Education> {
 	}
 
 	public void onBind(DataBindingContext bindingContext) {
+
+		// Date binding
+		StringToDateConverter stringToDateConverter = DateConverterRegistry
+				.getStringToDateConverter(PlatformXDocReport.getDatePattern());
+		DateToStringConverter dateToStringConverter = DateConverterRegistry
+				.getDateToStringConverter(PlatformXDocReport.getDatePattern());
+		IObservableValue educationDateTimeObserveTextObserveWidget = SWTObservables
+				.observeText(educationDateTime.getDateFieldText(), SWT.Modify);
+		IObservableValue educationDateObserveValue = PojoObservables
+				.observeValue(getModelObject(),
+						Education.DATE_PROPERTY);
+		bindingContext.bindValue(
+				educationDateTimeObserveTextObserveWidget,
+				educationDateObserveValue,
+				new UpdateValueStrategy().setAfterGetValidator(
+						new StringToDateValidator(stringToDateConverter))
+						.setConverter(stringToDateConverter),
+				new UpdateValueStrategy().setConverter(dateToStringConverter));
+
 		// Label binding
 		IObservableValue educationLabelTextObserveTextObserveWidget = SWTObservables
 				.observeText(educationLabelText, SWT.Modify);
@@ -94,7 +136,8 @@ public class EducationDetailsPage extends ModelDetailsPage<Education> {
 				.observeText(educationInstituteText, SWT.Modify);
 		IObservableValue modelEducationInstituteObserveValue = PojoObservables
 				.observeValue(getModelObject(), Education.INSTITUTE_PROPERTY);
-		bindingContext.bindValue(educationInstituteTextObserveTextObserveWidget,
+		bindingContext.bindValue(
+				educationInstituteTextObserveTextObserveWidget,
 				modelEducationInstituteObserveValue, null, null);
 
 	}

@@ -22,7 +22,12 @@ public class EducationLabelProvider extends LabelProvider {
 	@Override
 	public String getText(Object element) {
 		if (element instanceof Education) {
-			return ((Education) element).getLabel();
+			Education education = ((Education) element);
+			StringBuilder text = new StringBuilder();
+			text.append(education.getDateYear());
+			text.append(" - ");
+			text.append(education.getLabel());
+			return text.toString();
 		}
 		return super.getText(element);
 	}

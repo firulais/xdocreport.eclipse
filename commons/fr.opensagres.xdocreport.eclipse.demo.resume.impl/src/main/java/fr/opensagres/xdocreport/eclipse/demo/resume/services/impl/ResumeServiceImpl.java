@@ -130,6 +130,7 @@ public class ResumeServiceImpl implements ResumeService {
 			id = currentId++;
 		}
 		newEducation.setId(id);
+		newEducation.setDate(education.getDate());
 		newEducation.setLabel(education.getLabel());
 		newEducation.setInstitute(education.getInstitute());
 		return newEducation;

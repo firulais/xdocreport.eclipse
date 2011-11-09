@@ -23,7 +23,7 @@ public class AngeloResume extends Resume {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		super.setTitle("Ingénieur Etude JEE/Eclipse RCP.");
+		super.setTitle("Ingénieur Etude JEE/Eclipse RCP");
 
 		
 		// Person
@@ -48,17 +48,35 @@ public class AngeloResume extends Resume {
 		address.setCity("Saint Paul 3 Châteaux");
 		address.setZipCode("26130");
 
-		// Diplomas
-		Set<Education> diplomas = new HashSet<Education>();
-		super.setEducations(diplomas);
+		// Educations
+		Set<Education> educations = new HashSet<Education>();
+		super.setEducations(educations);
 
-		Education diploma = null;
+		Education education = null;
 
-		diploma = new Education();
-		diploma.setId(ResumeServiceImpl.currentId++);
-		diploma.setLabel("Diplôme d'ingénieur en informatique");
-		diploma.setInstitute("INSA de Lyon");
-		diplomas.add(diploma);
+		// Education 1
+		education = new Education();
+		education.setId(ResumeServiceImpl.currentId++);
+		try {
+			education.setDate(DateUtils.toDate("30/06/2001", DateUtils.FRENCH_PATTERN));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		education.setLabel("Diplôme d'ingénieur en informatique");
+		education.setInstitute("INSA de Lyon");
+		educations.add(education);
+
+		// Education 2
+		education = new Education();
+		education.setId(ResumeServiceImpl.currentId++);
+		try {
+			education.setDate(DateUtils.toDate("30/06/1996", DateUtils.FRENCH_PATTERN));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		education.setLabel("BAC S option Physique C");
+		education.setInstitute("Lycée Georges de la Tour de Nancy");
+		educations.add(education);
 
 		// Experiences
 		Set<Experience> experiences = new HashSet<Experience>();
