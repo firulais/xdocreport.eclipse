@@ -9,22 +9,22 @@ import fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormEditor;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingMasterDetailsFormPage;
 
-public class EducationsPage extends ReportingMasterDetailsFormPage<Resume> {
+public class DiplomasPage extends ReportingMasterDetailsFormPage<Resume> {
 
-	public static final String ID = "educations";
+	public static final String ID = "diploma";
 
-	public EducationsPage(ReportingFormEditor<Resume> editor) {
-		super(editor, ID, Messages.ResumeFormEditor_EducationsPage_title);
+	public DiplomasPage(ReportingFormEditor<Resume> editor) {
+		super(editor, ID, Messages.ResumeFormEditor_DiplomasPage_title);
 	}
 	
 	@Override
 	protected Image getFormTitleImage() {
-		return ImageResources.getImage(ImageResources.IMG_EDUCATION_24);
+		return ImageResources.getImage(ImageResources.IMG_DIPLOMA_24);
 	}
 
 	@Override
 	protected ModelMasterDetailsBlock<Resume> createMasterDetailsBlock() {
-		return new EducationsMasterDetailsBlock(this);
+		return new DiplomasMasterDetailsBlock(this);
 	}
 
 }

@@ -25,24 +25,24 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
 import fr.opensagres.eclipse.forms.ModelMasterDetailsBlock;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Education;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Diploma;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages;
-import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers.EducationContentProvider;
-import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers.EducationLabelProvider;
+import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers.DiplomaContentProvider;
+import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers.DiplomaLabelProvider;
 
-public class EducationsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
+public class DiplomasMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 
 	private static final Integer ADD_BUTTON_INDEX = 1;
 	private static final Integer REMOVE_BUTTON_INDEX = 2;
 
-	private EducationDetailsPage educationDetailsPage;
+	private DiplomaDetailsPage diplomaDetailsPage;
 	private TableViewer viewer;
 	private Button removeButton;
 
-	public EducationsMasterDetailsBlock(EducationsPage educationsPage) {
-		super(educationsPage);
-		this.educationDetailsPage = new EducationDetailsPage();
+	public DiplomasMasterDetailsBlock(DiplomasPage diplomasPage) {
+		super(diplomasPage);
+		this.diplomaDetailsPage = new DiplomaDetailsPage();
 	}
 
 	@Override
@@ -51,8 +51,8 @@ public class EducationsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume
 		FormToolkit toolkit = managedForm.getToolkit();
 		Section section = toolkit.createSection(parent, Section.DESCRIPTION
 				| Section.TITLE_BAR);
-		section.setText(Messages.ResumeFormEditor_EducationsPage_EducationsMasterDetailsBlock_title); //$NON-NLS-1$
-		section.setDescription(Messages.ResumeFormEditor_EducationsPage_EducationsMasterDetailsBlock_desc); //$NON-NLS-1$
+		section.setText(Messages.ResumeFormEditor_DiplomasPage_DiplomasMasterDetailsBlock_title); //$NON-NLS-1$
+		section.setDescription(Messages.ResumeFormEditor_DiplomasPage_DiplomasMasterDetailsBlock_desc); //$NON-NLS-1$
 		section.marginWidth = 10;
 		section.marginHeight = 5;
 
@@ -63,11 +63,11 @@ public class EducationsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume
 		layout.marginHeight = 2;
 		client.setLayout(layout);
 
-		Table educationsTable = toolkit.createTable(client, SWT.MULTI);
+		Table diplomasTable = toolkit.createTable(client, SWT.MULTI);
 		GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.heightHint = 20;
 		gd.widthHint = 100;
-		educationsTable.setLayoutData(gd);
+		diplomasTable.setLayoutData(gd);
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, client);
 
 		createButtons(toolkit, client);
@@ -76,7 +76,7 @@ public class EducationsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume
 
 		final SectionPart spart = new SectionPart(section);
 		managedForm.addPart(spart);
-		viewer = new TableViewer(educationsTable);
+		viewer = new TableViewer(diplomasTable);
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			public void selectionChanged(SelectionChangedEvent event) {
 				IStructuredSelection selection = (IStructuredSelection) event
@@ -88,8 +88,8 @@ public class EducationsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume
 				removeButton.setEnabled(true);
 			}
 		});
-		viewer.setContentProvider(EducationContentProvider.getInstance());
-		viewer.setLabelProvider(EducationLabelProvider.getInstance());
+		viewer.setContentProvider(DiplomaContentProvider.getInstance());
+		viewer.setLabelProvider(DiplomaLabelProvider.getInstance());
 	}
 
 	private void createButtons(FormToolkit toolkit, Composite parent) {
@@ -133,23 +133,23 @@ public class EducationsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume
 	}
 
 	protected void handleAddButton() {
-		Education education = new Education();
-		education.setLabel("New education");
-		getEducations().add(education);
-		viewer.add(education);
-		viewer.setSelection(new StructuredSelection(education));
+		Diploma diploma = new Diploma();
+		diploma.setLabel("New diploma");
+		getDiplomas().add(diploma);
+		viewer.add(diploma);
+		viewer.setSelection(new StructuredSelection(diploma));
 	}
 
 	protected void handleRemoveButton() {
 		IStructuredSelection selection = (IStructuredSelection) viewer
 				.getSelection();
 		if (!selection.isEmpty()) {
-			Education education = null;
-			Object[] educations = selection.toArray();
-			for (int i = 0; i < educations.length; i++) {
-				education = (Education) educations[i];
-				getEducations().remove(education);
-				viewer.remove(education);
+			Diploma diploma = null;
+			Object[] diplomas = selection.toArray();
+			for (int i = 0; i < diplomas.length; i++) {
+				diploma = (Diploma) diplomas[i];
+				getDiplomas().remove(diploma);
+				viewer.remove(diploma);
 			}
 			viewer.refresh();
 		}
@@ -163,21 +163,21 @@ public class EducationsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume
 
 	@Override
 	public void onBind(DataBindingContext dataBindingContext) {
-		Set<Education> educations = getEducations();
-		viewer.setInput(educations);
+		Set<Diploma> diplomas = getDiplomas();
+		viewer.setInput(diplomas);
 	}
 
-	private Set<Education> getEducations() {
-		Set<Education> educations = getModelObject().getEducations();
-		if (educations == null) {
-			educations = new HashSet<Education>();
-			getModelObject().setEducations(educations);
+	private Set<Diploma> getDiplomas() {
+		Set<Diploma> diplomas = getModelObject().getDiplomas();
+		if (diplomas == null) {
+			diplomas = new HashSet<Diploma>();
+			getModelObject().setDiplomas(diplomas);
 		}
-		return educations;
+		return diplomas;
 	}
 
 	public IDetailsPage getPage(Object key) {
-		return educationDetailsPage;
+		return diplomaDetailsPage;
 	}
 
 	public Object getPageKey(Object object) {

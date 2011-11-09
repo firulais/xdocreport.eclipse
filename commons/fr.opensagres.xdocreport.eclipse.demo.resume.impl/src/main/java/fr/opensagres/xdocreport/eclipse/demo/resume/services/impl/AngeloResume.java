@@ -7,7 +7,7 @@ import java.util.Set;
 
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.Address;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Education;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Diploma;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Experience;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Hobby;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
@@ -49,12 +49,12 @@ public class AngeloResume extends Resume {
 		address.setZipCode("26130");
 
 		// Diplomas
-		Set<Education> diplomas = new HashSet<Education>();
-		super.setEducations(diplomas);
+		Set<Diploma> diplomas = new HashSet<Diploma>();
+		super.setDiplomas(diplomas);
 
-		Education diploma = null;
+		Diploma diploma = null;
 
-		diploma = new Education();
+		diploma = new Diploma();
 		diploma.setId(ResumeServiceImpl.currentId++);
 		diploma.setLabel("Diplôme d'ingénieur en informatique");
 		diploma.setInstitute("INSA de Lyon");

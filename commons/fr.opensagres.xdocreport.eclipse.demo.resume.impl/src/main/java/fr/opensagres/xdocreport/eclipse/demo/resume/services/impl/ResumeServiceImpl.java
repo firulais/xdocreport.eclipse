@@ -8,7 +8,7 @@ import java.util.Set;
 
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.Address;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Education;
+import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Diploma;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Experience;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Hobby;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
@@ -64,14 +64,14 @@ public class ResumeServiceImpl implements ResumeService {
 		newResume.setPicture(resume.getPicture());
 		newResume.setTitle(resume.getTitle());
 		
-		// Educations
-		Set<Education> educations = resume.getEducations();
-		if (educations != null) {
-			Set<Education> newEducations = new HashSet<Education>();
-			for (Education education : educations) {
-				newEducations.add(clone(education));
+		// Diplomas
+		Set<Diploma> diplomas = resume.getDiplomas();
+		if (diplomas != null) {
+			Set<Diploma> newDiplomas = new HashSet<Diploma>();
+			for (Diploma diploma : diplomas) {
+				newDiplomas.add(clone(diploma));
 			}
-			newResume.setEducations(newEducations);
+			newResume.setDiplomas(newDiplomas);
 		}
 
 		// Experiences
@@ -123,16 +123,16 @@ public class ResumeServiceImpl implements ResumeService {
 		return newExperience;
 	}
 
-	private Education clone(Education education) {
-		Education newEducation = new Education();
-		Long id = education.getId();
+	private Diploma clone(Diploma diploma) {
+		Diploma newDiploma = new Diploma();
+		Long id = diploma.getId();
 		if (id == null) {
 			id = currentId++;
 		}
-		newEducation.setId(id);
-		newEducation.setLabel(education.getLabel());
-		newEducation.setInstitute(education.getInstitute());
-		return newEducation;
+		newDiploma.setId(id);
+		newDiploma.setLabel(diploma.getLabel());
+		newDiploma.setInstitute(diploma.getInstitute());
+		return newDiploma;
 	}
 
 	private Hobby clone(Hobby hobby) {

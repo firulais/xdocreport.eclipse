@@ -39,7 +39,7 @@ public class Resume {
 
 	// @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	// @JoinColumn(name = "resume_fk")
-	private Set<Education> educations;
+	private Set<Diploma> diplomas;
 	// @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	// @JoinColumn(name = "resume_fk")
 	private Set<Skill> skills;
@@ -134,13 +134,13 @@ public class Resume {
 		// firePropertyChange("experiences", oldValue, experiences);
 	}
 
-	public Set<Education> getEducations() {
-		return educations;
+	public Set<Diploma> getDiplomas() {
+		return diplomas;
 	}
 
-	public void setEducations(Set<Education> educations) {
+	public void setDiplomas(Set<Diploma> diplomas) {
 		// Object oldValue = this.diplomas;
-		this.educations = educations;
+		this.diplomas = diplomas;
 		// firePropertyChange("diplomas", oldValue, diplomas);
 	}
 
