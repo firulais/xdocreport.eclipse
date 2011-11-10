@@ -1,5 +1,6 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors;
 
+import org.dynaresume.domain.hr.Hobby;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.PojoObservables;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
@@ -16,7 +17,6 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import fr.opensagres.eclipse.forms.editor.ModelDetailsPage;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Hobby;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages;
 
 public class HobbyDetailsPage extends ModelDetailsPage<Hobby> {

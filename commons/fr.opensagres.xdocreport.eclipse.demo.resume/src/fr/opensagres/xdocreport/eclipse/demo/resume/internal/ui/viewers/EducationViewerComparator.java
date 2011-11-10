@@ -2,10 +2,10 @@ package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers;
 
 import java.util.Date;
 
+import org.dynaresume.domain.hr.Education;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
 
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Education;
 
 public class EducationViewerComparator extends ViewerComparator {
 	

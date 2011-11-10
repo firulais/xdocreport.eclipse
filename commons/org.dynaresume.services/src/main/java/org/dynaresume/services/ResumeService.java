@@ -2,7 +2,8 @@ package org.dynaresume.services;
 
 import java.util.Collection;
 
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
+import org.dynaresume.domain.hr.Resume;
+
 
 public interface ResumeService {
 	 Collection<Resume> findAll();

@@ -1,7 +1,8 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.reporting;
 
+import org.dynaresume.domain.hr.Resume;
+
 import fr.opensagres.xdocreport.document.images.ByteArrayImageProvider;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 import fr.opensagres.xdocreport.eclipse.reporting.xdocreport.XDocReportProcessor;
 import fr.opensagres.xdocreport.template.IContext;
 

@@ -1,5 +1,7 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors;
 
+import org.dynaresume.domain.core.NaturalPerson;
+import org.dynaresume.domain.hr.Education;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.beans.PojoObservables;
@@ -23,8 +25,6 @@ import fr.opensagres.eclipse.forms.conversion.StringToDateValidator;
 import fr.opensagres.eclipse.forms.editor.ModelDetailsPage;
 import fr.opensagres.eclipse.forms.widgets.DateTimeControl;
 import fr.opensagres.xdocreport.eclipse.PlatformXDocReport;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Education;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages;
 
 public class EducationDetailsPage extends ModelDetailsPage<Education> {

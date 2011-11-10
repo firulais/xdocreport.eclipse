@@ -1,10 +1,10 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.handlers;
 
+import org.dynaresume.domain.hr.Resume;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.dialogs.SelectionDialog;
 
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.dialogs.SearchResumeDialog;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors.ResumeEditorInput;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors.ResumeFormEditor;

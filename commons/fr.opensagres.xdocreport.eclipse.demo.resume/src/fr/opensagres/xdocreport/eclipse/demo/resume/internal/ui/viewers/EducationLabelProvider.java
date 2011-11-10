@@ -1,9 +1,9 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers;
 
+import org.dynaresume.domain.hr.Education;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Education;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ImageResources;
 
 public class EducationLabelProvider extends LabelProvider {

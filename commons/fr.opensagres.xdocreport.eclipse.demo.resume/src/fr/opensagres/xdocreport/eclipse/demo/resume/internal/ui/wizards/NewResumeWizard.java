@@ -12,13 +12,13 @@
 
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.wizards;
 
+import org.dynaresume.domain.core.NaturalPerson;
+import org.dynaresume.domain.hr.Resume;
 import org.dynaresume.services.ResumeService;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PlatformUI;
 
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors.ResumeEditorInput;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors.ResumeFormEditor;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntry;

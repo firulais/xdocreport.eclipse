@@ -9,22 +9,17 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<modules>
-		<module>fr.opensagres.xdocreport.eclipse.demo.resume.domain.core</module>
 		<module>fr.opensagres.eclipse.forms</module>
 		<module>org.eclipse.rap.singlesourcing</module>
 		<module>fr.opensagres.xdocreport.eclipse</module>
 		<module>fr.opensagres.xdocreport.eclipse.demo.lettrerelance</module>
 		<module>fr.opensagres.xdocreport.eclipse.demo.resume</module>
 		<module>fr.opensagres.xdocreport.eclipse.report.xdocreport</module>
-		<module>
-			org.dynaresume.services
-		</module>
+		<module>org.dynaresume.domain.core</module>
+		<module>org.dynaresume.domain.hr</module>
+		<module>org.dynaresume.services</module>
 		<module>
 			fr.opensagres.xdocreport.eclipse.demo.resume.impl
-		</module>
-
-		<module>
-			fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr
 		</module>
 	</modules>
 </project>

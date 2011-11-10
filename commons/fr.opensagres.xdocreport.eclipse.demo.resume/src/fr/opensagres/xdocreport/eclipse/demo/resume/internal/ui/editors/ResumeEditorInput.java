@@ -1,6 +1,7 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors;
 
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
+import org.dynaresume.domain.hr.Resume;
+
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntry;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ModelAndEntryEditorInput;
 

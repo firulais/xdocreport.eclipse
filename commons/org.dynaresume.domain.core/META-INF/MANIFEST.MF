@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Api
+Bundle-SymbolicName: org.dynaresume.domain.core
+Bundle-Version: 0.0.1.qualifier
+Export-Package: org.dynaresume.domain.core
+Import-Package: javax.validation.constraints;version="1.0.0.GA"
+Bundle-RequiredExecutionEnvironment: J2SE-1.5,
+ JavaSE-1.6

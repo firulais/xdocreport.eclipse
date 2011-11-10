@@ -1,5 +1,6 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors;
 
+import org.dynaresume.domain.hr.Experience;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.beans.PojoObservables;
@@ -23,7 +24,6 @@ import fr.opensagres.eclipse.forms.editor.ModelDetailsPage;
 import fr.opensagres.eclipse.forms.widgets.DateTimeControl;
 import fr.opensagres.eclipse.forms.widgets.SimpleWikiText;
 import fr.opensagres.xdocreport.eclipse.PlatformXDocReport;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Experience;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages;
 
 public class ExperienceDetailsPage extends ModelDetailsPage<Experience> {

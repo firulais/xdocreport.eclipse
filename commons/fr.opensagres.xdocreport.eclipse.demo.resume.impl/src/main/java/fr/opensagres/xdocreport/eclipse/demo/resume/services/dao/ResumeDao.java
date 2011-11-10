@@ -2,7 +2,8 @@ package fr.opensagres.xdocreport.eclipse.demo.resume.services.dao;
 
 import java.util.Collection;
 
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
+import org.dynaresume.domain.hr.Resume;
+
 
 public interface ResumeDao {
 

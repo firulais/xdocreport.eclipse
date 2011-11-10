@@ -1,5 +1,9 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors;
 
+import org.dynaresume.domain.core.Address;
+import org.dynaresume.domain.core.NaturalPerson;
+import org.dynaresume.domain.core.Person;
+import org.dynaresume.domain.hr.Resume;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.beans.BeansObservables;
@@ -32,10 +36,6 @@ import fr.opensagres.eclipse.forms.conversion.StringToDateValidator;
 import fr.opensagres.eclipse.forms.widgets.DateTimeControl;
 import fr.opensagres.eclipse.forms.widgets.PhotoControl;
 import fr.opensagres.xdocreport.eclipse.PlatformXDocReport;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.Address;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.Person;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ImageResources;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages;
 import fr.opensagres.xdocreport.eclipse.ui.FormLayoutFactory;

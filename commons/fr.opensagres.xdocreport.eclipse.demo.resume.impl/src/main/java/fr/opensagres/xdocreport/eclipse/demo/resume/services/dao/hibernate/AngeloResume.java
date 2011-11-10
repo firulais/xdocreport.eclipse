@@ -5,13 +5,14 @@ import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.dynaresume.domain.core.Address;
+import org.dynaresume.domain.core.NaturalPerson;
+import org.dynaresume.domain.hr.Education;
+import org.dynaresume.domain.hr.Experience;
+import org.dynaresume.domain.hr.Hobby;
+import org.dynaresume.domain.hr.Resume;
+
 import fr.opensagres.xdocreport.core.io.IOUtils;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.Address;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Education;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Experience;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Hobby;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 import fr.opensagres.xdocreport.eclipse.demo.resume.services.impl.DateUtils;
 
 public class AngeloResume extends Resume {

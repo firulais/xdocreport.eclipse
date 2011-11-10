@@ -2,9 +2,9 @@ package fr.opensagres.xdocreport.eclipse.demo.resume.services.impl;
 
 import java.util.Collection;
 
+import org.dynaresume.domain.hr.Resume;
 import org.dynaresume.services.ResumeService;
 
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 import fr.opensagres.xdocreport.eclipse.demo.resume.services.dao.ResumeDao;
 
 public class ResumeServiceImpl implements ResumeService {

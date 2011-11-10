@@ -1,9 +1,9 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers;
 
+import org.dynaresume.domain.hr.Experience;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Experience;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ImageResources;
 
 public class ExperienceLabelProvider extends LabelProvider {

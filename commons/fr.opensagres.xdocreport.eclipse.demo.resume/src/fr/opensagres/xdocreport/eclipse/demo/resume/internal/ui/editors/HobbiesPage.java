@@ -1,9 +1,9 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors;
 
+import org.dynaresume.domain.hr.Resume;
 import org.eclipse.swt.graphics.Image;
 
 import fr.opensagres.eclipse.forms.ModelMasterDetailsBlock;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ImageResources;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormEditor;

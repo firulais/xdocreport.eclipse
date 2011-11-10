@@ -3,6 +3,8 @@ package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.dynaresume.domain.hr.Experience;
+import org.dynaresume.domain.hr.Resume;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -25,8 +27,6 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
 import fr.opensagres.eclipse.forms.ModelMasterDetailsBlock;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Experience;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.Messages;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers.ExperienceContentProvider;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.viewers.ExperienceLabelProvider;

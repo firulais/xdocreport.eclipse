@@ -2,9 +2,10 @@ package fr.opensagres.xdocreport.eclipse.demo.resume.services.dao.hibernate;
 
 import java.io.IOException;
 
+import org.dynaresume.domain.core.NaturalPerson;
+import org.dynaresume.domain.hr.Resume;
+
 import fr.opensagres.xdocreport.core.io.IOUtils;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
-import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
 
 public class AmineResume extends Resume {
 
