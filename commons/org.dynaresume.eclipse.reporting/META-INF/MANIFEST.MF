@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-SymbolicName: org.dynaresume.eclipse.reporting;singleton:=true
-Bundle-Version: 0.0.1.qualifier
+Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Require-Bundle: fr.opensagres.xdocreport.eclipse.reporting.core,
  fr.opensagres.xdocreport.eclipse.reporting.xdocreport.core

@@ -3,7 +3,7 @@
   <parent>
     <artifactId>rap</artifactId>
     <groupId>fr.opensagres.xdocreport-eclipse</groupId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   <packaging>eclipse-feature</packaging>

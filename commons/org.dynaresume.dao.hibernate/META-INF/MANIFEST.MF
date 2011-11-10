@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Impl
 Bundle-SymbolicName: org.dynaresume.dao.hibernate
-Bundle-Version: 0.0.1.qualifier
+Bundle-Version: 1.0.0.qualifier
 Import-Package: fr.opensagres.xdocreport.commons.utils,
  org.dynaresume.dao,
  org.dynaresume.domain.core,

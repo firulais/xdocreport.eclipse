@@ -14,12 +14,12 @@
 
    <plugins>
       <plugin id="com.ibm.icu"/>
-      <plugin id="com.ibm.icu.base" fragment=""/>
       <plugin id="com.lowagie.text"/>
       <plugin id="com.springsource.freemarker"/>
       <plugin id="com.springsource.javax.servlet"/>
       <plugin id="com.springsource.javax.validation"/>
       <plugin id="com.springsource.javax.xml.stream"/>
+      <plugin id="com.springsource.org.aopalliance"/>
       <plugin id="com.springsource.org.apache.commons.logging"/>
       <plugin id="com.springsource.org.apache.xmlbeans"/>
       <plugin id="com.springsource.org.dom4j"/>
@@ -38,14 +38,13 @@
       <plugin id="fr.opensagres.xdocreport.document.ods" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.document.odt" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.document.pptx" fragment="true"/>
-      <plugin id="fr.opensagres.xdocreport.eclipse"/>
+      <plugin id="fr.opensagres.xdocreport.eclipse.core"/>
       <plugin id="fr.opensagres.xdocreport.eclipse.demo.lettrerelance"/>
-      <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume"/>
-      <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume.api" fragment=""/>
-      <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume.domain.core" fragment=""/>
-      <plugin id="fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr" fragment=""/>
+      <plugin id="fr.opensagres.xdocreport.eclipse.rap" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.eclipse.rcp" fragment="true"/>
-      <plugin id="fr.opensagres.xdocreport.eclipse.report.xdocreport"/>
+      <plugin id="fr.opensagres.xdocreport.eclipse.reporting.core"/>
+      <plugin id="fr.opensagres.xdocreport.eclipse.reporting.xdocreport.core"/>
+      <plugin id="fr.opensagres.xdocreport.eclipse.ui"/>
       <plugin id="fr.opensagres.xdocreport.itext.extension"/>
       <plugin id="fr.opensagres.xdocreport.template"/>
       <plugin id="fr.opensagres.xdocreport.template.freemarker" fragment="true"/>
@@ -65,6 +64,8 @@
       <plugin id="org.dynaresume.dao.hibernate"/>
       <plugin id="org.dynaresume.domain.core"/>
       <plugin id="org.dynaresume.domain.hr"/>
+      <plugin id="org.dynaresume.eclipse.reporting"/>
+      <plugin id="org.dynaresume.eclipse.ui"/>
       <plugin id="org.dynaresume.services"/>
       <plugin id="org.dynaresume.services.impl"/>
       <plugin id="org.eclipse.core.commands"/>
@@ -93,12 +94,12 @@
       <plugin id="org.eclipse.springframework.util"/>
       <plugin id="org.eclipse.swt"/>
       <plugin id="org.eclipse.swt.gtk.linux.x86" fragment="true"/>
-      <plugin id="org.eclipse.swt.win32.win32.x86" fragment="true"/>
       <plugin id="org.eclipse.ui"/>
       <plugin id="org.eclipse.ui.forms"/>
       <plugin id="org.eclipse.ui.workbench"/>
       <plugin id="org.odftoolkit.odfdom-java"/>
       <plugin id="org.odftoolkit.odfdom.converter"/>
+      <plugin id="org.springframework.aop"/>
       <plugin id="org.springframework.beans"/>
       <plugin id="org.springframework.context"/>
       <plugin id="org.springframework.core"/>
@@ -115,5 +116,5 @@
       <plugin id="org.eclipse.gemini.blueprint.extender" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.osgi" autoStart="true" startLevel="-1" />
    </configurations>
-   
+
 </product>

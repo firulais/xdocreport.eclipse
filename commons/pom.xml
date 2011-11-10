@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>fr.opensagres.xdocreport-eclipse</groupId>
 		<artifactId>xdocreport-eclipse</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<modules>
 		<module>fr.opensagres.eclipse.forms</module>

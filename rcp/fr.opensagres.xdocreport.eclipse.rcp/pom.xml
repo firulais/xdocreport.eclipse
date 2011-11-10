@@ -8,6 +8,6 @@
 	<parent>
 		<groupId>fr.opensagres.xdocreport-eclipse</groupId>
 		<artifactId>rcp</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 </project>
