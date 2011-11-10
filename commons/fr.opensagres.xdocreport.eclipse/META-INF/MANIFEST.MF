@@ -33,7 +33,7 @@ Export-Package: fr.opensagres.xdocreport.eclipse,
  fr.opensagres.xdocreport.eclipse.ui.editors,
  fr.opensagres.xdocreport.eclipse.ui.editors.reporting,
  fr.opensagres.xdocreport.eclipse.ui.handlers,
- fr.opensagres.xdocreport.eclipse.ui.wizards,
- fr.opensagres.xdocreport.eclipse.utils
+ fr.opensagres.xdocreport.eclipse.ui.wizards
 Bundle-ActivationPolicy: lazy
-Import-Package: fr.opensagres.eclipse.forms.editor
+Import-Package: fr.opensagres.eclipse.forms.editor,
+ fr.opensagres.xdocreport.commons.utils

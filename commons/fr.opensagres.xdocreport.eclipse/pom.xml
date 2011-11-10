@@ -10,4 +10,13 @@
 		<artifactId>commons</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
+	<modules>
+	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>fr.opensagres.xdocreport-eclipse</groupId>
+			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>fr.opensagres.xdocreport.commons.utils</artifactId>
+		</dependency>
+	</dependencies>
 </project>

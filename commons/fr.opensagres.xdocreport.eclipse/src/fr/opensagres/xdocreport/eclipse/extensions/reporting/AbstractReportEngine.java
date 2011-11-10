@@ -3,7 +3,7 @@ package fr.opensagres.xdocreport.eclipse.extensions.reporting;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import fr.opensagres.xdocreport.eclipse.utils.IOUtils;
+import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
 public abstract class AbstractReportEngine implements IReportEngine {
 

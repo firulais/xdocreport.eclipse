@@ -4,8 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import fr.opensagres.xdocreport.eclipse.utils.ByteArrayOutputStream;
-import fr.opensagres.xdocreport.eclipse.utils.IOUtils;
+import fr.opensagres.xdocreport.commons.utils.ByteArrayOutputStream;
+import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
 public abstract class AbstractReportLoader implements IReportLoader {
 
