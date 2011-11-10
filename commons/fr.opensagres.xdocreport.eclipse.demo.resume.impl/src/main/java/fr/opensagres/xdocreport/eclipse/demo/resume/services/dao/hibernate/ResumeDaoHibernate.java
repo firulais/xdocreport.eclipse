@@ -60,6 +60,7 @@ public class ResumeDaoHibernate implements ResumeDao {
 
 		Resume newResume = new Resume();
 		newResume.setId(resume.getId());
+		newResume.setTitle(resume.getTitle());
 		newResume.setOwner(newPerson);
 		newResume.setPicture(resume.getPicture());
 

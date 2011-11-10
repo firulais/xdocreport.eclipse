@@ -17,6 +17,21 @@ import fr.opensagres.xdocreport.eclipse.demo.resume.services.impl.DateUtils;
 public class AngeloResume extends Resume {
 
 	public AngeloResume() {
+		super.setId(ResumeDaoHibernate.currentId++);
+		super.setTitle("Ingénieur Etude JEE/Eclipse RCP");
+		try {
+			// InputStream in =Resume.class
+			// .getResourceAsStream("AngeloZERR.jpg");
+			// IOUtils.toByteArray(Resume.class
+			// .getResourceAsStream("AngeloZERR.jpg"));
+			setPicture(IOUtils.toByteArray(Resume.class
+					.getResourceAsStream("AngeloZERR.jpg")));
+			// super.setPictureAsStream(Resume.class
+			// .getResourceAsStream("AngeloZERR.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		// Angelo
 		NaturalPerson person = new NaturalPerson();
 		person.setId(ResumeDaoHibernate.currentId++);
@@ -24,24 +39,12 @@ public class AngeloResume extends Resume {
 		person.setLastName("ZERR");
 		person.setEmail("angelo.zerr@gmail.com");
 		try {
-			person.setBirthDate(DateUtils.toDate("24/02/1977", DateUtils.FRENCH_PATTERN));
+			person.setBirthDate(DateUtils.toDate("24/02/1977",
+					DateUtils.FRENCH_PATTERN));
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
-		super.setId(ResumeDaoHibernate.currentId++);
 		super.setOwner(person);
-		try {
-//			InputStream in =Resume.class
-//					.getResourceAsStream("AngeloZERR.jpg");
-//			IOUtils.toByteArray(Resume.class
-//					.getResourceAsStream("AngeloZERR.jpg"));
-			setPicture(IOUtils.toByteArray(Resume.class
-					.getResourceAsStream("AngeloZERR.jpg")));
-//			super.setPictureAsStream(Resume.class
-//					.getResourceAsStream("AngeloZERR.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
 		// Address
 		Address address = new Address();
@@ -56,13 +59,33 @@ public class AngeloResume extends Resume {
 		Set<Education> educations = new HashSet<Education>();
 
 		setEducations(educations);
-		Education diploma = null;
+		Education education = null;
 
-		diploma = new Education();
-		diploma.setId(ResumeDaoHibernate.currentId++);
-		diploma.setLabel("Diplôme d'ingénieur en informatique");
-		diploma.setInstitute("INSA de Lyon");
-		educations.add(diploma);
+		// Education 1
+		education = new Education();
+		education.setId(ResumeDaoHibernate.currentId++);
+		education.setLabel("Diplôme d'ingénieur en informatique");
+		education.setInstitute("INSA de Lyon");
+		try {
+			education.setDate(DateUtils.toDate("30/06/2001",
+					DateUtils.FRENCH_PATTERN));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		educations.add(education);
+
+		// Education 2
+		education = new Education();
+		education.setId(ResumeDaoHibernate.currentId++);
+		education.setLabel("BAC S option Physique C");
+		education.setInstitute("Georges de la Tour (Nancy)");
+		try {
+			education.setDate(DateUtils.toDate("30/06/1996",
+					DateUtils.FRENCH_PATTERN));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		educations.add(education);
 
 		// Experiences
 		Set<Experience> experiences = new HashSet<Experience>();
@@ -76,6 +99,12 @@ public class AngeloResume extends Resume {
 		experience.setMission("Conception / Développement");
 		experience
 				.setDetail("Mise en place de l'application <b>WEB de diffusion</b> (qui sera accessible dans les accueils des CAF) qui permet de publier les documents XML produits par l'application WEB de production.");
+		try {
+			experience.setStartDate(DateUtils.toDate("01/04/2009",
+					DateUtils.FRENCH_PATTERN));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		experiences.add(experience);
 
 		// Experience 2
@@ -85,6 +114,14 @@ public class AngeloResume extends Resume {
 		experience.setMission("Conception / Développement");
 		experience
 				.setDetail("Conception et développement de fonctionnalités dans le  module VENTES/ACHATS et COMPTABILITE de l'ERP agrolimentaire AgroV3 de <b>INFOLOGIC</b>. Cet ERP est basé sur les technologies d'<b>Eclipse SWT et JFace</b>.");
+		try {
+			experience.setStartDate(DateUtils.toDate("30/08/2007",
+					DateUtils.FRENCH_PATTERN));
+			experience.setEndDate(DateUtils.toDate("31/03/2009",
+					DateUtils.FRENCH_PATTERN));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		experiences.add(experience);
 
 		// Hobbies
