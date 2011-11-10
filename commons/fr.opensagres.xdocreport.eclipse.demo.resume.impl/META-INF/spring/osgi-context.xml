@@ -6,5 +6,5 @@
        http://www.springframework.org/schema/beans   
        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-	<service ref="resumeService" interface="fr.opensagres.xdocreport.eclipse.demo.resume.services.ResumeService" />
+	<service ref="resumeService" interface="org.dynaresume.services.ResumeService" />
 </beans:beans>           

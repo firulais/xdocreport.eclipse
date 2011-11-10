@@ -1,12 +1,11 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors;
 
+import org.dynaresume.services.ResumeService;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
-import fr.opensagres.xdocreport.eclipse.demo.resume.services.ResumeService;
-import fr.opensagres.xdocreport.eclipse.demo.resume.services.ServicesProvider;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ModelAndEntryEditorInput;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormEditor;
 

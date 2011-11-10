@@ -1,4 +1,4 @@
-package fr.opensagres.xdocreport.eclipse.demo.resume.services;
+package org.dynaresume.services;
 
 import java.util.Collection;
 

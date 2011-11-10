@@ -17,7 +17,7 @@
 		<module>fr.opensagres.xdocreport.eclipse.demo.resume</module>
 		<module>fr.opensagres.xdocreport.eclipse.report.xdocreport</module>
 		<module>
-			fr.opensagres.xdocreport.eclipse.demo.resume.api
+			org.dynaresume.services
 		</module>
 		<module>
 			fr.opensagres.xdocreport.eclipse.demo.resume.impl

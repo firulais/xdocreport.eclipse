@@ -88,7 +88,7 @@
      <serviceFactory
            factoryClass="org.eclipse.springframework.util.SpringExtensionFactory:resumeServiceFactory">
         <service
-              serviceClass="fr.opensagres.xdocreport.eclipse.demo.resume.services.ResumeService"></service>
+              serviceClass="org.dynaresume.services.ResumeService"></service>
      </serviceFactory>
   </extension>
   

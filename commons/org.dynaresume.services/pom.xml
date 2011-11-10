@@ -6,6 +6,6 @@
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
+  <artifactId>org.dynaresume.services</artifactId>
   <packaging>eclipse-plugin</packaging>
-  <artifactId>fr.opensagres.xdocreport.eclipse.demo.resume.api</artifactId>
 </project>

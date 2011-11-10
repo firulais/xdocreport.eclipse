@@ -1,5 +1,6 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.dialogs;
 
+import org.dynaresume.services.ResumeService;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -18,7 +19,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
-import fr.opensagres.xdocreport.eclipse.demo.resume.services.ResumeService;
 import fr.opensagres.xdocreport.eclipse.ui.dialogs.SearchDialog;
 
 public class SearchResumeDialog extends SearchDialog {

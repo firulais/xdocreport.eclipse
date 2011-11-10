@@ -1,8 +1,8 @@
 package fr.opensagres.xdocreport.eclipse.demo.resume;
 
+import org.dynaresume.services.ResumeService;
 import org.eclipse.ui.services.IServiceLocator;
 
-import fr.opensagres.xdocreport.eclipse.demo.resume.services.ResumeService;
 
 public class ResumeServiceFactory extends
 		org.eclipse.ui.services.AbstractServiceFactory {

@@ -23,7 +23,7 @@ public class DocxResumeReportLoader extends XDocReportLoader {
 	@Override
 	public FieldsMetadata getFieldsMetadata() {
 		FieldsMetadata metadata = new FieldsMetadata();
-		metadata.addFieldAsImage("photo", "resume.Photo");
+		metadata.addFieldAsImage("photo");
 		metadata.addFieldAsList("experiences.Title");
 		metadata.addFieldAsList("experiences.Detail");
 		metadata.addFieldAsTextStyling("experiences.Detail", SyntaxKind.Html);

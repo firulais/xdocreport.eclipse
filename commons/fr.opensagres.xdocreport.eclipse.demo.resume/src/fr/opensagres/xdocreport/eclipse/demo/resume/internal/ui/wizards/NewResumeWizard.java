@@ -12,19 +12,15 @@
 
 package fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.wizards;
 
-import java.security.Principal;
-import java.security.acl.LastOwnerException;
-import java.security.acl.NotOwnerException;
-import java.security.acl.Owner;
-
+import org.dynaresume.services.ResumeService;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.PlatformUI;
 
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.core.NaturalPerson;
 import fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr.Resume;
-import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors.ResumeFormEditor;
 import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors.ResumeEditorInput;
-import fr.opensagres.xdocreport.eclipse.demo.resume.services.ServicesProvider;
+import fr.opensagres.xdocreport.eclipse.demo.resume.internal.ui.editors.ResumeFormEditor;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntry;
 import fr.opensagres.xdocreport.eclipse.ui.handlers.ContextHandlerEvent;
 import fr.opensagres.xdocreport.eclipse.ui.wizards.AbstractWizard;
@@ -75,7 +71,8 @@ public class NewResumeWizard extends AbstractWizard {
 	 * @return boolean
 	 */
 	public boolean performFinish() {
-		ServicesProvider.getResumeService().save(resume);
+		ResumeService resumeService=(ResumeService)PlatformUI.getWorkbench().getService(ResumeService.class);
+		resumeService.save(resume);
 		collaborateurWizardPage.updateData();
 		super.performFinish();
 		return true;

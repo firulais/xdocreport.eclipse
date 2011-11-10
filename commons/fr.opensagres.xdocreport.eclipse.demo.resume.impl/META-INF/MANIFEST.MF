@@ -7,7 +7,7 @@ Export-Package: fr.opensagres.xdocreport.eclipse.demo.resume.services.impl
 Import-Package: fr.opensagres.xdocreport.core.io,
  fr.opensagres.xdocreport.eclipse.demo.resume.domain.core,
  fr.opensagres.xdocreport.eclipse.demo.resume.domain.hr,
- fr.opensagres.xdocreport.eclipse.demo.resume.services
+ org.dynaresume.services
 Bundle-RequiredExecutionEnvironment: J2SE-1.5,
  JavaSE-1.6
 Require-Bundle: org.springframework.beans
