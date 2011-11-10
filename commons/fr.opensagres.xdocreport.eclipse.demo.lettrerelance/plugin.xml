@@ -3,7 +3,7 @@
 <plugin>
    
    <extension
-         point="fr.opensagres.xdocreport.eclipse.reportModules">
+         point="fr.opensagres.xdocreport.eclipse.ui.reportModules">
       <reportModule
             id="lettreRelance"
             name="LettreRelance" 

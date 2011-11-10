@@ -11,9 +11,9 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportEngine;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportConfiguration;
+import fr.opensagres.xdocreport.eclipse.reporting.core.IReportEngine;
+import fr.opensagres.xdocreport.eclipse.reporting.core.IReportLoader;
+import fr.opensagres.xdocreport.eclipse.reporting.core.ReportConfiguration;
 import fr.opensagres.xdocreport.eclipse.utils.URLHelper;
 
 public class GenerateReportHandler extends AbstractGenerateReportHandler {

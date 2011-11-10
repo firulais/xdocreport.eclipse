@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   
+   <extension
+         point="fr.opensagres.xdocreport.eclipse.reporting.ui.uiFragments">
+      <fragment
+            id="fr.opensagres.xdocreport.eclipse.reporting.xdocreport">
+         <detailsPage
+               class="fr.opensagres.xdocreport.eclipse.reporting.xdocreport.ui.internal.XDocReportLoaderDetailsPage">
+         </detailsPage>
+      </fragment>
+   </extension>
+  
+     
+</plugin>

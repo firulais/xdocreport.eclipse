@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-SymbolicName: org.dynaresume.eclipse.reporting;singleton:=true
+Bundle-Version: 0.0.1.qualifier
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: fr.opensagres.xdocreport.eclipse.reporting.core,
+ fr.opensagres.xdocreport.eclipse.reporting.xdocreport.core
+Import-Package: fr.opensagres.xdocreport.core.document,
+ fr.opensagres.xdocreport.document.images,
+ fr.opensagres.xdocreport.template,
+ fr.opensagres.xdocreport.template.formatter,
+ fr.opensagres.xdocreport.template.textstyling,
+ fr.opensagres.xdocreport.template.textstyling.html,
+ org.dynaresume.domain.core,
+ org.dynaresume.domain.hr
+

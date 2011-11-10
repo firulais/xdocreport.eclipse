@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>fr.opensagres.xdocreport.eclipse.reporting.core</artifactId>
+
+	<packaging>eclipse-plugin</packaging>
+	<parent>
+		<groupId>fr.opensagres.xdocreport-eclipse</groupId>
+		<artifactId>commons</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<modules>
+	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>fr.opensagres.xdocreport-eclipse</groupId>
+			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>fr.opensagres.xdocreport.commons.utils</artifactId>
+		</dependency>
+	</dependencies>
+</project>

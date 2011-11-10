@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension-point id="reportEngines" name="%reportEnginesContributionName"
+		schema="schema/reportEngines.exsd" />
+	<extension-point id="reportProcessors" name="%reportProcessorsContributionName"
+		schema="schema/reportProcessors.exsd" />
+	<extension-point id="reportFormats" name="%reportFormatsContributionName"
+		schema="schema/reportFormats.exsd" />
+		
+	<extension
+	      point="fr.opensagres.xdocreport.eclipse.reporting.core.reportFormats">
+	   <reportFormat
+	   	     id="DOCX"
+	         icon="icons/obj16/format/docx.gif"
+	         name="Docx Format" />
+	   <reportFormat
+	   	     id="ODT"
+	         icon="icons/obj16/format/odt.gif"
+	         name="ODT Format" />
+	   <reportFormat
+	   	     id="PDF"
+	         icon="icons/obj16/format/pdf.png"
+	         name="PDF Format" />
+	   <reportFormat
+	   	     id="XHTML"
+	         icon="icons/obj16/format/xhtml.png"
+	         name="XHTML Format" />	         
+	   <reportFormat
+	   	     id="RTF"
+	         icon="icons/obj16/format/rtf.gif"
+	         name="RTF Format" />	         
+	</extension>
+	
+</plugin>

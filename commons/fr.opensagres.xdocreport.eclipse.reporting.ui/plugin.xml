@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension-point id="uiFragments" name="%uiFragmentsContributionName"
+		schema="schema/uiFragments.exsd" />
+								
+  <extension
+        point="org.eclipse.ui.editors">
+     <editor
+           class="fr.opensagres.xdocreport.eclipse.reporting.ui.internal.editors.ReportingEditor"           
+           extensions="*"
+           icon="icons/obj16/reporting.gif"
+           id="fr.opensagres.xdocreport.eclipse.reporting.ui.editors.ReportingEditor"
+           name="%ReportingEditor.name">
+     </editor>
+  </extension>
+
+ <extension
+       point="org.eclipse.ui.commands">
+    <command
+          id="fr.opensagres.xdocreport.eclipse.reporting.ui.handlers.ReportingHandler"
+          defaultHandler="fr.opensagres.xdocreport.eclipse.reporting.ui.internal.handlers.ReportingHandler"
+          name="New Report" />
+ </extension>
+ 
+</plugin>

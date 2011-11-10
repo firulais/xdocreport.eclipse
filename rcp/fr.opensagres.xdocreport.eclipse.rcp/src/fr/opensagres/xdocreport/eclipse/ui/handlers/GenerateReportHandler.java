@@ -7,10 +7,10 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.ui.PartInitException;
 
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportEngine;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportConfiguration;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportMimeMapping;
+import fr.opensagres.xdocreport.eclipse.reporting.core.IReportEngine;
+import fr.opensagres.xdocreport.eclipse.reporting.core.IReportLoader;
+import fr.opensagres.xdocreport.eclipse.reporting.core.ReportConfiguration;
+import fr.opensagres.xdocreport.eclipse.reporting.core.ReportMimeMapping;
 
 public class GenerateReportHandler extends AbstractGenerateReportHandler {
 

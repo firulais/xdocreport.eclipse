@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   
+   <extension
+         point="fr.opensagres.xdocreport.eclipse.reporting.core.reportEngines">
+      <reportEngine
+            id="fr.opensagres.xdocreport.eclipse.reporting.xdocreport"
+            name="%reportEngine.name"
+            description="%reportEngine.description"
+            class="fr.opensagres.xdocreport.eclipse.reporting.xdocreport.core.XDocReportEngine"  />          	        
+   </extension>
+     
+</plugin>

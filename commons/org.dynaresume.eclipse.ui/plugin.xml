@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   
+   <extension
+         point="fr.opensagres.xdocreport.eclipse.ui.reportModules">
+      <reportModule
+            id="resume"
+            name="%ResumeModule.name"
+            description="%ResumeModule.desc"
+            icon="icons/obj16/resume.gif" >
+            <entries>
+	            <entry name="%NewResumeEntry.name"
+	            	   commandId="fr.opensagres.xdocreport.eclipse.demo.resume.handlers.NewResumeHandler"
+	            	   icon="icons/obj16/new_resume.gif" />
+	            <entry name="%SearchResumeEntry.name"
+	                   commandId="fr.opensagres.xdocreport.eclipse.demo.resume.handlers.SearchResumeHandler"
+	                   icon="icons/obj16/search_resume.gif" />
+				<entry name="%ReportingEntry.name"
+	                   commandId="fr.opensagres.xdocreport.eclipse.reporting.ui.handlers.ReportingHandler"
+	                   icon="icons/obj16/reporting_resume.gif" />	                   
+	        </entries>
+	        <reportProcessors commandId="fr.opensagres.xdocreport.eclipse.ui.handlers.GenerateReportHandler">
+	        	<reportProcessor reportProcessorId="fr.opensagres.xdocreport.eclipse.demo.resume.reporting.xdocreport" />
+	        	<!--<reportProcessor reportProcessorId="resume2" />
+	        	<reportProcessor reportProcessorId="resume3" />-->
+	        </reportProcessors>	        
+      </reportModule>
+   </extension>
+   
+  <extension
+        point="org.eclipse.ui.editors">
+     <editor
+           class="org.dynaresume.eclipse.ui.editors.ResumeFormEditor"           
+           extensions="*"
+           icon="icons/obj16/resume.gif"
+           id="fr.opensagres.xdocreport.eclipse.demo.resume.editor.ResumeFormEditorPart"
+           name="%ResumeFormEditor.name">
+     </editor>
+  </extension>
+
+  <extension
+        point="org.eclipse.ui.commands">
+     <command
+           defaultHandler="org.dynaresume.eclipse.ui.handlers.NewResumeHandler"
+           id="fr.opensagres.xdocreport.eclipse.demo.resume.handlers.NewResumeHandler"
+           name="New Resume">
+     </command>
+  </extension>
+    
+  <extension
+        point="org.eclipse.ui.commands">
+     <command
+           defaultHandler="org.dynaresume.eclipse.ui.handlers.SearchResumeHandler"
+           id="fr.opensagres.xdocreport.eclipse.demo.resume.handlers.SearchResumeHandler"
+           name="Search Resume">
+     </command>
+  </extension>
+  <extension
+        point="org.eclipse.ui.services">
+     <serviceFactory
+           factoryClass="org.eclipse.springframework.util.SpringExtensionFactory:resumeServiceFactory">
+        <service
+              serviceClass="org.dynaresume.services.ResumeService"></service>
+     </serviceFactory>
+  </extension>
+  
+</plugin>

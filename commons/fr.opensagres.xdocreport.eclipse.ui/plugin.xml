@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension-point id="reportModules" name="%reportModulesContributionName"
+		schema="schema/reportModules.exsd" />
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="fr.opensagres.xdocreport.eclipse.internal.ui.XDocReportApplication">
+         </run>
+      </application>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="%XDocReportPerspective.name"
+            class="fr.opensagres.xdocreport.eclipse.internal.ui.XDocReportPerspective"
+            id="fr.opensagres.xdocreport.eclipse.perspective">
+      </perspective>
+   </extension>
+    
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            name="%XDocReportExplorerView.name"
+            class="fr.opensagres.xdocreport.eclipse.internal.ui.XDocReportExplorerView"
+            id="fr.opensagres.xdocreport.eclipse.reportExplorer" 
+            allowMultiple="false">
+      </view>
+   </extension>
+   
+   <!--<extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="*">
+         <view
+               standalone="true"
+               minimized="false"
+               relative="org.eclipse.ui.editorss"
+               relationship="left"
+               id="fr.opensagres.xdocreport.eclipse.reportExplorer">
+         </view>
+      </perspectiveExtension>
+   </extension>-->
+  
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu">                      
+         <menu
+               label="%ReportMenu.label">
+	        <command
+	              commandId="org.eclipse.ui.file.save"
+	              style="push">    
+	        </command> 
+            <command
+                  commandId="org.eclipse.ui.file.exit"
+                  label="%ReportExitMenu.label">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+               id="fr.opensagres.xdocreport.eclipse.toolbar">
+            <command
+                  commandId="org.eclipse.ui.file.save"
+                  style="push">
+            </command>
+         </toolbar>
+      </menuContribution>            
+   </extension>
+ 
+ <extension
+       point="org.eclipse.ui.commands">
+    <command
+          id="fr.opensagres.xdocreport.eclipse.report.new"
+          defaultHandler="fr.opensagres.xdocreport.eclipse.internal.handlers.NewReportHandler"
+          name="New Report" />
+ </extension>
+	 <extension
+         id="XDocReport"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="fr.opensagres.xdocreport.eclipse.application"
+            name="fr.opensagres.xdocreport.eclipse.product">
+      </product>
+   </extension>
+</plugin>

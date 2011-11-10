@@ -9,10 +9,10 @@ import org.eclipse.rwt.RWT;
 import org.eclipse.rwt.service.IServiceHandler;
 import org.eclipse.rwt.service.IServiceManager;
 
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportEngine;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.IReportLoader;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportConfiguration;
-import fr.opensagres.xdocreport.eclipse.extensions.reporting.ReportMimeMapping;
+import fr.opensagres.xdocreport.eclipse.reporting.core.IReportEngine;
+import fr.opensagres.xdocreport.eclipse.reporting.core.IReportLoader;
+import fr.opensagres.xdocreport.eclipse.reporting.core.ReportConfiguration;
+import fr.opensagres.xdocreport.eclipse.reporting.core.ReportMimeMapping;
 
 public class GenerateReportServiceHandler implements IServiceHandler {
 

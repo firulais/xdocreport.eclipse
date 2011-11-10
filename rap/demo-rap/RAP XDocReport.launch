@@ -20,7 +20,7 @@
 <stringAttribute key="org.eclipse.rap.launch.browserMode" value="INTERNAL"/>
 <stringAttribute key="org.eclipse.rap.launch.contextpath" value="test"/>
 <stringAttribute key="org.eclipse.rap.launch.dataLocation" value="${workspace_loc}/.metadata/.plugins/org.eclipse.rap.ui.launch/RAPXDocReport"/>
-<stringAttribute key="org.eclipse.rap.launch.entryPoint" value="fr.opensagres.xdocreport.eclipse.application"/>
+<stringAttribute key="org.eclipse.rap.launch.entryPoint" value="fr.opensagres.xdocreport.eclipse.ui.application"/>
 <stringAttribute key="org.eclipse.rap.launch.libraryVariant" value="DEBUG"/>
 <stringAttribute key="org.eclipse.rap.launch.logLevel" value="FINE"/>
 <booleanAttribute key="org.eclipse.rap.launch.openBrowser" value="true"/>
@@ -38,5 +38,5 @@
 <booleanAttribute key="tracing" value="false"/>
 <booleanAttribute key="useCustomFeatures" value="false"/>
 <booleanAttribute key="useDefaultConfigArea" value="true"/>
-<stringAttribute key="workspace_bundles" value="fr.opensagres.eclipse.forms@default:default,fr.opensagres.xdocreport.commons.utils@default:default,fr.opensagres.xdocreport.eclipse.demo.lettrerelance@default:default,fr.opensagres.xdocreport.eclipse.demo.resume@default:true,fr.opensagres.xdocreport.eclipse.rap@default:false,fr.opensagres.xdocreport.eclipse.report.xdocreport@default:default,fr.opensagres.xdocreport.eclipse@default:default,org.dynaresume.dao.hibernate@default:true,org.dynaresume.dao@default:default,org.dynaresume.domain.core@default:default,org.dynaresume.domain.hr@default:default,org.dynaresume.services.impl@default:true,org.dynaresume.services@default:default,org.eclipse.rap.singlesourcing@default:default"/>
+<stringAttribute key="workspace_bundles" value="fr.opensagres.eclipse.forms@default:default,fr.opensagres.xdocreport.commons.utils@default:default,fr.opensagres.xdocreport.eclipse.core@default:default,fr.opensagres.xdocreport.eclipse.demo.lettrerelance@default:default,fr.opensagres.xdocreport.eclipse.rap@default:false,fr.opensagres.xdocreport.eclipse.reporting.core@default:default,fr.opensagres.xdocreport.eclipse.reporting.ui@default:default,fr.opensagres.xdocreport.eclipse.reporting.xdocreport.core@default:default,fr.opensagres.xdocreport.eclipse.reporting.xdocreport.ui@default:default,fr.opensagres.xdocreport.eclipse.ui@default:default,org.dynaresume.dao.hibernate@default:true,org.dynaresume.dao@default:default,org.dynaresume.domain.core@default:default,org.dynaresume.domain.hr@default:default,org.dynaresume.eclipse.reporting@default:default,org.dynaresume.eclipse.ui@default:default,org.dynaresume.services.impl@default:true,org.dynaresume.services@default:default,org.eclipse.rap.singlesourcing@default:default"/>
 </launchConfiguration>
