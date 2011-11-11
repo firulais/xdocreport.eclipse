@@ -14,22 +14,10 @@
 		<module>fr.opensagres.xdocreport.commons.utils</module>
 		<module>fr.opensagres.xdocreport.eclipse.core</module>
 		<module>fr.opensagres.xdocreport.eclipse.ui</module>
-				
 		<module>fr.opensagres.xdocreport.eclipse.reporting.core</module>
 		<module>fr.opensagres.xdocreport.eclipse.reporting.ui</module>		
 		<module>fr.opensagres.xdocreport.eclipse.reporting.xdocreport.core</module>
 		<module>fr.opensagres.xdocreport.eclipse.reporting.xdocreport.ui</module>
-				
 		<module>fr.opensagres.xdocreport.eclipse.demo.lettrerelance</module>
-		
-		<module>org.dynaresume.eclipse.ui</module>
-		<module>org.dynaresume.eclipse.reporting</module>
-		<module>org.dynaresume.domain.core</module>
-		<module>org.dynaresume.domain.hr</module>
-		<module>org.dynaresume.dao</module>
-		<module>org.dynaresume.dao.hibernate</module>
-		<module>org.dynaresume.services</module>
-		<module>org.dynaresume.services.impl</module>
-		
 	</modules>
 </project>

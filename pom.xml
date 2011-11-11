@@ -11,6 +11,7 @@
 	</properties>
 
 	<modules>
+		<module>dynaresume</module>
 		<module>commons</module>
 		<module>rcp</module>
 		<module>rap</module>
