@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Impl
+Bundle-SymbolicName: org.dynaresume.services.impl
+Bundle-Version: 1.0.0.qualifier
+Export-Package: org.dynaresume.services.impl
+Import-Package: org.dynaresume.dao,
+ org.dynaresume.domain.core,
+ org.dynaresume.domain.hr,
+ org.dynaresume.services
+Bundle-RequiredExecutionEnvironment: J2SE-1.5,
+ JavaSE-1.6
+Require-Bundle: org.springframework.beans
