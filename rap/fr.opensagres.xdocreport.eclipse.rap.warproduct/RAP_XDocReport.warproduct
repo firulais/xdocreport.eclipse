@@ -102,9 +102,11 @@
       <plugin id="org.odftoolkit.odfdom-java"/>
       <plugin id="org.odftoolkit.odfdom.converter"/>
       <plugin id="org.springframework.aop"/>
+      <plugin id="org.springframework.asm"/>
       <plugin id="org.springframework.beans"/>
       <plugin id="org.springframework.context"/>
       <plugin id="org.springframework.core"/>
+      <plugin id="org.springframework.expression"/>
       <plugin id="org.wikimodel.wem"/>
       <plugin id="slf4j.api"/>
       <plugin id="slf4j.simple" fragment="true"/>
@@ -175,7 +177,7 @@
       <plugin id="org.eclipse.equinox.registry" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.servletbridge" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.gemini.blueprint.core" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.gemini.blueprint.extender" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.gemini.blueprint.extender" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.gemini.blueprint.io" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.help" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.osgi" autoStart="true" startLevel="0" />
@@ -197,9 +199,11 @@
       <plugin id="org.odftoolkit.odfdom-java" autoStart="true" startLevel="0" />
       <plugin id="org.odftoolkit.odfdom.converter" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.aop" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.asm" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.beans" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.context" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.core" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.expression" autoStart="true" startLevel="0" />
       <plugin id="org.wikimodel.wem" autoStart="true" startLevel="0" />
       <plugin id="slf4j.api" autoStart="true" startLevel="0" />
    </configurations>
