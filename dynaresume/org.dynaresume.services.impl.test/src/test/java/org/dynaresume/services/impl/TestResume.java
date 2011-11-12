@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.dynaresume.services.ResumeService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath*:/META-INF/spring/*-module-context.xml"})
+@ContextConfiguration(locations={"classpath*:/META-INF/spring/module-context.xml"})
 public class TestResume  {
 
 	@Autowired
