@@ -31,7 +31,7 @@
   <extension
         point="org.eclipse.ui.editors">
      <editor
-           class="org.dynaresume.eclipse.ui.editors.ResumeFormEditor"           
+           class="org.eclipse.springframework.util.SpringExtensionFactory:resumeEditor"           
            extensions="*"
            icon="icons/obj16/resume.gif"
            id="fr.opensagres.xdocreport.eclipse.demo.resume.editor.ResumeFormEditorPart"
