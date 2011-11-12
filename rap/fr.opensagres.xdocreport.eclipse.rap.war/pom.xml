@@ -52,7 +52,7 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${output-directory}/eclipse</outputDirectory>
+							<outputDirectory>${output-directory}</outputDirectory>
 							<resources>
 								<resource>
 									<directory>${basedir}/target/site</directory>
