@@ -3,19 +3,26 @@ package org.dynaresume.domain.core;
 import java.io.Serializable;
 import java.util.Set;
 
-public class Group {
-	// @Id
-	// @GeneratedValue
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+public class Group implements Serializable {
+	@Id
+	@GeneratedValue
 	private Long id;
 
-	// @Column
+	@Column
 	private String name;
 
 	/**
     * 
     */
 	private static final long serialVersionUID = 7884537382593661072L;
-	// @OneToMany(mappedBy="group",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Agency> subsidiaries;
 
 	public Set<Agency> getSubsidiaries() {
@@ -23,12 +30,9 @@ public class Group {
 	}
 
 	public void setSubsidiaries(Set<Agency> subsidiaries) {
-		// Object oldValue = this.subsidiaries;
 		this.subsidiaries = subsidiaries;
-		// firePropertyChange("subsidiaries", oldValue, subsidiaries);
 	}
 
-	// @Override
 	public Serializable getId() {
 
 		return id;
@@ -39,9 +43,7 @@ public class Group {
 	}
 
 	public void setName(String name) {
-		// Object oldValue = this.name;
 		this.name = name;
-		// firePropertyChange("name", oldValue, name);
 	}
 
 	public void setId(Long id) {

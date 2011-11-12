@@ -1,100 +1,96 @@
 package org.dynaresume.domain.core;
 
-public class Address {
-	 /**
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+public class Address implements Serializable {
+	/**
      * 
      */
-    private static final long serialVersionUID = 9217187221005720810L;
-    
-    public static final String STREET_PROPERTY = "street";
-    public static final String ZIPCODE_PROPERTY = "zipCode";
-    public static final String CITY_PROPERTY = "city";
-    public static final String COUNTRY_PROPERTY = "country";
-    public static final String TELEPHONE_PROPERTY = "telephone";
-    public static final String FAX_PROPERTY = "fax";    
-	
-    //@Id
-     //@GeneratedValue 
-    private Long id;
-  //@Column
-    private String street;
-    //@Column
-    private String zipCode;
-    //@Column
-    private String city;
-    //@Column
-    private String fax;
-    //@Column
-    private String telephone;
-    
-    //@ManyToOne
-    private Country country;
+	private static final long serialVersionUID = 9217187221005720810L;
 
-    public Long getId() {
-            return id;
-    }
+	public static final String STREET_PROPERTY = "street";
+	public static final String ZIPCODE_PROPERTY = "zipCode";
+	public static final String CITY_PROPERTY = "city";
+	public static final String COUNTRY_PROPERTY = "country";
+	public static final String TELEPHONE_PROPERTY = "telephone";
+	public static final String FAX_PROPERTY = "fax";
 
-    public void setId(Long id) {
-    	//Object oldValue = this.id;
-            this.id = id;
-            //firePropertyChange("id", oldValue, id);
-    }
+	@Id
+	@GeneratedValue
+	private Long id;
+	@Column
+	private String street;
+	@Column
+	private String zipCode;
+	@Column
+	private String city;
+	@Column
+	private String fax;
+	@Column
+	private String telephone;
 
-    public String getStreet() {
+	 @ManyToOne
+	private Country country;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getStreet() {
 		return street;
 	}
-    public void setStreet(String street) {
+
+	public void setStreet(String street) {
 		this.street = street;
 	}
-    
-    public String getZipCode() {
-            return zipCode;
-    }
 
-    public void setZipCode(String zipCode) {
-    	//Object oldValue = this.zipCode;
-            this.zipCode = zipCode;
-            //firePropertyChange("zipCode", oldValue, zipCode);
-    }
+	public String getZipCode() {
+		return zipCode;
+	}
 
-    public String getCity() {
-            return city;
-    }
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
 
-    public void setCity(String city) {
-    	//Object oldValue = this.city;
-            this.city = city;
-            //firePropertyChange("city", oldValue, city);
-    }
+	public String getCity() {
+		return city;
+	}
 
-    public String getFax() {
-            return fax;
-    }
+	public void setCity(String city) {
+		this.city = city;
+	}
 
-    public void setFax(String fax) {
-    	//Object oldValue = this.fax;
-            this.fax = fax;
-            //firePropertyChange("fax", oldValue, fax);
-    }
+	public String getFax() {
+		return fax;
+	}
 
-    public String getTelephone() {
-            return telephone;
-    }
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
 
-    public void setTelephone(String telephone) {
-    	//Object oldValue = this.telephone;
-            this.telephone = telephone;
-            //firePropertyChange("telephone", oldValue, telephone);
-    }
+	public String getTelephone() {
+		return telephone;
+	}
 
-    public Country getCountry() {
-            return country;
-    }
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
 
-    public void setCountry(Country country) {
-    	//Object oldValue = this.country;
-            this.country = country;
-            //firePropertyChange("country", oldValue, country);
-    }
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
 
 }

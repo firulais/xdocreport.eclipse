@@ -1,16 +1,28 @@
 package org.dynaresume.domain.core;
 
-public class Country {
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+
+public class Country implements Serializable {
 
 	/**
      * 
      */
     private static final long serialVersionUID = -1896189210454791831L;
-    //@Id
+    @Id
     private String iso3;
+
+    @Column
+    private String label;
 
     public String getIso3() {
             return iso3;
+    }
+
+    public String getLabel() {
+            return label;
     }
 
     public void setIso3(String iso3) {
@@ -19,17 +31,8 @@ public class Country {
 
     }
 
-    public String getLabel() {
-            return label;
-    }
-
     public void setLabel(String label) {
-
             this.label = label;
-
     }
-
-    //@Column
-    private String label;
 
 }
