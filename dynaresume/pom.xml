@@ -17,6 +17,7 @@
 		<module>org.dynaresume.dao.hibernate</module>
 		<module>org.dynaresume.services</module>
 		<module>org.dynaresume.services.impl</module>
-		
+
+		<module>org.dynaresume.services.impl.test</module>
 	</modules>
 </project>
