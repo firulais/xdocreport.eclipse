@@ -9,4 +9,9 @@
 		<property name="resumeService" ref="resumeService" />
 	</bean>
 
+	<bean id="searchResumeDialog" class="org.dynaresume.eclipse.ui.dialogs.SearchResumeDialog"
+		scope="prototype">
+		<property name="resumeService" ref="resumeService" />
+	</bean>
+
 </beans>

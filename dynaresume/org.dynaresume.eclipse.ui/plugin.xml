@@ -40,6 +40,14 @@
   </extension>
 
   <extension
+        point="fr.opensagres.xdocreport.eclipse.ui.dialogs">
+     <dialog
+           id="org.dynaresume.eclipse.ui.dialogs.SearchResumeDialog"
+           class="org.eclipse.springframework.util.SpringExtensionFactory:searchResumeDialog">
+     </dialog>        
+  </extension>
+  
+  <extension
         point="org.eclipse.ui.commands">
      <command
            defaultHandler="org.dynaresume.eclipse.ui.handlers.NewResumeHandler"

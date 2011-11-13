@@ -8,5 +8,14 @@ public class SearchDialog extends SelectionDialog {
 	public SearchDialog(Shell parentShell) {
 		super(parentShell);
 	}
+	
+	public SearchDialog() {
+		super(null);
+	}
+	
+	@Override
+	public void setParentShell(Shell newParentShell) {
+		super.setParentShell(newParentShell);
+	}
 
 }

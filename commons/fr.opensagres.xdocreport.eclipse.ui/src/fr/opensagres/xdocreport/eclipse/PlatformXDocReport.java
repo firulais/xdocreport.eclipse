@@ -1,7 +1,9 @@
 package fr.opensagres.xdocreport.eclipse;
 
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleRegistry;
+import fr.opensagres.xdocreport.eclipse.extensions.ui.dialogs.IDialogManager;
 import fr.opensagres.xdocreport.eclipse.internal.extensions.modules.ReportModuleRegistry;
+import fr.opensagres.xdocreport.eclipse.internal.extensions.ui.dialogs.DialogManager;
 
 public final class PlatformXDocReport {
 
@@ -9,6 +11,10 @@ public final class PlatformXDocReport {
 
 	public static IReportModuleRegistry getReportModuleRegistry() {
 		return ReportModuleRegistry.getRegistry();
+	}
+	
+	public static IDialogManager getDialogManager() {
+		return DialogManager.getRegistry();
 	}
 	
 	public static String getDatePattern() {
