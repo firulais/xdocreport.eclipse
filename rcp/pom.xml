@@ -11,7 +11,7 @@
 
 	<modules>
 		<module>fr.opensagres.xdocreport.eclipse.rcp</module>
-		<!-- <module>fr.opensagres.xdocreport.eclipse.product.win32</module> -->
+		<module>fr.opensagres.xdocreport.eclipse.product.win32</module> 
 		<!-- <module>fr.opensagres.xdocreport.eclipse.product.macosx</module> -->
 		<module>fr.opensagres.xdocreport.eclipse.product.linux</module>
 	</modules>
