@@ -40,11 +40,19 @@
   </extension>
 
   <extension
-        point="fr.opensagres.xdocreport.eclipse.ui.dialogs">
-     <dialog
+        point="fr.opensagres.xdocreport.eclipse.ui.dialogFactories">
+     <factory
            id="org.dynaresume.eclipse.ui.dialogs.SearchResumeDialog"
            class="org.eclipse.springframework.util.SpringExtensionFactory:searchResumeDialog">
-     </dialog>        
+     </factory>        
+  </extension>
+  
+  <extension
+        point="fr.opensagres.xdocreport.eclipse.ui.wizardFactories">
+     <factory
+           id="org.dynaresume.eclipse.ui.wizards.NewResumeWizard"
+           class="org.eclipse.springframework.util.SpringExtensionFactory:newResumeWizard">
+     </factory>        
   </extension>
   
   <extension

@@ -15,6 +15,8 @@ public abstract class OpenWizardHandler extends AbstractContextHandler {
 			ContextHandlerEvent contextEvent) throws ExecutionException {
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindow(event);
 		AbstractWizard wizard = createWizard(event, contextEvent);
+		wizard.setEvent(event);
+		wizard.setContextEvent(contextEvent);
 		WizardDialog dlg = new WizardDialog(window.getShell(), wizard);
 		dlg.open();
 		return null;

@@ -18,7 +18,7 @@ public class SearchResumeHandler extends OpenDialogHandler {
 	@Override
 	protected SelectionDialog createDialog(Shell parentShell) {
 		try {
-			return PlatformXDocReport.getDialogManager().createDialog(
+			return PlatformXDocReport.getDialogFactory().createDialog(
 					parentShell, SearchResumeDialog.ID,
 					SearchResumeDialog.class);
 		} catch (CoreException e) {

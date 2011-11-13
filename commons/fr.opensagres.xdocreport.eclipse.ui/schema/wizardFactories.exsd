@@ -3,10 +3,10 @@
 <schema targetNamespace="fr.opensagres.xdocreport.eclipse.ui" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="fr.opensagres.xdocreport.eclipse.ui" id="dialogs" name="Dialogs Contribution"/>
+         <meta.schema plugin="fr.opensagres.xdocreport.eclipse.ui" id="wizardFactories" name="Dialogs Contribution"/>
       </appinfo>
       <documentation>
-         Extension point for create JFace Dialog with extension point.
+         Extension point for create JFace Wizard with extension point.
       </documentation>
    </annotation>
 
@@ -18,7 +18,7 @@
       </annotation>
       <complexType>
          <sequence minOccurs="1" maxOccurs="unbounded">
-            <element ref="dialog" minOccurs="1" maxOccurs="unbounded"/>
+            <element ref="factory" minOccurs="1" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -44,7 +44,7 @@
       </complexType>
    </element>
 
-   <element name="dialog">
+   <element name="factory">
       <complexType>
          <sequence>
          </sequence>
@@ -75,7 +75,7 @@
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java"/>
+                  <meta.attribute kind="java" basedOn="org.eclipse.jface.wizard.Wizard:"/>
                </appinfo>
             </annotation>
          </attribute>

@@ -14,4 +14,9 @@
 		<property name="resumeService" ref="resumeService" />
 	</bean>
 
+	<bean id="newResumeWizard" class="org.dynaresume.eclipse.ui.wizards.NewResumeWizard"
+		scope="prototype">
+		<property name="resumeService" ref="resumeService" />
+	</bean>	
+	
 </beans>

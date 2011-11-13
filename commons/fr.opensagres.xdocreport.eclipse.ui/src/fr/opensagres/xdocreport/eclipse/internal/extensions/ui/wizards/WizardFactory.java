@@ -1,4 +1,4 @@
-package fr.opensagres.xdocreport.eclipse.internal.extensions.ui.dialogs;
+package fr.opensagres.xdocreport.eclipse.internal.extensions.ui.wizards;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,38 +8,37 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionDelta;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.jface.window.Window;
-import org.eclipse.swt.widgets.Shell;
+import org.eclipse.jface.wizard.Wizard;
 
 import fr.opensagres.xdocreport.eclipse.core.registry.AbstractRegistry;
-import fr.opensagres.xdocreport.eclipse.extensions.ui.dialogs.DialogInitException;
-import fr.opensagres.xdocreport.eclipse.extensions.ui.dialogs.IDialogManager;
+import fr.opensagres.xdocreport.eclipse.extensions.ui.wizards.IWizardFactory;
+import fr.opensagres.xdocreport.eclipse.extensions.ui.wizards.WizardInitException;
 import fr.opensagres.xdocreport.eclipse.internal.Activator;
 
-public class DialogManager extends AbstractRegistry implements IDialogManager {
+public class WizardFactory extends AbstractRegistry implements IWizardFactory {
 
-	private static final String DIALOGS_EXTENSION_POINT = "dialogs";
-	private static final IDialogManager INSTANCE = new DialogManager();
-	private static final Object DIALOG_ELT = "dialog";
+	private static final String WIZARD_FACTORIES_EXTENSION_POINT = "wizardFactories";
+	private static final IWizardFactory INSTANCE = new WizardFactory();
+	private static final Object FACTORY_ELT = "factory";
 
-	private final Map<String, DialogDescriptor> descriptors = new HashMap<String, DialogDescriptor>();
+	private final Map<String, WizardDescriptor> descriptors = new HashMap<String, WizardDescriptor>();
 
-	public static IDialogManager getRegistry() {
+	public static IWizardFactory getRegistry() {
 		return INSTANCE;
 	}
 
-	public <T extends Window> T createDialog(Shell shell, String dialogId,
-			Class<T> clazz) throws DialogInitException, CoreException {
-		if (dialogId == null) {
+	public <T extends Wizard> T createWizard(String wizardId,
+			Class<T> clazz) throws WizardInitException, CoreException {
+		if (wizardId == null) {
 			throw new IllegalArgumentException();
 		}
 		loadRegistryIfNedded();
-		DialogDescriptor descriptor = descriptors.get(dialogId);
+		WizardDescriptor descriptor = descriptors.get(wizardId);
 		if (descriptor == null) {
-			throw new DialogInitException("Cannot find dialog with id="
-					+ dialogId);
+			throw new WizardInitException("Cannot find wizard with id="
+					+ wizardId);
 		}
-		return (T) descriptor.createDialog(shell);
+		return (T) descriptor.createWizard();
 	}
 
 	@Override
@@ -47,7 +46,7 @@ public class DialogManager extends AbstractRegistry implements IDialogManager {
 		if (delta.getKind() == IExtensionDelta.ADDED) {
 			IConfigurationElement[] cf = delta.getExtension()
 					.getConfigurationElements();
-			parseDialogs(cf);
+			parseWizards(cf);
 		} else {
 			// TODO : remove references
 		}
@@ -61,18 +60,18 @@ public class DialogManager extends AbstractRegistry implements IDialogManager {
 		if (registry != null) {
 			IConfigurationElement[] cf = registry.getConfigurationElementsFor(
 					getPluginId(), getExtensionPoint());
-			parseDialogs(cf);
+			parseWizards(cf);
 		}
 	}
 
-	private void parseDialogs(IConfigurationElement[] cf) {
+	private void parseWizards(IConfigurationElement[] cf) {
 		for (IConfigurationElement ce : cf) {
 			String id = null;
 
-			if (DIALOG_ELT.equals(ce.getName())) {
+			if (FACTORY_ELT.equals(ce.getName())) {
 				id = ce.getAttribute(ID_ATTR);
 
-				DialogDescriptor descriptor = new DialogDescriptor(id, ce);
+				WizardDescriptor descriptor = new WizardDescriptor(id, ce);
 				descriptors.put(id, descriptor);
 			}
 		}
@@ -86,6 +85,6 @@ public class DialogManager extends AbstractRegistry implements IDialogManager {
 
 	@Override
 	protected String getExtensionPoint() {
-		return DIALOGS_EXTENSION_POINT;
+		return WIZARD_FACTORIES_EXTENSION_POINT;
 	}
 }
