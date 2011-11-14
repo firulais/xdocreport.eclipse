@@ -1,6 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Api
+Bundle-Name: %pluginName
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
 Bundle-SymbolicName: org.dynaresume.domain.core
 Bundle-Version: 1.0.0.qualifier
 Export-Package: org.dynaresume.domain.core

@@ -1,6 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Rap
+Bundle-Name: %pluginName
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
 Bundle-SymbolicName: fr.opensagres.xdocreport.eclipse.rap; singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Fragment-Host: fr.opensagres.xdocreport.eclipse.ui;bundle-version="0.0.1"

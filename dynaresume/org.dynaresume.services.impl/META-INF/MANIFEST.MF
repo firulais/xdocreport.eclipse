@@ -1,6 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Impl
+Bundle-Name: %pluginName
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
 Bundle-SymbolicName: org.dynaresume.services.impl
 Bundle-Version: 1.0.0.qualifier
 Export-Package: org.dynaresume.services.impl
