@@ -3,6 +3,8 @@ package fr.opensagres.eclipse.forms.samples.services;
 import java.util.Collection;
 
 import fr.opensagres.eclipse.forms.samples.model.Person;
+import fr.opensagres.eclipse.forms.samples.services.pagination.Page;
+import fr.opensagres.eclipse.forms.samples.services.pagination.Pageable;
 
 public interface IPersonService {
 
@@ -11,4 +13,6 @@ public interface IPersonService {
 	Person savePerson(Person person);
 	
 	Collection<Person> getPersons();
+	
+	Page<Person> getPersons(Pageable pageable);
 }

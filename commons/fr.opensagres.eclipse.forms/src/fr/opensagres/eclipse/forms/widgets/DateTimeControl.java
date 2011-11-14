@@ -54,12 +54,14 @@ public class DateTimeControl extends BaseComposite {
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 2;
 		layout.makeColumnsEqualWidth = false;
+		layout.marginWidth = 1;
+		layout.marginHeight = 1;
 		this.setLayout(layout);
 
 		dateFieldText = createText(this, textStyle);
 		dateFieldText.setData(OWNER_DATETIME_CONTROL, this);
 		GridData d = new GridData(GridData.FILL_HORIZONTAL);
-		d.verticalAlignment = SWT.TOP;
+		//d.verticalAlignment = SWT.TOP;
 		dateFieldText.setLayoutData(d);
 
 		this.calendarImage = ImageResources
