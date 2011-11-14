@@ -27,15 +27,14 @@ import fr.opensagres.eclipse.forms.samples.model.Person;
 import fr.opensagres.eclipse.forms.samples.services.PersonService;
 import fr.opensagres.eclipse.forms.samples.services.pagination.Page;
 import fr.opensagres.eclipse.forms.samples.services.pagination.PageRequest;
-import fr.opensagres.eclipse.forms.widgets.PaginationControl;
-import fr.opensagres.eclipse.forms.widgets.PaginationControl.PageSelectionListener;
+import fr.opensagres.eclipse.forms.widgets.PaginationController;
+import fr.opensagres.eclipse.forms.widgets.PaginationController.PageSelectionListener;
+import fr.opensagres.eclipse.forms.widgets.PaginationWidget;
 
 public class AdressPage extends ModelFormPage<Person> {
 
 	private Text personNameText;
 	private TableViewer viewer;
-	private PaginationControl paginationHeader;
-	private PaginationControl pagination;
 
 	public AdressPage(ModelFormEditor editor) {
 		super(editor, "ID_Adress", "Adress");
@@ -59,15 +58,11 @@ public class AdressPage extends ModelFormPage<Person> {
 		final int pageIndex = 0;
 		final int size = 3;
 
-		paginationHeader = new PaginationControl(pageIndex,
-				size, parent, SWT.NONE, toolkit);
+		PaginationController controller = new PaginationController(pageIndex,
+				size);
+		
+		PaginationWidget paginationHeader = new PaginationWidget(controller, parent, SWT.NONE, toolkit);
 		paginationHeader.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		paginationHeader.addPageSelectionListener(new PageSelectionListener() {
-
-			public void pageSelected(int pageNumber) {
-				refreshPersons(pageNumber, size);
-			}
-		});
 
 		Table table = toolkit.createTable(parent, SWT.BORDER | SWT.MULTI
 				| SWT.H_SCROLL | SWT.V_SCROLL);
@@ -76,27 +71,28 @@ public class AdressPage extends ModelFormPage<Person> {
 		viewer.setContentProvider(ArrayContentProvider.getInstance());
 		viewer.setLabelProvider(new ViewLabelProvider());
 
-		pagination = new PaginationControl(pageIndex, size,
+		PaginationWidget paginationFooter = new PaginationWidget(controller,
 				parent, SWT.NONE, toolkit);
-		pagination.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		pagination.addPageSelectionListener(new PageSelectionListener() {
-
-			public void pageSelected(int pageNumber) {
-				refreshPersons(pageNumber, size);
+		paginationFooter.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));		
+		controller.addPageSelectionListener(new PageSelectionListener() {
+			
+			public void pageSelected(int pageNumber, PaginationController controller) {
+				refreshPersons(pageNumber, controller);				
 			}
 		});
-
+			
 		// Provide the input to the ContentProvider
-		refreshPersons(pageIndex, size);
+		refreshPersons(pageIndex, controller);
 
 	}
 
-	private void refreshPersons(final int pageIndex, final int size) {
+	private void refreshPersons(final int pageIndex, final PaginationController controller) {
 		Page<Person> page = PersonService.getInstance().getPersons(
-				new PageRequest(pageIndex, size));
-		paginationHeader.setTotalElements(page.getTotalElements());
-		pagination.setTotalElements(page.getTotalElements());
-		System.err.println("Total=" + pagination.getTotalElements());
+				new PageRequest(pageIndex, controller.getPageSize()));
+		controller.setTotalElements(page.getTotalElements());
+		System.err.println("TotalElements=" + controller.getTotalElements());
+		System.err.println("CurrentPage=" + controller.getCurrentPage());
+		System.err.println("TotalPages=" + controller.getTotalPages());
 		viewer.setInput(page.getContent());
 	}
 
