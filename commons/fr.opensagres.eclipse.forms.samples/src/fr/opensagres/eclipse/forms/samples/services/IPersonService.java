@@ -2,9 +2,10 @@ package fr.opensagres.eclipse.forms.samples.services;
 
 import java.util.Collection;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import fr.opensagres.eclipse.forms.samples.model.Person;
-import fr.opensagres.eclipse.forms.samples.services.pagination.Page;
-import fr.opensagres.eclipse.forms.samples.services.pagination.Pageable;
 
 public interface IPersonService {
 

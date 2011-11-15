@@ -19,4 +19,7 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Import-Package: fr.opensagres.eclipse.forms.editor,
- fr.opensagres.eclipse.forms.widgets
+ fr.opensagres.eclipse.forms.widgets,
+ fr.opensagres.eclipse.forms.widgets.pagination,
+ fr.opensagres.eclipse.forms.widgets.pagination.spring,
+ org.springframework.data.domain

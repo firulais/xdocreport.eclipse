@@ -7,10 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+
 import fr.opensagres.eclipse.forms.samples.model.Person;
-import fr.opensagres.eclipse.forms.samples.services.pagination.Page;
-import fr.opensagres.eclipse.forms.samples.services.pagination.PageImpl;
-import fr.opensagres.eclipse.forms.samples.services.pagination.Pageable;
 
 public class PersonService implements IPersonService {
 

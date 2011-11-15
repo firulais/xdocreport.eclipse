@@ -1,4 +1,4 @@
-package fr.opensagres.eclipse.forms.widgets;
+package fr.opensagres.eclipse.forms.widgets.pagination;
 
 import org.eclipse.core.runtime.ListenerList;
 
@@ -12,16 +12,12 @@ public class PaginationController {
 	private long totalElements = 0;
 	private ListenerList pageSelectionListeners = new ListenerList();
 
-	public interface PageSelectionListener {
-		public void pageSelected(int pageNumber, PaginationController controller);
-	}
-
 	public PaginationController(int currentPage, int itemsPerPage) {
 		this.currentPage = currentPage;
 		this.itemsPerPage = itemsPerPage;
 	}
 
-	public void addPageSelectionListener(PageSelectionListener listener) {
+	public void addPageSelectionListener(PageControllerChangedListener listener) {
 		if (listener == null) {
 			throw new NullPointerException(
 					"Cannot add a null page selection listener"); //$NON-NLS-1$
@@ -29,11 +25,29 @@ public class PaginationController {
 		pageSelectionListeners.add(listener);
 	}
 
-	private void notifyListeners(int selectedPage) {
+	public void removePageSelectionListener(
+			PageControllerChangedListener listener) {
+		if (listener != null) {
+			pageSelectionListeners.remove(listener);
+		}
+	}
+
+	private void notifyListenersForPageSelected(int oldPageNumber,
+			int newPageNumber) {
 		final Object[] listeners = pageSelectionListeners.getListeners();
 		for (int i = 0; i < listeners.length; i++) {
-			final PageSelectionListener listener = (PageSelectionListener) listeners[i];
-			listener.pageSelected(selectedPage, this);
+			final PageControllerChangedListener listener = (PageControllerChangedListener) listeners[i];
+			listener.pageSelected(oldPageNumber, newPageNumber, this);
+		}
+	}
+
+	private void notifyListenersForTotalElementsChanged(long oldTotalElements,
+			long newTotalElements) {
+		final Object[] listeners = pageSelectionListeners.getListeners();
+		for (int i = 0; i < listeners.length; i++) {
+			final PageControllerChangedListener listener = (PageControllerChangedListener) listeners[i];
+			listener.totalElementsChanged(oldTotalElements, newTotalElements,
+					this);
 		}
 	}
 
@@ -70,8 +84,9 @@ public class PaginationController {
 
 	public void setCurrentPage(int currentPage) {
 		if (this.currentPage != currentPage) {
+			int oldPageNumber = this.currentPage;
 			this.currentPage = currentPage;
-			notifyListeners(currentPage);
+			notifyListenersForPageSelected(oldPageNumber, currentPage);
 		}
 	}
 
@@ -94,15 +109,21 @@ public class PaginationController {
 
 		return !hasNextPage();
 	}
-	
+
 	public void setTotalElements(long totalElements) {
 		if (this.totalElements != totalElements) {
+			long oldTotalElements = this.totalElements;
 			this.totalElements = totalElements;
-			notifyListeners(currentPage);
+			notifyListenersForTotalElementsChanged(oldTotalElements,
+					totalElements);
 		}
 	}
-	
+
 	public long getTotalElements() {
 		return totalElements;
+	}
+
+	public int getPageOffset() {
+		return getCurrentPage() * getPageSize();
 	}
 }

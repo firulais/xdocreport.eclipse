@@ -1,4 +1,4 @@
-package fr.opensagres.eclipse.forms.widgets;
+package fr.opensagres.eclipse.forms.widgets.pagination;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -11,10 +11,10 @@ import org.eclipse.ui.forms.events.IHyperlinkListener;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 
-import fr.opensagres.eclipse.forms.widgets.PaginationController.PageSelectionListener;
+import fr.opensagres.eclipse.forms.widgets.BaseComposite;
 
-public class PaginationWidget extends BaseComposite implements
-		IHyperlinkListener, PageSelectionListener {
+public class PaginationBannerWidget extends BaseComposite implements
+		IHyperlinkListener, PageControllerChangedListener {
 
 	private final PaginationController controller;
 	private Hyperlink firstLink;
@@ -22,13 +22,13 @@ public class PaginationWidget extends BaseComposite implements
 	private Hyperlink previousLink;
 	private Hyperlink nextLink;
 
-	public PaginationWidget(PaginationController controller, Composite parent,
+	public PaginationBannerWidget(PaginationController controller, Composite parent,
 			int style, FormToolkit toolkit) {
 		super(parent, style, toolkit);
 		this.controller = controller;
 		createUI();
 		controller.addPageSelectionListener(this);
-		pageSelected(controller.getCurrentPage(), controller);
+		refreshEnabled(controller);
 	}
 
 	protected void createUI() {
@@ -101,18 +101,13 @@ public class PaginationWidget extends BaseComposite implements
 		lastLink.addHyperlinkListener(this);
 	}
 
-	public void pageSelected(int pageNumber, PaginationController controller) {
-		nextLink.setEnabled(controller.hasNextPage());
-		previousLink.setEnabled(controller.hasPreviousPage());
-	}
-
 	public void linkActivated(HyperlinkEvent e) {
 		Hyperlink hyperlink = (Hyperlink) e.getSource();
 		int newCurrentPage = 0;
 		if (hyperlink == firstLink) {
 			newCurrentPage = 0;
 		} else if (hyperlink == lastLink) {
-			newCurrentPage = controller.getTotalPages() -1;
+			newCurrentPage = controller.getTotalPages() - 1;
 		} else if (hyperlink == previousLink) {
 			newCurrentPage = controller.getCurrentPage() - 1;
 		} else if (hyperlink == nextLink) {
@@ -128,4 +123,20 @@ public class PaginationWidget extends BaseComposite implements
 	public void linkExited(HyperlinkEvent e) {
 
 	}
+
+	public void pageSelected(int oldPageNumber, int newPageNumber,
+			PaginationController controller) {
+		refreshEnabled(controller);
+	}
+
+	public void totalElementsChanged(long oldTotalElements,
+			long newTotalElements, PaginationController controller) {
+		refreshEnabled(controller);
+	}
+
+	private void refreshEnabled(PaginationController controller) {
+		nextLink.setEnabled(controller.hasNextPage());
+		previousLink.setEnabled(controller.hasPreviousPage());
+	}
+
 }
