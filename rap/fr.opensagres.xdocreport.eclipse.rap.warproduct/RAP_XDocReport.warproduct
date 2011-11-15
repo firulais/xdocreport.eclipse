@@ -108,6 +108,7 @@
       <plugin id="org.springframework.beans"/>
       <plugin id="org.springframework.context"/>
       <plugin id="org.springframework.core"/>
+      <plugin id="org.springframework.data.domain-only"/>
       <plugin id="org.springframework.expression"/>
       <plugin id="org.wikimodel.wem"/>
       <plugin id="slf4j.api"/>
@@ -207,6 +208,7 @@
       <plugin id="org.springframework.beans" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.context" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.core" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.data.domain-only" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.expression" autoStart="true" startLevel="0" />
       <plugin id="org.wikimodel.wem" autoStart="true" startLevel="0" />
       <plugin id="slf4j.api" autoStart="true" startLevel="0" />
