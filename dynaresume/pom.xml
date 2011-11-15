@@ -19,6 +19,8 @@
 		<module>org.dynaresume.eclipse.reporting</module>
 		<module>org.dynaresume.eclipse.ui</module>
 		
+		<module>org.dynaresume.admin.eclipse.ui</module>
+		
 		<module>org.dynaresume.services</module>
 		<module>org.dynaresume.services.impl</module>
 		<module>org.dynaresume.services.impl.test</module>		

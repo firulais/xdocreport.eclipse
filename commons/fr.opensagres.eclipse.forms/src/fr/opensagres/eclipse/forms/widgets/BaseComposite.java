@@ -3,6 +3,7 @@ package fr.opensagres.eclipse.forms.widgets;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Hyperlink;
@@ -57,6 +58,14 @@ public class BaseComposite extends Composite {
 			return toolkit.createHyperlink(parent, "", style);
 		}
 		return new Hyperlink(parent, style);
+	}
+
+	public Table createTable(Composite parent, int style) {
+		FormToolkit toolkit = getToolkit();
+		if (toolkit != null) {
+			return toolkit.createTable(parent, style);
+		}
+		return new Table(parent, style);
 	}
 
 	public FormToolkit getToolkit() {

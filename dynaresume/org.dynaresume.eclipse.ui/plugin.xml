@@ -72,7 +72,8 @@
            name="Search Resume">
      </command>
   </extension>
-  <extension
+  
+  <!--<extension
         point="org.eclipse.ui.services">
      <serviceFactory
            factoryClass="org.eclipse.springframework.util.SpringExtensionFactory:resumeServiceFactory">
@@ -80,5 +81,6 @@
               serviceClass="org.dynaresume.services.ResumeService"></service>
      </serviceFactory>
   </extension>
+  -->
   
 </plugin>

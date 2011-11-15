@@ -40,6 +40,8 @@
       <plugin id="fr.opensagres.xdocreport.template.freemarker" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.template.textstyling.wiki" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.template.velocity" fragment="true"/>
+      <plugin id="javax.inject"/>
+      <plugin id="javax.persistence"/>
       <plugin id="javax.validation.osgi.config.fragment.hibernatevalidator" fragment="true"/>
       <plugin id="javax.xml"/>
       <plugin id="org.apache.commons.collections"/>
@@ -139,6 +141,8 @@
       <plugin id="fr.opensagres.xdocreport.eclipse.ui" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.xdocreport.itext.extension" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.xdocreport.template" autoStart="true" startLevel="0" />
+      <plugin id="javax.inject" autoStart="true" startLevel="0" />
+      <plugin id="javax.persistence" autoStart="true" startLevel="0" />
       <plugin id="javax.xml" autoStart="true" startLevel="0" />
       <plugin id="org.apache.commons.collections" autoStart="true" startLevel="0" />
       <plugin id="org.apache.commons.fileupload" autoStart="true" startLevel="0" />

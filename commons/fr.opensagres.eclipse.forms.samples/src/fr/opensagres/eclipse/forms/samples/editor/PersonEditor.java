@@ -15,6 +15,7 @@ public class PersonEditor extends ModelFormEditor<PersonEditorInput, Person> {
 		try {
 			super.addPage(new OverviewPage(this));
 			super.addPage(new AdressPage(this));
+			super.addPage(new AdressPage2(this));
 		} catch (PartInitException e) {
 			e.printStackTrace();
 		}

@@ -12,6 +12,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
@@ -25,16 +26,19 @@ import fr.opensagres.eclipse.forms.editor.ModelFormEditor;
 import fr.opensagres.eclipse.forms.editor.ModelFormPage;
 import fr.opensagres.eclipse.forms.samples.model.Person;
 import fr.opensagres.eclipse.forms.samples.services.PersonService;
+import fr.opensagres.eclipse.forms.widgets.pagination.PaginationBannerWidget;
+import fr.opensagres.eclipse.forms.widgets.pagination.PaginationController;
+import fr.opensagres.eclipse.forms.widgets.pagination.PaginationInfoWidget;
 import fr.opensagres.eclipse.forms.widgets.pagination.spring.PageableController;
-import fr.opensagres.eclipse.forms.widgets.pagination.spring.PageableTable;
+import fr.opensagres.eclipse.forms.widgets.pagination.spring.PageableStructuredViewerLoader;
 
-public class AdressPage extends ModelFormPage<Person> {
+public class AdressPage2 extends ModelFormPage<Person> {
 
 	private Text personNameText;
 	private TableViewer viewer;
 
-	public AdressPage(ModelFormEditor editor) {
-		super(editor, "ID_Adress", "Adress");
+	public AdressPage2(ModelFormEditor editor) {
+		super(editor, "ID_Adress2", "Adress2");
 	}
 
 	@Override
@@ -52,28 +56,54 @@ public class AdressPage extends ModelFormPage<Person> {
 		personNameText = toolkit.createText(parent, " ", SWT.BORDER);
 		personNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-		// 1) Generate a Component composed with:
-		// a) Header banner : Hyperlinks First/Previous, Next/Last
-		// b) A SWT Table
-		// c) Footer banner : display total items, etc
-		PageableTable paginationTable = new PageableTable(parent, SWT.NONE,
-				toolkit) {
-			@Override
-			protected Page<?> loadPage(PageableController controller) {
-				// Call the service which returns Spring Data Page structure
-				// (the list to display, the total elements etc
-				return PersonService.getInstance().getPersons(controller);
-			}
-		};
-		paginationTable.setLayoutData(new GridData(GridData.FILL_BOTH));
+		final int pageIndex = -1;
+		final int size = 3;
 
-		// 2) Initialize the table viewer
-		TableViewer viewer = paginationTable.getViewer();
+		PaginationController controller = new PageableController(pageIndex,
+				size);
+
+		PaginationBannerWidget paginationHeader = new PaginationBannerWidget(
+				controller, parent, SWT.NONE, toolkit);
+		paginationHeader.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		Table table = toolkit.createTable(parent, SWT.BORDER | SWT.MULTI
+				| SWT.H_SCROLL | SWT.V_SCROLL);
+		table.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		viewer = new TableViewer(table);
 		viewer.setContentProvider(ArrayContentProvider.getInstance());
 		viewer.setLabelProvider(new ViewLabelProvider());
 
-		// 3) Set current page to 0 to refresh the table
-		paginationTable.setCurrentPage(0);
+		PaginationBannerWidget paginationFooter = new PaginationBannerWidget(
+				controller, parent, SWT.NONE, toolkit);
+		paginationFooter.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		PaginationInfoWidget totalItemsWidget = new PaginationInfoWidget(
+				controller, parent, SWT.BORDER, toolkit);
+		GridData data = new GridData(GridData.FILL_HORIZONTAL);
+		data.horizontalAlignment = GridData.END;
+		totalItemsWidget.setLayoutData(data);
+
+		// controller.addPageSelectionListener(new
+		// PageControllerChangedAdapter() {
+		// @Override
+		// public void pageSelected(int oldPageNumber, int newPageNumber,
+		// PaginationController controller) {
+		// refreshPersons(controller);
+		// }
+		// });
+		new PageableStructuredViewerLoader(viewer, controller) {
+			@Override
+			protected Page<?> loadPage(PageableController controller) {
+				
+				System.err.println("TotalElements=" + controller.getTotalElements());
+				System.err.println("CurrentPage=" + controller.getCurrentPage());
+				System.err.println("TotalPages=" + controller.getTotalPages());
+
+				
+				return PersonService.getInstance().getPersons(controller);
+			}
+		};
+		controller.setCurrentPage(0);
 	}
 
 	public void onBind(DataBindingContext dataBindingContext) {
