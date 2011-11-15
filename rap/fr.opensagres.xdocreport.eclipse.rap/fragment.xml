@@ -6,7 +6,7 @@
          point="org.eclipse.rap.ui.branding">
       <branding
             servletName="xdocreport"
-            themeId="org.eclipse.rap.rwt.theme.Default"
+            themeId="org.eclipse.rap.design.example.business.theme"
             defaultEntrypointId="fr.opensagres.xdocreport.eclipse.application"
             title="RAP Single View"
             id="fr.opensagres.xdocreport.eclipse.branding">

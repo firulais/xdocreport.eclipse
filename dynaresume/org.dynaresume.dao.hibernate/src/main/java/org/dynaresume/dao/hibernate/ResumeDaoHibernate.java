@@ -20,18 +20,14 @@ public class ResumeDaoHibernate implements ResumeDao {
 	static long currentId = 0;
 	static {
 		resumes = new HashMap<Long, Resume>();
-
-		// Angelo
-		Resume angeloResume = new AngeloResume();
-		resumes.put(angeloResume.getId(), angeloResume);
-
-		// Pascal
-		Resume pascalResume = new PascalResume();
-		resumes.put(pascalResume.getId(), pascalResume);
-
-		// Amine
-		Resume amineResume = new AmineResume();
-		resumes.put(amineResume.getId(), amineResume);
+		addResume(new AngeloResume());
+		addResume(new PascalResume());
+		addResume(new AmineResume());
+		addResume(new DinoResume());
+	}
+	
+	private static void addResume(Resume resume) {
+		resumes.put(resume.getId(), resume);
 	}
 
 	public Collection<Resume> findAll() {

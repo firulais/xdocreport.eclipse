@@ -7,16 +7,23 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.forms.IManagedForm;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.springframework.data.domain.Page;
 
+import fr.opensagres.eclipse.forms.widgets.pagination.spring.PageableController;
+import fr.opensagres.eclipse.forms.widgets.pagination.spring.PageableTable;
 import fr.opensagres.xdocreport.eclipse.ui.dialogs.SearchDialog;
 
 public class SearchResumeDialog extends SearchDialog {
@@ -25,69 +32,137 @@ public class SearchResumeDialog extends SearchDialog {
 
 	private ResumeService resumeService;
 
+	private String firstNameCriteria;
+	private String lastNameCriteria;
+
+	private PageableTable paginationTable;
+
 	public void setResumeService(ResumeService resumeService) {
 		this.resumeService = resumeService;
 	}
 
-	private TableViewer viewer;
+	// private TableViewer viewer;
 
 	public SearchResumeDialog() {
 		super();
 	}
 
-	protected Control createDialogArea(Composite container) {
-		Composite parent = (Composite) super.createDialogArea(container);
-		createMessageArea(parent);
-
-		GridLayout layout = new GridLayout(2, false);
+	@Override
+	protected void createFormContent(IManagedForm managedForm) {
+		Composite parent = managedForm.getForm().getBody();
+		GridLayout layout = new GridLayout();
 		parent.setLayout(layout);
-		Label searchLabel = new Label(parent, SWT.NONE);
-		searchLabel.setText("Search: ");
-		final Text searchText = new Text(parent, SWT.BORDER | SWT.SEARCH);
-		searchText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL
-				| GridData.HORIZONTAL_ALIGN_FILL));
-		createViewer(parent);
 
-		return parent;
+		FormToolkit toolkit = managedForm.getToolkit();
+		createSearchCriteriaContainer(toolkit, parent);
+		createSearchResultContainer(toolkit, parent);
+
+		SingleSourcingUtils.FormToolkit_paintBordersFor(
+				managedForm.getToolkit(), parent);
 	}
 
-	private void createViewer(Composite parent) {
-		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL
-				| SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
-		createColumns(parent, viewer);
+	private void createSearchCriteriaContainer(FormToolkit toolkit,
+			Composite parent) {
+		Composite container = toolkit.createComposite(parent);
+		container.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		container.setLayout(new GridLayout(4, false));
+
+		toolkit.createLabel(container, "First name:");
+		final Text firstNameText = toolkit
+				.createText(container, "", SWT.BORDER);
+		firstNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		toolkit.createLabel(container, "Last name:");
+		final Text lastNameText = toolkit.createText(container, "", SWT.BORDER);
+		lastNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		Button searchButton = toolkit.createButton(container, "Search",
+				SWT.BORDER);
+		searchButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				firstNameCriteria = firstNameText.getText();
+				lastNameCriteria = lastNameText.getText();
+				paginationTable.refreshPage();
+			}
+		});
+		GridData data = new GridData(GridData.FILL_HORIZONTAL);
+		data.horizontalSpan = 4;
+		data.horizontalAlignment = GridData.END;
+		searchButton.setLayoutData(data);
+	}
+
+	private void createSearchResultContainer(FormToolkit toolkit,
+			Composite parent) {
+		Composite container = toolkit.createComposite(parent, SWT.BORDER);
+		container.setLayoutData(new GridData(GridData.FILL_BOTH));
+		container.setLayout(new GridLayout());
+
+		paginationTable = new PageableTable(container, SWT.NONE, toolkit) {
+
+			@Override
+			protected Page<Resume> loadPage(PageableController controller) {
+				// TODO Auto-generated method stub
+				return resumeService.findByFirstNameAndLastName(
+						firstNameCriteria, lastNameCriteria, controller);
+			}
+
+			@Override
+			protected int getTableStyle() {
+				return SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL
+						| SWT.FULL_SELECTION | SWT.BORDER;
+			}
+		};
+		paginationTable.setLayoutData(new GridData(GridData.FILL_BOTH));
+
+		TableViewer viewer = paginationTable.getViewer();
+		createColumns(viewer);
 		final Table table = viewer.getTable();
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
-
 		viewer.setContentProvider(new ArrayContentProvider());
-		// ResumeService resumeService = (ResumeService)
-		// PlatformUI.getWorkbench()
-		// .getService(ResumeService.class);
-		// Get the content for the viewer, setInput will call getElements in the
-		// contentProvider
-		viewer.setInput(resumeService.findAll());
-
-		// Layout the viewer
-		GridData gridData = new GridData();
-		gridData.verticalAlignment = GridData.FILL;
-		gridData.horizontalSpan = 2;
-		gridData.grabExcessHorizontalSpace = true;
-		gridData.grabExcessVerticalSpace = true;
-		gridData.horizontalAlignment = GridData.FILL;
-		viewer.getControl().setLayoutData(gridData);
+		
+		paginationTable.setCurrentPage(0);
 	}
 
-	public TableViewer getViewer() {
-		return viewer;
-	}
+	// private void createViewer(Composite parent) {
+	// viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL
+	// | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
+	// createColumns(parent, viewer);
+	// final Table table = viewer.getTable();
+	// table.setHeaderVisible(true);
+	// table.setLinesVisible(true);
+	//
+	// viewer.setContentProvider(new ArrayContentProvider());
+	// // ResumeService resumeService = (ResumeService)
+	// // PlatformUI.getWorkbench()
+	// // .getService(ResumeService.class);
+	// // Get the content for the viewer, setInput will call getElements in the
+	// // contentProvider
+	// viewer.setInput(resumeService.findAll());
+	//
+	// // Layout the viewer
+	// GridData gridData = new GridData();
+	// gridData.verticalAlignment = GridData.FILL;
+	// gridData.horizontalSpan = 2;
+	// gridData.grabExcessHorizontalSpace = true;
+	// gridData.grabExcessVerticalSpace = true;
+	// gridData.horizontalAlignment = GridData.FILL;
+	// viewer.getControl().setLayoutData(gridData);
+	// }
+	//
+	// public TableViewer getViewer() {
+	// return viewer;
+	// }
 
 	// This will create the columns for the table
-	private void createColumns(final Composite parent, final TableViewer viewer) {
-		String[] titles = { "First name", "Last name", "Edit", "Open" };
-		int[] bounds = { 100, 100, 100, 100 };
+	private void createColumns(final TableViewer viewer) {
+		String[] titles = { "First name", "Last name" };
+		int[] bounds = { 100, 100 };
 
 		// First column is for the first name
-		TableViewerColumn col = createTableViewerColumn(titles[0], bounds[0], 0);
+		TableViewerColumn col = createTableViewerColumn(viewer, titles[0],
+				bounds[0], 0);
 		col.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
@@ -97,7 +172,7 @@ public class SearchResumeDialog extends SearchDialog {
 		});
 
 		// Second column is for the last name
-		col = createTableViewerColumn(titles[1], bounds[1], 1);
+		col = createTableViewerColumn(viewer, titles[1], bounds[1], 1);
 		col.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
@@ -106,29 +181,29 @@ public class SearchResumeDialog extends SearchDialog {
 			}
 		});
 
-		// Now the gender
-		col = createTableViewerColumn(titles[2], bounds[2], 2);
-		col.setLabelProvider(new ColumnLabelProvider() {
-			@Override
-			public String getText(Object element) {
-				return "Edit";
-			}
-		});
-
-		// // Now the status married
-		col = createTableViewerColumn(titles[3], bounds[3], 3);
-		col.setLabelProvider(new ColumnLabelProvider() {
-			@Override
-			public String getText(Object element) {
-				return "Open";
-			}
-
-		});
+		// // Now the gender
+		// col = createTableViewerColumn(titles[2], bounds[2], 2);
+		// col.setLabelProvider(new ColumnLabelProvider() {
+		// @Override
+		// public String getText(Object element) {
+		// return "Edit";
+		// }
+		// });
+		//
+		// // // Now the status married
+		// col = createTableViewerColumn(titles[3], bounds[3], 3);
+		// col.setLabelProvider(new ColumnLabelProvider() {
+		// @Override
+		// public String getText(Object element) {
+		// return "Open";
+		// }
+		//
+		// });
 
 	}
 
-	private TableViewerColumn createTableViewerColumn(String title, int bound,
-			final int colNumber) {
+	private TableViewerColumn createTableViewerColumn(TableViewer viewer,
+			String title, int bound, final int colNumber) {
 		final TableViewerColumn viewerColumn = new TableViewerColumn(viewer,
 				SWT.NONE);
 		final TableColumn column = viewerColumn.getColumn();
@@ -145,8 +220,8 @@ public class SearchResumeDialog extends SearchDialog {
 	 */
 	protected void okPressed() {
 		// Build a list of selected children.
-		IStructuredSelection selection = (IStructuredSelection) viewer
-				.getSelection();
+		IStructuredSelection selection = (IStructuredSelection) paginationTable
+				.getViewer().getSelection();
 		setResult(selection.toList());
 		super.okPressed();
 	}

@@ -6,7 +6,8 @@ Bundle-Localization: plugin
 Bundle-SymbolicName: org.dynaresume.services
 Bundle-Version: 1.0.0.qualifier
 Export-Package: org.dynaresume.services
-Import-Package: javax.validation.constraints;version="1.0.0.GA"
+Import-Package: javax.validation.constraints;version="1.0.0.GA",
+ org.springframework.data.domain
 Bundle-RequiredExecutionEnvironment: J2SE-1.5,
  JavaSE-1.6
 Require-Bundle: org.springframework.beans;bundle-version=3,
