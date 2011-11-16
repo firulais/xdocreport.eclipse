@@ -6,7 +6,6 @@
        http://www.springframework.org/schema/beans   
        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-	<service ref="resumeDao" interface="org.dynaresume.dao.ResumeDao" />
-	<service ref="skillDao" interface="org.dynaresume.dao.SkillDao" />
-		
+	<reference id="skillService" interface="org.dynaresume.services.SkillService" />
+
 </beans:beans>           

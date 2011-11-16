@@ -9,4 +9,8 @@
 
 	<bean id="resumeDao"
 		class="org.dynaresume.dao.mock.ResumeDaoMock" />
+	
+	<bean id="skillDao"
+		class="org.dynaresume.dao.mock.SkillDaoMock" />
+				
 </beans>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   
+   <extension
+         point="fr.opensagres.xdocreport.eclipse.ui.reportModules">
+      <reportModule
+            id="resumeAdmin"
+            name="%AdminModule.name"
+            description="%AdminModule.desc"
+            icon="icons/obj16/admin.gif" >
+            <entries>
+	            <entry name="%AgenciesEntry.name"
+	            	   commandId=""
+	            	   icon="icons/obj16/new_resume.gif" />
+	            <entry name="%CountriesEntry.name"
+	            	   commandId=""
+	            	   icon="icons/obj16/new_resume.gif" />	            	   
+				<entry name="%SkillsEntry.name"
+	            	   commandId="org.dynaresume.admin.eclipse.ui.skills.handler.OpenSkillsEditorHandler"
+	            	   icon="icons/obj16/skills.png" />	            	   	            	   
+	        </entries>     
+      </reportModule>
+   </extension>
+   
+  <extension
+        point="org.eclipse.ui.editors">
+     <editor
+           id="org.dynaresume.admin.eclipse.ui.skills.editors.SkillsFormEditor"
+           class="org.eclipse.springframework.util.SpringExtensionFactory:skillsFormEditor"           
+           extensions="*"
+           icon="icons/obj16/skills.png"
+           name="%SkillsFormEditor.name">
+     </editor>
+  </extension>
+  
+ <extension
+       point="org.eclipse.ui.commands">
+    <command
+          id="org.dynaresume.admin.eclipse.ui.skills.handler.OpenSkillsEditorHandler"
+          defaultHandler="org.dynaresume.admin.eclipse.ui.skills.handler.OpenSkillsEditorHandler"
+          name="New Report" />
+ </extension>
+   
+</plugin>

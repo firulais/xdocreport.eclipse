@@ -9,4 +9,8 @@
 
 	<bean id="resumeDao"
 		class="org.dynaresume.dao.hibernate.ResumeDaoHibernate" />
+		
+	<bean id="skillDao"
+		class="org.dynaresume.dao.hibernate.SkillDaoHibernate" />
+				
 </beans>

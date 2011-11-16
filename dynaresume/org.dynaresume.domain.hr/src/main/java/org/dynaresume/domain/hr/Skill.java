@@ -14,6 +14,8 @@ public class Skill {
 	// @Column
 	private String label;
 
+	private Skill parent;
+	
 	public Long getId() {
 		return id;
 	}
@@ -34,4 +36,11 @@ public class Skill {
 		// firePropertyChange("label", oldValue, label);
 	}
 
+	public Skill getParent() {
+		return parent;
+	}
+	
+	public void setParent(Skill parent) {
+		this.parent = parent;
+	}
 }
