@@ -1,4 +1,4 @@
-package org.dynaresume.dao.hibernate;
+package org.dynaresume.dao.mock;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -18,11 +18,11 @@ import fr.opensagres.xdocreport.commons.utils.IOUtils;
 public class DinoResume extends Resume {
 
 	public DinoResume() {
-        super.setId(ResumeDaoHibernate.currentId++);
+        super.setId(ResumeDaoMock.currentId++);
         super.setTitle("Ingénieur Etude JEE");
 
         NaturalPerson person = new NaturalPerson();
-        person.setId(ResumeDaoHibernate.currentId++);
+        person.setId(ResumeDaoMock.currentId++);
         person.setFirstName("Dino");
         person.setLastName("COSMAS");
         person.setEmail("dino.cosmas@gmail.com");
@@ -33,7 +33,7 @@ public class DinoResume extends Resume {
                 e1.printStackTrace();
         }
 
-        super.setId(ResumeDaoHibernate.currentId++);
+        super.setId(ResumeDaoMock.currentId++);
         super.setOwner(person);
 
         try {
@@ -44,7 +44,7 @@ public class DinoResume extends Resume {
         }
 		 // Address
         Address address = new Address();
-        address.setId(ResumeDaoHibernate.currentId++);
+        address.setId(ResumeDaoMock.currentId++);
         person.setAddress(address);
 
         address.setStreet("2 rue Greuze");
@@ -59,7 +59,7 @@ public class DinoResume extends Resume {
 
         // Education 1
         education = new Education();
-        education.setId(ResumeDaoHibernate.currentId++);
+        education.setId(ResumeDaoMock.currentId++);
         education.setLabel("Diplôme d'ingénieur en informatique");
         education.setInstitute("CNAM Rhône Alpes");
         try {
@@ -72,7 +72,7 @@ public class DinoResume extends Resume {
 		
 		// Education 2
         education = new Education();
-        education.setId(ResumeDaoHibernate.currentId++);
+        education.setId(ResumeDaoMock.currentId++);
         education.setLabel("Licence Nouvelles Architectures APplicatives");
         education.setInstitute("Université Claude Bernard Lyon1");
         try {
@@ -85,7 +85,7 @@ public class DinoResume extends Resume {
 		
 		// Education 3
         education = new Education();
-        education.setId(ResumeDaoHibernate.currentId++);
+        education.setId(ResumeDaoMock.currentId++);
         education.setLabel("BTS Informatique de Gestion option développeur d'application");
         education.setInstitute("Lycée Lamartine");
         try {
@@ -98,7 +98,7 @@ public class DinoResume extends Resume {
 		
 		// Education 4
         education = new Education();
-        education.setId(ResumeDaoHibernate.currentId++);
+        education.setId(ResumeDaoMock.currentId++);
         education.setLabel("DEUG MIAS");
         education.setInstitute("Université Claude Bernard Lyon1");
         try {
@@ -111,7 +111,7 @@ public class DinoResume extends Resume {
 		
 		// Education 5
         education = new Education();
-        education.setId(ResumeDaoHibernate.currentId++);
+        education.setId(ResumeDaoMock.currentId++);
         education.setLabel("BAS S option Science de la Vie et de la Terre");
         education.setInstitute("Lycée René Cassin");
         try {
@@ -129,7 +129,7 @@ public class DinoResume extends Resume {
 
 		// Experience 1
         experience = new Experience();
-        experience.setId(ResumeDaoHibernate.currentId++);
+        experience.setId(ResumeDaoMock.currentId++);
         experience.setTitle("Création d'un protoype applicatif : D3KODE");
         experience.setMission("Gestion / Conception / Développement");
         experience
@@ -146,7 +146,7 @@ public class DinoResume extends Resume {
 		
         // Experience 2
         experience = new Experience();
-        experience.setId(ResumeDaoHibernate.currentId++);
+        experience.setId(ResumeDaoMock.currentId++);
         experience.setTitle("Projet SIDoc");
         experience.setMission("Conception / Développement");
         experience
@@ -168,25 +168,25 @@ public class DinoResume extends Resume {
 
         // Hobby 1
         hobby = new Hobby();
-        hobby.setId(ResumeDaoHibernate.currentId++);
+        hobby.setId(ResumeDaoMock.currentId++);
         hobby.setLabel("Sport: football, handball, natation, plongée.");
         hobbies.add(hobby);
 
         // Hobby 2
         hobby = new Hobby();
-        hobby.setId(ResumeDaoHibernate.currentId++);
+        hobby.setId(ResumeDaoMock.currentId++);
         hobby.setLabel("Voyage");
         hobbies.add(hobby);
 
 		// Hobby 2
         hobby = new Hobby();
-        hobby.setId(ResumeDaoHibernate.currentId++);
+        hobby.setId(ResumeDaoMock.currentId++);
         hobby.setLabel("Cinéma");
         hobbies.add(hobby);
 		
         // Hobby 3
         hobby = new Hobby();
-        hobby.setId(ResumeDaoHibernate.currentId++);
+        hobby.setId(ResumeDaoMock.currentId++);
         hobby.setLabel("Veille technologique");
         hobbies.add(hobby);
 }
