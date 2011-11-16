@@ -1,6 +1,5 @@
 package fr.opensagres.xdocreport.eclipse.internal.extensions.ui.dialogs;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.eclipse.core.runtime.CoreException;
@@ -14,16 +13,18 @@ public class DialogDescriptor {
 
 	private static final String CLASS_ATTR = "class";
 	private final String id;
+	private final String title;
 	private final IConfigurationElement ce;
 
-	public DialogDescriptor(String id,
-			IConfigurationElement ce) {
+	public DialogDescriptor(String id, String title, IConfigurationElement ce) {
 		this.id = id;
+		this.title = title;
 		this.ce = ce;
 	}
 
 	public Window createDialog(Shell shell) throws CoreException {
 		Window window = (Window) ce.createExecutableExtension(CLASS_ATTR);
+		// Set parent shell
 		Method method = null;
 		try {
 			method = window.getClass().getMethod("setParentShell", Shell.class);
@@ -38,6 +39,20 @@ public class DialogDescriptor {
 			throw new DialogInitException(
 					"Invocation of Public Method setParentShell has error for the class"
 							+ window.getClass().getName(), e);
+		}
+		// Set title
+		if (title != null) {
+			method = null;
+			try {
+				method = window.getClass().getMethod("setTitle", String.class);
+			} catch (Exception e) {
+				//
+			}
+			try {
+				method.invoke(window, title);
+			} catch (Exception e) {
+				//
+			}
 		}
 		return window;
 	}

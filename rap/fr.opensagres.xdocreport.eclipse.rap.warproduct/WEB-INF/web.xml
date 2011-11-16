@@ -11,7 +11,7 @@
          we disable it per default -->
     <init-param>
       <param-name>enableFrameworkControls</param-name>
-      <param-value>true</param-value>      
+      <param-value>false</param-value>      
     </init-param>
     
     <!-- Enable multi-language support for the extension registry -->

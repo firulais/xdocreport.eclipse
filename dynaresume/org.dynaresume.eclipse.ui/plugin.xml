@@ -43,7 +43,8 @@
         point="fr.opensagres.xdocreport.eclipse.ui.dialogFactories">
      <factory
            id="org.dynaresume.eclipse.ui.dialogs.SearchResumeDialog"
-           class="org.eclipse.springframework.util.SpringExtensionFactory:searchResumeDialog">
+           class="org.eclipse.springframework.util.SpringExtensionFactory:searchResumeDialog"
+           title="%SearchResumeDialog.title" >
      </factory>        
   </extension>
   

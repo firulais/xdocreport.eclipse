@@ -21,6 +21,8 @@ public class DialogFactory extends AbstractRegistry implements IDialogFactory {
 	private static final String DIALOG_FACTORIES_EXTENSION_POINT = "dialogFactories";
 	private static final IDialogFactory INSTANCE = new DialogFactory();
 	private static final Object FACTORY_ELT = "factory";
+	
+	private static final String TITLE_ATTR = "title";
 
 	private final Map<String, DialogDescriptor> descriptors = new HashMap<String, DialogDescriptor>();
 
@@ -68,11 +70,12 @@ public class DialogFactory extends AbstractRegistry implements IDialogFactory {
 	private void parseDialogs(IConfigurationElement[] cf) {
 		for (IConfigurationElement ce : cf) {
 			String id = null;
-
+			String title = null;
 			if (FACTORY_ELT.equals(ce.getName())) {
 				id = ce.getAttribute(ID_ATTR);
-
-				DialogDescriptor descriptor = new DialogDescriptor(id, ce);
+				title = ce.getAttribute(TITLE_ATTR);
+				DialogDescriptor descriptor = new DialogDescriptor(id, title,
+						ce);
 				descriptors.put(id, descriptor);
 			}
 		}

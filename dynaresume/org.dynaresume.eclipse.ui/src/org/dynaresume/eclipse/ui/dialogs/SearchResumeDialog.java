@@ -15,11 +15,13 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.Section;
 import org.springframework.data.domain.Page;
 
 import fr.opensagres.eclipse.forms.widgets.pagination.spring.PageableController;
@@ -54,7 +56,7 @@ public class SearchResumeDialog extends SearchDialog {
 		parent.setLayout(layout);
 
 		FormToolkit toolkit = managedForm.getToolkit();
-		createSearchCriteriaContainer(toolkit, parent);
+		createSearchCriteriaContainer(toolkit, parent, managedForm);
 		createSearchResultContainer(toolkit, parent);
 
 		SingleSourcingUtils.FormToolkit_paintBordersFor(
@@ -62,8 +64,15 @@ public class SearchResumeDialog extends SearchDialog {
 	}
 
 	private void createSearchCriteriaContainer(FormToolkit toolkit,
-			Composite parent) {
-		Composite container = toolkit.createComposite(parent);
+			Composite parent, final IManagedForm managedForm) {
+		Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
+		group.setLayoutData(new GridData(GridData.FILL_BOTH));
+		group.setLayout(new GridLayout());
+
+		group.setText("Resume search criteria");
+		toolkit.adapt(group);
+
+		Composite container = toolkit.createComposite(group);
 		container.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		container.setLayout(new GridLayout(4, false));
 
@@ -90,13 +99,34 @@ public class SearchResumeDialog extends SearchDialog {
 		data.horizontalSpan = 4;
 		data.horizontalAlignment = GridData.END;
 		searchButton.setLayoutData(data);
+
+		// section.setClient(container);
 	}
 
 	private void createSearchResultContainer(FormToolkit toolkit,
 			Composite parent) {
-		Composite container = toolkit.createComposite(parent, SWT.BORDER);
+		Section section = toolkit.createSection(parent, Section.DESCRIPTION
+				| Section.TITLE_BAR | Section.EXPANDED);
+		// td = new TableWrapData(TableWrapData.FILL);
+		// td.colspan = 2;
+		GridLayout layout = new GridLayout();
+		layout.marginHeight = 0;
+		section.setLayout(layout);
+
+		section.setLayoutData(new GridData(GridData.FILL_BOTH));
+		// section.addExpansionListener(new ExpansionAdapter() {
+		// public void expansionStateChanged(ExpansionEvent e) {
+		// managedForm.getForm().reflow(true);
+		// }
+		// });
+		section.setText("Resume search results");
+		section.setDescription("Select one or several resume from the below list of resume search results and click OK to open the selected resumes.");
+
+		Composite container = toolkit.createComposite(section);
 		container.setLayoutData(new GridData(GridData.FILL_BOTH));
-		container.setLayout(new GridLayout());
+		layout = new GridLayout();
+		layout.marginHeight = 0;
+		container.setLayout(layout);
 
 		paginationTable = new PageableTable(container, SWT.NONE, toolkit) {
 
@@ -121,8 +151,9 @@ public class SearchResumeDialog extends SearchDialog {
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 		viewer.setContentProvider(new ArrayContentProvider());
-		
+
 		paginationTable.setCurrentPage(0);
+		section.setClient(container);
 	}
 
 	// private void createViewer(Composite parent) {
@@ -158,7 +189,7 @@ public class SearchResumeDialog extends SearchDialog {
 	// This will create the columns for the table
 	private void createColumns(final TableViewer viewer) {
 		String[] titles = { "First name", "Last name" };
-		int[] bounds = { 100, 100 };
+		int[] bounds = { 180, 180 };
 
 		// First column is for the first name
 		TableViewerColumn col = createTableViewerColumn(viewer, titles[0],
