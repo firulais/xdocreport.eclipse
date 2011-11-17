@@ -9,45 +9,49 @@ public class SkillsData {
 
 	static long currentId = 0;
 	static final Map<Long, Skill> skills;
-	
-	public static Skill javaSkill = new Skill();
-	public static Skill springSkill = new Skill();
-	public static Skill osgiSkill = new Skill();
-	public static Skill eclipseSkill = new Skill();
-	public static Skill rcpSkill = new Skill();
-	public static Skill rapSkill = new Skill();
 
 	static {
 		skills = new HashMap<Long, Skill>();
+
+		Skill javaSkill = addSkill("Java", null);
+		addSkill("Spring", javaSkill);
+		addSkill("OSGi", javaSkill);
+
+		Skill eclipseSkill = addSkill("Eclipse", javaSkill);
+		addSkill("Eclipse RCP", eclipseSkill);
+		addSkill("Eclipse RAP", eclipseSkill);
+		addSkill("EMF", eclipseSkill);
+		addSkill("GEF", eclipseSkill);
+		addSkill("GMF", eclipseSkill);
+
+		Skill jeeSkill = addSkill("JEE", javaSkill);
+		addSkill("JSP", jeeSkill);
+		Skill webservicesSkill = addSkill("WebServices (Java)", jeeSkill);
+		addSkill("CXF", webservicesSkill);
+		addSkill("Axis 1", webservicesSkill);
+		addSkill("Axis 2", webservicesSkill);
+		Skill fwkJEESkill = addSkill("Framework (JEE)", jeeSkill);
+		addSkill("Play!", fwkJEESkill);
+		addSkill("JBoss Seam", fwkJEESkill);
+		addSkill("Struts 1", fwkJEESkill);
+		addSkill("Struts 2", fwkJEESkill);
+		addSkill("Wicket", fwkJEESkill);
+		addSkill("GWT", fwkJEESkill);
 		
-		javaSkill.setId(getId());
-		javaSkill.setLabel("Java");
-		addSkill(javaSkill);
-		
-		springSkill.setId(getId());
-		springSkill.setLabel("Spring");
-		springSkill.setParent(javaSkill);
-		addSkill(springSkill);
-		
-		osgiSkill.setId(getId());
-		osgiSkill.setLabel("OSGi");
-		osgiSkill.setParent(javaSkill);
-		addSkill(osgiSkill);
-		
-		eclipseSkill.setId(getId());
-		eclipseSkill.setLabel("Eclipse");
-		eclipseSkill.setParent(javaSkill);
-		addSkill(eclipseSkill);
-		
-		rcpSkill.setId(getId());
-		rcpSkill.setLabel("Eclipse RCP");
-		rcpSkill.setParent(eclipseSkill);
-		addSkill(rcpSkill);
-		
-		rapSkill.setId(getId());
-		rapSkill.setLabel("Eclipse RAP");
-		rapSkill.setParent(eclipseSkill);
-		addSkill(rapSkill);
+		Skill javaScriptSkill = addSkill("JavaScript", null);
+		Skill fwkJavaScriptSkill = addSkill("Framework (Javascript)", javaScriptSkill);
+		addSkill("Dojo", fwkJavaScriptSkill);
+		addSkill("Qooxdoo", fwkJavaScriptSkill);
+		addSkill("JQuery", fwkJavaScriptSkill);
+	}
+
+	private static Skill addSkill(String label, Skill parent) {
+		Skill skill = new Skill();
+		skill.setId(getId());
+		skill.setLabel(label);
+		skill.setParent(parent);
+		addSkill(skill);
+		return skill;
 	}
 
 	private static void addSkill(Skill skill) {

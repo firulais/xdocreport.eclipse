@@ -1,14 +1,12 @@
 package org.dynaresume.admin.eclipse.ui.graphics.skill.editors;
 
-import org.dynaresume.domain.hr.Skill;
-
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntry;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ModelAndEntryEditorInput;
 
-public class SkillEditorInput extends ModelAndEntryEditorInput<Skill> {
+public class SkillsEditorInput extends ModelAndEntryEditorInput {
 
-	public SkillEditorInput(IReportModuleEntry entry, Skill skill) {
-		super(entry, skill);
+	public SkillsEditorInput(IReportModuleEntry entry, Object model) {
+		super(entry, model);
 	}
 
 	public String getName() {
@@ -16,7 +14,7 @@ public class SkillEditorInput extends ModelAndEntryEditorInput<Skill> {
 	}
 
 	public String getToolTipText() {
-		return getName();
+		return "Graphical Skills";
 	}
 
 }

@@ -10,7 +10,7 @@
             description="%AdminModule.desc"
             icon="icons/obj16/admin.gif" >
             <entries>
-	            <entry name="%AgenciesEntry.name"
+<!--	            <entry name="%AgenciesEntry.name"
 	            	   commandId=""
 	            	   icon="icons/obj16/new_resume.gif" />
 	            <entry name="%CountriesEntry.name"
@@ -18,7 +18,7 @@
 	            	   icon="icons/obj16/new_resume.gif" />	            	   
 				<entry name="%NewSkillEntry.name"
 	            	   commandId=""
-	            	   icon="icons/obj16/skills.png" />
+	            	   icon="icons/obj16/skills.png" /> -->
 				<entry name="%SearchSkillEntry.name"
 	            	   commandId="org.dynaresume.admin.eclipse.ui.skill.handlers.SearchSkillHandler"
 	            	   icon="icons/obj16/skills.png" />
