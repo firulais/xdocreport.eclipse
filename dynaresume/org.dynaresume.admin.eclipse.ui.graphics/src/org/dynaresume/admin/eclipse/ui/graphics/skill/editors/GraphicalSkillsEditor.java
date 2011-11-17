@@ -1,19 +1,27 @@
 package org.dynaresume.admin.eclipse.ui.graphics.skill.editors;
 
-import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.model.GraphicalSkillsContainer;
+import java.util.Collection;
+
+import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.model.SkillsDiagram;
 import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.parts.SkillPartFactory;
+import org.dynaresume.domain.hr.Skill;
 import org.dynaresume.services.SkillService;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.PartInitException;
 
 public class GraphicalSkillsEditor extends GraphicalEditorWithFlyoutPalette {
 
 	public static final String ID = "org.dynaresume.admin.eclipse.ui.graphics.skill.editors.GraphicalSkillsEditor";
 
 	private SkillService skillService;
+
+	private SkillsDiagram skillsContainer;
 
 	public void setSkillService(SkillService skillService) {
 		this.skillService = skillService;
@@ -53,9 +61,16 @@ public class GraphicalSkillsEditor extends GraphicalEditorWithFlyoutPalette {
 		// editor
 	}
 
-	protected GraphicalSkillsContainer getSkillsContainer() {
-		GraphicalSkillsContainer container = new GraphicalSkillsContainer();
-		return container;
+	protected SkillsDiagram getSkillsContainer() {
+		return skillsContainer;
+	}
+
+	@Override
+	public void init(IEditorSite site, IEditorInput input)
+			throws PartInitException {
+		super.init(site, input);
+		Collection<Skill> allSkills = skillService.findAll();
+		skillsContainer = new SkillsDiagram(allSkills);		
 	}
 
 }
