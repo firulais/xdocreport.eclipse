@@ -2,6 +2,9 @@ package fr.opensagres.xdocreport.eclipse.internal.ui;
 
 import java.util.Collection;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
@@ -22,7 +25,9 @@ import fr.opensagres.xdocreport.eclipse.PlatformXDocReport;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportBaseModule;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModule;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntry;
+import fr.opensagres.xdocreport.eclipse.internal.Activator;
 import fr.opensagres.xdocreport.eclipse.internal.ImageResources;
+import fr.opensagres.xdocreport.eclipse.internal.Messages;
 import fr.opensagres.xdocreport.eclipse.internal.extensions.modules.ReportBaseModule;
 import fr.opensagres.xdocreport.eclipse.ui.handlers.ContextHandlerUtils;
 
@@ -142,12 +147,17 @@ public class XDocReportExplorerView extends ViewPart implements
 			if (element instanceof IReportModuleEntry) {
 				IReportModuleEntry entry = (IReportModuleEntry) element;
 				String commandId = entry.getCommandId();
-
 				try {
 					ContextHandlerUtils.executeCommand(commandId, getSite(),
 							entry, null);
-				} catch (Exception e) {
+				} catch (Throwable e) {
+					// TODO : log that
 					e.printStackTrace();
+					IStatus status = new Status(IStatus.ERROR,
+							Activator.PLUGIN_ID, e.getMessage(), e);
+					ErrorDialog.openError(viewer.getControl().getShell(),
+							Messages.XDocReportExplorerView_error,
+							e.getMessage(), status);										
 				}
 			}
 		}

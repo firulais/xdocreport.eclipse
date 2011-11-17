@@ -24,6 +24,8 @@ public class Messages extends NLS {
 	public static String ReportLoaderMasterDetailsBlock_title;
 	public static String ReportLoaderMasterDetailsBlock_desc;
 	
+	public static String XDocReportExplorerView_error;
+	
 	static {
 		// load message values from bundle file
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

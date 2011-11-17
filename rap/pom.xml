@@ -12,6 +12,11 @@
 		<module>fr.opensagres.xdocreport.eclipse.rap</module>
 		<module>fr.opensagres.xdocreport.eclipse.rap.warproduct</module>
 		<module>fr.opensagres.xdocreport.eclipse.rap.war</module>
+		
+		<!-- GEF for RAP -->
+		<module>org.eclipse.draw2d</module>
+		<module>org.eclipse.draw2d.rap</module>
+		<module>org.eclipse.gef</module>
 	</modules>
 <!-- 	<repositories>
 		<repository>

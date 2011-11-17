@@ -1,34 +1,14 @@
 package org.dynaresume.dao.hibernate;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.dynaresume.dao.SkillDao;
-import org.dynaresume.dao.hibernate.skills.JavaSkill;
-import org.dynaresume.dao.hibernate.skills.OSGiSkill;
-import org.dynaresume.dao.hibernate.skills.SpringSkill;
 import org.dynaresume.domain.hr.Skill;
 
 public class SkillDaoHibernate implements SkillDao {
 
-	private static final Map<Long, Skill> skills;
-	static long currentId = 0;
-	static {
-		skills = new HashMap<Long, Skill>();
-
-		JavaSkill javaSkill = new JavaSkill();
-		addSkill(javaSkill);
-		SpringSkill springSkill = new SpringSkill(javaSkill);
-		addSkill(springSkill);
-		OSGiSkill osgiSkill = new OSGiSkill(javaSkill);
-		addSkill(osgiSkill);
-
-	}
-
-	private static void addSkill(Skill skill) {
-		skills.put(skill.getId(), skill);
-	}
+	private final Map<Long, Skill> skills = SkillsData.skills;
 
 	public Collection<Skill> findAll() {
 		return skills.values();
@@ -42,23 +22,20 @@ public class SkillDaoHibernate implements SkillDao {
 		return skills.get(id);
 	}
 
-	public Skill save(Skill resume) {
-		if (resume.getId() == null) {
-			resume.setId(getCurrentId());
+	public Skill save(Skill skill) {
+		if (skill.getId() == null) {
+			skill.setId(SkillsData.getId());
 		}
-		skills.put(resume.getId(), resume);
-		return clone(resume);
+		skills.put(skill.getId(), skill);
+		return clone(skill);
 	}
 
-	private Skill clone(Skill resume) {
+	private Skill clone(Skill skill) {
 		Skill newSkill = new Skill();
-		newSkill.setId(resume.getId());
-		newSkill.setLabel(resume.getLabel());
-		newSkill.setParent(resume.getParent());
+		newSkill.setId(skill.getId());
+		newSkill.setLabel(skill.getLabel());
+		newSkill.setParent(skill.getParent());
 		return newSkill;
 	}
 
-	public static long getCurrentId() {
-		return currentId++;
-	}
 }

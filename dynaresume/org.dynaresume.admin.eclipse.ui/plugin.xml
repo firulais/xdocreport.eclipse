@@ -16,9 +16,15 @@
 	            <entry name="%CountriesEntry.name"
 	            	   commandId=""
 	            	   icon="icons/obj16/new_resume.gif" />	            	   
-				<entry name="%SkillsEntry.name"
-	            	   commandId="org.dynaresume.admin.eclipse.ui.skills.handler.OpenSkillsEditorHandler"
-	            	   icon="icons/obj16/skills.png" />	            	   	            	   
+				<entry name="%NewSkillEntry.name"
+	            	   commandId=""
+	            	   icon="icons/obj16/skills.png" />
+				<entry name="%SearchSkillEntry.name"
+	            	   commandId="org.dynaresume.admin.eclipse.ui.skill.handlers.SearchSkillHandler"
+	            	   icon="icons/obj16/skills.png" />
+				<entry name="%GraphicsSkillsEntry.name"
+	            	   commandId="org.dynaresume.admin.eclipse.ui.graphics.skill.handlers.OpenGraphicalSkillsEditorlHandler"
+	            	   icon="icons/obj16/skills.png" />	            	   	            	   	            	   	            	   	            	   	            	   	            	   	            	   	            	   	            	   	            	   
 	        </entries>     
       </reportModule>
    </extension>
@@ -26,8 +32,8 @@
   <extension
         point="org.eclipse.ui.editors">
      <editor
-           id="org.dynaresume.admin.eclipse.ui.skills.editors.SkillsFormEditor"
-           class="org.eclipse.springframework.util.SpringExtensionFactory:skillsFormEditor"           
+           id="org.dynaresume.admin.eclipse.ui.skill.editors.SkillFormEditor"
+           class="org.eclipse.springframework.util.SpringExtensionFactory:skillFormEditor"           
            extensions="*"
            icon="icons/obj16/skills.png"
            name="%SkillsFormEditor.name">
@@ -37,9 +43,18 @@
  <extension
        point="org.eclipse.ui.commands">
     <command
-          id="org.dynaresume.admin.eclipse.ui.skills.handler.OpenSkillsEditorHandler"
-          defaultHandler="org.dynaresume.admin.eclipse.ui.skills.handler.OpenSkillsEditorHandler"
-          name="New Report" />
+          id="org.dynaresume.admin.eclipse.ui.skill.handlers.SearchSkillHandler"
+          defaultHandler="org.dynaresume.admin.eclipse.ui.skill.handlers.SearchSkillHandler"
+          name="Search skill" />
  </extension>
-   
+
+  <extension
+        point="fr.opensagres.xdocreport.eclipse.ui.dialogFactories">
+     <factory
+           id="org.dynaresume.admin.eclipse.ui.skill.dialogs.SearchSkillDialog"
+           class="org.eclipse.springframework.util.SpringExtensionFactory:searchSkillDialog"
+           title="%SearchSkillDialog.title" >
+     </factory>        
+  </extension>
+     
 </plugin>

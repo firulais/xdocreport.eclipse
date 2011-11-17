@@ -4,7 +4,12 @@
 	xsi:schemaLocation="
 			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-	<bean id="skillsFormEditor" class="org.dynaresume.admin.eclipse.ui.skills.editors.SkillsFormEditor"
+	<bean id="skillFormEditor" class="org.dynaresume.admin.eclipse.ui.skill.editors.SkillFormEditor"
+		scope="prototype">
+		<property name="skillService" ref="skillService" />
+	</bean>
+	
+	<bean id="searchSkillDialog" class="org.dynaresume.admin.eclipse.ui.skill.dialogs.SearchSkillDialog"
 		scope="prototype">
 		<property name="skillService" ref="skillService" />
 	</bean>

@@ -18,7 +18,12 @@ public abstract class OpenDialogHandler extends AbstractContextHandler {
 	protected Object execute(ExecutionEvent event,
 			ContextHandlerEvent contextEvent) throws ExecutionException {
 		Shell parentShell = HandlerUtil.getActiveShell(event);
-		SelectionDialog dialog = createDialog(parentShell);
+		SelectionDialog dialog = null;
+		try {
+			dialog = createDialog(parentShell);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 		dialog.open();
 		Object[] results = dialog.getResult();
 		if (results != null) {
@@ -40,7 +45,8 @@ public abstract class OpenDialogHandler extends AbstractContextHandler {
 		return null;
 	}
 
-	protected abstract SelectionDialog createDialog(Shell parentShell);
+	protected abstract SelectionDialog createDialog(Shell parentShell)
+			throws Exception;
 
 	protected abstract String getEditorId();
 
