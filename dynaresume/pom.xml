@@ -23,8 +23,8 @@
 		<module>org.dynaresume.eclipse.reporting</module>
 		<module>org.dynaresume.eclipse.ui</module>
 		
-		<module>org.dynaresume.eclipse.admin.ui</module>
-		<module>org.dynaresume.eclipse.admin.ui.graphics</module>
+		<!-- <module>org.dynaresume.eclipse.admin.ui</module>
+		<module>org.dynaresume.eclipse.admin.ui.graphics</module> -->
 		
 	</modules>
 </project>
