@@ -1,6 +1,5 @@
 package org.dynaresume.dao.mock;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -30,11 +29,11 @@ public class ResumeDaoMock implements ResumeDao {
 		resumes.put(resume.getId(), resume);
 	}
 
-	public Collection<Resume> findAll() {
+	public Iterable<Resume> findAll() {
 		return resumes.values();
 	}
 
-	public Resume findById(long id) {
+	public Resume findOne(Long id) {
 		Resume Resume = resumes.get(id);
 		if (Resume != null) {
 			return clone(Resume);
@@ -159,5 +158,37 @@ public class ResumeDaoMock implements ResumeDao {
 		newAddress.setTelephone(address.getTelephone());
 		newAddress.setZipCode(address.getZipCode());
 		return newAddress;
+	}
+
+	public long count() {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
+
+	public void delete(Long arg0) {
+		throw new UnsupportedOperationException("Not Implemented");
+		
+	}
+
+	public void delete(Resume arg0) {
+		throw new UnsupportedOperationException("Not Implemented");
+		
+	}
+
+	public void delete(Iterable<? extends Resume> arg0) {
+		throw new UnsupportedOperationException("Not Implemented");
+		
+	}
+
+	public void deleteAll() {
+		throw new UnsupportedOperationException("Not Implemented");
+		
+	}
+
+	public boolean exists(Long arg0) {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
+
+	public Iterable<Resume> save(Iterable<? extends Resume> arg0) {
+		throw new UnsupportedOperationException("Not Implemented");
 	}
 }

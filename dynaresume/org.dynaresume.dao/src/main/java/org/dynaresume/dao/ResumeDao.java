@@ -1,15 +1,13 @@
 package org.dynaresume.dao;
 
-import java.util.Collection;
-
 import org.dynaresume.domain.hr.Resume;
+import org.springframework.data.repository.CrudRepository;
 
+public interface ResumeDao extends CrudRepository<Resume, Long> {
 
-public interface ResumeDao {
-
-	 Collection<Resume> findAll();
-	 
-	 Resume findById(long id);
-	 
-	 Resume save(Resume resume);
+//	Collection<Resume> findAll();
+//
+//	Resume findById(long id);
+//
+//	Resume save(Resume resume);
 }

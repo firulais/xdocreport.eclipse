@@ -1,7 +1,6 @@
 package org.dynaresume.services.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.dynaresume.dao.ResumeDao;
@@ -20,14 +19,14 @@ public class ResumeServiceImpl implements ResumeService {
 		this.resumeDao = resumeDao;
 	}
 
-	public Collection<Resume> findAll() {
+	public Iterable<Resume> findAll() {
 		// TODO Auto-generated method stub
 		return resumeDao.findAll();
 	}
 
 	public Resume findById(long id) {
 		// TODO Auto-generated method stub
-		return resumeDao.findById(id);
+		return resumeDao.findOne(id);
 	}
 
 	public Resume save(Resume resume) {
@@ -40,10 +39,10 @@ public class ResumeServiceImpl implements ResumeService {
 		// TODO : manage pagination with the DAO
 		int pageSize = pageable.getPageSize();
 		int pageIndex = pageable.getOffset();
-		Collection<Resume> allResumes = findAll();		
-		List<Resume> fullList = new ArrayList<Resume>(allResumes);
+		Iterable<Resume> allResumes = findAll();		
+		//List<Resume> fullList = new ArrayList<Resume>(allResumes);
 		List<Resume> filteredList = new ArrayList<Resume>();
-		for (Resume resume : fullList) {
+		for (Resume resume : allResumes) {
 			if (isPersonOK(resume, firstName, lastName)) {
 				filteredList.add(resume);
 			}

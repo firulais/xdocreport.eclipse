@@ -1,163 +1,242 @@
 package org.dynaresume.dao.hibernate;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.dynaresume.dao.ResumeDao;
-import org.dynaresume.domain.core.Address;
-import org.dynaresume.domain.core.NaturalPerson;
-import org.dynaresume.domain.hr.Education;
-import org.dynaresume.domain.hr.Experience;
-import org.dynaresume.domain.hr.Hobby;
 import org.dynaresume.domain.hr.Resume;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.transaction.annotation.Transactional;
 
+@org.springframework.stereotype.Repository
+@Transactional(readOnly = true)
 public class ResumeDaoHibernate implements ResumeDao {
 
-	private static final Map<Long, Resume> resumes;
-	static long currentId = 0;
-	static {
-		resumes = new HashMap<Long, Resume>();
-		addResume(new AngeloResume());
-		addResume(new PascalResume());
-		addResume(new AmineResume());
-		addResume(new DinoResume());
-	}
-	
-	private static void addResume(Resume resume) {
-		resumes.put(resume.getId(), resume);
-	}
+	public static final String COUNT_QUERY_STRING = "select count(*) from Resume x";
 
-	public Collection<Resume> findAll() {
-		return resumes.values();
+	public static final String DELETE_ALL_QUERY_STRING = "delete from Resume x";
+
+
+	public static final String EXISTS_QUERY_STRING = "select count(*) from Resume x where x.id = :id";
+
+	@PersistenceContext
+	private EntityManager em;
+
+	public ResumeDaoHibernate() {
+
 	}
 
-	public Resume findById(long id) {
-		Resume Resume = resumes.get(id);
-		if (Resume != null) {
-			return clone(Resume);
-		}
-		return resumes.get(id);
-	}
+	/**
+	 * Applies the given {@link Specification} to the given
+	 * {@link CriteriaQuery}.
+	 * 
+	 * @param spec
+	 *            can be {@literal null}
+	 * @param query
+	 * @return
+	 */
+	private <S> Root<Resume> applySpecificationToCriteria(
+			Specification<Resume> spec, CriteriaQuery<S> query) {
 
-	public Resume save(Resume resume) {
-		if (resume.getId() == null) {
-			resume.setId(currentId++);
-		}
-		resumes.put(resume.getId(), resume);
-		return clone(resume);
-	}
+		Root<Resume> root = query.from(Resume.class);
 
-	private Resume clone(Resume resume) {
-		NaturalPerson person = resume.getOwner();
-		NaturalPerson newPerson = clone(person);
-
-		Resume newResume = new Resume();
-		newResume.setId(resume.getId());
-		newResume.setTitle(resume.getTitle());
-		newResume.setOwner(newPerson);
-		newResume.setPicture(resume.getPicture());
-
-		// Diplomas
-		Set<Education> educations = resume.getEducations();
-		if (educations != null) {
-			Set<Education> newDiplomas = new HashSet<Education>();
-			for (Education diploma : educations) {
-				newDiplomas.add(clone(diploma));
-			}
-			newResume.setEducations(educations);
+		if (spec == null) {
+			return root;
 		}
 
-		// Experiences
-		Set<Experience> experiences = resume.getExperiences();
-		if (experiences != null) {
-			Set<Experience> newExperiences = new HashSet<Experience>();
-			for (Experience experience : experiences) {
-				newExperiences.add(clone(experience));
-			}
-			newResume.setExperiences(newExperiences);
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		Predicate predicate = spec.toPredicate(root, query, builder);
+
+		if (predicate != null) {
+			query.where(predicate);
 		}
 
-		// Hobbies
-		Set<Hobby> hobbies = resume.getHobbies();
-		if (hobbies != null) {
-			Set<Hobby> newHobbies = new HashSet<Hobby>();
-			for (Hobby hobby : hobbies) {
-				newHobbies.add(clone(hobby));
-			}
-			newResume.setHobbies(newHobbies);
-		}
-
-		return newResume;
+		return root;
 	}
 
-	private NaturalPerson clone(NaturalPerson person) {
-		NaturalPerson newPerson = new NaturalPerson();
-		newPerson.setId(person.getId());
-		newPerson.setLastName(person.getLastName());
-		newPerson.setFirstName(person.getFirstName());
-		newPerson.setBirthDate(person.getBirthDate());
-		newPerson.setEmail(person.getEmail());
-		newPerson.setAddress(clone(person.getAddress()));
-		return newPerson;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.springframework.data.repository.Repository#count()
+	 */
+	public long count() {
+		return em.createQuery(COUNT_QUERY_STRING, Long.class).getSingleResult();
 	}
 
-	private Experience clone(Experience experience) {
-		Experience newExperience = new Experience();
-		Long id = experience.getId();
-		if (id == null) {
-			id = currentId++;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.data.repository.Repository#delete(java.lang.Iterable)
+	 */
+	@Transactional
+	public void delete(Iterable<? extends Resume> entities) {
+
+		if (entities == null) {
+			return;
 		}
-		newExperience.setId(id);
-		newExperience.setTitle(experience.getTitle());
-		newExperience.setDetail(experience.getDetail());
-		newExperience.setMission(experience.getMission());
-		newExperience.setEndDate(experience.getEndDate());
-		newExperience.setStartDate(experience.getStartDate());
-		return newExperience;
+
+		for (Resume entity : entities) {
+			delete(entity);
+		}
 	}
 
-	private Education clone(Education diploma) {
-		Education newDiploma = new Education();
-		Long id = diploma.getId();
-		if (id == null) {
-			id = currentId++;
-		}
-		newDiploma.setId(id);
-		newDiploma.setLabel(diploma.getLabel());
-		newDiploma.setInstitute(diploma.getInstitute());
-		return newDiploma;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.data.jpa.repository.JpaRepository#delete(java.io.
+	 * Serializable)
+	 */
+	@Transactional
+	public void delete(Long id) {
+
+		delete(findOne(id));
 	}
 
-	private Hobby clone(Hobby hobby) {
-		Hobby newHobby = new Hobby();
-		Long id = hobby.getId();
-		if (id == null) {
-			id = currentId++;
-		}
-		newHobby.setId(id);
-		newHobby.setLabel(hobby.getLabel());
-		return newHobby;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.data.repository.Repository#delete(java.lang.Object)
+	 */
+	@Transactional
+	public void delete(Resume entity) {
+
+		em.remove(em.contains(entity) ? entity : em.merge(entity));
 	}
 
-	private Address clone(Address address) {
-		if (address == null) {
-			return null;
-		}
-		Address newAddress = new Address();
-		Long id = address.getId();
-		if (id == null) {
-			id = currentId++;
-		}
-		newAddress.setId(id);
-		newAddress.setCity(address.getCity());
-		newAddress.setCountry(address.getCountry());
-		newAddress.setFax(address.getFax());
-		newAddress.setStreet(address.getStreet());
-		newAddress.setTelephone(address.getTelephone());
-		newAddress.setZipCode(address.getZipCode());
-		return newAddress;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.springframework.data.repository.Repository#deleteAll()
+	 */
+	@Transactional
+	public void deleteAll() {
+
+		em.createQuery(DELETE_ALL_QUERY_STRING).executeUpdate();
+		em.clear();
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.springframework.data.repository.CrudRepository#exists(java.io.
+	 * Serializable)
+	 */
+	public boolean exists(Long id) {
+
+		// String placeholder = provider.getCountQueryPlaceholder();
+		// String entityName = entityInformation.getEntityName();
+		// String idAttributeName =
+		// entityInformation.getIdAttribute().getName();
+		//
+		// String existsQuery = String.format(EXISTS_QUERY_STRING, placeholder,
+		// entityName, idAttributeName);
+
+		TypedQuery<Long> query = em
+				.createQuery(EXISTS_QUERY_STRING, Long.class);
+		query.setParameter("id", id);
+
+		return query.getSingleResult() == 1;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.springframework.data.jpa.repository.JpaRepository#findAll()
+	 */
+	public List<Resume> findAll() {
+
+		return getQuery(null, (Sort) null).getResultList();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.data.repository.Repository#readAll(org.springframework
+	 * .data.domain.Sort)
+	 */
+	public List<Resume> findAll(Sort sort) {
+
+		return getQuery(null, sort).getResultList();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.data.repository.Repository#readById(java.io.Serializable
+	 * )
+	 */
+	public Resume findOne(Long id) {
+
+		return em.find(Resume.class, id);
+	}
+
+	/**
+	 * Creates a {@link TypedQuery} for the given {@link Specification} and
+	 * {@link Sort}.
+	 * 
+	 * @param spec
+	 * @param sort
+	 * @return
+	 */
+	private TypedQuery<Resume> getQuery(Specification<Resume> spec, Sort sort) {
+
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<Resume> query = builder.createQuery(Resume.class);
+
+		Root<Resume> root = applySpecificationToCriteria(spec, query);
+		query.select(root);
+
+		if (sort != null) {
+			// query.orderBy(toOrders(sort, root, builder));
+		}
+
+		return em.createQuery(query);
+	}
+
+	public Iterable<Resume> save(Iterable<? extends Resume> entities) {
+
+		List<Resume> result = new ArrayList<Resume>();
+
+		if (entities == null) {
+			return result;
+		}
+
+		for (Resume entity : entities) {
+			result.add(save(entity));
+		}
+
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.data.repository.Repository#save(java.lang.Object)
+	 */
+	@Transactional
+	public Resume save(Resume entity) {
+
+		if (entity.getId() != null) {
+			em.persist(entity);
+			return entity;
+		} else {
+			return em.merge(entity);
+		}
+	}
+
 }

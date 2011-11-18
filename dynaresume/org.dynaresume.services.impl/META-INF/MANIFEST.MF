@@ -10,7 +10,8 @@ Import-Package: org.dynaresume.dao,
  org.dynaresume.domain.core,
  org.dynaresume.domain.hr,
  org.dynaresume.services,
- org.springframework.data.domain
+ org.springframework.data.domain,
+ org.springframework.data.repository
 Bundle-RequiredExecutionEnvironment: J2SE-1.5,
  JavaSE-1.6
 Require-Bundle: org.springframework.beans

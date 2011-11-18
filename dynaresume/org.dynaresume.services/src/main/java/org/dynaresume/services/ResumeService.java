@@ -1,13 +1,11 @@
 package org.dynaresume.services;
 
-import java.util.Collection;
-
 import org.dynaresume.domain.hr.Resume;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ResumeService {
-	Collection<Resume> findAll();
+	Iterable<Resume> findAll();
 
 	Resume findById(long id);
 
