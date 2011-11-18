@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-SymbolicName: org.dynaresume.dao.hibernate
+Bundle-SymbolicName: org.dynaresume.dao.jpa
 Bundle-Version: 1.0.0.qualifier
 Import-Package: fr.opensagres.xdocreport.commons.utils,
  org.dynaresume.dao,

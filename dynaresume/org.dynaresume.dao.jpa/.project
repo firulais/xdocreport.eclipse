@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>org.dynaresume.dao.hibernate</name>
+	<name>org.dynaresume.dao.jpa</name>
 	<comment></comment>
 	<projects>
 	</projects>

@@ -14,7 +14,7 @@
 		<module>org.dynaresume.services.impl.test</module>		
 	
 		<module>org.dynaresume.dao</module>
-		<module>org.dynaresume.dao.hibernate</module>
+		<module>org.dynaresume.dao.jpa</module>
 		<module>org.dynaresume.dao.mock</module>
 
 		<module>org.dynaresume.domain.core</module>

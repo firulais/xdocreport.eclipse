@@ -9,7 +9,7 @@
 	</parent>
 	<packaging>eclipse-plugin</packaging>
 	<!-- <packaging>eclipse-plugin</packaging> -->
-	<artifactId>org.dynaresume.dao.hibernate</artifactId>
+	<artifactId>org.dynaresume.dao.jpa</artifactId>
 	<build>
 		<resources>
 			<resource>
