@@ -26,7 +26,7 @@ public abstract class ConnectableNode extends ModelElement {
 		return targetConnections;
 	}
 
-	void addConnection(Connection conn) {
+	public void addConnection(Connection conn) {
 		if (conn == null || conn.getSource() == conn.getTarget()) {
 			throw new IllegalArgumentException();
 		}
@@ -39,7 +39,7 @@ public abstract class ConnectableNode extends ModelElement {
 		}
 	}
 
-	void removeConnection(Connection conn) {
+	public void removeConnection(Connection conn) {
 		if (conn == null) {
 			throw new IllegalArgumentException();
 		}
@@ -50,6 +50,11 @@ public abstract class ConnectableNode extends ModelElement {
 			targetConnections.remove(conn);
 			firePropertyChange(TARGET_CONNECTIONS_PROP, null, conn);
 		}
+	}
+
+	public void setName(String string) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

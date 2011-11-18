@@ -4,7 +4,16 @@ import org.dynaresume.domain.hr.Skill;
 
 public class GraphicalSkill extends ConnectableNode {
 
+	public static final String LABEL_PROP = "label";
 	private final Skill skill;
+
+	public GraphicalSkill(Skill skill) {
+		this.skill = skill;
+	}
+
+	public GraphicalSkill() {
+		this.skill = new Skill();
+	}
 
 	public boolean equals(Object obj) {
 		return skill.equals(obj);
@@ -31,7 +40,9 @@ public class GraphicalSkill extends ConnectableNode {
 	}
 
 	public void setLabel(String label) {
+		String oldLabel = skill.getLabel();
 		skill.setLabel(label);
+		firePropertyChange(LABEL_PROP, oldLabel, label);
 	}
 
 	public void setParent(Skill parent) {
@@ -40,10 +51,6 @@ public class GraphicalSkill extends ConnectableNode {
 
 	public String toString() {
 		return skill.toString();
-	}
-
-	public GraphicalSkill(Skill skill) {
-		this.skill = skill;
 	}
 
 }

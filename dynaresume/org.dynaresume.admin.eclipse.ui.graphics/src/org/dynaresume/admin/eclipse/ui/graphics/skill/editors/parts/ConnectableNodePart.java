@@ -1,30 +1,30 @@
 package org.dynaresume.admin.eclipse.ui.graphics.skill.editors.parts;
 
+import java.beans.PropertyChangeEvent;
 import java.util.List;
 import java.util.Map;
 
 import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.model.ConnectableNode;
 import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.model.Connection;
+import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.model.GraphicalSkill;
+import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.policies.SkillContainerEditPolicy;
+import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.policies.SkillNodeEditPolicy;
+import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.policies.SkillsLayoutEditPolicy;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.graph.CompoundDirectedGraph;
 import org.eclipse.draw2d.graph.Node;
 import org.eclipse.draw2d.graph.Subgraph;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
+import org.eclipse.gef.editpolicies.RootComponentEditPolicy;
 
-public abstract class ConnectableNodePart extends AbstractBaseModelGraphicalEditPart
-		implements NodeEditPart {
+public abstract class ConnectableNodePart extends
+		AbstractBaseModelGraphicalEditPart implements NodeEditPart {
 
 	@Override
 	protected void refreshVisuals() {
 		super.refreshVisuals();
-
-//		int x = new Double(Math.random() * 400).intValue();
-//		int y = new Double(Math.random() * 400).intValue();
-//
-//		Rectangle bounds = new Rectangle(x, y, 50, 50);
-//		((GraphicalEditPart) getParent()).setLayoutConstraint(this,
-//				getFigure(), bounds);
 	}
 
 	@Override
@@ -77,4 +77,30 @@ public abstract class ConnectableNodePart extends AbstractBaseModelGraphicalEdit
 		}
 	}
 
+	/**
+	 * @see org.eclipse.gef.examples.flow.parts.ActivityPart#createEditPolicies()
+	 */
+	protected void createEditPolicies() {
+		installEditPolicy(EditPolicy.NODE_ROLE, null);
+		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, null);
+		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, null);
+		installEditPolicy(EditPolicy.COMPONENT_ROLE,
+				new RootComponentEditPolicy());
+		//installEditPolicy(EditPolicy.LAYOUT_ROLE, new SkillsLayoutEditPolicy());
+		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE,
+				new SkillNodeEditPolicy());
+		installEditPolicy(EditPolicy.CONTAINER_ROLE,
+				new SkillContainerEditPolicy());
+	}
+	
+	/**
+	 * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
+	 */
+	public void propertyChange(PropertyChangeEvent evt) {
+		String prop = evt.getPropertyName();
+		if (GraphicalSkill.SOURCE_CONNECTIONS_PROP.equals(prop))
+			refreshSourceConnections();
+		else if (GraphicalSkill.TARGET_CONNECTIONS_PROP.equals(prop))
+			refreshTargetConnections();
+	}
 }

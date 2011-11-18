@@ -72,6 +72,9 @@ public class Connection extends ModelElement {
 		reconnect(source, target);
 	}
 
+	public Connection() {
+	}
+
 	/**
 	 * Disconnect this connection from the shapes it is attached to.
 	 */
@@ -200,6 +203,14 @@ public class Connection extends ModelElement {
 					: Graphics.LINE_SOLID);
 		else
 			super.setPropertyValue(id, value);
+	}
+
+	public void setSource(ConnectableNode source) {
+		this.source = source;
+	}
+	
+	public void setTarget(ConnectableNode target) {
+		this.target = target;
 	}
 
 }

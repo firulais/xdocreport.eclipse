@@ -1,10 +1,12 @@
 package org.dynaresume.admin.eclipse.ui.graphics.skill.editors.parts;
 
+import java.beans.PropertyChangeListener;
+
 import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.model.ModelElement;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 public abstract class AbstractBaseModelGraphicalEditPart extends
-		AbstractGraphicalEditPart /*implements INodeAdapter*/ {
+		AbstractGraphicalEditPart implements PropertyChangeListener {
 
 	/**
 	 * Upon activation, attach to the model element as a property change
@@ -30,13 +32,13 @@ public abstract class AbstractBaseModelGraphicalEditPart extends
 
 	protected void hookIntoModel(ModelElement model) {
 		if (model != null) {
-			//model.addAdapter(this);
+			model.addPropertyChangeListener(this);
 		}
 	}
 
 	protected void unhookFromModel(ModelElement model) {
 		if (model != null) {
-			//model.removeAdapter(this);
+			model.removePropertyChangeListener(this);
 		}
 	}
 

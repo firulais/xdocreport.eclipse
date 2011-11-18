@@ -19,6 +19,8 @@ public class GraphicalSkillsEditor extends GraphicalEditorWithFlyoutPalette {
 
 	public static final String ID = "org.dynaresume.admin.eclipse.ui.graphics.skill.editors.GraphicalSkillsEditor";
 
+	private static PaletteRoot PALETTE_MODEL;
+
 	private SkillService skillService;
 
 	private SkillsDiagram skillsContainer;
@@ -33,8 +35,9 @@ public class GraphicalSkillsEditor extends GraphicalEditorWithFlyoutPalette {
 
 	@Override
 	protected PaletteRoot getPaletteRoot() {
-		// TODO Auto-generated method stub
-		return null;
+		if (PALETTE_MODEL == null)
+			PALETTE_MODEL = SkillsEditorPaletteFactory.createPalette();
+		return PALETTE_MODEL;
 	}
 
 	@Override
@@ -70,7 +73,7 @@ public class GraphicalSkillsEditor extends GraphicalEditorWithFlyoutPalette {
 			throws PartInitException {
 		super.init(site, input);
 		Collection<Skill> allSkills = skillService.findAll();
-		skillsContainer = new SkillsDiagram(allSkills);		
+		skillsContainer = new SkillsDiagram(allSkills);
 	}
 
 }

@@ -50,6 +50,10 @@ public abstract class ModelElement implements IPropertySource, Serializable {
 		}
 	}
 
+	protected void fireStructureChange(String property, Object child) {
+		firePropertyChange(property, null, child);
+	}
+
 	/**
 	 * Returns a value for this property source that can be edited in a property
 	 * sheet.
