@@ -17,7 +17,7 @@
        point="org.eclipse.ui.commands">
     <command
           id="org.dynaresume.admin.eclipse.ui.graphics.skill.handlers.OpenGraphicalSkillsEditorlHandler"
-          defaultHandler="org.dynaresume.admin.eclipse.ui.graphics.skill.handlers.OpenGraphicalSkillsEditorlHandler"
+          defaultHandler="org.dynaresume.admin.eclipse.ui.graphics.skillOLD.handlers.OpenGraphicalSkillsEditorlHandler"
           name="Search skill" />
  </extension>
    

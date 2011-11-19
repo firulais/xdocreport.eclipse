@@ -1,13 +1,13 @@
-package org.dynaresume.admin.eclipse.ui.graphics.skill.editors.commands;
+package org.dynaresume.admin.eclipse.ui.graphics.skillOLD.editors.commands;
 
-import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.model.TreeNode;
-import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.model.TreeNode;
+import org.dynaresume.admin.eclipse.ui.graphics.skillOLD.editors.model.ConnectableNode;
+import org.dynaresume.admin.eclipse.ui.graphics.skillOLD.editors.model.SkillsDiagram;
 import org.eclipse.gef.commands.Command;
 
 public class CreateCommand extends Command {
 
-	private TreeNode parent;
-	private TreeNode child;
+	private SkillsDiagram parent;
+	private ConnectableNode child;
 	private int index = -1;
 
 	/**
@@ -36,7 +36,7 @@ public class CreateCommand extends Command {
 	 * @param sa
 	 *            the parent
 	 */
-	public void setParent(TreeNode sa) {
+	public void setParent(SkillsDiagram sa) {
 		parent = sa;
 	}
 
@@ -46,9 +46,9 @@ public class CreateCommand extends Command {
 	 * @param activity
 	 *            the Activity to create
 	 */
-	public void setChild(TreeNode activity) {
+	public void setChild(ConnectableNode activity) {
 		child = activity;
-		child.setLabel("Skill " + (parent.getChildren().size() + 1));
+		child.setName("Skill " + (parent.getChildren().size() + 1));
 	}
 
 	/**

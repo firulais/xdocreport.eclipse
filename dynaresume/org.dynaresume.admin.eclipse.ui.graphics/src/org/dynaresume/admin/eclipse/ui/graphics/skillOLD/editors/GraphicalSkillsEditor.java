@@ -1,9 +1,9 @@
-package org.dynaresume.admin.eclipse.ui.graphics.skill.editors;
+package org.dynaresume.admin.eclipse.ui.graphics.skillOLD.editors;
 
 import java.util.Collection;
 
-import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.model.TreeDiagram;
-import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.parts.TreeNodeEditPartFactory;
+import org.dynaresume.admin.eclipse.ui.graphics.skillOLD.editors.model.SkillsDiagram;
+import org.dynaresume.admin.eclipse.ui.graphics.skillOLD.editors.parts.SkillPartFactory;
 import org.dynaresume.domain.hr.Skill;
 import org.dynaresume.services.SkillService;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -23,7 +23,7 @@ public class GraphicalSkillsEditor extends GraphicalEditorWithFlyoutPalette {
 
 	private SkillService skillService;
 
-	private TreeDiagram diagram;
+	private SkillsDiagram skillsContainer;
 
 	public void setSkillService(SkillService skillService) {
 		this.skillService = skillService;
@@ -42,6 +42,7 @@ public class GraphicalSkillsEditor extends GraphicalEditorWithFlyoutPalette {
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
+		// TODO Auto-generated method stub
 
 	}
 
@@ -50,7 +51,7 @@ public class GraphicalSkillsEditor extends GraphicalEditorWithFlyoutPalette {
 		super.configureGraphicalViewer();
 
 		GraphicalViewer viewer = getGraphicalViewer();
-		viewer.setEditPartFactory(TreeNodeEditPartFactory.INSTANCE);
+		viewer.setEditPartFactory(SkillPartFactory.INSTANCE);
 
 	}
 
@@ -59,12 +60,12 @@ public class GraphicalSkillsEditor extends GraphicalEditorWithFlyoutPalette {
 		super.initializeGraphicalViewer();
 
 		GraphicalViewer viewer = getGraphicalViewer();
-		viewer.setContents(getDiagram()); // set the contents of this
+		viewer.setContents(getSkillsContainer()); // set the contents of this
 		// editor
 	}
 
-	protected TreeDiagram getDiagram() {
-		return diagram;
+	protected SkillsDiagram getSkillsContainer() {
+		return skillsContainer;
 	}
 
 	@Override
@@ -72,7 +73,7 @@ public class GraphicalSkillsEditor extends GraphicalEditorWithFlyoutPalette {
 			throws PartInitException {
 		super.init(site, input);
 		Collection<Skill> allSkills = skillService.findAll();
-		diagram = new TreeDiagram(allSkills);
+		skillsContainer = new SkillsDiagram(allSkills);
 	}
 
 }

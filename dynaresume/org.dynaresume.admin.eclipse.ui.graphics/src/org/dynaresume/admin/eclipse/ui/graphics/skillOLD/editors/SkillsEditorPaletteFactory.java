@@ -1,10 +1,9 @@
-package org.dynaresume.admin.eclipse.ui.graphics.skill.editors;
+package org.dynaresume.admin.eclipse.ui.graphics.skillOLD.editors;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.dynaresume.admin.eclipse.ui.graphics.internal.ImageResources;
-import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.model.TreeNode;
 import org.dynaresume.admin.eclipse.ui.graphics.skillOLD.editors.model.GraphicalSkill;
 import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.ConnectionCreationToolEntry;
@@ -47,8 +46,8 @@ public class SkillsEditorPaletteFactory {
 		CombinedTemplateCreationEntry combined = new CombinedTemplateCreationEntry(
 				"Skill",
 				"Create a new Skill Node",
-				TreeNode.class,
-				new SimpleFactory(TreeNode.class),
+				GraphicalSkill.class,
+				new SimpleFactory(GraphicalSkill.class),
 				ImageResources.getImageDescriptor(ImageResources.IMG_SKILLS_16),
 				ImageResources.getImageDescriptor(ImageResources.IMG_SKILLS_16));
 		entries.add(combined);
@@ -73,13 +72,13 @@ public class SkillsEditorPaletteFactory {
 		sep.setUserModificationPermission(PaletteEntry.PERMISSION_NO_MODIFICATION);
 		entries.add(sep);
 
-//		tool = new ConnectionCreationToolEntry("Connection Creation",
-//				"Creating connections", null,
-//				ImageResources
-//						.getImageDescriptor(ImageResources.IMG_CONNECTION_16),
-//				ImageResources
-//						.getImageDescriptor(ImageResources.IMG_CONNECTION_24));
-//		entries.add(tool);
+		tool = new ConnectionCreationToolEntry("Connection Creation",
+				"Creating connections", null,
+				ImageResources
+						.getImageDescriptor(ImageResources.IMG_CONNECTION_16),
+				ImageResources
+						.getImageDescriptor(ImageResources.IMG_CONNECTION_24));
+		entries.add(tool);
 		controlGroup.addAll(entries);
 		return controlGroup;
 	}

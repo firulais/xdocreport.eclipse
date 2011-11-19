@@ -8,62 +8,59 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.dynaresume.admin.eclipse.ui.graphics.skill.editors.commands;
+package org.dynaresume.admin.eclipse.ui.graphics.skillOLD.editors.commands;
 
-import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.model.TreeNode;
+import java.util.List;
+
+import org.dynaresume.admin.eclipse.ui.graphics.skillOLD.editors.model.ConnectableNode;
+import org.dynaresume.admin.eclipse.ui.graphics.skillOLD.editors.model.SkillsDiagram;
 import org.eclipse.gef.commands.Command;
 
 /**
- * AddCommand
+ * OrphanChildCommand
  * 
  * @author Daniel Lee
  */
-public class AddCommand extends Command {
+public class OrphanChildCommand extends Command {
 
-	private TreeNode child;
-	private TreeNode parent;
+	private SkillsDiagram parent;
+	private ConnectableNode child;
+	private int index;
 
 	/**
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
 	public void execute() {
-		parent.addChild(child);
+		List children = parent.getChildren();
+		index = children.indexOf(child);
+		parent.removeChild(child);
 	}
 
 	/**
-	 * Returns the StructuredActivity that is the parent
+	 * Sets the child to the passed ConnectableNode
 	 * 
-	 * @return the parent
-	 */
-	public TreeNode getParent() {
-		return parent;
-	}
-
-	/**
-	 * Sets the child to the passed Activity
-	 * 
-	 * @param subpart
+	 * @param child
 	 *            the child
 	 */
-	public void setChild(TreeNode newChild) {
-		child = newChild;
+	public void setChild(ConnectableNode child) {
+		this.child = child;
 	}
 
 	/**
-	 * Sets the parent to the passed StructuredActiivty
+	 * Sets the parent to the passed SkillsDiagram
 	 * 
-	 * @param newParent
+	 * @param parent
 	 *            the parent
 	 */
-	public void setParent(TreeNode newParent) {
-		parent = newParent;
+	public void setParent(SkillsDiagram parent) {
+		this.parent = parent;
 	}
 
 	/**
 	 * @see org.eclipse.gef.commands.Command#undo()
 	 */
 	public void undo() {
-		parent.removeChild(child);
+		parent.addChild(child, index);
 	}
 
 }
