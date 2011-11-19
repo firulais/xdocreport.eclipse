@@ -1,2 +1,5 @@
 /bin
 /target
+/images
+/.project
+/.classpath
