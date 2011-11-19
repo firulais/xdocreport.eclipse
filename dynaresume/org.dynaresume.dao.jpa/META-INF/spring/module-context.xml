@@ -9,10 +9,6 @@
 			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 			http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
-<!-- 	<bean id="resumeDao" class="org.dynaresume.dao.hibernate.ResumeDaoHibernate" />
-	<bean id="skillDao" class="org.dynaresume.dao.hibernate.SkillDaoHibernate" />
-
- -->
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -27,6 +23,15 @@
 	</bean>
 
 
+	<!-- le gestionnaire de transactions -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+		p:entityManagerFactory-ref="entityManagerFactory">
+		<property name="jpaDialect">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+		</property>
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
 	<context:annotation-config />
 	<context:component-scan base-package="org.dynaresume.dao.hibernate" />
 	<jdbc:embedded-database id="dataSource" type="DERBY" />

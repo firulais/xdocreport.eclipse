@@ -1,7 +1,6 @@
 package org.dynaresume.services.impl;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertNotNull;
 
 import org.dynaresume.domain.hr.Resume;
 import org.dynaresume.services.ResumeService;
@@ -27,7 +26,7 @@ public class TestResume {
 		resume.setTitle("test");
 		Resume other = resumeService.save(resume);
 		System.out.println(other);
-		// assertTrue(resumeService.findAll().iterator().hasNext());
+		assertTrue(resumeService.findAll().iterator().hasNext());
 
 	}
 }
