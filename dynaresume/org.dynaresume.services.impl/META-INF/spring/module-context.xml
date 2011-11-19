@@ -8,7 +8,7 @@
 			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
 
-	<bean id="resumeService"
+<!-- 	<bean id="resumeService"
 		class="org.dynaresume.services.impl.ResumeServiceImpl">
 		<property name="resumeDao" ref="resumeDao" />
 	</bean>
@@ -17,5 +17,7 @@
 		class="org.dynaresume.services.impl.SkillServiceImpl">
 		<property name="skillDao" ref="skillDao" />
 	</bean>
-	
+	 -->
+	 <context:annotation-config />
+	<context:component-scan base-package="org.dynaresume.services.impl"/>
 </beans>

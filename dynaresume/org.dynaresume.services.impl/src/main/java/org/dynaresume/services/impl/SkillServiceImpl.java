@@ -7,12 +7,18 @@ import java.util.List;
 import org.dynaresume.dao.SkillDao;
 import org.dynaresume.domain.hr.Skill;
 import org.dynaresume.services.SkillService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
+@Service("skillService")
 public class SkillServiceImpl implements SkillService {
 
+	@Autowired
 	private SkillDao skillDao;
 
 	public void setSkillDao(SkillDao skillDao) {

@@ -2,31 +2,30 @@ package org.dynaresume.domain.hr;
 
 import java.util.Date;
 
-//@Entity
-//@Table(name = "T_EXPERIENCE", schema = "hr")
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Experience {
 
-	/**
-         * 
-         */
-	private static final long serialVersionUID = 8846754655040768127L;
-	
 	public static final String START_DATE_PROPERTY = "startDate";
 	public static final String END_DATE_PROPERTY = "endDate";
 	public static final String TITLE_PROPERTY = "title";
 	public static final String MISSION_PROPERTY = "mission";
 	public static final String DETAIL_PROPERTY = "detail";
-	// @Id
-	// @GeneratedValue
+	@Id
+	@GeneratedValue
 	private Long id;
 	private String title;
-	// @Column
+	@Column
 	private Date startDate;
-	// @Column
+	@Column
 	private Date endDate;
-	// @Column
+	@Column
 	private String detail;
-	// @Column
+	@Column
 	private String mission;
 
 	public Long getId() {

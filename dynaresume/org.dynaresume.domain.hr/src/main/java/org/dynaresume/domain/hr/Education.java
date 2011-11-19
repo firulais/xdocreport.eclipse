@@ -3,28 +3,29 @@ package org.dynaresume.domain.hr;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Education {
 
 	public static final String DATE_PROPERTY = "date";
 	public static final String LABEL_PROPERTY = "label";
 	public static final String INSTITUTE_PROPERTY = "institute";
 
-	/**
-     * 
-     */
-	private static final long serialVersionUID = 2452995207655152758L;
-
-	// @Id
-	// @GeneratedValue
+	@Id
+	@GeneratedValue
 	private Long id;
 
-	// @Column
+	@Column
 	private String institute;
 
-	// @Column
+	@Column
 	private String label;
 
-	// @Column
+	@Column
 	private Date date;
 
 	public Long getId() {

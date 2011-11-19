@@ -5,7 +5,9 @@ import java.util.Map;
 
 import org.dynaresume.dao.SkillDao;
 import org.dynaresume.domain.hr.Skill;
-
+import org.springframework.transaction.annotation.Transactional;
+@org.springframework.stereotype.Repository
+@Transactional(readOnly = true)
 public class SkillDaoHibernate implements SkillDao {
 
 	private final Map<Long, Skill> skills = SkillsData.skills;

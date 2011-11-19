@@ -7,17 +7,21 @@ import org.dynaresume.dao.ResumeDao;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.Resume;
 import org.dynaresume.services.ResumeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
+@Service("resumeService")
 public class ResumeServiceImpl implements ResumeService {
 
+	@Autowired
 	private ResumeDao resumeDao;
 
-	public void setResumeDao(ResumeDao resumeDao) {
-		this.resumeDao = resumeDao;
-	}
+	
 
 	public Iterable<Resume> findAll() {
 		// TODO Auto-generated method stub

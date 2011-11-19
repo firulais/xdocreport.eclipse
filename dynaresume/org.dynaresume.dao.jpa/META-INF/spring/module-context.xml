@@ -9,11 +9,10 @@
 			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 			http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
-	<bean id="resumeDao" class="org.dynaresume.dao.hibernate.ResumeDaoHibernate" />
-	<!-- <bean id="skillDao" class="org.dynaresume.dao.hibernate.SkillDaoHibernate" 
-		/> -->
+<!-- 	<bean id="resumeDao" class="org.dynaresume.dao.hibernate.ResumeDaoHibernate" />
+	<bean id="skillDao" class="org.dynaresume.dao.hibernate.SkillDaoHibernate" />
 
-
+ -->
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
