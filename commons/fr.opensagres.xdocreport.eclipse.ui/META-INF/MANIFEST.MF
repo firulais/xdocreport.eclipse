@@ -26,6 +26,8 @@ Bundle-Activator: fr.opensagres.xdocreport.eclipse.internal.Activator
 Export-Package: fr.opensagres.xdocreport.eclipse,
  fr.opensagres.xdocreport.eclipse.extensions,
  fr.opensagres.xdocreport.eclipse.extensions.modules,
+ fr.opensagres.xdocreport.eclipse.extensions.ui.dialogs,
+ fr.opensagres.xdocreport.eclipse.extensions.ui.wizards,
  fr.opensagres.xdocreport.eclipse.ui,
  fr.opensagres.xdocreport.eclipse.ui.actions,
  fr.opensagres.xdocreport.eclipse.ui.dialogs,
@@ -33,5 +35,6 @@ Export-Package: fr.opensagres.xdocreport.eclipse,
  fr.opensagres.xdocreport.eclipse.ui.handlers,
  fr.opensagres.xdocreport.eclipse.ui.wizards
 Bundle-ActivationPolicy: lazy
-Import-Package: fr.opensagres.eclipse.forms.editor,
+Import-Package: fr.opensagres.eclipse.forms.dialogs,
+ fr.opensagres.eclipse.forms.editor,
  fr.opensagres.xdocreport.commons.utils

@@ -50,6 +50,7 @@ public abstract class ModelFormEditor<EditorInput extends IEditorInput, Model>
 	private DirtyFlag dirtyFlag;
 
 	public ModelFormEditor() {
+		super();
 		this.initializeBinding = false;
 		this.pagesAlreadyBounded = new ArrayList<IBindableAware>();
 		this.dataBindingContextCahe = new HashMap<String, DataBindingContextWrapper>();

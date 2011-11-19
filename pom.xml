@@ -110,11 +110,11 @@
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/rt/rap/1.4/incubator</url>
 		</repository>
-		<repository>
+ 		<repository>
 			<id>rap</id>
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/rt/rap/1.5/runtime</url>
-		</repository>
+		</repository>  
 	</repositories>
 	
 </project>

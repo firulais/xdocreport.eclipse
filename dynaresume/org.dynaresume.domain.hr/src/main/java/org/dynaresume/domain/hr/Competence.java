@@ -1,17 +1,18 @@
 package org.dynaresume.domain.hr;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Competence {
 
-	/**
-     * 
-     */
-	private static final long serialVersionUID = 7386196051014581733L;
-
-	// @Id
-	// @GeneratedValue
+	@Id
+	@GeneratedValue
 	private Long id;
 
-	// @Column
+	@Column
 	private String label;
 
 	public Long getId() {

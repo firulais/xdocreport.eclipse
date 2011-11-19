@@ -4,7 +4,11 @@
 
    <extension-point id="reportModules" name="%reportModulesContributionName"
 		schema="schema/reportModules.exsd" />
-
+   <extension-point id="dialogFactories" name="%dialogFactoriesContributionName"
+		schema="schema/dialogFactories.exsd" />
+   <extension-point id="wizardFactories" name="%wizardFactoriesContributionName"
+		schema="schema/wizardFactories.exsd" />
+		
    <extension
          id="application"
          point="org.eclipse.core.runtime.applications">

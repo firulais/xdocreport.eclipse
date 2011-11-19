@@ -31,7 +31,7 @@
   <extension
         point="org.eclipse.ui.editors">
      <editor
-           class="org.dynaresume.eclipse.ui.editors.ResumeFormEditor"           
+           class="org.eclipse.springframework.util.SpringExtensionFactory:resumeEditor"           
            extensions="*"
            icon="icons/obj16/resume.gif"
            id="fr.opensagres.xdocreport.eclipse.demo.resume.editor.ResumeFormEditorPart"
@@ -39,6 +39,23 @@
      </editor>
   </extension>
 
+  <extension
+        point="fr.opensagres.xdocreport.eclipse.ui.dialogFactories">
+     <factory
+           id="org.dynaresume.eclipse.ui.dialogs.SearchResumeDialog"
+           class="org.eclipse.springframework.util.SpringExtensionFactory:searchResumeDialog"
+           title="%SearchResumeDialog.title" >
+     </factory>        
+  </extension>
+  
+  <extension
+        point="fr.opensagres.xdocreport.eclipse.ui.wizardFactories">
+     <factory
+           id="org.dynaresume.eclipse.ui.wizards.NewResumeWizard"
+           class="org.eclipse.springframework.util.SpringExtensionFactory:newResumeWizard">
+     </factory>        
+  </extension>
+  
   <extension
         point="org.eclipse.ui.commands">
      <command
@@ -56,7 +73,8 @@
            name="Search Resume">
      </command>
   </extension>
-  <extension
+  
+  <!--<extension
         point="org.eclipse.ui.services">
      <serviceFactory
            factoryClass="org.eclipse.springframework.util.SpringExtensionFactory:resumeServiceFactory">
@@ -64,5 +82,6 @@
               serviceClass="org.dynaresume.services.ResumeService"></service>
      </serviceFactory>
   </extension>
+  -->
   
 </plugin>

@@ -40,6 +40,8 @@
       <plugin id="fr.opensagres.xdocreport.template.freemarker" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.template.textstyling.wiki" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.template.velocity" fragment="true"/>
+      <plugin id="javax.inject"/>
+      <plugin id="javax.persistence"/>
       <plugin id="javax.validation.osgi.config.fragment.hibernatevalidator" fragment="true"/>
       <plugin id="javax.xml"/>
       <plugin id="org.apache.commons.collections"/>
@@ -52,6 +54,8 @@
       <plugin id="org.apache.xerces"/>
       <plugin id="org.apache.xml.resolver"/>
       <plugin id="org.apache.xml.serializer"/>
+      <plugin id="org.dynaresume.admin.eclipse.ui"/>
+      <plugin id="org.dynaresume.admin.eclipse.ui.graphics"/>
       <plugin id="org.dynaresume.dao"/>
       <plugin id="org.dynaresume.dao.hibernate"/>
       <plugin id="org.dynaresume.domain.core"/>
@@ -70,6 +74,8 @@
       <plugin id="org.eclipse.core.expressions"/>
       <plugin id="org.eclipse.core.jobs"/>
       <plugin id="org.eclipse.core.runtime"/>
+      <plugin id="org.eclipse.draw2d"/>
+      <plugin id="org.eclipse.draw2d.rap"/>
       <plugin id="org.eclipse.equinox.app"/>
       <plugin id="org.eclipse.equinox.common"/>
       <plugin id="org.eclipse.equinox.http.registry"/>
@@ -79,6 +85,7 @@
       <plugin id="org.eclipse.equinox.registry"/>
       <plugin id="org.eclipse.equinox.servletbridge"/>
       <plugin id="org.eclipse.equinox.servletbridge.extensionbundle" fragment="true"/>
+      <plugin id="org.eclipse.gef"/>
       <plugin id="org.eclipse.gemini.blueprint.core"/>
       <plugin id="org.eclipse.gemini.blueprint.extender"/>
       <plugin id="org.eclipse.gemini.blueprint.io"/>
@@ -106,6 +113,7 @@
       <plugin id="org.springframework.beans"/>
       <plugin id="org.springframework.context"/>
       <plugin id="org.springframework.core"/>
+      <plugin id="org.springframework.data.domain-only"/>
       <plugin id="org.springframework.expression"/>
       <plugin id="org.wikimodel.wem"/>
       <plugin id="slf4j.api"/>
@@ -139,6 +147,8 @@
       <plugin id="fr.opensagres.xdocreport.eclipse.ui" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.xdocreport.itext.extension" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.xdocreport.template" autoStart="true" startLevel="0" />
+      <plugin id="javax.inject" autoStart="true" startLevel="0" />
+      <plugin id="javax.persistence" autoStart="true" startLevel="0" />
       <plugin id="javax.xml" autoStart="true" startLevel="0" />
       <plugin id="org.apache.commons.collections" autoStart="true" startLevel="0" />
       <plugin id="org.apache.commons.fileupload" autoStart="true" startLevel="0" />
@@ -150,6 +160,8 @@
       <plugin id="org.apache.xerces" autoStart="true" startLevel="0" />
       <plugin id="org.apache.xml.resolver" autoStart="true" startLevel="0" />
       <plugin id="org.apache.xml.serializer" autoStart="true" startLevel="0" />
+      <plugin id="org.dynaresume.admin.eclipse.ui" autoStart="true" startLevel="0" />
+      <plugin id="org.dynaresume.admin.eclipse.ui.graphics" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.dao" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.dao.hibernate" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.domain.core" autoStart="true" startLevel="0" />
@@ -168,6 +180,8 @@
       <plugin id="org.eclipse.core.expressions" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.core.jobs" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.draw2d" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.draw2d.rap" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.app" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.http.registry" autoStart="true" startLevel="0" />
@@ -176,6 +190,7 @@
       <plugin id="org.eclipse.equinox.preferences" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.registry" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.servletbridge" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.gef" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.gemini.blueprint.core" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.gemini.blueprint.extender" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.gemini.blueprint.io" autoStart="true" startLevel="0" />
@@ -203,6 +218,7 @@
       <plugin id="org.springframework.beans" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.context" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.core" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.data.domain-only" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.expression" autoStart="true" startLevel="0" />
       <plugin id="org.wikimodel.wem" autoStart="true" startLevel="0" />
       <plugin id="slf4j.api" autoStart="true" startLevel="0" />

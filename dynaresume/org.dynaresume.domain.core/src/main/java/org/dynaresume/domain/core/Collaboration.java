@@ -1,27 +1,35 @@
 package org.dynaresume.domain.core;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Collaboration {
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+
+public class Collaboration implements Serializable {
 	/**
     * 
     */
 	private static final long serialVersionUID = 1L;
-	// @Id
+	 @Id
 	private long id;
 	// @Id
 	// private long projectId;
 
-	// @Column
+	 @Column
 	private Date startDate;
-	// @Column
+	 @Column
 	private Date endDate;
 
-	// @OneToOne(fetch=FetchType.EAGER)
-	// @PrimaryKeyJoinColumn
+	 @OneToOne(fetch=FetchType.EAGER)
+	 @PrimaryKeyJoinColumn
 	private NaturalPerson employee;
-	// @ManyToOne(fetch=FetchType.EAGER)
-	// @PrimaryKeyJoinColumn(referencedColumnName = "ID")
+	 @ManyToOne(fetch=FetchType.EAGER)
+	 @PrimaryKeyJoinColumn(referencedColumnName = "ID")
 	private Agency agency;
 
 	public Long getId() {
@@ -29,9 +37,7 @@ public class Collaboration {
 	}
 
 	public void setId(long id) {
-		// Object oldValue = this.id;
 		this.id = id;
-		// firePropertyChange("id", oldValue, id);
 	}
 
 	public Date getStartDate() {
@@ -39,9 +45,7 @@ public class Collaboration {
 	}
 
 	public void setStartDate(Date startDate) {
-		// Object oldValue = this.startDate;
 		this.startDate = startDate;
-		// firePropertyChange("startDate", oldValue, startDate);
 	}
 
 	public Date getEndDate() {
@@ -49,9 +53,7 @@ public class Collaboration {
 	}
 
 	public void setEndDate(Date endDate) {
-		// Object oldValue = this.endDate;
 		this.endDate = endDate;
-		// firePropertyChange("endDate", oldValue, endDate);
 	}
 
 	public NaturalPerson getEmployee() {
@@ -59,9 +61,7 @@ public class Collaboration {
 	}
 
 	public void setEmployee(NaturalPerson employee) {
-		// Object oldValue = this.employee;
 		this.employee = employee;
-		// firePropertyChange("employee", oldValue, employee);
 	}
 
 	public Agency getAgency() {
@@ -69,9 +69,7 @@ public class Collaboration {
 	}
 
 	public void setAgency(Agency agency) {
-		// Object oldValue = this.agency;
 		this.agency = agency;
-		// firePropertyChange("agency", oldValue, agency);
 	}
 
 }

@@ -3,7 +3,7 @@ package org.dynaresume.eclipse.ui;
 import org.dynaresume.services.ResumeService;
 import org.eclipse.ui.services.IServiceLocator;
 
-
+@Deprecated
 public class ResumeServiceFactory extends
 		org.eclipse.ui.services.AbstractServiceFactory {
 

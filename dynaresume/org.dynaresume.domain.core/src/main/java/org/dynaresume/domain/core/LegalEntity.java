@@ -1,18 +1,24 @@
 package org.dynaresume.domain.core;
 
-public class LegalEntity {
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+public class LegalEntity implements Serializable{
 	/**
      * 
      */
 	private static final long serialVersionUID = -8975049737136593445L;
-	// @Id
-	// @GeneratedValue
+	 @Id
+	 @GeneratedValue
 	private Long id;
 
-	// @Column
+	 @Column
 	private String name;
 
-	// @Column
+	 @Column
 	private String code;
 
 	public Long getId() {
@@ -20,9 +26,7 @@ public class LegalEntity {
 	}
 
 	public void setId(Long id) {
-		// Object oldValue = this.id;
 		this.id = id;
-		// firePropertyChange("id", oldValue, id);
 	}
 
 	public String getName() {
@@ -30,9 +34,7 @@ public class LegalEntity {
 	}
 
 	public void setName(String name) {
-		// Object oldValue = this.name;
 		this.name = name;
-		// firePropertyChange("name", oldValue, name);
 	}
 
 	public String getCode() {
@@ -40,9 +42,7 @@ public class LegalEntity {
 	}
 
 	public void setCode(String code) {
-		// Object oldValue = this.code;
 		this.code = code;
-		// firePropertyChange("code", oldValue, code);
 	}
 
 }

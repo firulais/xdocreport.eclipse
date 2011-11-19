@@ -1,16 +1,18 @@
 package org.dynaresume.domain.hr;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Hobby {
 
 	public static final String LABEL_PROPERTY = "label";
-	/**
-    * 
-    */
-   private static final long serialVersionUID = -4919566195826675295L;
-   //@Id
-   //@GeneratedValue
+   @Id
+   @GeneratedValue
    private Long id;
-   //@Column
+   @Column
    private String label;
 
    public Long getId() {

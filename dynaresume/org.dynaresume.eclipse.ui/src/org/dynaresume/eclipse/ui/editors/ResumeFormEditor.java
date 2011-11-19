@@ -4,7 +4,6 @@ import org.dynaresume.domain.hr.Resume;
 import org.dynaresume.services.ResumeService;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 
 import fr.opensagres.xdocreport.eclipse.ui.editors.ModelAndEntryEditorInput;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormEditor;
@@ -12,7 +11,13 @@ import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormEditor;
 public class ResumeFormEditor extends ReportingFormEditor<Resume> {
 
 	public static final String ID = "fr.opensagres.xdocreport.eclipse.demo.resume.editor.ResumeFormEditorPart";
+	
+	private ResumeService resumeService;
 
+	public void setResumeService(ResumeService resumeService) {
+		this.resumeService = resumeService;
+	}
+	
 	@Override
 	protected void doAddPages() {
 		try {
@@ -27,16 +32,15 @@ public class ResumeFormEditor extends ReportingFormEditor<Resume> {
 	}
 
 	@Override
-	protected Resume onLoad(ModelAndEntryEditorInput<Resume> input) {
-		
-		ResumeService resumeService=(ResumeService)PlatformUI.getWorkbench().getService(ResumeService.class);
+	protected Resume onLoad(ModelAndEntryEditorInput<Resume> input) {		
+		//ResumeService resumeService=(ResumeService)PlatformUI.getWorkbench().getService(ResumeService.class);
 		return resumeService.findById(
 				input.getModel().getId());
 	}
 
 	@Override
 	protected Resume onSave(Resume resume, IProgressMonitor monitor) {
-		ResumeService resumeService=(ResumeService)PlatformUI.getWorkbench().getService(ResumeService.class);
+		//ResumeService resumeService=(ResumeService)PlatformUI.getWorkbench().getService(ResumeService.class);
 		return resumeService.save(resume);
 	}
 

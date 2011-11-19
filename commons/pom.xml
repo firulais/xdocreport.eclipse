@@ -8,7 +8,8 @@
 		<artifactId>xdocreport-eclipse</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-	<modules>
+	<modules>	
+		<module>org.springframework.data.domain-only</module>
 		<module>fr.opensagres.eclipse.forms</module>
 		<module>org.eclipse.rap.singlesourcing</module>
 		<module>fr.opensagres.xdocreport.commons.utils</module>

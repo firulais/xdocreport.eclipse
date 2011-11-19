@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   
+  <extension
+        point="org.eclipse.ui.editors">
+     <editor
+           id="org.dynaresume.admin.eclipse.ui.graphics.skill.editors.GraphicalSkillsEditor"
+           class="org.eclipse.springframework.util.SpringExtensionFactory:graphicalSkillsEditor"           
+           extensions="*"
+           icon="icons/obj16/skills.png"
+           name="%GraphicalSkillsEditor.name">
+     </editor>
+  </extension>
+  
+ <extension
+       point="org.eclipse.ui.commands">
+    <command
+          id="org.dynaresume.admin.eclipse.ui.graphics.skill.handlers.OpenGraphicalSkillsEditorlHandler"
+          defaultHandler="org.dynaresume.admin.eclipse.ui.graphics.skill.handlers.OpenGraphicalSkillsEditorlHandler"
+          name="Search skill" />
+ </extension>
+   
+</plugin>

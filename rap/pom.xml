@@ -1,9 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<artifactId>rap</artifactId>
-
 	<packaging>pom</packaging>
 	<parent>
 		<groupId>fr.opensagres.xdocreport-eclipse</groupId>
@@ -14,5 +12,17 @@
 		<module>fr.opensagres.xdocreport.eclipse.rap</module>
 		<module>fr.opensagres.xdocreport.eclipse.rap.warproduct</module>
 		<module>fr.opensagres.xdocreport.eclipse.rap.war</module>
+		
+		<!-- GEF for RAP -->
+		<module>org.eclipse.draw2d</module>
+		<module>org.eclipse.draw2d.rap</module>
+		<module>org.eclipse.gef</module>
 	</modules>
+<!-- 	<repositories>
+		<repository>
+			<id>rap</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/rt/rap/1.5/runtime</url>
+		</repository>
+	</repositories> -->
 </project>

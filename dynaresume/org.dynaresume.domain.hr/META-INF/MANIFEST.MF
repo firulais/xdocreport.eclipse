@@ -1,9 +1,12 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Api
+Bundle-Name: %pluginName
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
 Bundle-SymbolicName: org.dynaresume.domain.hr
 Bundle-Version: 1.0.0.qualifier
 Export-Package: org.dynaresume.domain.hr
-Import-Package: org.dynaresume.domain.core
+Import-Package: javax.persistence;version="2.0.0",
+ org.dynaresume.domain.core
 Bundle-RequiredExecutionEnvironment: J2SE-1.5,
  JavaSE-1.6

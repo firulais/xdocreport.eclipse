@@ -16,141 +16,103 @@
       [Enter License Description here.]
    </license>
 
+   <includes
+         id="fr.opensagres.xdocreport.converter.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="fr.opensagres.xdocreport.core.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="fr.opensagres.xdocreport.document.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="fr.opensagres.xdocreport.externals.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="fr.opensagres.xdocreport.gemini.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="fr.opensagres.xdocreport.jsr303"
+         version="0.0.0"/>
+
+   <includes
+         id="fr.opensagres.xdocreport.template.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="fr.opensagres.xdocreport.thirdparties-extension.feature"
+         version="0.0.0"/>
+
    <plugin
-         id="com.ibm.icu.base"
+         id="org.dynaresume.dao"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.lowagie.text"
+         id="org.dynaresume.dao.hibernate"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.springsource.freemarker"
+         id="org.dynaresume.domain.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.springsource.javax.xml.stream"
+         id="org.dynaresume.domain.hr"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.springsource.org.apache.xmlbeans"
+         id="org.dynaresume.eclipse.reporting"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.springsource.org.dom4j"
+         id="org.dynaresume.eclipse.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="fr.opensagres.org.apache.poi.osgi"
+         id="org.dynaresume.services"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="fr.opensagres.org.openxmlformats.schemas"
+         id="org.dynaresume.services.impl"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="fr.opensagres.xdocreport.converter"
+         id="fr.opensagres.eclipse.forms"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="fr.opensagres.xdocreport.converter.docx.xwpf"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
-         id="fr.opensagres.xdocreport.converter.odt.odfdom"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
-         id="fr.opensagres.xdocreport.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="fr.opensagres.xdocreport.document"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="fr.opensagres.xdocreport.document.docx"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
-         id="fr.opensagres.xdocreport.document.odp"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
-         id="fr.opensagres.xdocreport.document.ods"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
-         id="fr.opensagres.xdocreport.document.odt"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
-         id="fr.opensagres.xdocreport.document.pptx"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
-         id="fr.opensagres.xdocreport.eclipse"
+         id="fr.opensagres.xdocreport.eclipse.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -158,13 +120,6 @@
 
    <plugin
          id="fr.opensagres.xdocreport.eclipse.demo.lettrerelance"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="fr.opensagres.xdocreport.eclipse.demo.resume"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -179,184 +134,35 @@
          unpack="false"/>
 
    <plugin
-         id="fr.opensagres.xdocreport.eclipse.report.xdocreport"
+         id="fr.opensagres.xdocreport.eclipse.reporting.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="fr.opensagres.xdocreport.itext.extension"
+         id="fr.opensagres.xdocreport.eclipse.reporting.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="fr.opensagres.xdocreport.template"
+         id="fr.opensagres.xdocreport.eclipse.reporting.xdocreport.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="fr.opensagres.xdocreport.template.freemarker"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
-         id="fr.opensagres.xdocreport.template.velocity"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
-         id="javax.servlet"
+         id="fr.opensagres.xdocreport.eclipse.reporting.xdocreport.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="javax.xml"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.commons.collections"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.commons.fileupload"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.commons.io"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.commons.lang"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.oro"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.poi.xwpf.converter"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.velocity"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.xerces"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.xml.resolver"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.xml.serializer"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.core.commands"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.core.contenttype"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.core.databinding"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.core.databinding.beans"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.core.databinding.observable"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.core.databinding.property"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.core.expressions"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.core.jobs"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.core.runtime"
+         id="fr.opensagres.xdocreport.eclipse.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -371,13 +177,6 @@
 
    <plugin
          id="org.eclipse.equinox.common"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.equinox.http.jetty"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -434,21 +233,84 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.help"
+         id="org.eclipse.core.commands"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.osgi"
+         id="org.eclipse.core.contenttype"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.osgi.services"
+         id="org.eclipse.core.databinding"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.core.databinding.beans"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.core.databinding.observable"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.core.databinding.property"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.core.databinding.validation.jsr303"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.core.expressions"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.core.jobs"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.core.runtime"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.rap.singlesourcing"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.rap.design.example"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -497,13 +359,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.rap.singlesourcing"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.rap.ui"
          download-size="0"
          install-size="0"
@@ -532,35 +387,42 @@
          unpack="false"/>
 
    <plugin
-         id="org.odftoolkit.odfdom-java"
+         id="com.ibm.icu.base"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.odftoolkit.odfdom.converter"
+         id="org.eclipse.help"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.mortbay.jetty.server"
+         id="org.eclipse.osgi.services"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.mortbay.jetty.util"
+         id="org.apache.commons.fileupload"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.rap.design.example"
+         id="org.apache.commons.io"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.osgi"
          download-size="0"
          install-size="0"
          version="0.0.0"

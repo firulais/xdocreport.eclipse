@@ -5,61 +5,53 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
 import org.dynaresume.domain.core.NaturalPerson;
 
-
-
-//@Entity
-//@Table(name = "T_RESUME", schema = "hr")
+@Entity
 public class Resume {
 
-	private static final long serialVersionUID = 7407392831377640438L;
+	
 	public static final String PICTURE_PROPERTY = "picture";
 	public static final String TITLE_PROPERTY = "title";
 
-	// @Id
-	// @GeneratedValue
+	@Id
+	@GeneratedValue
 	private Long id;
 
-	// @Column
+	@Column
 	private String title;
 
-	// @Column
+	@Column
 	private byte[] picture;
 
-	// @Column(name = "owner_id", unique = true)
+	@Column(name = "owner_id", unique = true)
 	private Long ownerId;
 
-	// @Transient
+	@Transient
 	private NaturalPerson owner;
 
-	// @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	// @JoinColumn(name = "resume_fk")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "resume_fk")
 	private Set<Experience> experiences;
 
-	// @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	// @JoinColumn(name = "resume_fk")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "resume_fk")
 	private Set<Education> educations;
-	// @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	// @JoinColumn(name = "resume_fk")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "resume_fk")
 	private Set<Skill> skills;
-
+	@Transient
 	private Set<Hobby> hobbies;
-
-	/**
-	 * @deprecated use byte[] as much as possible
-	 */
-	//private ByteArrayImageProvider photo;
-
-	public Resume() {
-//		this.photo = new ByteArrayImageProvider((byte[]) null);
-//		try {
-//			setPicture(IOUtils.toByteArray(Resume.class
-//					.getResourceAsStream("EmptyPhoto.jpg")));
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-	}
 
 	public Long getId() {
 		return id;
@@ -86,13 +78,13 @@ public class Resume {
 	public void setPicture(byte[] picture) {
 		// Object oldValue = this.picture;
 		this.picture = picture;
-//		this.photo.setImageByteArray(picture);
-//		try {
-//			this.photo.getImageInfo();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		// this.photo.setImageByteArray(picture);
+		// try {
+		// this.photo.getImageInfo();
+		// } catch (IOException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 		// firePropertyChange("picture", oldValue, picture);
 	}
 
@@ -112,9 +104,9 @@ public class Resume {
 	 * @param picture
 	 * @throws IOException
 	 */
-//	public void setPictureAsStream(InputStream picture) throws IOException {
-//		this.setPicture(IOUtils.toByteArray(picture));
-//	}
+	// public void setPictureAsStream(InputStream picture) throws IOException {
+	// this.setPicture(IOUtils.toByteArray(picture));
+	// }
 
 	public NaturalPerson getOwner() {
 		return owner;
@@ -166,9 +158,9 @@ public class Resume {
 		// firePropertyChange("competences", oldValue, competences);
 	}
 
-//	public ByteArrayImageProvider getPhoto() {
-//		return photo;
-//	}
+	// public ByteArrayImageProvider getPhoto() {
+	// return photo;
+	// }
 
 	public void setHobbies(Set<Hobby> hobbies) {
 		this.hobbies = hobbies;

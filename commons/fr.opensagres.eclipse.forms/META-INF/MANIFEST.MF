@@ -1,6 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Forms
+Bundle-Name: %pluginName
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: fr.opensagres.eclipse.forms.internal.Activator
 Require-Bundle: org.eclipse.core.runtime,
@@ -17,9 +19,13 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: fr.opensagres.eclipse.forms,
  fr.opensagres.eclipse.forms.conversion,
+ fr.opensagres.eclipse.forms.dialogs,
  fr.opensagres.eclipse.forms.editor,
  fr.opensagres.eclipse.forms.validation,
- fr.opensagres.eclipse.forms.widgets
+ fr.opensagres.eclipse.forms.widgets,
+ fr.opensagres.eclipse.forms.widgets.pagination,
+ fr.opensagres.eclipse.forms.widgets.pagination.spring
 Bundle-SymbolicName: fr.opensagres.eclipse.forms
-Import-Package: org.eclipse.jface.databinding.swt
+Import-Package: org.eclipse.jface.databinding.swt,
+ org.springframework.data.domain;resolution:=optional
 

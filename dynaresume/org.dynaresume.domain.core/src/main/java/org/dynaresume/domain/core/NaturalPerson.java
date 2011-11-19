@@ -2,6 +2,14 @@ package org.dynaresume.domain.core;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -23,8 +31,8 @@ public class NaturalPerson extends Person {
 		this.id = id;
 	}
 
-	// @Id
-	// @GeneratedValue
+	 @Id
+	 @GeneratedValue
 	private Long id;
 
 	public void setId(Long id) {
@@ -34,34 +42,34 @@ public class NaturalPerson extends Person {
 	}
 
 	@NotNull
-	//@Enumerated(EnumType.STRING)
-	//@Column(length = 10)
+	@Enumerated(EnumType.STRING)
+	@Column(length = 10)
 	private MaritalStatus maritalStatus;
 
 	// @Column(length=100,nullable=false)
 	
 	@Size(min = 1)
 	private String firstName;
-	// @Column(length=100,nullable=false)
+	 @Column(length=100,nullable=false)
 	@Size(min = 1)
 	private String lastName;
-	// @Column
+	 @Column
 	private Date birthDate;
 
-	// @Column
+	 @Column
 	private String birthPlace;
 
-	// @Column
+	 @Column
 	private String mobilePhone;
 
-	// @Column
+	 @Column
 	private boolean drivingLicense;
 
-	// @ManyToOne
+	 @ManyToOne
 	private Country nationality;
 
-	// @OneToOne(mappedBy="employee")
-	// @PrimaryKeyJoinColumn(referencedColumnName = "ID")
+	 @OneToOne(mappedBy="employee")
+	 @PrimaryKeyJoinColumn(referencedColumnName = "ID")
 	private Collaboration currentEmployer;
 
 	public MaritalStatus getMaritalStatus() {
@@ -69,9 +77,7 @@ public class NaturalPerson extends Person {
 	}
 
 	public void setMaritalStatus(MaritalStatus maritalStatus) {
-		// Object oldValue = this.maritalStatus;
-		this.maritalStatus = maritalStatus;
-		// firePropertyChange("maritalStatus", oldValue, maritalStatus);
+		this.maritalStatus = maritalStatus;		
 	}
 
 	public String getFirstName() {
@@ -79,9 +85,7 @@ public class NaturalPerson extends Person {
 	}
 
 	public void setFirstName(String firstName) {
-		// Object oldValue = this.firstName;
 		this.firstName = firstName;
-		// firePropertyChange("firstName", oldValue, firstName);
 	}
 
 	public String getLastName() {
@@ -89,9 +93,7 @@ public class NaturalPerson extends Person {
 	}
 
 	public void setLastName(String lastName) {
-		// Object oldValue = this.lastName;
 		this.lastName = lastName;
-		// firePropertyChange("lastName", oldValue, lastName);
 	}
 
 	public Date getBirthDate() {
@@ -99,9 +101,7 @@ public class NaturalPerson extends Person {
 	}
 
 	public void setBirthDate(Date birthDate) {
-		// Object oldValue = this.birthDate;
 		this.birthDate = birthDate;
-		// firePropertyChange("birthDate", oldValue, birthDate);
 	}
 
 	public String getBirthPlace() {
@@ -109,9 +109,7 @@ public class NaturalPerson extends Person {
 	}
 
 	public void setBirthPlace(String birthPlace) {
-		// Object oldValue = this.birthPlace;
 		this.birthPlace = birthPlace;
-		// firePropertyChange("birthPlace", oldValue, birthPlace);
 	}
 
 	public String getMobilePhone() {
@@ -119,9 +117,7 @@ public class NaturalPerson extends Person {
 	}
 
 	public void setMobilePhone(String mobilePhone) {
-		// Object oldValue = this.mobilePhone;
 		this.mobilePhone = mobilePhone;
-		// firePropertyChange("mobilePhone", oldValue, mobilePhone);
 	}
 
 	public boolean isDrivingLicense() {
@@ -129,9 +125,7 @@ public class NaturalPerson extends Person {
 	}
 
 	public void setDrivingLicense(boolean drivingLicense) {
-		// Object oldValue = this.drivingLicense;
 		this.drivingLicense = drivingLicense;
-		// firePropertyChange("drivingLicense", oldValue, drivingLicense);
 	}
 
 	public Country getNationality() {
@@ -139,9 +133,7 @@ public class NaturalPerson extends Person {
 	}
 
 	public void setNationality(Country nationality) {
-		// Object oldValue = this.nationality;
 		this.nationality = nationality;
-		// firePropertyChange("nationality", oldValue, nationality);
 	}
 
 	public Long getId() {
@@ -153,9 +145,7 @@ public class NaturalPerson extends Person {
 	}
 
 	public void setCurrentEmployer(Collaboration currentEmployer) {
-		// Object oldValue = this.currentEmployer;
 		this.currentEmployer = currentEmployer;
-		// firePropertyChange("currentEmployer", oldValue, currentEmployer);
 	}
 
 }

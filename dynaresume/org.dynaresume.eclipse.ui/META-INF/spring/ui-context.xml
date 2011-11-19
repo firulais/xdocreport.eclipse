@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="resumeEditor" class="org.dynaresume.eclipse.ui.editors.ResumeFormEditor"
+		scope="prototype">
+		<property name="resumeService" ref="resumeService" />
+	</bean>
+
+	<bean id="searchResumeDialog" class="org.dynaresume.eclipse.ui.dialogs.SearchResumeDialog"
+		scope="prototype">
+		<property name="resumeService" ref="resumeService" />
+	</bean>
+
+	<bean id="newResumeWizard" class="org.dynaresume.eclipse.ui.wizards.NewResumeWizard"
+		scope="prototype">
+		<property name="resumeService" ref="resumeService" />
+	</bean>	
+	
+</beans>

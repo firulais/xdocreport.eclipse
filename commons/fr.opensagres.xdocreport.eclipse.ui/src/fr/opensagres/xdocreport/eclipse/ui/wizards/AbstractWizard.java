@@ -11,11 +11,24 @@ import fr.opensagres.xdocreport.eclipse.ui.handlers.ContextHandlerEvent;
 
 public abstract class AbstractWizard extends Wizard {
 
-	protected final ExecutionEvent event;
-	protected final ContextHandlerEvent contextEvent;
+	protected ExecutionEvent event;
+	protected ContextHandlerEvent contextEvent;
 
 	public AbstractWizard(ExecutionEvent event, ContextHandlerEvent contextEvent) {
+		super();
 		this.contextEvent = contextEvent;
+		this.event = event;
+	}
+	
+	public AbstractWizard() {
+		super();
+	}
+	
+	public void setContextEvent(ContextHandlerEvent contextEvent) {
+		this.contextEvent = contextEvent;
+	}
+	
+	public void setEvent(ExecutionEvent event) {
 		this.event = event;
 	}
 
