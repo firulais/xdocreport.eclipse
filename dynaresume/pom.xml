@@ -9,22 +9,23 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<modules>
+		<module>org.dynaresume.domain.core</module>
+		<module>org.dynaresume.domain.hr</module>
+		<module>org.dynaresume.datasource</module>
+	
 		<module>org.dynaresume.services</module>
-		<module>org.dynaresume.services.impl</module>
-		<module>org.dynaresume.services.impl.test</module>		
 	
 		<module>org.dynaresume.dao</module>
 		<module>org.dynaresume.dao.jpa</module>
 		<module>org.dynaresume.dao.mock</module>
 
-		<module>org.dynaresume.domain.core</module>
-		<module>org.dynaresume.domain.hr</module>
+		
 		
 		<module>org.dynaresume.eclipse.reporting</module>
 		<module>org.dynaresume.eclipse.ui</module>
-		
-		<!-- <module>org.dynaresume.eclipse.admin.ui</module>
-		<module>org.dynaresume.eclipse.admin.ui.graphics</module> -->
-		
+	
+		<module>org.dynaresume.services.impl</module>
+		<module>org.dynaresume.services.impl.test</module>		
+	
 	</modules>
 </project>
