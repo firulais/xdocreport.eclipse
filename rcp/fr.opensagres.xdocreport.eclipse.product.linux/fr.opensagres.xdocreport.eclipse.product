@@ -13,8 +13,12 @@
    </launcherArgs>
 
    <plugins>
+      <plugin id="ch.qos.logback.classic"/>
+      <plugin id="ch.qos.logback.core"/>
+      <plugin id="ch.qos.logback.slf4j" fragment="true"/>
       <plugin id="com.ibm.icu"/>
       <plugin id="com.lowagie.text"/>
+      <plugin id="com.ning.async-http-client"/>
       <plugin id="com.springsource.freemarker"/>
       <plugin id="com.springsource.javax.servlet"/>
       <plugin id="com.springsource.javax.validation"/>
@@ -50,10 +54,16 @@
       <plugin id="fr.opensagres.xdocreport.template.freemarker" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.template.textstyling.wiki" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.template.velocity" fragment="true"/>
+      <plugin id="javax.annotation"/>
+      <plugin id="javax.inject"/>
+      <plugin id="javax.persistence"/>
+      <plugin id="javax.servlet"/>
       <plugin id="javax.validation.osgi.config.fragment.hibernatevalidator" fragment="true"/>
       <plugin id="javax.xml"/>
+      <plugin id="javax.xml.stream"/>
       <plugin id="org.apache.commons.collections"/>
       <plugin id="org.apache.commons.lang"/>
+      <plugin id="org.apache.commons.logging"/>
       <plugin id="org.apache.oro"/>
       <plugin id="org.apache.poi.xwpf.converter"/>
       <plugin id="org.apache.velocity"/>
@@ -61,7 +71,7 @@
       <plugin id="org.apache.xml.resolver"/>
       <plugin id="org.apache.xml.serializer"/>
       <plugin id="org.dynaresume.dao"/>
-      <plugin id="org.dynaresume.dao.hibernate"/>
+      <plugin id="org.dynaresume.dao.mock"/>
       <plugin id="org.dynaresume.domain.core"/>
       <plugin id="org.dynaresume.domain.hr"/>
       <plugin id="org.dynaresume.eclipse.reporting"/>
@@ -103,13 +113,15 @@
       <plugin id="org.springframework.beans"/>
       <plugin id="org.springframework.context"/>
       <plugin id="org.springframework.core"/>
+      <plugin id="org.springframework.data.commons"/>
+      <plugin id="org.springframework.expression"/>
+      <plugin id="org.springframework.transaction"/>
       <plugin id="org.wikimodel.wem"/>
       <plugin id="slf4j.api"/>
       <plugin id="slf4j.simple" fragment="true"/>
    </plugins>
 
    <configurations>
-      <plugin id="org.dynaresume.dao.hibernate" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.services.impl" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
