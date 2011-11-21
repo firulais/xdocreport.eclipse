@@ -4,14 +4,14 @@ import java.beans.PropertyChangeEvent;
 import java.util.List;
 import java.util.Map;
 
+import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.figures.PageNode;
+import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.figures.TreeBranch;
+import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.figures.TreeRoot;
 import org.dynaresume.admin.eclipse.ui.graphics.skillOLD.editors.model.ConnectableNode;
 import org.dynaresume.admin.eclipse.ui.graphics.skillOLD.editors.model.SkillsDiagram;
 import org.dynaresume.admin.eclipse.ui.graphics.skillOLD.editors.model.TreeNode;
 import org.dynaresume.admin.eclipse.ui.graphics.skillOLD.editors.policies.SkillContainerEditPolicy;
 import org.dynaresume.admin.eclipse.ui.graphics.skillOLD.editors.policies.SkillsLayoutEditPolicy;
-import org.dynaresume.admin.eclipse.ui.graphics.tree.PageNode;
-import org.dynaresume.admin.eclipse.ui.graphics.tree.TreeBranch;
-import org.dynaresume.admin.eclipse.ui.graphics.tree.TreeRoot;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;

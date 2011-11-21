@@ -15,7 +15,7 @@ import java.util.List;
 import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.commands.AddCommand;
 import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.commands.CreateCommand;
 import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.model.TreeNode;
-import org.dynaresume.admin.eclipse.ui.graphics.skillOLD.editors.policies.SkillSelectionEditPolicy;
+import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.parts.TreeNodeEditPart;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
@@ -43,8 +43,8 @@ public class TreeNodeLayoutEditPolicy extends LayoutEditPolicy {
 	 * @see org.eclipse.gef.editpolicies.OrderedLayoutEditPolicy#createChildEditPolicy(org.eclipse.gef.EditPart)
 	 */
 	protected EditPolicy createChildEditPolicy(EditPart child) {
-		if (child instanceof TreeNode)
-			return new SkillSelectionEditPolicy();
+		if (child instanceof TreeNodeEditPart)
+			return new TreeNodeSelectionEditPolicy();
 		return new NonResizableEditPolicy();
 	}
 

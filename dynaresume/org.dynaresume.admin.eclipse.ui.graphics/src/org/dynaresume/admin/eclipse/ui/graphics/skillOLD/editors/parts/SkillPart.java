@@ -3,9 +3,9 @@ package org.dynaresume.admin.eclipse.ui.graphics.skillOLD.editors.parts;
 import java.beans.PropertyChangeEvent;
 import java.util.List;
 
+import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.figures.PageNode;
+import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.figures.TreeBranch;
 import org.dynaresume.admin.eclipse.ui.graphics.skillOLD.editors.model.GraphicalSkill;
-import org.dynaresume.admin.eclipse.ui.graphics.tree.PageNode;
-import org.dynaresume.admin.eclipse.ui.graphics.tree.TreeBranch;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.ConnectionEditPart;
