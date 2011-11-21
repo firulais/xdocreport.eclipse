@@ -11,7 +11,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 
-import fr.opensagres.xdocreport.eclipse.core.registry.AbstractRegistry;
+import fr.opensagres.eclipse.forms.registry.AbstractRegistry;
 import fr.opensagres.xdocreport.eclipse.extensions.ui.dialogs.DialogInitException;
 import fr.opensagres.xdocreport.eclipse.extensions.ui.dialogs.IDialogFactory;
 import fr.opensagres.xdocreport.eclipse.internal.Activator;

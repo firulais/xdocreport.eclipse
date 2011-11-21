@@ -10,7 +10,7 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.wizard.Wizard;
 
-import fr.opensagres.xdocreport.eclipse.core.registry.AbstractRegistry;
+import fr.opensagres.eclipse.forms.registry.AbstractRegistry;
 import fr.opensagres.xdocreport.eclipse.extensions.ui.wizards.IWizardFactory;
 import fr.opensagres.xdocreport.eclipse.extensions.ui.wizards.WizardInitException;
 import fr.opensagres.xdocreport.eclipse.internal.Activator;

@@ -4,7 +4,7 @@
 	xsi:schemaLocation="
 			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-	<bean id="graphicalSkillsEditor" class="org.dynaresume.admin.eclipse.ui.graphics.skill.editors.GraphicalSkillsEditor"
+	<bean id="graphicalAllSkillsEditor" class="org.dynaresume.admin.eclipse.ui.graphics.skill.editors.GraphicalAllSkillsEditor"
 		scope="prototype">
 		<property name="skillService" ref="skillService" />
 	</bean>

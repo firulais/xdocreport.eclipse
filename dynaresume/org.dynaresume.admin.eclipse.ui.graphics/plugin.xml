@@ -5,8 +5,8 @@
   <extension
         point="org.eclipse.ui.editors">
      <editor
-           id="org.dynaresume.admin.eclipse.ui.graphics.skill.editors.GraphicalSkillsEditor"
-           class="org.eclipse.springframework.util.SpringExtensionFactory:graphicalSkillsEditor"           
+           id="org.dynaresume.admin.eclipse.ui.graphics.skill.editors.GraphicalAllSkillsEditor"
+           class="org.eclipse.springframework.util.SpringExtensionFactory:graphicalAllSkillsEditor"           
            extensions="*"
            icon="icons/obj16/skills.png"
            name="%GraphicalSkillsEditor.name">
@@ -21,4 +21,13 @@
           name="Search skill" />
  </extension>
    
+ <extension
+       point="fr.opensagres.eclipse.forms.editorPages">
+    <page
+    	  id="org.dynaresume.admin.eclipse.ui.graphics.skill.editors.GraphicalSkillEditor"
+          editorId="org.dynaresume.admin.eclipse.ui.skill.editors.SkillFormEditor"
+          title="%GraphicalSkillEditor.title"
+          class="org.dynaresume.admin.eclipse.ui.graphics.skill.editors.GraphicalSkillEditor" >
+    </page>
+ </extension>  
 </plugin>

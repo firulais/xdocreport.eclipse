@@ -19,10 +19,13 @@ public class TreeDiagram extends TreeNode {
 
 	private void addSkill(Skill skill, Map<Skill, TreeNode> skillsMapping) {
 		TreeNode skillWrapper = getSkillWrapper(skill, skillsMapping);
-		if (skill.getParent() != null) {
+		boolean parentAlreadyParsed = false;
+		while (skill.getParent() != null && !parentAlreadyParsed) {
+			parentAlreadyParsed = skillsMapping.containsKey(skill.getParent());
 			TreeNode parentSkillWrapper = getSkillWrapper(skill.getParent(),
 					skillsMapping);
 			parentSkillWrapper.addChild(skillWrapper);
+			skill = skill.getParent();
 		}
 	}
 

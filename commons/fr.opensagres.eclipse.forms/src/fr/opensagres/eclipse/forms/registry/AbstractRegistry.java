@@ -1,4 +1,4 @@
-package fr.opensagres.xdocreport.eclipse.core.registry;
+package fr.opensagres.eclipse.forms.registry;
 
 
 import org.eclipse.core.runtime.IConfigurationElement;

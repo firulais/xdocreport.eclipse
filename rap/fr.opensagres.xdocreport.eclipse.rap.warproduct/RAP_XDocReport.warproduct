@@ -40,6 +40,7 @@
       <plugin id="fr.opensagres.xdocreport.template.freemarker" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.template.textstyling.wiki" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.template.velocity" fragment="true"/>
+      <plugin id="javax.annotation"/>
       <plugin id="javax.inject"/>
       <plugin id="javax.persistence"/>
       <plugin id="javax.validation.osgi.config.fragment.hibernatevalidator" fragment="true"/>
@@ -113,8 +114,12 @@
       <plugin id="org.springframework.beans"/>
       <plugin id="org.springframework.context"/>
       <plugin id="org.springframework.core"/>
+      <plugin id="org.springframework.data.commons"/>
       <plugin id="org.springframework.data.domain-only"/>
       <plugin id="org.springframework.expression"/>
+      <plugin id="org.springframework.jdbc"/>
+      <plugin id="org.springframework.orm"/>
+      <plugin id="org.springframework.transaction"/>
       <plugin id="org.wikimodel.wem"/>
       <plugin id="slf4j.api"/>
       <plugin id="slf4j.simple" fragment="true"/>
@@ -147,6 +152,7 @@
       <plugin id="fr.opensagres.xdocreport.eclipse.ui" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.xdocreport.itext.extension" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.xdocreport.template" autoStart="true" startLevel="0" />
+      <plugin id="javax.annotation" autoStart="true" startLevel="0" />
       <plugin id="javax.inject" autoStart="true" startLevel="0" />
       <plugin id="javax.persistence" autoStart="true" startLevel="0" />
       <plugin id="javax.xml" autoStart="true" startLevel="0" />
@@ -218,8 +224,12 @@
       <plugin id="org.springframework.beans" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.context" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.core" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.data.commons" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.data.domain-only" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.expression" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.jdbc" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.orm" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.transaction" autoStart="true" startLevel="0" />
       <plugin id="org.wikimodel.wem" autoStart="true" startLevel="0" />
       <plugin id="slf4j.api" autoStart="true" startLevel="0" />
    </configurations>

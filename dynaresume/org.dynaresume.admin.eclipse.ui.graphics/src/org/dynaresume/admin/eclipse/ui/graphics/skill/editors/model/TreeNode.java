@@ -15,7 +15,6 @@ public class TreeNode extends ModelElement {
 
 	private String label;
 	private List<TreeNode> children;
-	private Skill parent;
 
 	private Skill skill;
 

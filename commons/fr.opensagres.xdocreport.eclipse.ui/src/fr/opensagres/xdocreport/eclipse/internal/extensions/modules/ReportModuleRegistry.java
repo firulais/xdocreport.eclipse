@@ -8,7 +8,7 @@ import org.eclipse.core.runtime.IExtensionDelta;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 
-import fr.opensagres.xdocreport.eclipse.core.registry.AbstractRegistry;
+import fr.opensagres.eclipse.forms.registry.AbstractRegistry;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModule;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleRegistry;
 import fr.opensagres.xdocreport.eclipse.internal.Activator;

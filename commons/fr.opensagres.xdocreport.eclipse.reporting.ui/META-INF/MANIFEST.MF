@@ -25,6 +25,7 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy
 Import-Package: fr.opensagres.eclipse.forms.editor,
+ fr.opensagres.eclipse.forms.registry,
  fr.opensagres.xdocreport.commons.utils
 Bundle-Activator: fr.opensagres.xdocreport.eclipse.reporting.ui.internal.Activator
 Export-Package: fr.opensagres.xdocreport.eclipse.reporting.ui.editors

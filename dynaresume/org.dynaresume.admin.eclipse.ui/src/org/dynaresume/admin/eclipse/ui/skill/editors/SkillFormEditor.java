@@ -40,6 +40,11 @@ public class SkillFormEditor extends
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	protected String getEditorId() {
+		return ID;
+	}
 
 	
 }

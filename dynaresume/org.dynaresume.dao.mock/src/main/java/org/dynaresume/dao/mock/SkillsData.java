@@ -43,6 +43,11 @@ public class SkillsData {
 		addSkill("Dojo", fwkJavaScriptSkill);
 		addSkill("Qooxdoo", fwkJavaScriptSkill);
 		addSkill("JQuery", fwkJavaScriptSkill);
+		
+		Skill dotNetSkill = addSkill(".Net", null);
+		addSkill("C#", dotNetSkill);
+		addSkill("VB.Net", dotNetSkill);
+		addSkill("XAML", dotNetSkill);
 	}
 
 	private static Skill addSkill(String label, Skill parent) {

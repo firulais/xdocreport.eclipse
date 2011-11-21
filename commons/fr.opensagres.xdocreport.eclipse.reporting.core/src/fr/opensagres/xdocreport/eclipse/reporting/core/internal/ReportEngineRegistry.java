@@ -10,7 +10,7 @@ import org.eclipse.core.runtime.IExtensionDelta;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 
-import fr.opensagres.xdocreport.eclipse.core.registry.AbstractRegistry;
+import fr.opensagres.eclipse.forms.registry.AbstractRegistry;
 import fr.opensagres.xdocreport.eclipse.reporting.core.AbstractReportEngine;
 import fr.opensagres.xdocreport.eclipse.reporting.core.IReportEngine;
 import fr.opensagres.xdocreport.eclipse.reporting.core.IReportEngineRegistry;

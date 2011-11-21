@@ -1,13 +1,15 @@
 package org.dynaresume.admin.eclipse.ui.graphics.skill.editors;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EventObject;
+import java.util.List;
 
 import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.actions.TreeNodeContextMenuProvider;
 import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.model.TreeDiagram;
 import org.dynaresume.admin.eclipse.ui.graphics.skill.editors.parts.TreeNodeEditPartFactory;
+import org.dynaresume.admin.eclipse.ui.skill.editors.SkillEditorInput;
 import org.dynaresume.domain.hr.Skill;
-import org.dynaresume.services.SkillService;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
@@ -36,21 +38,16 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.ActionFactory;
 
-public class GraphicalSkillsEditor extends GraphicalEditorWithFlyoutPalette {
+public class GraphicalSkillEditor extends GraphicalEditorWithFlyoutPalette {
 
 	public static final String ID = "org.dynaresume.admin.eclipse.ui.graphics.skill.editors.GraphicalSkillsEditor";
 
 	private static PaletteRoot PALETTE_MODEL;
 
-	private SkillService skillService;
 	private TreeDiagram diagram;
 	private KeyHandler sharedKeyHandler;
 
-	public void setSkillService(SkillService skillService) {
-		this.skillService = skillService;
-	}
-
-	public GraphicalSkillsEditor() {
+	public GraphicalSkillEditor() {
 		super.setEditDomain(new DefaultEditDomain(this));
 	}
 
@@ -151,8 +148,17 @@ public class GraphicalSkillsEditor extends GraphicalEditorWithFlyoutPalette {
 	public void init(IEditorSite site, IEditorInput input)
 			throws PartInitException {
 		super.init(site, input);
-		Collection<Skill> allSkills = skillService.findAll();
+		Collection<Skill> allSkills = getSkills(input);
 		diagram = new TreeDiagram(allSkills);
+	}
+
+	protected Collection<Skill> getSkills(IEditorInput input) {
+		if (input instanceof SkillEditorInput) {
+			List<Skill> skills = new ArrayList<Skill>();
+			skills.add(((SkillEditorInput)input).getModel());
+			return skills;
+		}
+		return null;
 	}
 
 }

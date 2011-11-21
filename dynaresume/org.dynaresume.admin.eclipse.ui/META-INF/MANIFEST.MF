@@ -41,3 +41,4 @@ Import-Package: fr.opensagres.eclipse.forms,
  org.eclipse.core.databinding.validation.jsr303,
  org.eclipse.springframework.util,
  org.springframework.data.domain
+Export-Package: org.dynaresume.admin.eclipse.ui.skill.editors

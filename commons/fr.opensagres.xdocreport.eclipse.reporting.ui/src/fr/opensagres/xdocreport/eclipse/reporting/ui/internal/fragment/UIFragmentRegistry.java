@@ -10,7 +10,7 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.forms.IDetailsPage;
 
-import fr.opensagres.xdocreport.eclipse.core.registry.AbstractRegistry;
+import fr.opensagres.eclipse.forms.registry.AbstractRegistry;
 import fr.opensagres.xdocreport.eclipse.reporting.ui.fragment.IUIFragmentRegistry;
 import fr.opensagres.xdocreport.eclipse.reporting.ui.internal.Activator;
 
