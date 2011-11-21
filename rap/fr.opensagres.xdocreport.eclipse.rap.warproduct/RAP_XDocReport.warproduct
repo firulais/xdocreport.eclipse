@@ -57,7 +57,7 @@
       <plugin id="org.dynaresume.admin.eclipse.ui"/>
       <plugin id="org.dynaresume.admin.eclipse.ui.graphics"/>
       <plugin id="org.dynaresume.dao"/>
-      <plugin id="org.dynaresume.dao.hibernate"/>
+      <plugin id="org.dynaresume.dao.mock"/>
       <plugin id="org.dynaresume.domain.core"/>
       <plugin id="org.dynaresume.domain.hr"/>
       <plugin id="org.dynaresume.eclipse.reporting"/>
@@ -163,7 +163,7 @@
       <plugin id="org.dynaresume.admin.eclipse.ui" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.admin.eclipse.ui.graphics" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.dao" autoStart="true" startLevel="0" />
-      <plugin id="org.dynaresume.dao.hibernate" autoStart="true" startLevel="0" />
+      <plugin id="org.dynaresume.dao.mock" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.domain.core" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.domain.hr" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.eclipse.reporting" autoStart="true" startLevel="0" />
