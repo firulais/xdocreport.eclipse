@@ -21,15 +21,15 @@
 	            	   icon="icons/obj16/skills.png" /> -->
 				<entry name="%SearchGroupEntry.name"
 	            	   commandId="org.dynaresume.admin.eclipse.ui.group.handlers.SearchGroupHandler"
-	            	   icon="icons/obj16/skills.png" />
+	            	   icon="icons/obj16/groups.png" />
 				<entry name="%GraphicsGroupsEntry.name"
-	            	   commandId="org.dynaresume.admin.eclipse.ui.graphics.skill.handlers.OpenGraphicalGroupsEditorHandler"
-	            	   icon="icons/obj16/skills.png" />	            	   
+	            	   commandId="org.dynaresume.admin.eclipse.ui.graphics.group.handlers.OpenGraphicalAllGroupsEditorHandler"
+	            	   icon="icons/obj16/groups.png" />	            	   
 				<entry name="%SearchSkillEntry.name"
 	            	   commandId="org.dynaresume.admin.eclipse.ui.skill.handlers.SearchSkillHandler"
 	            	   icon="icons/obj16/skills.png" />
 				<entry name="%GraphicsSkillsEntry.name"
-	            	   commandId="org.dynaresume.admin.eclipse.ui.graphics.skill.handlers.OpenGraphicalSkillsEditorlHandler"
+	            	   commandId="org.dynaresume.admin.eclipse.ui.graphics.skill.handlers.OpenGraphicalAllSkillsEditorHandler"
 	            	   icon="icons/obj16/skills.png" />	            	   	            	   	            	   	            	   	            	   	            	   	            	   	            	   	            	   	            	   	            	   
 	        </entries>     
       </reportModule>

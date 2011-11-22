@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   
+
   <extension
         point="org.eclipse.ui.editors">
      <editor
-           id="org.dynaresume.admin.eclipse.ui.graphics.skill.editors.GraphicalAllSkillsEditor"
+           id="org.dynaresume.admin.eclipse.ui.graphics.group.editor.GraphicalAllGroupsEditor"
+           class="org.eclipse.springframework.util.SpringExtensionFactory:graphicalAllGroupsEditor"           
+           extensions="*"
+           icon="icons/obj16/groups.png"
+           name="%GraphicalSkillsEditor.name">
+     </editor>
+  </extension>
+     
+  <extension
+        point="org.eclipse.ui.editors">
+     <editor
+           id="org.dynaresume.admin.eclipse.ui.graphics.skill.editor.GraphicalAllSkillsEditor"
            class="org.eclipse.springframework.util.SpringExtensionFactory:graphicalAllSkillsEditor"           
            extensions="*"
            icon="icons/obj16/skills.png"
@@ -16,18 +27,28 @@
  <extension
        point="org.eclipse.ui.commands">
     <command
-          id="org.dynaresume.admin.eclipse.ui.graphics.skill.handlers.OpenGraphicalSkillsEditorlHandler"
-          defaultHandler="org.dynaresume.admin.eclipse.ui.graphics.skillOLD.handlers.OpenGraphicalSkillsEditorlHandler"
-          name="Search skill" />
+          id="org.dynaresume.admin.eclipse.ui.graphics.group.handlers.OpenGraphicalAllGroupsEditorHandler"
+          defaultHandler="org.dynaresume.admin.eclipse.ui.graphics.group.handlers.OpenGraphicalAllGroupsEditorHandler"
+          name="Graphical All groups" />
+    <command
+          id="org.dynaresume.admin.eclipse.ui.graphics.skill.handlers.OpenGraphicalAllSkillsEditorHandler"
+          defaultHandler="org.dynaresume.admin.eclipse.ui.graphics.skill.handlers.OpenGraphicalAllSkillsEditorHandler"
+          name="Graphical All skills" />          
  </extension>
    
  <extension
        point="fr.opensagres.eclipse.forms.editorPages">
     <page
-    	  id="org.dynaresume.admin.eclipse.ui.graphics.skill.editors.GraphicalSkillEditor"
+    	  id="org.dynaresume.admin.eclipse.ui.graphics.group.editor.GraphicalGroupEditor"
+          editorId="org.dynaresume.admin.eclipse.ui.group.editors.GroupFormEditor"
+          title="%GraphicalSkillEditor.title"
+          class="org.dynaresume.admin.eclipse.ui.graphics.group.editor.GraphicalGroupEditor" >
+    </page>       
+    <page
+    	  id="org.dynaresume.admin.eclipse.ui.graphics.skill.editor.GraphicalSkillEditor"
           editorId="org.dynaresume.admin.eclipse.ui.skill.editors.SkillFormEditor"
           title="%GraphicalSkillEditor.title"
-          class="org.dynaresume.admin.eclipse.ui.graphics.skill.editors.GraphicalSkillEditor" >
+          class="org.dynaresume.admin.eclipse.ui.graphics.skill.editor.GraphicalSkillEditor" >
     </page>
  </extension>  
 </plugin>

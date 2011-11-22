@@ -25,6 +25,7 @@
       <plugin id="com.springsource.org.dom4j"/>
       <plugin id="com.springsource.org.hibernate.validator"/>
       <plugin id="fr.opensagres.eclipse.forms"/>
+      <plugin id="fr.opensagres.eclipse.gef.tree"/>
       <plugin id="fr.opensagres.org.apache.poi.osgi"/>
       <plugin id="fr.opensagres.org.openxmlformats.schemas"/>
       <plugin id="fr.opensagres.xdocreport.commons.utils"/>
@@ -50,6 +51,9 @@
       <plugin id="fr.opensagres.xdocreport.template.freemarker" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.template.textstyling.wiki" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.template.velocity" fragment="true"/>
+      <plugin id="javax.annotation"/>
+      <plugin id="javax.inject"/>
+      <plugin id="javax.persistence"/>
       <plugin id="javax.validation.osgi.config.fragment.hibernatevalidator" fragment="true"/>
       <plugin id="javax.xml"/>
       <plugin id="org.apache.commons.collections"/>
@@ -61,7 +65,7 @@
       <plugin id="org.apache.xml.resolver"/>
       <plugin id="org.apache.xml.serializer"/>
       <plugin id="org.dynaresume.dao"/>
-      <plugin id="org.dynaresume.dao.hibernate"/>
+      <plugin id="org.dynaresume.dao.hibernate" fragment=""/>
       <plugin id="org.dynaresume.domain.core"/>
       <plugin id="org.dynaresume.domain.hr"/>
       <plugin id="org.dynaresume.eclipse.reporting"/>
@@ -79,10 +83,12 @@
       <plugin id="org.eclipse.core.jobs"/>
       <plugin id="org.eclipse.core.runtime"/>
       <plugin id="org.eclipse.core.runtime.compatibility.registry" fragment="true"/>
+      <plugin id="org.eclipse.draw2d"/>
       <plugin id="org.eclipse.equinox.app"/>
       <plugin id="org.eclipse.equinox.common"/>
       <plugin id="org.eclipse.equinox.preferences"/>
       <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.gef"/>
       <plugin id="org.eclipse.gemini.blueprint.core"/>
       <plugin id="org.eclipse.gemini.blueprint.extender"/>
       <plugin id="org.eclipse.gemini.blueprint.io"/>
@@ -103,6 +109,9 @@
       <plugin id="org.springframework.beans"/>
       <plugin id="org.springframework.context"/>
       <plugin id="org.springframework.core"/>
+      <plugin id="org.springframework.data.commons"/>
+      <plugin id="org.springframework.expression"/>
+      <plugin id="org.springframework.transaction"/>
       <plugin id="org.wikimodel.wem"/>
       <plugin id="slf4j.api"/>
       <plugin id="slf4j.simple" fragment="true"/>

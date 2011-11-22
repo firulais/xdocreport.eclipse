@@ -20,12 +20,22 @@ public class GroupsAndAgenciesData {
 		// Opensagres
 		Group opensagresGroup = createGroup("Opensagres");
 		createAgency("Opensagres", opensagresGroup);
-		
+
 		// Sodifrance
 		Group sodifranceGroup = createGroup("Sodifrance");
-		createAgency("Sodifrance Lyon", sodifranceGroup);
-		createAgency("Sodifrance Rennes", sodifranceGroup);
-		createAgency("Sodifrance Nantes", sodifranceGroup);
+		createAgency("Brest", sodifranceGroup);
+		createAgency("Le Mans", sodifranceGroup);
+		createAgency("Nantes", sodifranceGroup);
+		createAgency("Lyon", sodifranceGroup);
+		createAgency("Aix-en-Provence", sodifranceGroup);
+		createAgency("Niort", sodifranceGroup);
+		createAgency("Noisy-le-Grand", sodifranceGroup);
+		createAgency("Orléans", sodifranceGroup);
+		createAgency("Paris", sodifranceGroup);
+		createAgency("Rennes", sodifranceGroup);
+		createAgency("Tours", sodifranceGroup);
+		createAgency("Bruxelles (Belgique)", sodifranceGroup);
+		createAgency("Tunis (Tunisie)", sodifranceGroup);
 	}
 
 	private static Group createGroup(String name) {
@@ -42,6 +52,7 @@ public class GroupsAndAgenciesData {
 		agency.setId(agency.getId());
 		agency.setName(name);
 		if (group != null) {
+			agency.setGroup(group);
 			group.getSubsidiaries().add(agency);
 		}
 		GroupsAndAgenciesData.agencies.put(agency.getId(), agency);

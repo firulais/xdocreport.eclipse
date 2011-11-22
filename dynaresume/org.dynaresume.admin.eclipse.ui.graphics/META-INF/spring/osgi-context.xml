@@ -7,5 +7,6 @@
        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 	<reference id="skillService" interface="org.dynaresume.services.SkillService" />
+	<reference id="groupService" interface="org.dynaresume.services.GroupService" />
 
 </beans:beans>           

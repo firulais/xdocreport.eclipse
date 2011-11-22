@@ -11,6 +11,7 @@
 	<modules>	
 		<module>org.springframework.data.domain-only</module>
 		<module>fr.opensagres.eclipse.forms</module>
+		<module>fr.opensagres.eclipse.gef.tree</module>
 		<module>org.eclipse.rap.singlesourcing</module>
 		<module>fr.opensagres.xdocreport.commons.utils</module>
 		<module>fr.opensagres.xdocreport.eclipse.core</module>

@@ -14,6 +14,7 @@
       <plugin id="com.springsource.org.dom4j"/>
       <plugin id="com.springsource.org.hibernate.validator"/>
       <plugin id="fr.opensagres.eclipse.forms"/>
+      <plugin id="fr.opensagres.eclipse.gef.tree"/>
       <plugin id="fr.opensagres.org.apache.poi.osgi"/>
       <plugin id="fr.opensagres.org.openxmlformats.schemas"/>
       <plugin id="fr.opensagres.xdocreport.commons.utils"/>
@@ -137,6 +138,7 @@
       <plugin id="com.springsource.org.dom4j" autoStart="true" startLevel="0" />
       <plugin id="com.springsource.org.hibernate.validator" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.eclipse.forms" autoStart="true" startLevel="0" />
+      <plugin id="fr.opensagres.eclipse.gef.tree" autoStart="true" startLevel="0" />      
       <plugin id="fr.opensagres.org.apache.poi.osgi" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.org.openxmlformats.schemas" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.xdocreport.commons.utils" autoStart="true" startLevel="0" />
