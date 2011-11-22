@@ -12,6 +12,8 @@ public class Messages extends NLS {
 
 	// Overview Page
 	public static String SkillsFormEditor_OverviewPage_title;
+	
+	public static String GroupFormEditor_OverviewPage_title;
 
 	static {
 		// load message values from bundle file

@@ -5,9 +5,4 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ResumeDao extends CrudRepository<Resume, Long> {
 
-//	Collection<Resume> findAll();
-//
-//	Resume findById(long id);
-//
-//	Resume save(Resume resume);
 }

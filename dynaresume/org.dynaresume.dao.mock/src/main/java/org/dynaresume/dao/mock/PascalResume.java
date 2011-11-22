@@ -12,12 +12,12 @@ public class PascalResume extends Resume {
 	public PascalResume() {
 		// Pascal
 		NaturalPerson person = new NaturalPerson();
-		person.setId(ResumeDaoMock.currentId++);
+		person.setId(MockResumeDao.currentId++);
 		person.setFirstName("Pascal");
 		person.setLastName("Leclercq");
 		person.setEmail("pascal.leclercq@gmail.com");
 
-		super.setId(ResumeDaoMock.currentId++);
+		super.setId(MockResumeDao.currentId++);
 		super.setOwner(person);
 		
 		

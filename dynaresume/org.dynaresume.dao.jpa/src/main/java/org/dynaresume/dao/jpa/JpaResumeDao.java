@@ -1,4 +1,4 @@
-package org.dynaresume.dao.hibernate;
+package org.dynaresume.dao.jpa;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @org.springframework.stereotype.Repository
 @Transactional(readOnly = true)
-public class ResumeDaoHibernate implements ResumeDao {
+public class JpaResumeDao implements ResumeDao {
 
 	public static final String COUNT_QUERY_STRING = "select count(*) from Resume x";
 
@@ -31,7 +31,7 @@ public class ResumeDaoHibernate implements ResumeDao {
 	@PersistenceContext
 	private EntityManager em;
 
-	public ResumeDaoHibernate() {
+	public JpaResumeDao() {
 
 	}
 

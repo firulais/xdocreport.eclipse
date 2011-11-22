@@ -1,6 +1,5 @@
 package org.dynaresume.admin.eclipse.ui.graphics.skill.editors.model;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +7,7 @@ import org.dynaresume.domain.hr.Skill;
 
 public class TreeDiagram extends TreeNode {
 
-	public TreeDiagram(Collection<Skill> skills) {
+	public TreeDiagram(Iterable<Skill> skills) {
 		super();
 		setLabel("Root");
 		Map<Skill, TreeNode> skillsMapping = new HashMap<Skill, TreeNode>();

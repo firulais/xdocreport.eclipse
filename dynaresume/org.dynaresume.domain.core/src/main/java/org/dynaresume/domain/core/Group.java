@@ -33,7 +33,7 @@ public class Group implements Serializable {
 		this.subsidiaries = subsidiaries;
 	}
 
-	public Serializable getId() {
+	public Long getId() {
 
 		return id;
 	}

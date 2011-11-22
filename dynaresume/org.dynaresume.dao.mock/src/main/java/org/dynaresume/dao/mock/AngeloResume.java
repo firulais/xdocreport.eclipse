@@ -18,7 +18,7 @@ import fr.opensagres.xdocreport.commons.utils.IOUtils;
 public class AngeloResume extends Resume {
 
 	public AngeloResume() {
-		super.setId(ResumeDaoMock.currentId++);
+		super.setId(MockResumeDao.currentId++);
 		super.setTitle("Ingénieur Etude JEE/Eclipse RCP");
 		try {
 			// InputStream in =Resume.class
@@ -35,7 +35,7 @@ public class AngeloResume extends Resume {
 
 		// Angelo
 		NaturalPerson person = new NaturalPerson();
-		person.setId(ResumeDaoMock.currentId++);
+		person.setId(MockResumeDao.currentId++);
 		person.setFirstName("Angelo");
 		person.setLastName("ZERR");
 		person.setEmail("angelo.zerr@gmail.com");
@@ -49,7 +49,7 @@ public class AngeloResume extends Resume {
 
 		// Address
 		Address address = new Address();
-		address.setId(ResumeDaoMock.currentId++);
+		address.setId(MockResumeDao.currentId++);
 		person.setAddress(address);
 
 		address.setStreet("5 avenue Frederic Mistral");
@@ -64,7 +64,7 @@ public class AngeloResume extends Resume {
 
 		// Education 1
 		education = new Education();
-		education.setId(ResumeDaoMock.currentId++);
+		education.setId(MockResumeDao.currentId++);
 		education.setLabel("Diplôme d'ingénieur en informatique");
 		education.setInstitute("INSA de Lyon");
 		try {
@@ -77,7 +77,7 @@ public class AngeloResume extends Resume {
 
 		// Education 2
 		education = new Education();
-		education.setId(ResumeDaoMock.currentId++);
+		education.setId(MockResumeDao.currentId++);
 		education.setLabel("BAC S option Physique C");
 		education.setInstitute("Georges de la Tour (Nancy)");
 		try {
@@ -95,7 +95,7 @@ public class AngeloResume extends Resume {
 
 		// Experience 1
 		experience = new Experience();
-		experience.setId(ResumeDaoMock.currentId++);
+		experience.setId(MockResumeDao.currentId++);
 		experience.setTitle("Projet SIDoc");
 		experience.setMission("Conception / Développement");
 		experience
@@ -110,7 +110,7 @@ public class AngeloResume extends Resume {
 
 		// Experience 2
 		experience = new Experience();
-		experience.setId(ResumeDaoMock.currentId++);
+		experience.setId(MockResumeDao.currentId++);
 		experience.setTitle("ERP AgroV3");
 		experience.setMission("Conception / Développement");
 		experience
@@ -132,19 +132,19 @@ public class AngeloResume extends Resume {
 
 		// Hobby 1
 		hobby = new Hobby();
-		hobby.setId(ResumeDaoMock.currentId++);
+		hobby.setId(MockResumeDao.currentId++);
 		hobby.setLabel("Sport: Badminton.");
 		hobbies.add(hobby);
 
 		// Hobby 2
 		hobby = new Hobby();
-		hobby.setId(ResumeDaoMock.currentId++);
+		hobby.setId(MockResumeDao.currentId++);
 		hobby.setLabel("Musique : pratique la batterie dans un groupe.");
 		hobbies.add(hobby);
 
 		// Hobby 3
 		hobby = new Hobby();
-		hobby.setId(ResumeDaoMock.currentId++);
+		hobby.setId(MockResumeDao.currentId++);
 		hobby.setLabel("Projets Open source");
 		hobbies.add(hobby);
 	}

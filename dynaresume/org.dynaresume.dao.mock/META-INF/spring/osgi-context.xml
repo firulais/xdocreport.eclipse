@@ -8,5 +8,6 @@
 
 	<service ref="resumeDao" interface="org.dynaresume.dao.ResumeDao" />
 	<service ref="skillDao" interface="org.dynaresume.dao.SkillDao" />
+	<service ref="groupDao" interface="org.dynaresume.dao.GroupDao" />
 	
 </beans:beans>           

@@ -1,4 +1,4 @@
-package org.dynaresume.dao.hibernate;
+package org.dynaresume.dao.jpa;
 
 import java.util.HashMap;
 import java.util.Map;

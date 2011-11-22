@@ -12,11 +12,11 @@ public class AmineResume extends Resume {
 	public AmineResume() {
 		// Pascal
 		NaturalPerson person = new NaturalPerson();
-		person.setId(ResumeDaoMock.currentId++);
+		person.setId(MockResumeDao.currentId++);
 		person.setFirstName("Amine");
 		person.setLastName("Bousta");
 
-		super.setId(ResumeDaoMock.currentId++);
+		super.setId(MockResumeDao.currentId++);
 		super.setOwner(person);
 		try {
 			setPicture(IOUtils.toByteArray(Resume.class

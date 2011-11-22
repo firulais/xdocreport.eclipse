@@ -25,7 +25,7 @@ public class GraphicalAllSkillsEditor extends GraphicalSkillEditor {
 	}
 
 	@Override
-	protected Collection<Skill> getSkills(IEditorInput input) {
+	protected Iterable<Skill> getSkills(IEditorInput input) {
 		return skillService.findAll();
 	}
 

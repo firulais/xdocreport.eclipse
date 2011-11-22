@@ -148,11 +148,11 @@ public class GraphicalSkillEditor extends GraphicalEditorWithFlyoutPalette {
 	public void init(IEditorSite site, IEditorInput input)
 			throws PartInitException {
 		super.init(site, input);
-		Collection<Skill> allSkills = getSkills(input);
+		Iterable<Skill> allSkills = getSkills(input);
 		diagram = new TreeDiagram(allSkills);
 	}
 
-	protected Collection<Skill> getSkills(IEditorInput input) {
+	protected Iterable<Skill> getSkills(IEditorInput input) {
 		if (input instanceof SkillEditorInput) {
 			List<Skill> skills = new ArrayList<Skill>();
 			skills.add(((SkillEditorInput)input).getModel());

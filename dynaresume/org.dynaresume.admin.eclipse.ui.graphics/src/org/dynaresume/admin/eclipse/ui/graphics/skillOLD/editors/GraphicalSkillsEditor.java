@@ -72,7 +72,7 @@ public class GraphicalSkillsEditor extends GraphicalEditorWithFlyoutPalette {
 	public void init(IEditorSite site, IEditorInput input)
 			throws PartInitException {
 		super.init(site, input);
-		Collection<Skill> allSkills = skillService.findAll();
+		Iterable<Skill> allSkills = skillService.findAll();
 		skillsContainer = new SkillsDiagram(allSkills);
 	}
 

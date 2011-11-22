@@ -33,6 +33,6 @@
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	<context:annotation-config />
-	<context:component-scan base-package="org.dynaresume.dao.hibernate" />
+	<context:component-scan base-package="org.dynaresume.dao.jpa" />
 	
 </beans>

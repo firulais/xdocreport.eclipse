@@ -40,5 +40,7 @@ Import-Package: fr.opensagres.eclipse.forms,
  org.dynaresume.services,
  org.eclipse.core.databinding.validation.jsr303,
  org.eclipse.springframework.util,
+ org.springframework.beans.factory.annotation,
  org.springframework.data.domain
 Export-Package: org.dynaresume.admin.eclipse.ui.skill.editors
+Bundle-ClassPath: .

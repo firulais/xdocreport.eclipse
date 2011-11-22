@@ -19,7 +19,7 @@ public class SkillsDiagram extends ModelElement {
 	
 	private final List<TreeNode> treeChildren;
 
-	public SkillsDiagram(Collection<Skill> skills) {
+	public SkillsDiagram(Iterable<Skill> skills) {
 		this.children = new ArrayList<ConnectableNode>();
 		Map<Skill, ConnectableNode> skillsMapping = new HashMap<Skill, ConnectableNode>();
 		for (Skill skill : skills) {

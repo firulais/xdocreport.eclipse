@@ -19,6 +19,12 @@
 				<entry name="%NewSkillEntry.name"
 	            	   commandId=""
 	            	   icon="icons/obj16/skills.png" /> -->
+				<entry name="%SearchGroupEntry.name"
+	            	   commandId="org.dynaresume.admin.eclipse.ui.group.handlers.SearchGroupHandler"
+	            	   icon="icons/obj16/skills.png" />
+				<entry name="%GraphicsGroupsEntry.name"
+	            	   commandId="org.dynaresume.admin.eclipse.ui.graphics.skill.handlers.OpenGraphicalGroupsEditorHandler"
+	            	   icon="icons/obj16/skills.png" />	            	   
 				<entry name="%SearchSkillEntry.name"
 	            	   commandId="org.dynaresume.admin.eclipse.ui.skill.handlers.SearchSkillHandler"
 	            	   icon="icons/obj16/skills.png" />
@@ -32,16 +38,27 @@
   <extension
         point="org.eclipse.ui.editors">
      <editor
+           id="org.dynaresume.admin.eclipse.ui.group.editors.GroupFormEditor"
+           class="org.eclipse.springframework.util.SpringExtensionFactory:groupFormEditor"           
+           extensions="*"
+           icon="icons/obj16/groups.png"
+           name="%GroupFormEditor.name">
+     </editor>
+     <editor
            id="org.dynaresume.admin.eclipse.ui.skill.editors.SkillFormEditor"
            class="org.eclipse.springframework.util.SpringExtensionFactory:skillFormEditor"           
            extensions="*"
            icon="icons/obj16/skills.png"
            name="%SkillsFormEditor.name">
-     </editor>
+     </editor>     
   </extension>
   
  <extension
        point="org.eclipse.ui.commands">
+    <command
+          id="org.dynaresume.admin.eclipse.ui.group.handlers.SearchGroupHandler"
+          defaultHandler="org.dynaresume.admin.eclipse.ui.group.handlers.SearchGroupHandler"
+          name="Search group" />       
     <command
           id="org.dynaresume.admin.eclipse.ui.skill.handlers.SearchSkillHandler"
           defaultHandler="org.dynaresume.admin.eclipse.ui.skill.handlers.SearchSkillHandler"
@@ -51,10 +68,15 @@
   <extension
         point="fr.opensagres.xdocreport.eclipse.ui.dialogFactories">
      <factory
+           id="org.dynaresume.admin.eclipse.ui.group.dialogs.SearchGroupDialog"
+           class="org.eclipse.springframework.util.SpringExtensionFactory:searchGroupDialog"
+           title="%SearchGroupDialog.title" >
+     </factory>
+     <factory
            id="org.dynaresume.admin.eclipse.ui.skill.dialogs.SearchSkillDialog"
            class="org.eclipse.springframework.util.SpringExtensionFactory:searchSkillDialog"
            title="%SearchSkillDialog.title" >
-     </factory>        
+     </factory>             
   </extension>
      
 </plugin>

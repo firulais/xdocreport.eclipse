@@ -7,10 +7,18 @@
 			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
 			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
-	<bean id="resumeDao"
-		class="org.dynaresume.dao.mock.ResumeDaoMock" />
+	<!-- <bean id="resumeDao"
+		class="org.dynaresume.dao.mock.MockResumeDao" />
 	
 	<bean id="skillDao"
-		class="org.dynaresume.dao.mock.SkillDaoMock" />
+		class="org.dynaresume.dao.mock.MockSkillDao" />
+				
+	<bean id="groupDao"
+		class="org.dynaresume.dao.mock.MockGroupDao" />
+ -->
+ 
+	<context:annotation-config />
+	<context:component-scan base-package="org.dynaresume.dao.mock" />
+
 				
 </beans>

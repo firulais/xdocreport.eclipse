@@ -13,7 +13,8 @@ import org.dynaresume.domain.hr.Experience;
 import org.dynaresume.domain.hr.Hobby;
 import org.dynaresume.domain.hr.Resume;
 
-public class ResumeDaoMock implements ResumeDao {
+@org.springframework.stereotype.Repository("resumeDao")
+public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao {
 
 	private static final Map<Long, Resume> resumes;
 	static long currentId = 0;
@@ -24,7 +25,7 @@ public class ResumeDaoMock implements ResumeDao {
 		addResume(new AmineResume());
 		addResume(new DinoResume());
 	}
-	
+
 	private static void addResume(Resume resume) {
 		resumes.put(resume.getId(), resume);
 	}
@@ -160,35 +161,4 @@ public class ResumeDaoMock implements ResumeDao {
 		return newAddress;
 	}
 
-	public long count() {
-		throw new UnsupportedOperationException("Not Implemented");
-	}
-
-	public void delete(Long arg0) {
-		throw new UnsupportedOperationException("Not Implemented");
-		
-	}
-
-	public void delete(Resume arg0) {
-		throw new UnsupportedOperationException("Not Implemented");
-		
-	}
-
-	public void delete(Iterable<? extends Resume> arg0) {
-		throw new UnsupportedOperationException("Not Implemented");
-		
-	}
-
-	public void deleteAll() {
-		throw new UnsupportedOperationException("Not Implemented");
-		
-	}
-
-	public boolean exists(Long arg0) {
-		throw new UnsupportedOperationException("Not Implemented");
-	}
-
-	public Iterable<Resume> save(Iterable<? extends Resume> arg0) {
-		throw new UnsupportedOperationException("Not Implemented");
-	}
 }

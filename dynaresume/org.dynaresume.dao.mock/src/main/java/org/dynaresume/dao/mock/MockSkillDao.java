@@ -1,22 +1,20 @@
-package org.dynaresume.dao.hibernate;
+package org.dynaresume.dao.mock;
 
-import java.util.Collection;
 import java.util.Map;
 
 import org.dynaresume.dao.SkillDao;
 import org.dynaresume.domain.hr.Skill;
-import org.springframework.transaction.annotation.Transactional;
-@org.springframework.stereotype.Repository
-@Transactional(readOnly = true)
-public class SkillDaoHibernate implements SkillDao {
+
+@org.springframework.stereotype.Repository("skillDao")
+public class MockSkillDao extends AbstractDaoMock<Skill> implements SkillDao {
 
 	private final Map<Long, Skill> skills = SkillsData.skills;
 
-	public Collection<Skill> findAll() {
+	public Iterable<Skill> findAll() {
 		return skills.values();
 	}
 
-	public Skill findById(long id) {
+	public Skill findOne(Long id) {
 		Skill skill = skills.get(id);
 		if (skill != null) {
 			return clone(skill);
