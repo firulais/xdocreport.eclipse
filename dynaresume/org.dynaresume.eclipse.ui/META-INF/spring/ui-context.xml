@@ -7,6 +7,7 @@
 	<bean id="resumeEditor" class="org.dynaresume.eclipse.ui.editors.ResumeFormEditor"
 		scope="prototype">
 		<property name="resumeService" ref="resumeService" />
+		<property name="skillCategoryService" ref="skillCategoryService" />
 	</bean>
 
 	<bean id="searchResumeDialog" class="org.dynaresume.eclipse.ui.dialogs.SearchResumeDialog"

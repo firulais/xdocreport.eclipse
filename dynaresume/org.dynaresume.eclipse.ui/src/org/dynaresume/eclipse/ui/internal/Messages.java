@@ -67,6 +67,8 @@ public class Messages extends NLS {
 
 	// Skills Page
 	public static String ResumeFormEditor_SkillsPage_title;
+	public static String ResumeFormEditor_SkillsPage_SkillsMasterDetailsBlock_title;
+	public static String ResumeFormEditor_SkillsPage_SkillsMasterDetailsBlock_desc;
 
 	// Hobbies Page
 	public static String ResumeFormEditor_HobbiesPage_title;

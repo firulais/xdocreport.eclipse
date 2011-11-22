@@ -4,8 +4,6 @@ import org.dynaresume.domain.hr.Resume;
 import org.dynaresume.eclipse.ui.internal.ImageResources;
 import org.dynaresume.eclipse.ui.internal.Messages;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.ui.forms.IManagedForm;
-import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import fr.opensagres.eclipse.forms.ModelMasterDetailsBlock;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormEditor;

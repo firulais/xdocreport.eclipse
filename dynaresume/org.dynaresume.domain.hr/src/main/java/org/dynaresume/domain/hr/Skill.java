@@ -16,9 +16,11 @@ public class Skill {
 	@Column
 	private String label;
 
-	//@ManyToOne(optional=true)
+	// @ManyToOne(optional=true)
 	@Transient
 	private Skill parent;
+
+	private SkillCategory category;
 
 	public Long getId() {
 		return id;
@@ -29,9 +31,7 @@ public class Skill {
 	}
 
 	public void setId(Long id) {
-
 		this.id = id;
-
 	}
 
 	public void setLabel(String label) {
@@ -46,5 +46,13 @@ public class Skill {
 
 	public void setParent(Skill parent) {
 		this.parent = parent;
+	}
+
+	public void setCategory(SkillCategory category) {
+		this.category = category;
+	}
+
+	public SkillCategory getCategory() {
+		return category;
 	}
 }

@@ -4,8 +4,9 @@ import java.util.Map;
 
 import org.dynaresume.dao.SkillDao;
 import org.dynaresume.domain.hr.Skill;
+import org.springframework.stereotype.Repository;
 
-@org.springframework.stereotype.Repository("skillDao")
+@Repository("skillDao")
 public class MockSkillDao extends AbstractDaoMock<Skill> implements SkillDao {
 
 	private final Map<Long, Skill> skills = SkillsData.skills;

@@ -7,5 +7,7 @@
        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 	<reference id="resumeService" interface="org.dynaresume.services.ResumeService" />
-
+	<reference id="skillCategoryService" interface="org.dynaresume.services.SkillCategoryService" />
+	
 </beans:beans>           
+

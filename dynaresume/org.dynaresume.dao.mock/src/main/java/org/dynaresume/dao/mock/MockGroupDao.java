@@ -4,8 +4,9 @@ import java.util.Map;
 
 import org.dynaresume.dao.GroupDao;
 import org.dynaresume.domain.core.Group;
+import org.springframework.stereotype.Repository;
 
-@org.springframework.stereotype.Repository("groupDao")
+@Repository("groupDao")
 public class MockGroupDao extends AbstractDaoMock<Group> implements GroupDao {
 
 	private final Map<Long, Group> groups = GroupsAndAgenciesData.groups;

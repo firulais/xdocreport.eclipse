@@ -7,13 +7,12 @@
 	<persistence-unit name="dynaresume" transaction-type="RESOURCE_LOCAL">
 
 		
-		<class>org.dynaresume.domain.hr.Competence</class>
 		<class>org.dynaresume.domain.hr.Education</class>
-		<class>org.dynaresume.domain.hr.Experience</class>
-		<class>org.dynaresume.domain.hr.Hobbies</class>
+		<class>org.dynaresume.domain.hr.Experience</class>		
 		<class>org.dynaresume.domain.hr.Hobby</class>
 		<class>org.dynaresume.domain.hr.Resume</class>
 		<class>org.dynaresume.domain.hr.Skill</class>
+		<class>org.dynaresume.domain.hr.SkillCategory</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />

@@ -12,8 +12,9 @@ import org.dynaresume.domain.hr.Education;
 import org.dynaresume.domain.hr.Experience;
 import org.dynaresume.domain.hr.Hobby;
 import org.dynaresume.domain.hr.Resume;
+import org.springframework.stereotype.Repository;
 
-@org.springframework.stereotype.Repository("resumeDao")
+@Repository("resumeDao")
 public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao {
 
 	private static final Map<Long, Resume> resumes;
