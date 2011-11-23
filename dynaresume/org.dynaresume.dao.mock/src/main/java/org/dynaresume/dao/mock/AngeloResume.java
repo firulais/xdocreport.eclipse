@@ -80,12 +80,12 @@ public class AngeloResume extends BaseResume {
 		addSkill(SkillsData.processSkills,
 				"Rédaction de documents, manuel d’utilisation, proposition commerciales");
 		addSkill(SkillsData.langagesTechnicalSkills, "Java");
-		addSkill(SkillsData.osTechnicalSkills, "Windos");
+		addSkill(SkillsData.osTechnicalSkills, "Windows");
 		addSkillWithSplit(SkillsData.databaseTechnicalSkills,
-				"Oracle 8i-9i-10g, SQL Server 7/2k, MySQL, Sybase ASA 7 et ASE 11.9.2");
+				"Oracle 8i, Oracle 9i, Oracle 10g, SQL Server, MySQL");
 		addSkillWithSplit(
 				SkillsData.technologiesTechnicalSkills,
-				"OSGI , Spring DM, Eclipse RCP, SWT/JFace, EMF, GEF, J2EE, JSP, Struts, Ant, POI, Hibernate, Spring, EJB2, Freemarker, Velocity, Web Service (AXIS), HTML, CSS, JavaScript, XML, XSL, Ajax, XQuery");
+				"OSGi , Spring DM, Eclipse RCP, SWT/JFace, EMF, GEF, JEE, JSP, Struts 1.x, Ant, POI, Hibernate, Spring, EJB2, Freemarker, Velocity, Web Service (AXIS), HTML, CSS, JavaScript, XML, XSL, XSD, Ajax, XQuery");
 		addSkillWithSplit(
 				SkillsData.softwaresTechnicalSkills,
 				"Jetty, Apache/Tomcat 5.0, BEA/WebLogic 6.1-8.1, Orion, Eclipse, JBuilder 7 et 9, JBuilder X, Visual Studio");

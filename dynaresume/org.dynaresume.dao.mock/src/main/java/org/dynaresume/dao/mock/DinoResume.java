@@ -71,6 +71,31 @@ public class DinoResume extends BaseResume {
 				"Projet de création et maintenance documentaire sur les différentes thématiques de la caisse d’allocation familiale.",
 				"01/07/2009", "21/01/2011");
 
+		// Skills
+		addSkill(SkillsData.functionalSkills, "Gestion documentaire");
+		addSkill(SkillsData.functionalSkills, "Logistique/Transport");
+		addSkill(SkillsData.functionalSkills, "Energie");
+		addSkill(SkillsData.functionalSkills, "E-commerce");
+		addSkill(SkillsData.functionalSkills, "R&D");
+		addSkill(SkillsData.functionalSkills, "Web Sémantique");
+		addSkill(
+				SkillsData.processSkills,
+				"Analyse, conception et développement Nouvelles Technologies de logiciels et applications WEB.");
+		addSkill(SkillsData.processSkills,
+				"Rédaction de documents, manuel d’utilisation, proposition commerciales");
+		addSkill(SkillsData.langagesTechnicalSkills, "Java");
+		addSkill(SkillsData.osTechnicalSkills, "Windows");
+		addSkill(SkillsData.osTechnicalSkills, "Linux");
+		addSkill(SkillsData.osTechnicalSkills, "Mac OS");
+		addSkillWithSplit(SkillsData.databaseTechnicalSkills,
+				"Oracle 8i,Oracle 9i, Oracle 10g, SQL Server, MySQL, Postgres, KTBS");
+		addSkillWithSplit(
+				SkillsData.technologiesTechnicalSkills,
+				"OSGi , Eclipse RCP, J2EE, JSP, Struts, Ant, POI, Hibernate, Spring, EJB2-3, Freemarker, Velocity, HTML, CSS, JavaScript, JQuery, XML, XSL, XSD, RDF, Ajax, XQuery");
+		addSkillWithSplit(SkillsData.softwaresTechnicalSkills,
+				"Jetty, Apache/Tomcat 5.0, BEA/WebLogic 6.1-8.1, Eclipse");
+		addSkillWithSplit(SkillsData.methodsAndToolsSkills, "Merise, UML, MDA");
+
 		// Hobbies
 		addHobby("Sport: football, handball, natation, plongée.");
 		addHobby("Voyage");

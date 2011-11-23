@@ -1,6 +1,5 @@
 package org.dynaresume.dao.mock;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,7 +40,8 @@ public class SkillsData {
 				technicalSkills);
 		softwaresTechnicalSkills = addCategory("Softwares", technicalSkills);
 
-		methodsAndToolsSkills = addCategory("Methods and associated tools", null);
+		methodsAndToolsSkills = addCategory("Methods and associated tools",
+				null);
 
 		Skill javaSkill = addSkill("Java", null);
 		addSkill("Spring", javaSkill);
@@ -67,7 +67,12 @@ public class SkillsData {
 		addSkill("Struts 2", fwkJEESkill);
 		addSkill("Wicket", fwkJEESkill);
 		addSkill("GWT", fwkJEESkill);
-
+		Skill jeeServerSkill = addSkill("JEE WebServer", jeeSkill);
+		addSkill("Tomcat", jeeServerSkill);
+		addSkill("Jetty", jeeServerSkill);
+		addSkill("WebSphere", jeeServerSkill);
+		addSkill("WebLogic", jeeServerSkill);
+		addSkill("JBoss", jeeServerSkill);
 		Skill javaScriptSkill = addSkill("JavaScript", null);
 		Skill fwkJavaScriptSkill = addSkill("Framework (Javascript)",
 				javaScriptSkill);
@@ -79,6 +84,30 @@ public class SkillsData {
 		addSkill("C#", dotNetSkill);
 		addSkill("VB.Net", dotNetSkill);
 		addSkill("XAML", dotNetSkill);
+
+		Skill xmlSkill = addSkill("XML", null);
+		addSkill("XSD", xmlSkill);
+		addSkill("XSL", xmlSkill);
+		addSkill("XQuery", xmlSkill);
+		addSkill("XForms", xmlSkill);
+
+		Skill osSkill = addSkill("OS", null);
+		addSkill("Windows", osSkill);
+		addSkill("Linux", osSkill);
+		addSkill("Mac OS", osSkill);
+
+		Skill databaseSkill = addSkill("Database", null);
+		Skill oracleDatabaseSkill = addSkill("Oracle", databaseSkill);
+		addSkill("Oracle 8i", oracleDatabaseSkill);
+		addSkill("Oracle 9i", oracleDatabaseSkill);
+		addSkill("Oracle 10g", oracleDatabaseSkill);
+		addSkill("SQL Server", databaseSkill);
+		addSkill("MySQL", databaseSkill);
+		addSkill("KTBS", databaseSkill);
+		addSkill("Postgres", databaseSkill);
+		addSkill("Derby", databaseSkill);
+		addSkill("H2", databaseSkill);
+
 	}
 
 	private static Skill addSkill(String label, Skill parent) {
@@ -92,12 +121,12 @@ public class SkillsData {
 
 	private static SkillCategory addCategory(String label, SkillCategory parent) {
 		SkillCategory skill = new SkillCategory();
-		//skill.setChildren(new ArrayList<SkillCategory>());
+		// skill.setChildren(new ArrayList<SkillCategory>());
 		skill.setId(getId());
 		skill.setLabel(label);
 		if (parent != null) {
 			skill.setParent(parent);
-			//parent.getChildren().add(skill);
+			// parent.getChildren().add(skill);
 		}
 		addCategory(skill);
 		return skill;
