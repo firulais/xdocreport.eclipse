@@ -20,20 +20,48 @@ public class SkillCategoryContentProvider extends ArrayContentProvider
 		}
 	}
 
+	@Override
+	public Object[] getElements(Object inputElement) {
+		if (inputElement instanceof SkillsResumeTreeModel) {
+			SkillsResumeTreeModel treeModel = ((SkillsResumeTreeModel) inputElement);
+			return super.getElements(treeModel.getCategories());
+		}
+		return super.getElements(inputElement);
+	}
+
 	public Object[] getChildren(Object parentElement) {
-		Collection<SkillCategory> children = ((SkillCategory) parentElement)
-				.getChildren();
-		return super.getElements(children);
+		if (parentElement instanceof SkillCategoryWrapper) {
+			return super.getElements(((SkillCategoryWrapper) parentElement)
+					.getChildren());
+		}
+//		if (parentElement instanceof SkillCategory) {
+//			return super.getElements(((SkillCategory) parentElement)
+//					.getChildren());
+//		}
+		return new Object[0];
 	}
 
 	public Object getParent(Object element) {
-		return ((SkillCategory) element).getParent();
+		if (element instanceof SkillCategoryWrapper) {
+			return super.getElements(((SkillCategoryWrapper) element)
+					.getParent());
+		}
+		if (element instanceof SkillCategory) {
+			return super.getElements(((SkillCategory) element).getParent());
+		}
+		return null;
 	}
 
 	public boolean hasChildren(Object element) {
-		Collection<SkillCategory> children = ((SkillCategory) element)
-				.getChildren();
-		return children != null && children.size() > 0;
+		if (element instanceof SkillCategoryWrapper) {
+			return ((SkillCategoryWrapper) element).hasChildren();
+		}
+//		if (element instanceof SkillCategory) {
+//			Collection<SkillCategory> children = ((SkillCategory) element)
+//					.getChildren();
+//			return children != null && children.size() > 0;
+//		}
+		return false;
 	}
 
 }

@@ -12,6 +12,8 @@ import org.dynaresume.domain.hr.Education;
 import org.dynaresume.domain.hr.Experience;
 import org.dynaresume.domain.hr.Hobby;
 import org.dynaresume.domain.hr.Resume;
+import org.dynaresume.domain.hr.Skill;
+import org.dynaresume.domain.hr.SkillResume;
 import org.springframework.stereotype.Repository;
 
 @Repository("resumeDao")
@@ -82,6 +84,16 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		}
 
 		// Hobbies
+		Set<SkillResume> skills = resume.getSkills();
+		if (skills != null) {
+			Set<SkillResume> newSkills = new HashSet<SkillResume>();
+			for (SkillResume skill : skills) {
+				newSkills.add(clone(skill));
+			}
+			newResume.setSkills(newSkills);
+		}
+
+		// Hobbies
 		Set<Hobby> hobbies = resume.getHobbies();
 		if (hobbies != null) {
 			Set<Hobby> newHobbies = new HashSet<Hobby>();
@@ -92,7 +104,7 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		}
 
 		return newResume;
-	}
+	}	
 
 	private NaturalPerson clone(NaturalPerson person) {
 		NaturalPerson newPerson = new NaturalPerson();
@@ -141,6 +153,14 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		newHobby.setId(id);
 		newHobby.setLabel(hobby.getLabel());
 		return newHobby;
+	}
+	
+	private SkillResume clone(SkillResume skill) {
+		SkillResume newSkill = new SkillResume();
+		newSkill.setCategory(skill.getCategory());
+		newSkill.setSkill(skill.getSkill());
+		newSkill.setFreeSkill(skill.getFreeSkill());
+		return newSkill;
 	}
 
 	private Address clone(Address address) {

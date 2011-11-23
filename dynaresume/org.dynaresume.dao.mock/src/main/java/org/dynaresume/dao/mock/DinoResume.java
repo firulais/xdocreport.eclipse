@@ -15,7 +15,7 @@ import org.dynaresume.domain.hr.Resume;
 import fr.opensagres.xdocreport.commons.utils.DateUtils;
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
-public class DinoResume extends Resume {
+public class DinoResume extends BaseResume {
 
 	public DinoResume() {
         super.setId(MockResumeDao.currentId++);

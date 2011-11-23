@@ -5,18 +5,16 @@
               http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
 	<persistence-unit name="dynaresume" transaction-type="RESOURCE_LOCAL">
-
-		
 		<class>org.dynaresume.domain.hr.Education</class>
 		<class>org.dynaresume.domain.hr.Experience</class>		
 		<class>org.dynaresume.domain.hr.Hobby</class>
 		<class>org.dynaresume.domain.hr.Resume</class>
 		<class>org.dynaresume.domain.hr.Skill</class>
 		<class>org.dynaresume.domain.hr.SkillCategory</class>
+		<class>org.dynaresume.domain.hr.SkillResume</class>		
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
-
 		</properties>
 	</persistence-unit>
 

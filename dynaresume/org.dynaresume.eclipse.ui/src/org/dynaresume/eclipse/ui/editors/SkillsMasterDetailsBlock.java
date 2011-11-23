@@ -1,19 +1,21 @@
 package org.dynaresume.eclipse.ui.editors;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.dynaresume.domain.hr.Resume;
 import org.dynaresume.domain.hr.Skill;
 import org.dynaresume.domain.hr.SkillCategory;
+import org.dynaresume.domain.hr.SkillResume;
 import org.dynaresume.eclipse.ui.internal.Messages;
 import org.dynaresume.eclipse.ui.viewers.SkillCategoryContentProvider;
 import org.dynaresume.eclipse.ui.viewers.SkillCategoryLabelProvider;
+import org.dynaresume.eclipse.ui.viewers.SkillsResumeTreeModel;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
@@ -137,9 +139,9 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 	protected void handleAddButton() {
 		Skill skill = new Skill();
 		// skill.setTitle("New skill");
-		getSkills().add(skill);
-		//viewer.add(skill);
-		//viewer.setSelection(new StructuredSelection(skill));
+		// getSkills().add(skill);
+		// viewer.add(skill);
+		// viewer.setSelection(new StructuredSelection(skill));
 	}
 
 	protected void handleRemoveButton() {
@@ -150,7 +152,7 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 			Object[] skills = selection.toArray();
 			for (int i = 0; i < skills.length; i++) {
 				skill = (Skill) skills[i];
-				getSkills().remove(skill);
+				// getSkills().remove(skill);
 				viewer.remove(skill);
 			}
 			viewer.refresh();
@@ -165,16 +167,19 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 
 	@Override
 	public void onBind(DataBindingContext dataBindingContext) {
-		//Set<Skill> skills = getSkills();
+		// Set<Skill> skills = getSkills();
 		Iterable<SkillCategory> categories = ((ResumeFormEditor) getDetailsPage()
-				.getEditor()).getSkillCategoryService().findAllRoot();
-		viewer.setInput(categories);
+				.getEditor()).getSkillCategoryService().findAll();
+		Collection<SkillResume> skillsResume = getSkills();
+		SkillsResumeTreeModel treeModel = new SkillsResumeTreeModel(categories,
+				skillsResume);
+		viewer.setInput(treeModel);
 	}
 
-	private Set<Skill> getSkills() {
-		Set<Skill> skills = getModelObject().getSkills();
+	private Set<SkillResume> getSkills() {
+		Set<SkillResume> skills = getModelObject().getSkills();
 		if (skills == null) {
-			skills = new HashSet<Skill>();
+			skills = new HashSet<SkillResume>();
 			getModelObject().setSkills(skills);
 		}
 		return skills;

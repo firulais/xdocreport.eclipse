@@ -15,7 +15,7 @@ import org.dynaresume.domain.hr.Resume;
 import fr.opensagres.xdocreport.commons.utils.DateUtils;
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
-public class AngeloResume extends Resume {
+public class AngeloResume extends BaseResume {
 
 	public AngeloResume() {
 		super.setId(MockResumeDao.currentId++);
@@ -125,6 +125,29 @@ public class AngeloResume extends Resume {
 		}
 		experiences.add(experience);
 
+		// Skills
+		addSkill(SkillsData.functionalSkills, "Gestion documentaire");
+		addSkill(SkillsData.functionalSkills, "Logistique/Transport");
+		addSkill(SkillsData.functionalSkills, "Nucléaire");
+		addSkill(SkillsData.functionalSkills, "Agroalimentaire");
+		addSkill(
+				SkillsData.processSkills,
+				"Analyse, conception et développement Nouvelles Technologies de logiciels et applications WEB.s");
+		addSkill(SkillsData.processSkills,
+				"Rédaction de documents, manuel d’utilisation, proposition commerciales");
+		addSkill(SkillsData.langagesTechnicalSkills, "Java");
+		addSkill(SkillsData.osTechnicalSkills, "Windos");
+		addSkillWithSplit(SkillsData.databaseTechnicalSkills,
+				"Oracle 8i-9i-10g, SQL Server 7/2k, MySQL, Sybase ASA 7 et ASE 11.9.2");
+		addSkillWithSplit(
+				SkillsData.technologiesTechnicalSkills,
+				"OSGI , Spring DM, Eclipse RCP, SWT/JFace, EMF, GEF, J2EE, JSP, Struts, Ant, POI, Hibernate, Spring, EJB2, Freemarker, Velocity, Web Service (AXIS), HTML, CSS, JavaScript, XML, XSL, Ajax, XQuery");
+		addSkillWithSplit(
+				SkillsData.softwaresTechnicalSkills,
+				"Jetty, Apache/Tomcat 5.0, BEA/WebLogic 6.1-8.1, Orion, Eclipse, JBuilder 7 et 9, JBuilder X, Visual Studio");
+		addSkillWithSplit(SkillsData.methodsAndToolsSkills,
+				"Merise, UML (Power Designer)");
+
 		// Hobbies
 		Set<Hobby> hobbies = new HashSet<Hobby>();
 		super.setHobbies(hobbies);
@@ -148,4 +171,5 @@ public class AngeloResume extends Resume {
 		hobby.setLabel("Projets Open source");
 		hobbies.add(hobby);
 	}
+
 }

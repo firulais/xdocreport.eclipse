@@ -10,25 +10,38 @@ import org.dynaresume.domain.hr.SkillCategory;
 public class SkillsData {
 
 	static long currentId = 0;
+
+	public static final SkillCategory functionalSkills;
+	public static final SkillCategory processSkills;
+	public static final SkillCategory technicalSkills;
+	public static final SkillCategory osTechnicalSkills;
+	public static final SkillCategory databaseTechnicalSkills;
+	public static final SkillCategory langagesTechnicalSkills;
+	public static final SkillCategory technologiesTechnicalSkills;
+	public static final SkillCategory softwaresTechnicalSkills;
+	public static final SkillCategory methodsAndToolsSkills;
+
 	static final Map<Long, SkillCategory> categories;
 	static final Map<Long, Skill> skills;
+	private static Map<String, Skill> skillsByLabel;
 
 	static {
 		skills = new HashMap<Long, Skill>();
+		skillsByLabel = new HashMap<String, Skill>();
 		categories = new HashMap<Long, SkillCategory>();
 
-		SkillCategory functionalSkills = addCategory("Functional skills", null);
-		SkillCategory processSkills = addCategory("Process skills", null);
+		functionalSkills = addCategory("Functional skills", null);
+		processSkills = addCategory("Process skills", null);
 
-		SkillCategory technicalSkills = addCategory("Technical skills", null);
-		addCategory("OS", technicalSkills);
-		addCategory("Database", technicalSkills);
-		addCategory("Langages", technicalSkills);
-		addCategory("Technologies", technicalSkills);
-		addCategory("Sofwares", technicalSkills);
+		technicalSkills = addCategory("Technical skills", null);
+		osTechnicalSkills = addCategory("OS", technicalSkills);
+		databaseTechnicalSkills = addCategory("Database", technicalSkills);
+		langagesTechnicalSkills = addCategory("Langages", technicalSkills);
+		technologiesTechnicalSkills = addCategory("Technologies",
+				technicalSkills);
+		softwaresTechnicalSkills = addCategory("Softwares", technicalSkills);
 
-		SkillCategory toolsSkills = addCategory("Methods and associated tools",
-				null);
+		methodsAndToolsSkills = addCategory("Methods and associated tools", null);
 
 		Skill javaSkill = addSkill("Java", null);
 		addSkill("Spring", javaSkill);
@@ -79,12 +92,12 @@ public class SkillsData {
 
 	private static SkillCategory addCategory(String label, SkillCategory parent) {
 		SkillCategory skill = new SkillCategory();
-		skill.setChildren(new ArrayList<SkillCategory>());
+		//skill.setChildren(new ArrayList<SkillCategory>());
 		skill.setId(getId());
 		skill.setLabel(label);
 		if (parent != null) {
 			skill.setParent(parent);
-			parent.getChildren().add(skill);
+			//parent.getChildren().add(skill);
 		}
 		addCategory(skill);
 		return skill;
@@ -92,6 +105,7 @@ public class SkillsData {
 
 	private static void addSkill(Skill skill) {
 		skills.put(skill.getId(), skill);
+		skillsByLabel.put(skill.getLabel(), skill);
 	}
 
 	private static void addCategory(SkillCategory category) {
@@ -100,5 +114,9 @@ public class SkillsData {
 
 	public synchronized static Long getId() {
 		return currentId++;
+	}
+
+	public static Skill getSkillByLabel(String label) {
+		return skillsByLabel.get(label);
 	}
 }

@@ -49,7 +49,7 @@ public class Resume {
 	private Set<Education> educations;
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "resume_fk")
-	private Set<Skill> skills;
+	private Set<SkillResume> skills;
 	@Transient
 	private Set<Hobby> hobbies;
 
@@ -148,11 +148,11 @@ public class Resume {
 		// firePropertyChange("diplomas", oldValue, diplomas);
 	}
 
-	public Set<Skill> getSkills() {
+	public Set<SkillResume> getSkills() {
 		return skills;
 	}
 
-	public void setSkills(Set<Skill> skills) {
+	public void setSkills(Set<SkillResume> skills) {
 		// Object oldValue = this.competences;
 		this.skills = skills;
 		// firePropertyChange("competences", oldValue, competences);

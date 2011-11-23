@@ -7,7 +7,7 @@ import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
-public class AmineResume extends Resume {
+public class AmineResume extends BaseResume {
 
 	public AmineResume() {
 		// Pascal

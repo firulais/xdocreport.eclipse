@@ -19,7 +19,7 @@ public class SkillCategory {
 
 	private SkillCategory parent;
 
-	private Collection<SkillCategory> children;
+	//private Collection<SkillCategory> children;
 
 	public Long getId() {
 		return id;
@@ -45,11 +45,11 @@ public class SkillCategory {
 		this.parent = parent;
 	}
 
-	public void setChildren(Collection<SkillCategory> children) {
-		this.children = children;
-	}
-
-	public Collection<SkillCategory> getChildren() {
-		return children;
-	}
+//	public void setChildren(Collection<SkillCategory> children) {
+//		this.children = children;
+//	}
+//
+//	public Collection<SkillCategory> getChildren() {
+//		return children;
+//	}
 }
