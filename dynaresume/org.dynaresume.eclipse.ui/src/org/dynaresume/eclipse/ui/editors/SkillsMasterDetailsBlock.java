@@ -39,13 +39,19 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 	private static final Integer ADD_BUTTON_INDEX = 1;
 	private static final Integer REMOVE_BUTTON_INDEX = 2;
 
-	private SkillDetailsPage skillDetailsPage;
+	enum TreeItemType {
+		Category, SkillFree, Skill
+	}
+
+	private final SkillDetailsPage skillFreeDetailsPage;
+	private final SkillDetailsPage skillDetailsPage;
 	private TreeViewer viewer;
 	private Button removeButton;
 
 	public SkillsMasterDetailsBlock(SkillsPage skillsPage) {
 		super(skillsPage);
-		this.skillDetailsPage = new SkillDetailsPage();
+		this.skillFreeDetailsPage = new SkillDetailsPage(true);
+		this.skillDetailsPage = new SkillDetailsPage(false);
 	}
 
 	@Override
@@ -174,6 +180,7 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 		SkillsResumeTreeModel treeModel = new SkillsResumeTreeModel(categories,
 				skillsResume);
 		viewer.setInput(treeModel);
+		viewer.expandToLevel(2);
 	}
 
 	private Set<SkillResume> getSkills() {
@@ -186,11 +193,21 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 	}
 
 	public IDetailsPage getPage(Object key) {
-		return skillDetailsPage;
-	}
-
-	public Object getPageKey(Object object) {
+		TreeItemType type = (TreeItemType) key;
+		switch (type) {
+		case Skill:
+			return skillDetailsPage;
+		case SkillFree:
+			return skillFreeDetailsPage;
+		}
 		return null;
 	}
 
+	public Object getPageKey(Object object) {
+		if (object instanceof SkillResume) {
+			return ((SkillResume) object).getSkill() == null ? TreeItemType.SkillFree
+					: TreeItemType.Skill;
+		}
+		return TreeItemType.Category;
+	}
 }

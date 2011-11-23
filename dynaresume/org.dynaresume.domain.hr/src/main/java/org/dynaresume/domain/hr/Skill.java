@@ -9,6 +9,8 @@ import javax.persistence.Transient;
 @Entity
 public class Skill {
 
+	public static final String LABEL_PROPERTY = "label";
+
 	@Id
 	@GeneratedValue
 	private Long id;

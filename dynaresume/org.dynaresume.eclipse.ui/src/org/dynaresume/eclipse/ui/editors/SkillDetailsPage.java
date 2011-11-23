@@ -1,7 +1,7 @@
 package org.dynaresume.eclipse.ui.editors;
 
-import org.dynaresume.domain.hr.Hobby;
 import org.dynaresume.domain.hr.Skill;
+import org.dynaresume.domain.hr.SkillResume;
 import org.dynaresume.eclipse.ui.internal.Messages;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.PojoObservables;
@@ -12,6 +12,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
@@ -20,10 +21,16 @@ import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import fr.opensagres.eclipse.forms.editor.ModelDetailsPage;
 
-public class SkillDetailsPage extends ModelDetailsPage<Skill> {
+public class SkillDetailsPage extends ModelDetailsPage<SkillResume> {
 
-	private Text hobbyLabelText;
-	private Text hobbyInstituteText;
+	private final boolean freeSkill;
+
+	public SkillDetailsPage(boolean freeSkill) {
+		this.freeSkill = freeSkill;
+	}
+
+	private Text skillFreeLabelText;
+	private Label skillLabel;
 
 	@Override
 	protected void onCreateUI(Composite parent) {
@@ -37,21 +44,21 @@ public class SkillDetailsPage extends ModelDetailsPage<Skill> {
 
 		FormToolkit toolkit = getManagedForm().getToolkit();
 
-		Section hobbyDetailSection = toolkit.createSection(parent,
+		Section skillDetailSection = toolkit.createSection(parent,
 				Section.DESCRIPTION | Section.TITLE_BAR);
-		hobbyDetailSection.marginWidth = 10;
-		hobbyDetailSection
-				.setText(Messages.ResumeFormEditor_HobbiesPage_HobbyDetailsPage_title); //$NON-NLS-1$
-		hobbyDetailSection
-				.setDescription(Messages.ResumeFormEditor_HobbiesPage_HobbyDetailsPage_desc); //$NON-NLS-1$
+		skillDetailSection.marginWidth = 10;
+		skillDetailSection
+				.setText(Messages.ResumeFormEditor_SkillsPage_SkillDetailsPage_title); //$NON-NLS-1$
+		skillDetailSection
+				.setDescription(Messages.ResumeFormEditor_SkillsPage_SkillDetailsPage_desc); //$NON-NLS-1$
 
 		TableWrapData td = new TableWrapData(TableWrapData.FILL,
 				TableWrapData.TOP);
 		td.grabHorizontal = true;
-		hobbyDetailSection.setLayoutData(td);
+		skillDetailSection.setLayoutData(td);
 
-		Composite client = toolkit.createComposite(hobbyDetailSection);
-		hobbyDetailSection.setClient(client);
+		Composite client = toolkit.createComposite(skillDetailSection);
+		skillDetailSection.setClient(client);
 
 		// Create generic content
 		createBodyContent(toolkit, client);
@@ -64,25 +71,50 @@ public class SkillDetailsPage extends ModelDetailsPage<Skill> {
 		glayout.numColumns = 2;
 		parent.setLayout(glayout);
 
-		// Hobby label
-		toolkit.createLabel(
-				parent,
-				Messages.ResumeFormEditor_HobbiesPage_HobbyDetailsPage_hobbyLabel_label);
-		hobbyLabelText = toolkit.createText(parent, "", SWT.SINGLE);
-		hobbyLabelText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-
-
+		if (isSkillFree()) {
+			// Skill Free label
+			toolkit.createLabel(
+					parent,
+					Messages.ResumeFormEditor_SkillsPage_SkillDetailsPage_skillFreeLabel_label);
+			skillFreeLabelText = toolkit.createText(parent, "", SWT.SINGLE);
+			skillFreeLabelText.setLayoutData(new GridData(
+					GridData.FILL_HORIZONTAL));
+		} else {
+			// Skill label
+			toolkit.createLabel(
+					parent,
+					Messages.ResumeFormEditor_SkillsPage_SkillDetailsPage_skillLabel_label);
+			skillLabel = toolkit.createLabel(parent, "", SWT.SINGLE);
+			skillLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		}
 	}
 
 	public void onBind(DataBindingContext bindingContext) {
-		// Label binding
-		IObservableValue hobbyLabelTextObserveTextObserveWidget = SWTObservables
-				.observeText(hobbyLabelText, SWT.Modify);
-		IObservableValue modelHobbyLabelObserveValue = PojoObservables
-				.observeValue(getModelObject(), Hobby.LABEL_PROPERTY);
-		bindingContext.bindValue(hobbyLabelTextObserveTextObserveWidget,
-				modelHobbyLabelObserveValue, null, null);
+		if (isSkillFree()) {
+			// Free Label binding
+			IObservableValue skillLabelTextObserveTextObserveWidget = SWTObservables
+					.observeText(skillFreeLabelText, SWT.Modify);
+			IObservableValue modelSkillLabelObserveValue = PojoObservables
+					.observeValue(getModelObject(),
+							SkillResume.FREE_SKILL_PROPERTY);
+			bindingContext.bindValue(skillLabelTextObserveTextObserveWidget,
+					modelSkillLabelObserveValue, null, null);
+		} else {
+			// Label binding
+			IObservableValue skillLabelObserveTextObserveWidget = SWTObservables
+					.observeText(skillLabel);
+			IObservableValue modelSkillLabelObserveValue = PojoObservables
+					.observeValue(getModelObject(), SkillResume.SKILL_PROPERTY
+							+ "." + Skill.LABEL_PROPERTY);
+			bindingContext.bindValue(skillLabelObserveTextObserveWidget,
+					modelSkillLabelObserveValue, null, null);
 
+		}
+
+	}
+
+	private boolean isSkillFree() {
+		return freeSkill;
 	}
 
 }

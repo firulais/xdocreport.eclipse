@@ -2,6 +2,9 @@ package org.dynaresume.domain.hr;
 
 public class SkillResume {
 
+	public static final String FREE_SKILL_PROPERTY = "freeSkill";
+	public static final String SKILL_PROPERTY = "skill";
+	
 	private SkillCategory category;
 	private Skill skill;
 	private String freeSkill;
