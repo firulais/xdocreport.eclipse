@@ -12,20 +12,18 @@ public class PascalResume extends BaseResume {
 	public PascalResume() {
 		// Pascal
 		NaturalPerson person = new NaturalPerson();
-		person.setId(MockResumeDao.currentId++);
+		person.setId(getCurrentId());
 		person.setFirstName("Pascal");
 		person.setLastName("Leclercq");
 		person.setEmail("pascal.leclercq@gmail.com");
 
-		super.setId(MockResumeDao.currentId++);
+		super.setId(getCurrentId());
 		super.setOwner(person);
 		
 		
 		try {
 			setPicture(IOUtils.toByteArray(Resume.class
 					.getResourceAsStream("PascalLeclercq.jpg")));
-//			super.setPictureAsStream(Resume.class
-//					.getResourceAsStream("PascalLeclercq.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

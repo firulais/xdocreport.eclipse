@@ -12,19 +12,20 @@ public class AmineResume extends BaseResume {
 	public AmineResume() {
 		// Pascal
 		NaturalPerson person = new NaturalPerson();
-		person.setId(MockResumeDao.currentId++);
+		person.setId(getCurrentId());
 		person.setFirstName("Amine");
 		person.setLastName("Bousta");
 
-		super.setId(MockResumeDao.currentId++);
+		super.setId(getCurrentId());
 		super.setOwner(person);
 		try {
 			setPicture(IOUtils.toByteArray(Resume.class
 					.getResourceAsStream("AmineBousta.jpg")));
-//			super.setPictureAsStream(Resume.class
-//					.getResourceAsStream("AmineBousta.jpg"));
+			// super.setPictureAsStream(Resume.class
+			// .getResourceAsStream("AmineBousta.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+
 }

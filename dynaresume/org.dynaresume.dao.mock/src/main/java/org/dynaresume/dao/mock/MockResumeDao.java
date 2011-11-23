@@ -12,7 +12,6 @@ import org.dynaresume.domain.hr.Education;
 import org.dynaresume.domain.hr.Experience;
 import org.dynaresume.domain.hr.Hobby;
 import org.dynaresume.domain.hr.Resume;
-import org.dynaresume.domain.hr.Skill;
 import org.dynaresume.domain.hr.SkillResume;
 import org.springframework.stereotype.Repository;
 
@@ -26,6 +25,7 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		addResume(new AngeloResume());
 		addResume(new PascalResume());
 		addResume(new AmineResume());
+		addResume(new LarsVogelResume());
 		addResume(new DinoResume());
 	}
 
