@@ -118,8 +118,9 @@ import org.osgi.util.tracker.ServiceTracker;
 @ExamReactorStrategy(EagerSingleStagedReactorFactory.class)
 public class OSGiUnitTest {
 
-	//private static final String SPRING_VERSION = "3.1.0.RC1";
+	// private static final String SPRING_VERSION = "3.1.0.RC1";
 	private static final String SPRING_VERSION = "3.0.6.RELEASE";
+
 	@Configuration()
 	public Option[] config() {
 		return options(
@@ -129,24 +130,20 @@ public class OSGiUnitTest {
 				cleanCaches(),
 				junitBundles(),
 				felix(),
-				//equinox(),
+				// equinox(),
 				// ***************** Common dependencies ********************
 				mavenBundle().groupId("org.aopalliance")
 						.artifactId("com.springsource.org.aopalliance")
 						.version("1.0.0"),
 				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-aop")
-						.version(SPRING_VERSION),
+						.artifactId("spring-aop").version(SPRING_VERSION),
 				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-beans")
-						.version(SPRING_VERSION),
+						.artifactId("spring-beans").version(SPRING_VERSION),
 				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-context")
-						.version(SPRING_VERSION),
+						.artifactId("spring-context").version(SPRING_VERSION),
 
 				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-core")
-						.version(SPRING_VERSION),
+						.artifactId("spring-core").version(SPRING_VERSION),
 
 				mavenBundle().groupId("org.springframework.data")
 						.artifactId("spring-data-jpa").version("1.0.1.RELEASE"),
@@ -169,17 +166,13 @@ public class OSGiUnitTest {
 						.version("1.0.0.GA"),
 
 				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-tx")
-						.version(SPRING_VERSION),
+						.artifactId("spring-tx").version(SPRING_VERSION),
 				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-orm")
-						.version(SPRING_VERSION),
+						.artifactId("spring-orm").version(SPRING_VERSION),
 				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-jdbc")
-						.version(SPRING_VERSION),
+						.artifactId("spring-jdbc").version(SPRING_VERSION),
 				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-asm")
-						.version(SPRING_VERSION),
+						.artifactId("spring-asm").version(SPRING_VERSION),
 				mavenBundle().groupId("org.springframework")
 						.artifactId("spring-expression")
 						.version(SPRING_VERSION),
@@ -237,10 +230,10 @@ public class OSGiUnitTest {
 						.artifactId("com.springsource.org.dom4j")
 						.version("1.6.1"),
 
-						mavenBundle().groupId("org.hibernate")
-								.artifactId("com.springsource.org.hibernate.ejb")
-								.version("4.0.0.CR4").noStart(),
-						
+				mavenBundle().groupId("org.hibernate")
+						.artifactId("com.springsource.org.hibernate.ejb")
+						.version("4.0.0.CR4").noStart(),
+
 				mavenBundle().groupId("org.hibernate")
 						.artifactId("com.springsource.org.hibernate")
 						.version("4.0.0.CR4").noStart(),
@@ -255,8 +248,8 @@ public class OSGiUnitTest {
 				wrappedBundle(
 						mavenBundle().groupId("org.jboss.logmanager")
 								.artifactId("jboss-logmanager")
-								.version("1.2.0.GA"))
-						.exports("org.jboss.logmanager;version=\"1.2.0.GA\""),
+								.version("1.2.0.GA")).exports(
+						"org.jboss.logmanager;version=\"1.2.0.GA\""),
 
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
 						"org.dynaresume.domain.core", "1.0.0-SNAPSHOT"),
@@ -267,7 +260,9 @@ public class OSGiUnitTest {
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
 						"org.dynaresume.dao", "1.0.0-SNAPSHOT"),
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
-						"org.dynaresume.dao.jpa", "1.0.0-SNAPSHOT")
+						"org.dynaresume.dao.jpa", "1.0.0-SNAPSHOT"),
+				mavenBundle("fr.opensagres.xdocreport-eclipse",
+						"org.dynaresume.dao.jpa.hibernate", "1.0.0-SNAPSHOT")
 
 		// mavenBundle("fr.opensagres.xdocreport-eclipse",
 		// "org.dynaresume.services", "1.0.0-SNAPSHOT"),
@@ -308,6 +303,7 @@ public class OSGiUnitTest {
 		assertNotNull(dataSource);
 	}
 
+	@Ignore
 	@Test
 	public void findResumeDao(BundleContext ctx) throws InterruptedException {
 		assertThat(ctx, is(notNullValue()));
@@ -322,5 +318,5 @@ public class OSGiUnitTest {
 		tracker.close();
 		assertNotNull(resumeDao);
 	}
-	
+
 }

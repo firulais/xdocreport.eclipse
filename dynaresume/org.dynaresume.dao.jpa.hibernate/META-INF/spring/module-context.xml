@@ -18,8 +18,16 @@
 				<property name="databasePlatform" value="org.hibernate.dialect.DerbyDialect" />
 				<property name="generateDdl" value="false" />
 				<property name="showSql" value="true" />
+				
 			</bean>
-		</property>
+		</property>	
+		<property name="jpaPropertyMap">
+					<map>
+						<entry key="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
+						<entry key="hibernate.hbm2ddl.auto" value="update" />
+					</map>
+		</property>	
+		
 	</bean>
 
 
@@ -34,5 +42,5 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	<context:annotation-config />
 	<context:component-scan base-package="org.dynaresume.dao.jpa" />
-	
+
 </beans>

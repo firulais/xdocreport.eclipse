@@ -12,10 +12,6 @@
 		<class>org.dynaresume.domain.hr.Skill</class>
 		<class>org.dynaresume.domain.hr.SkillCategory</class>
 		<class>org.dynaresume.domain.hr.SkillResume</class>		
-		<properties>
-			<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
-		</properties>
 	</persistence-unit>
 
 </persistence>
