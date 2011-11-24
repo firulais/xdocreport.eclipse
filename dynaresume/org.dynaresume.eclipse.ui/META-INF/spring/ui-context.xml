@@ -19,5 +19,11 @@
 		scope="prototype">
 		<property name="resumeService" ref="resumeService" />
 	</bean>	
+
+	<bean id="quickAddSkillsWizard" class="org.dynaresume.eclipse.ui.wizards.QuickAddSkillsWizard"
+		scope="prototype">
+		<property name="skillService" ref="skillService" />
+	</bean>		
+	
 	
 </beans>

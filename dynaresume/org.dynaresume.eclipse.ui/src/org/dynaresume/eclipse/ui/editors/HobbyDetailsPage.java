@@ -22,7 +22,6 @@ import fr.opensagres.eclipse.forms.editor.ModelDetailsPage;
 public class HobbyDetailsPage extends ModelDetailsPage<Hobby> {
 
 	private Text hobbyLabelText;
-	private Text hobbyInstituteText;
 
 	@Override
 	protected void onCreateUI(Composite parent) {

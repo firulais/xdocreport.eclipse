@@ -65,8 +65,32 @@ public class SkillCategoryWrapper {
 		children.add(wrapper);
 	}
 
+	public void addAllChild(Collection<SkillResume> skills) {
+		children.addAll(skills);
+		treeModel.addSkills(skills);
+	}
+	
 	public void removeChild(SkillResume skill) {
 		children.remove(skill);
 		treeModel.removeSkill(skill);
+	}
+
+	public SkillResume findSkillByName(String skill) {
+		for (Object child : getChildren()) {
+			if (child instanceof SkillResume) {
+				SkillResume skillResume = (SkillResume) child;
+				if (skillResume.getFreeSkill() != null) {
+					if (skillResume.getFreeSkill().equalsIgnoreCase(skill)) {
+						return skillResume;
+					}
+				} else {
+					if (skillResume.getSkill().getName()
+							.equalsIgnoreCase(skill)) {
+						return skillResume;
+					}
+				}
+			}
+		}
+		return null;
 	}
 }

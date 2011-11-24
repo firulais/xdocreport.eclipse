@@ -1,7 +1,8 @@
 package org.dynaresume.eclipse.ui.editors;
 
+import java.util.Collection;
+
 import org.dynaresume.domain.hr.Resume;
-import org.dynaresume.domain.hr.Skill;
 import org.dynaresume.domain.hr.SkillCategory;
 import org.dynaresume.domain.hr.SkillResume;
 import org.dynaresume.eclipse.ui.internal.Messages;
@@ -9,11 +10,14 @@ import org.dynaresume.eclipse.ui.viewers.SkillCategoryContentProvider;
 import org.dynaresume.eclipse.ui.viewers.SkillCategoryLabelProvider;
 import org.dynaresume.eclipse.ui.viewers.SkillCategoryWrapper;
 import org.dynaresume.eclipse.ui.viewers.SkillsResumeTreeModel;
+import org.dynaresume.eclipse.ui.wizards.QuickAddSkillsWizard;
 import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -30,11 +34,13 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
 import fr.opensagres.eclipse.forms.ModelMasterDetailsBlock;
+import fr.opensagres.xdocreport.eclipse.PlatformXDocReport;
 
 public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 
 	private static final Integer ADD_BUTTON_INDEX = 1;
-	private static final Integer REMOVE_BUTTON_INDEX = 2;
+	private static final Integer QUICK_ADD_BUTTON_INDEX = 2;
+	private static final Integer REMOVE_BUTTON_INDEX = 3;
 
 	enum TreeItemType {
 		Category, SkillFree, Skill
@@ -43,8 +49,11 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 	private final SkillFreeDetailsPage skillFreeDetailsPage;
 	private final SkillDetailsPage skillDetailsPage;
 	private TreeViewer viewer;
-	private Button removeButton;
+
 	private Button addButton;
+	private Button quickAddButton;
+	private Button removeButton;
+
 	private SkillsResumeTreeModel treeModel;
 
 	public SkillsMasterDetailsBlock(SkillsPage skillsPage) {
@@ -131,6 +140,7 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 			}
 		}
 		addButton.setEnabled(enabledAdd);
+		quickAddButton.setEnabled(enabledAdd);
 		removeButton.setEnabled(enabledRemove);
 	}
 
@@ -146,6 +156,8 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 			public void widgetSelected(SelectionEvent e) {
 				if (e.widget.getData() == ADD_BUTTON_INDEX) {
 					handleAddButton();
+				} else if (e.widget.getData() == QUICK_ADD_BUTTON_INDEX) {
+					handleQuickAddButton();
 				} else if (e.widget.getData() == REMOVE_BUTTON_INDEX) {
 					handleRemoveButton();
 				}
@@ -161,6 +173,15 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 		addButton.setEnabled(true);
 		addButton.addSelectionListener(listener);
 
+		quickAddButton = toolkit.createButton(buttonsContainer,
+				Messages.quickAddButton_label, SWT.PUSH); //$NON-NLS-1$
+		gd = new GridData(GridData.FILL_HORIZONTAL
+				| GridData.VERTICAL_ALIGN_BEGINNING);
+		quickAddButton.setData(QUICK_ADD_BUTTON_INDEX);
+		quickAddButton.setLayoutData(gd);
+		quickAddButton.setEnabled(true);
+		quickAddButton.addSelectionListener(listener);
+
 		removeButton = toolkit.createButton(buttonsContainer,
 				Messages.removeButton_label, SWT.PUSH); //$NON-NLS-1$
 		gd = new GridData(GridData.FILL_HORIZONTAL
@@ -175,11 +196,38 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 	}
 
 	protected void handleAddButton() {
-		Skill skill = new Skill();
+
+		MessageDialog.openInformation(addButton.getShell(), "TODO", "TODO");
 		// skill.setTitle("New skill");
 		// getSkills().add(skill);
 		// viewer.add(skill);
 		// viewer.setSelection(new StructuredSelection(skill));
+	}
+
+	protected void handleQuickAddButton() {
+		SkillCategoryWrapper selectedCategory = (SkillCategoryWrapper) ((IStructuredSelection) viewer
+				.getSelection()).getFirstElement();
+		QuickAddSkillsWizard wizard;
+		try {
+			wizard = PlatformXDocReport.getWizardFactory().createWizard(
+					QuickAddSkillsWizard.ID, QuickAddSkillsWizard.class);
+			wizard.setCategory(selectedCategory);
+			WizardDialog dlg = new WizardDialog(quickAddButton.getShell(),
+					wizard);
+			dlg.open();
+
+			// Add skills and free skills created by the wizard.
+			Collection<SkillResume> newSkills= wizard.getSkills();
+			Collection<SkillResume> newFreeSkills= wizard.getFreeSkills();
+			if (newSkills.size() > 0 || newFreeSkills.size() > 0) {
+				selectedCategory.addAllChild(newSkills);
+				selectedCategory.addAllChild(newFreeSkills);
+				viewer.refresh();
+			}						
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	protected void handleRemoveButton() {

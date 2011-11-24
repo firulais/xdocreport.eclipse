@@ -85,4 +85,13 @@ public class SkillsResumeTreeModel {
 		resume.getSkills().remove(skill);
 	}
 
+	public void addSkills(Collection<SkillResume> skills) {
+		for (SkillResume skill : skills) {
+			skillsResumeCache.remove(skill);
+			resume.getSkills().add(skill);
+		}
+		
+		
+	}
+
 }

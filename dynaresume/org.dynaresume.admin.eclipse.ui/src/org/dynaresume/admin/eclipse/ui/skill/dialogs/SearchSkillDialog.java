@@ -125,7 +125,7 @@ public class SearchSkillDialog extends SearchDialog {
 			@Override
 			protected Page<Skill> loadPage(PageableController controller) {
 				// TODO Auto-generated method stub
-				return skillService.findByLabel(
+				return skillService.findByName(
 						labelCriteria, controller);
 			}
 

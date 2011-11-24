@@ -1,8 +1,6 @@
 package org.dynaresume.services.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.dynaresume.dao.SkillDao;
@@ -47,7 +45,7 @@ public class SkillServiceImpl implements SkillService {
 		for (Skill skill : allSkills) {
 			fullList.add(skill);
 		}
-		
+
 		List<Skill> filteredList = fullList;
 		long totalSize = filteredList.size();
 		List<Skill> paginatedList = new ArrayList<Skill>();
@@ -58,7 +56,7 @@ public class SkillServiceImpl implements SkillService {
 		return new PageImpl<Skill>(paginatedList, pageable, totalSize);
 	}
 
-	public Page<Skill> findByLabel(String label, Pageable pageable) {
+	public Page<Skill> findByName(String label, Pageable pageable) {
 		// TODO : manage pagination with the DAO
 		int pageSize = pageable.getPageSize();
 		int pageIndex = pageable.getOffset();
@@ -88,4 +86,18 @@ public class SkillServiceImpl implements SkillService {
 		return skill.getName().toUpperCase().startsWith(label.toUpperCase());
 	}
 
+	public Iterable<Skill> findByNames(List<String> names) {
+		// TODO :manage that in the DAO
+		List<Skill> filteredSkills = new ArrayList<Skill>();
+		Iterable<Skill> allSkills = findAll();
+		for (Skill skill : allSkills) {
+			for (String name : names) {
+				if (skill.getName().equalsIgnoreCase(name)) {
+					filteredSkills.add(skill);
+					break;
+				}
+			}
+		}
+		return filteredSkills;
+	}
 }
