@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+			http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!--<property name="persistenceUnitName" value="core" /> -->
+		<property name="jpaVendorAdapter">
+			<bean
+				class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
+				<property name="databasePlatform"
+					value="org.eclipse.persistence.platform.database.DerbyPlatform" />
+			</bean>
+		</property>
+		<property name="jpaPropertyMap">
+			<map>
+				<entry key="eclipselink.ddl-generation" value="drop-and-create-tables" />
+				<entry key="eclipselink.ddl-generation.output-mode" value="both" />
+				<entry key="eclipselink.target-database" 
+                    value="org.eclipse.persistence.platform.database.DerbyPlatform"/>
+                <entry key="eclipselink.weaving" value="false"/>    
+			</map>
+		</property>
+		
+	</bean>
+
+
+	<!-- le gestionnaire de transactions -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+		p:entityManagerFactory-ref="entityManagerFactory">
+		<property name="jpaDialect">
+			<bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect" />
+		</property>
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<context:annotation-config />
+	<context:component-scan base-package="org.dynaresume.dao.jpa" />
+
+</beans>

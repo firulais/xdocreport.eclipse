@@ -25,7 +25,9 @@
 		<module>org.dynaresume.eclipse.ui</module>
 	
 		<module>org.dynaresume.services.impl</module>
-		<module>org.dynaresume.services.impl.test</module>		
-	
+		<module>org.dynaresume.services.impl.test</module>
+
+		<module>org.dynaresume.dao.jpa.hibernate</module>
+		<module>org.dynaresume.dao.jpa.eclipselink</module>
 	</modules>
 </project>

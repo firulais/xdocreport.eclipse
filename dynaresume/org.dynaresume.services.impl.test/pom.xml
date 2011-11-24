@@ -56,7 +56,7 @@
 		<dependency>
 			<groupId>fr.opensagres.xdocreport-eclipse</groupId>
 			<version>1.0.0-SNAPSHOT</version>
-			<artifactId>org.dynaresume.dao.jpa.hibernate</artifactId>
+			<artifactId>org.dynaresume.dao.jpa.eclipselink</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>fr.opensagres.xdocreport-eclipse</groupId>
@@ -147,5 +147,37 @@
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>org.eclipse.persistence.core</artifactId>
+			<version>2.3.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>org.eclipse.persistence.jpa</artifactId>
+			<version>2.3.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>javax.persistence</artifactId>
+			<version>2.0.3.v201010191057</version>
+		</dependency>
+		
 	</dependencies>
+	
+	
+	<repositories>
+		<repository>
+			<id>EclipseLink Repo</id>
+
+			<url>http://download.eclipse.org/rt/eclipselink/maven.repo</url>
+			<!-- use this for javax.persistence <snapshots> <enabled>true</enabled> 
+				</snapshots> -->
+		</repository>
+
+	</repositories>
+	
 </project>

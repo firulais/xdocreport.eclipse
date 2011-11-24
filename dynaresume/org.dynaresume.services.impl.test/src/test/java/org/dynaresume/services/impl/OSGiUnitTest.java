@@ -26,7 +26,6 @@ import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 import static org.ops4j.pax.exam.CoreOptions.options;
 import static org.ops4j.pax.exam.CoreOptions.profile;
 import static org.ops4j.pax.exam.CoreOptions.systemProperty;
-import static org.ops4j.pax.exam.CoreOptions.wrappedBundle;
 import static org.ops4j.pax.exam.OptionUtils.combine;
 import static org.ops4j.pax.exam.spi.container.PaxExamRuntime.createContainer;
 import static org.ops4j.pax.exam.spi.container.PaxExamRuntime.createTestSystem;
@@ -48,73 +47,9 @@ import org.ops4j.pax.exam.spi.reactors.EagerSingleStagedReactorFactory;
 import org.osgi.framework.BundleContext;
 import org.osgi.util.tracker.ServiceTracker;
 
-/**
- * This is what's probably most known to Pax Exam 1.x users. You can recognize
- * the "Junit Driver" approach by the @RunWith() annotation at class level.
- * 
- * This overloads JUnit4s default runner so that Pax Exam is in full control of:
- * - the test roaster - the test invokation
- * 
- * So whats the test roaster ? You know methods annotated with @Test annotations
- * from JUnit4 API, right ? This is the standard roaster. Those will appear in
- * your Test Runner when launching this class in your IDE using
- * "Run with JUnit..".
- * 
- * But: You learned (in Lesson 1) that with Pax Exam you might have your tests
- * executed more than once in different Test Container instances. (Remember the
- * TestContainerFactory.parse() returning a list of TestContainers ?)
- * 
- * So wouldn't it be nice to have that reflected in your JUnit Roaster ? Thats
- * what the @RunWith(JUnit4TestRunner.class) does. Pax Exam re-aranges the
- * JUnit4 Roaster and gives you a single entry for each physical test. In this
- * lesson we are using the NativeTestContainer implementation (see the pom.xml),
- * and additional put two OSGi Frameworks to it: Felix and Equinox. You will see
- * each of the @Test methods below twice. Once for each framework.
- * 
- * The @Configuration is a desclarative way of what you did manually in the
- * previous lessons. Now you only return Option[] in any
- * 
- * @Configuration-annotated method and you are set. A probe will be generated
- *                          underneath with every @Test put into it.
- * 
- *                          Important: It might be subtle at first, but it is
- *                          very important to understand that this test class is
- *                          also the class that will end up in your probe. Just
- *                          because you use it to initially kick of the tests
- *                          (see, you press "Run with JUnit" on this class) it
- *                          does not mean the tests will run in the same
- *                          instance of this class. Underneath, the @Tests are
- *                          invoked on a fresh instance of this class insight
- *                          the OSGi Container (which might be a totally
- *                          different JVM). So @Tests should be rather
- *                          side-effect and stateless and aware of package
- *                          visibility inside the OSGi container.
- */
+
 
 @RunWith(JUnit4TestRunner.class)
-/**
- * NEW & Optional:
- * You can annotate your class with the @ExamReactorStrategy to overwrite the default strategy:
- * @ExamReactorStrategy( AllConfinedStagedReactorFactory.class )
- * This is the default setting.
- * It resembles the way Exam 1.x worked: a new TestContainer instance for every test in your probe(s).
- * Depending on the TestContainerFactory you use (pom.xml!) this may be slower than every other strategy.
- * But its probably also the most side-effect free solution.
- * Lets do the math how many test containers are launched (one after another):
- * 2 tests x 2 test containers in pom = 4 launches
- *
- *
- * or
- *
- * @ExamReactorStrategy( EagerSingleStagedReactorFactory.class )
- * This is the other extreme to AllConfinedStagedReactorFactory. It uses one TestContainer (for all of your tests).
- * Important: You will still get of cause two test container instances for every physical container (like Felix + Equinox).
- * Its just that the Felix container will be started once, all your tests are running against it, then it will shutdown.
- * So in this specific example, you will have two test container launches (one for Felix and another for Equinox.
- * This does not change when adding more Tests to this TestCase.
- *
- *
- */
 @ExamReactorStrategy(EagerSingleStagedReactorFactory.class)
 public class OSGiUnitTest {
 
@@ -194,62 +129,67 @@ public class OSGiUnitTest {
 				mavenBundle().groupId("org.eclipse.gemini.blueprint")
 						.artifactId("gemini-blueprint-extender")
 						.version("1.0.0.RELEASE").startLevel(5),
-
+						// ***************** EclipseLink dependencies ********************
+						mavenBundle("org.eclipse.persistence", "javax.persistence", "2.0.3.v201010191057"),
+						mavenBundle("org.eclipse.persistence", "org.eclipse.persistence.antlr", "2.3.0"),
+						mavenBundle("org.eclipse.persistence", "org.eclipse.persistence.asm", "2.3.0"),
+						mavenBundle("org.eclipse.persistence", "org.eclipse.persistence.core", "2.3.0"),
+						mavenBundle("org.eclipse.persistence", "org.eclipse.persistence.jpa", "2.3.0"),
 				// persistence api
-				mavenBundle().groupId("javax.persistence")
-						.artifactId("com.springsource.javax.persistence")
-						.version("2.0.0"),
-
-				mavenBundle().groupId("com.fasterxml")
-						.artifactId("com.springsource.com.fasterxml.classmate")
-						.version("0.5.4"),
-				mavenBundle()
-						.groupId("org.apache.commons")
-						.artifactId(
-								"com.springsource.org.apache.commons.collections")
-						.version("3.2.1"),
-				mavenBundle().groupId("org.jboss.javassist")
-						.artifactId("com.springsource.javassist")
-						.version("3.12.1.GA"),
-
-				mavenBundle().groupId("org.apache.ant")
-						.artifactId("com.springsource.org.apache.tools.ant")
-						.version("1.8.1"),
-				mavenBundle().groupId("org.jboss.logging")
-						.artifactId("com.springsource.org.jboss.logging")
-						.version("3.0.0.GA"),
-
-				mavenBundle().groupId("org.jboss")
-						.artifactId("com.springsource.org.jboss.jandex")
-						.version("1.0.3.Final"),
-				mavenBundle().groupId("javax.xml.stream")
-						.artifactId("com.springsource.javax.xml.stream")
-						.version("1.0.1"),
-
-				mavenBundle().groupId("org.dom4j")
-						.artifactId("com.springsource.org.dom4j")
-						.version("1.6.1"),
-
-				mavenBundle().groupId("org.hibernate")
-						.artifactId("com.springsource.org.hibernate.ejb")
-						.version("4.0.0.CR4").noStart(),
-
-				mavenBundle().groupId("org.hibernate")
-						.artifactId("com.springsource.org.hibernate")
-						.version("4.0.0.CR4").noStart(),
-
-				mavenBundle().groupId("org.antlr")
-						.artifactId("com.springsource.antlr").version("2.7.7"),
-
-				mavenBundle().groupId("org.apache.log4j")
-						.artifactId("com.springsource.org.apache.log4j")
-						.version("1.2.16"),
-
-				wrappedBundle(
-						mavenBundle().groupId("org.jboss.logmanager")
-								.artifactId("jboss-logmanager")
-								.version("1.2.0.GA")).exports(
-						"org.jboss.logmanager;version=\"1.2.0.GA\""),
+//				mavenBundle().groupId("javax.persistence")
+//						.artifactId("com.springsource.javax.persistence")
+//						.version("2.0.0"),
+//
+//				mavenBundle().groupId("com.fasterxml")
+//						.artifactId("com.springsource.com.fasterxml.classmate")
+//						.version("0.5.4"),
+//				mavenBundle()
+//						.groupId("org.apache.commons")
+//						.artifactId(
+//								"com.springsource.org.apache.commons.collections")
+//						.version("3.2.1"),
+//				mavenBundle().groupId("org.jboss.javassist")
+//						.artifactId("com.springsource.javassist")
+//						.version("3.12.1.GA"),
+//
+//				mavenBundle().groupId("org.apache.ant")
+//						.artifactId("com.springsource.org.apache.tools.ant")
+//						.version("1.8.1"),
+//				mavenBundle().groupId("org.jboss.logging")
+//						.artifactId("com.springsource.org.jboss.logging")
+//						.version("3.0.0.GA"),
+//
+//				mavenBundle().groupId("org.jboss")
+//						.artifactId("com.springsource.org.jboss.jandex")
+//						.version("1.0.3.Final"),
+//				mavenBundle().groupId("javax.xml.stream")
+//						.artifactId("com.springsource.javax.xml.stream")
+//						.version("1.0.1"),
+//
+//				mavenBundle().groupId("org.dom4j")
+//						.artifactId("com.springsource.org.dom4j")
+//						.version("1.6.1"),
+//
+//				mavenBundle().groupId("org.hibernate")
+//						.artifactId("com.springsource.org.hibernate.ejb")
+//						.version("4.0.0.CR4").noStart(),
+//
+//				mavenBundle().groupId("org.hibernate")
+//						.artifactId("com.springsource.org.hibernate")
+//						.version("4.0.0.CR4").noStart(),
+//
+//				mavenBundle().groupId("org.antlr")
+//						.artifactId("com.springsource.antlr").version("2.7.7"),
+//
+//				mavenBundle().groupId("org.apache.log4j")
+//						.artifactId("com.springsource.org.apache.log4j")
+//						.version("1.2.16"),
+//
+//				wrappedBundle(
+//						mavenBundle().groupId("org.jboss.logmanager")
+//								.artifactId("jboss-logmanager")
+//								.version("1.2.0.GA")).exports(
+//						"org.jboss.logmanager;version=\"1.2.0.GA\""),
 
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
 						"org.dynaresume.domain.core", "1.0.0-SNAPSHOT"),
@@ -262,7 +202,7 @@ public class OSGiUnitTest {
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
 						"org.dynaresume.dao.jpa", "1.0.0-SNAPSHOT"),
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
-						"org.dynaresume.dao.jpa.hibernate", "1.0.0-SNAPSHOT")
+						"org.dynaresume.dao.jpa.eclipselink", "1.0.0-SNAPSHOT")
 
 		// mavenBundle("fr.opensagres.xdocreport-eclipse",
 		// "org.dynaresume.services", "1.0.0-SNAPSHOT"),
