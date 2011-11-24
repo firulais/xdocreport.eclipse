@@ -118,6 +118,8 @@ import org.osgi.util.tracker.ServiceTracker;
 @ExamReactorStrategy(EagerSingleStagedReactorFactory.class)
 public class OSGiUnitTest {
 
+	//private static final String SPRING_VERSION = "3.1.0.RC1";
+	private static final String SPRING_VERSION = "3.0.6.RELEASE";
 	@Configuration()
 	public Option[] config() {
 		return options(
@@ -134,17 +136,17 @@ public class OSGiUnitTest {
 						.version("1.0.0"),
 				mavenBundle().groupId("org.springframework")
 						.artifactId("spring-aop")
-						.version("3.1.0.RC1"),
+						.version(SPRING_VERSION),
 				mavenBundle().groupId("org.springframework")
 						.artifactId("spring-beans")
-						.version("3.1.0.RC1"),
+						.version(SPRING_VERSION),
 				mavenBundle().groupId("org.springframework")
 						.artifactId("spring-context")
-						.version("3.1.0.RC1"),
+						.version(SPRING_VERSION),
 
 				mavenBundle().groupId("org.springframework")
 						.artifactId("spring-core")
-						.version("3.1.0.RC1"),
+						.version(SPRING_VERSION),
 
 				mavenBundle().groupId("org.springframework.data")
 						.artifactId("spring-data-jpa").version("1.0.1.RELEASE"),
@@ -168,19 +170,19 @@ public class OSGiUnitTest {
 
 				mavenBundle().groupId("org.springframework")
 						.artifactId("spring-tx")
-						.version("3.1.0.RC1"),
+						.version(SPRING_VERSION),
 				mavenBundle().groupId("org.springframework")
 						.artifactId("spring-orm")
-						.version("3.1.0.RC1"),
+						.version(SPRING_VERSION),
 				mavenBundle().groupId("org.springframework")
 						.artifactId("spring-jdbc")
-						.version("3.1.0.RC1"),
+						.version(SPRING_VERSION),
 				mavenBundle().groupId("org.springframework")
 						.artifactId("spring-asm")
-						.version("3.1.0.RC1"),
+						.version(SPRING_VERSION),
 				mavenBundle().groupId("org.springframework")
 						.artifactId("spring-expression")
-						.version("3.1.0.RC1"),
+						.version(SPRING_VERSION),
 				// mavenBundle().groupId("javax.inject")
 				// .artifactId("com.springsource.org.atinject.tck")
 				// .version("1.0.0"),
@@ -306,7 +308,6 @@ public class OSGiUnitTest {
 		assertNotNull(dataSource);
 	}
 
-	@Ignore
 	@Test
 	public void findResumeDao(BundleContext ctx) throws InterruptedException {
 		assertThat(ctx, is(notNullValue()));
