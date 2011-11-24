@@ -1,4 +1,4 @@
-package org.dynaresume.dao.mock;
+package org.dynaresume.dao.mock.resume;
 
 import java.io.IOException;
 
@@ -7,9 +7,9 @@ import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
-public class PascalResume extends BaseResume {
+public class PascalLeclercqResume extends BaseResume {
 
-	public PascalResume() {
+	public PascalLeclercqResume() {
 		// Pascal
 		NaturalPerson person = new NaturalPerson();
 		person.setId(getCurrentId());

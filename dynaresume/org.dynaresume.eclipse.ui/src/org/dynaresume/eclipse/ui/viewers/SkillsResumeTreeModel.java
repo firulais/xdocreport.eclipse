@@ -4,24 +4,30 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.dynaresume.domain.hr.Resume;
 import org.dynaresume.domain.hr.SkillCategory;
 import org.dynaresume.domain.hr.SkillResume;
 
 public class SkillsResumeTreeModel {
 
+	private final Resume resume;
 	private final List<SkillCategoryWrapper> rootCategories;
 	private final Map<SkillCategory, SkillCategoryWrapper> categories;
 	private final Map<SkillCategory, Collection<SkillResume>> skillsResumeCache;
 
 	public SkillsResumeTreeModel(Iterable<SkillCategory> categories,
-			Collection<SkillResume> skills) {
-		
+			Resume resume) {
+		this.resume = resume;
+		Set<SkillResume> skills = resume.getSkills();
 		if (skills == null) {
-			this.skillsResumeCache = Collections.emptyMap();
+			resume.setSkills(new HashSet<SkillResume>());
+			this.skillsResumeCache = new HashMap<SkillCategory, Collection<SkillResume>>();
 		} else {
 			this.skillsResumeCache = new HashMap<SkillCategory, Collection<SkillResume>>();
 			SkillCategory category = null;
@@ -36,7 +42,7 @@ public class SkillsResumeTreeModel {
 				skillResumes.add(skillResume);
 			}
 		}
-		
+
 		if (categories != null) {
 			this.rootCategories = new ArrayList<SkillCategoryWrapper>();
 			this.categories = new LinkedHashMap<SkillCategory, SkillCategoryWrapper>();
@@ -48,7 +54,6 @@ public class SkillsResumeTreeModel {
 			this.rootCategories = Collections.emptyList();
 		}
 
-		
 	}
 
 	public Iterable<SkillCategoryWrapper> getCategories() {
@@ -70,9 +75,23 @@ public class SkillsResumeTreeModel {
 		}
 		return wrapper;
 	}
-	
+
 	public Collection<SkillResume> getSkillsResume(SkillCategory category) {
 		return skillsResumeCache.get(category);
+	}
+
+	public void removeSkill(SkillResume skill) {
+		skillsResumeCache.remove(skill);
+		resume.getSkills().remove(skill);
+	}
+
+	public void addSkills(Collection<SkillResume> skills) {
+		for (SkillResume skill : skills) {
+			skillsResumeCache.remove(skill);
+			resume.getSkills().add(skill);
+		}
+		
+		
 	}
 
 }

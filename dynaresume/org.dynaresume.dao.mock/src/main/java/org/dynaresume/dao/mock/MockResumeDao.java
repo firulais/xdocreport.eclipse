@@ -1,11 +1,17 @@
 package org.dynaresume.dao.mock;
 
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
 import org.dynaresume.dao.ResumeDao;
+import org.dynaresume.dao.mock.resume.AmineBoustaResume;
+import org.dynaresume.dao.mock.resume.AngeloZerrResume;
+import org.dynaresume.dao.mock.resume.DinoCosmasResume;
+import org.dynaresume.dao.mock.resume.LarsVogelResume;
+import org.dynaresume.dao.mock.resume.NicolasRaymondResume;
+import org.dynaresume.dao.mock.resume.PascalLeclercqResume;
 import org.dynaresume.domain.core.Address;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.Education;
@@ -21,12 +27,13 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 	private static final Map<Long, Resume> resumes;
 	static long currentId = 0;
 	static {
-		resumes = new HashMap<Long, Resume>();
-		addResume(new AngeloResume());
-		addResume(new PascalResume());
-		addResume(new AmineResume());
+		resumes = new LinkedHashMap<Long, Resume>();
+		addResume(new AngeloZerrResume());
+		addResume(new PascalLeclercqResume());
+		addResume(new AmineBoustaResume());
 		addResume(new LarsVogelResume());
-		addResume(new DinoResume());
+		addResume(new DinoCosmasResume());
+		addResume(new NicolasRaymondResume());
 	}
 
 	private static void addResume(Resume resume) {

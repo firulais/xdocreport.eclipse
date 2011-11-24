@@ -8,6 +8,7 @@ public class Messages extends NLS {
 
 	// Buttons
 	public static String addButton_label;
+	public static String quickAddButton_label;
 	public static String removeButton_label;
 
 	// Overview Page
@@ -84,6 +85,14 @@ public class Messages extends NLS {
 	public static String ResumeFormEditor_HobbiesPage_HobbyDetailsPage_desc;
 	public static String ResumeFormEditor_HobbiesPage_HobbyDetailsPage_hobbyLabel_label;
 
+	// Quick Add Skill wizard
+	public static String QuickAddSillFillSkillsWizardPage_title;
+	public static String QuickAddSillFillSkillsWizardPage_Skills_label;
+	public static String QuickAddSillsPreviewWizardPage_title;
+	public static String QuickAddSillsPreviewWizardPage_skillsTable_label;
+	public static String QuickAddSillsPreviewWizardPage_freeSkillsTable_label;
+	public static String QuickAddSillsPreviewWizardPage_existingSkillsTable_label;
+	
 	static {
 		// load message values from bundle file
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

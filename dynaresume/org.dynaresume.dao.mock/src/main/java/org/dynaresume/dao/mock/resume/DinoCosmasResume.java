@@ -1,8 +1,9 @@
-package org.dynaresume.dao.mock;
+package org.dynaresume.dao.mock.resume;
 
 import java.io.IOException;
 import java.text.ParseException;
 
+import org.dynaresume.dao.mock.SkillsData;
 import org.dynaresume.domain.core.Address;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.Resume;
@@ -10,9 +11,9 @@ import org.dynaresume.domain.hr.Resume;
 import fr.opensagres.xdocreport.commons.utils.DateUtils;
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
-public class DinoResume extends BaseResume {
+public class DinoCosmasResume extends BaseResume {
 
-	public DinoResume() {
+	public DinoCosmasResume() {
 		super.setId(getCurrentId());
 		super.setTitle("Ingénieur Etude JEE");
 

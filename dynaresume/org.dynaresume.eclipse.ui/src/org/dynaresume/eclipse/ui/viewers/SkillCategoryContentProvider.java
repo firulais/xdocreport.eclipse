@@ -1,7 +1,5 @@
 package org.dynaresume.eclipse.ui.viewers;
 
-import java.util.Collection;
-
 import org.dynaresume.domain.hr.SkillCategory;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;

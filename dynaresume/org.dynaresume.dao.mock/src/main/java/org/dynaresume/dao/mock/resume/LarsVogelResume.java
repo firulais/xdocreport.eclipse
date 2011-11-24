@@ -1,7 +1,8 @@
-package org.dynaresume.dao.mock;
+package org.dynaresume.dao.mock.resume;
 
 import java.io.IOException;
 
+import org.dynaresume.dao.mock.SkillsData;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.Resume;
 

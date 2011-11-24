@@ -1,22 +1,23 @@
 package org.dynaresume.eclipse.ui.editors;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.dynaresume.domain.hr.Resume;
-import org.dynaresume.domain.hr.Skill;
 import org.dynaresume.domain.hr.SkillCategory;
 import org.dynaresume.domain.hr.SkillResume;
 import org.dynaresume.eclipse.ui.internal.Messages;
 import org.dynaresume.eclipse.ui.viewers.SkillCategoryContentProvider;
 import org.dynaresume.eclipse.ui.viewers.SkillCategoryLabelProvider;
+import org.dynaresume.eclipse.ui.viewers.SkillCategoryWrapper;
 import org.dynaresume.eclipse.ui.viewers.SkillsResumeTreeModel;
+import org.dynaresume.eclipse.ui.wizards.QuickAddSkillsWizard;
 import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -33,11 +34,13 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
 import fr.opensagres.eclipse.forms.ModelMasterDetailsBlock;
+import fr.opensagres.xdocreport.eclipse.PlatformXDocReport;
 
 public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 
 	private static final Integer ADD_BUTTON_INDEX = 1;
-	private static final Integer REMOVE_BUTTON_INDEX = 2;
+	private static final Integer QUICK_ADD_BUTTON_INDEX = 2;
+	private static final Integer REMOVE_BUTTON_INDEX = 3;
 
 	enum TreeItemType {
 		Category, SkillFree, Skill
@@ -46,7 +49,12 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 	private final SkillFreeDetailsPage skillFreeDetailsPage;
 	private final SkillDetailsPage skillDetailsPage;
 	private TreeViewer viewer;
+
+	private Button addButton;
+	private Button quickAddButton;
 	private Button removeButton;
+
+	private SkillsResumeTreeModel treeModel;
 
 	public SkillsMasterDetailsBlock(SkillsPage skillsPage) {
 		super(skillsPage);
@@ -94,12 +102,46 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 					managedForm.fireSelectionChanged(spart,
 							event.getSelection());
 				}
-				removeButton.setEnabled(true);
+				modifyEnabledButtons(selection);
 			}
 		});
 		viewer.setContentProvider(SkillCategoryContentProvider.getInstance());
 		viewer.setLabelProvider(SkillCategoryLabelProvider.getInstance());
 		// viewer.setComparator(SkillsViewerComparator.getInstance());
+		modifyEnabledButtons(null);
+	}
+
+	private void modifyEnabledButtons(IStructuredSelection selection) {
+		boolean enabledAdd = false;
+		boolean enabledRemove = false;
+
+		if (selection != null && selection.size() > 0) {
+			// One or more selection
+			if (selection.size() == 1) {
+				// One selection
+				boolean selectedCategory = (selection.getFirstElement() instanceof SkillCategoryWrapper);
+				// Add button is enabled if category is selected
+				enabledAdd = selectedCategory;
+				// Remove button is enabled if skill resume is selected
+				enabledRemove = !selectedCategory;
+			} else {
+				// Several selection
+				// Add button is disabled and remove button is enabled if there
+				// is one or more selected skill resume
+				boolean selectedSkill = false;
+				Object[] selectedItems = selection.toArray();
+				for (int i = 0; i < selectedItems.length; i++) {
+					selectedSkill = (selectedItems[i] instanceof SkillResume);
+					if (selectedSkill) {
+						enabledRemove = true;
+						break;
+					}
+				}
+			}
+		}
+		addButton.setEnabled(enabledAdd);
+		quickAddButton.setEnabled(enabledAdd);
+		removeButton.setEnabled(enabledRemove);
 	}
 
 	private void createButtons(FormToolkit toolkit, Composite parent) {
@@ -114,13 +156,15 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 			public void widgetSelected(SelectionEvent e) {
 				if (e.widget.getData() == ADD_BUTTON_INDEX) {
 					handleAddButton();
+				} else if (e.widget.getData() == QUICK_ADD_BUTTON_INDEX) {
+					handleQuickAddButton();
 				} else if (e.widget.getData() == REMOVE_BUTTON_INDEX) {
 					handleRemoveButton();
 				}
 			}
 		};
 
-		Button addButton = toolkit.createButton(buttonsContainer,
+		addButton = toolkit.createButton(buttonsContainer,
 				Messages.addButton_label, SWT.PUSH); //$NON-NLS-1$
 		gd = new GridData(GridData.FILL_HORIZONTAL
 				| GridData.VERTICAL_ALIGN_BEGINNING);
@@ -128,6 +172,15 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 		addButton.setLayoutData(gd);
 		addButton.setEnabled(true);
 		addButton.addSelectionListener(listener);
+
+		quickAddButton = toolkit.createButton(buttonsContainer,
+				Messages.quickAddButton_label, SWT.PUSH); //$NON-NLS-1$
+		gd = new GridData(GridData.FILL_HORIZONTAL
+				| GridData.VERTICAL_ALIGN_BEGINNING);
+		quickAddButton.setData(QUICK_ADD_BUTTON_INDEX);
+		quickAddButton.setLayoutData(gd);
+		quickAddButton.setEnabled(true);
+		quickAddButton.addSelectionListener(listener);
 
 		removeButton = toolkit.createButton(buttonsContainer,
 				Messages.removeButton_label, SWT.PUSH); //$NON-NLS-1$
@@ -143,25 +196,61 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 	}
 
 	protected void handleAddButton() {
-		Skill skill = new Skill();
+
+		MessageDialog.openInformation(addButton.getShell(), "TODO", "TODO");
 		// skill.setTitle("New skill");
 		// getSkills().add(skill);
 		// viewer.add(skill);
 		// viewer.setSelection(new StructuredSelection(skill));
 	}
 
+	protected void handleQuickAddButton() {
+		SkillCategoryWrapper selectedCategory = (SkillCategoryWrapper) ((IStructuredSelection) viewer
+				.getSelection()).getFirstElement();
+		QuickAddSkillsWizard wizard;
+		try {
+			wizard = PlatformXDocReport.getWizardFactory().createWizard(
+					QuickAddSkillsWizard.ID, QuickAddSkillsWizard.class);
+			wizard.setCategory(selectedCategory);
+			WizardDialog dlg = new WizardDialog(quickAddButton.getShell(),
+					wizard);
+			dlg.open();
+
+			// Add skills and free skills created by the wizard.
+			Collection<SkillResume> newSkills= wizard.getSkills();
+			Collection<SkillResume> newFreeSkills= wizard.getFreeSkills();
+			if (newSkills.size() > 0 || newFreeSkills.size() > 0) {
+				selectedCategory.addAllChild(newSkills);
+				selectedCategory.addAllChild(newFreeSkills);
+				viewer.refresh();
+			}						
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	protected void handleRemoveButton() {
 		IStructuredSelection selection = (IStructuredSelection) viewer
 				.getSelection();
 		if (!selection.isEmpty()) {
-			Skill skill = null;
+			boolean oneSkillWasRemoved = false;
+			Object skill = null;
 			Object[] skills = selection.toArray();
 			for (int i = 0; i < skills.length; i++) {
-				skill = (Skill) skills[i];
-				// getSkills().remove(skill);
-				viewer.remove(skill);
+				skill = skills[i];
+				if (skill instanceof SkillResume) {
+					SkillCategoryWrapper wrapper = treeModel
+							.getCategoryWrapper(((SkillResume) skill)
+									.getCategory());
+					wrapper.removeChild((SkillResume) skill);
+					viewer.remove(skill);
+					oneSkillWasRemoved = true;
+				}
 			}
-			viewer.refresh();
+			if (oneSkillWasRemoved) {
+				viewer.refresh();
+			}
 		}
 	}
 
@@ -176,20 +265,9 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 		// Set<Skill> skills = getSkills();
 		Iterable<SkillCategory> categories = ((ResumeFormEditor) getDetailsPage()
 				.getEditor()).getSkillCategoryService().findAll();
-		Collection<SkillResume> skillsResume = getSkills();
-		SkillsResumeTreeModel treeModel = new SkillsResumeTreeModel(categories,
-				skillsResume);
+		treeModel = new SkillsResumeTreeModel(categories, getModelObject());
 		viewer.setInput(treeModel);
 		viewer.expandToLevel(2);
-	}
-
-	private Set<SkillResume> getSkills() {
-		Set<SkillResume> skills = getModelObject().getSkills();
-		if (skills == null) {
-			skills = new HashSet<SkillResume>();
-			getModelObject().setSkills(skills);
-		}
-		return skills;
 	}
 
 	public IDetailsPage getPage(Object key) {

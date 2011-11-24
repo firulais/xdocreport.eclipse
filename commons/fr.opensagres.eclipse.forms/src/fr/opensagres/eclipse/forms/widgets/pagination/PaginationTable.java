@@ -20,7 +20,7 @@ public abstract class PaginationTable extends BaseComposite implements
 	public PaginationTable(Composite parent, int style, FormToolkit toolkit) {
 		super(parent, style, toolkit);
 		this.setLayout(new GridLayout());
-		this.controller = createController(-1, 3);
+		this.controller = createController(-1, 5);
 		createBannerTop();
 		Table table = createTable();
 		viewer = new TableViewer(table);
