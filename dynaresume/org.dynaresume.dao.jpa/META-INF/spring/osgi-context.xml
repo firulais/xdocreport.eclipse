@@ -6,10 +6,6 @@
        http://www.springframework.org/schema/beans   
        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-	<service ref="resumeDao" interface="org.dynaresume.dao.ResumeDao" />
-	<service ref="skillDao" interface="org.dynaresume.dao.SkillDao" />
-	<service ref="groupDao" interface="org.dynaresume.dao.GroupDao" />	
-	
-	<reference  id="dataSource" interface="javax.sql.DataSource"/>
+	<service ref="rideService" interface="be.brail.delijn.server.service.RideService" />
 
 </beans:beans>           

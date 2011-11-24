@@ -1,11 +1,10 @@
 package org.dynaresume.domain.hr;
 
-import java.util.Collection;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class SkillCategory {
@@ -16,7 +15,7 @@ public class SkillCategory {
 
 	@Column
 	private String label;
-
+	@Transient
 	private SkillCategory parent;
 
 	//private Collection<SkillCategory> children;
