@@ -1,9 +1,10 @@
-package org.dynaresume.dao.mock;
+package org.dynaresume.dao.mock.resume;
 
 import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.dynaresume.dao.mock.SkillsData;
 import org.dynaresume.domain.hr.Education;
 import org.dynaresume.domain.hr.Experience;
 import org.dynaresume.domain.hr.Hobby;

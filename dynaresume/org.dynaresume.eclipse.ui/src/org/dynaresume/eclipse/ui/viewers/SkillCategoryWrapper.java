@@ -65,4 +65,8 @@ public class SkillCategoryWrapper {
 		children.add(wrapper);
 	}
 
+	public void removeChild(SkillResume skill) {
+		children.remove(skill);
+		treeModel.removeSkill(skill);
+	}
 }
