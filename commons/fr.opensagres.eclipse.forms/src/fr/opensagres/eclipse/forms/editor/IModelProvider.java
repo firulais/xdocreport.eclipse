@@ -1,4 +1,4 @@
-package fr.opensagres.xdocreport.eclipse.extensions;
+package fr.opensagres.eclipse.forms.editor;
 
 public interface IModelProvider<Model> {
 

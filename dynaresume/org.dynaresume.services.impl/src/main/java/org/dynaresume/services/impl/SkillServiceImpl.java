@@ -82,10 +82,10 @@ public class SkillServiceImpl implements SkillService {
 		if (label == null) {
 			return true;
 		}
-		if (skill.getLabel() == null) {
+		if (skill.getName() == null) {
 			return false;
 		}
-		return skill.getLabel().toUpperCase().startsWith(label.toUpperCase());
+		return skill.getName().toUpperCase().startsWith(label.toUpperCase());
 	}
 
 }

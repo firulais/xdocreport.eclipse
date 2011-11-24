@@ -43,15 +43,15 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 		Category, SkillFree, Skill
 	}
 
-	private final SkillDetailsPage skillFreeDetailsPage;
+	private final SkillFreeDetailsPage skillFreeDetailsPage;
 	private final SkillDetailsPage skillDetailsPage;
 	private TreeViewer viewer;
 	private Button removeButton;
 
 	public SkillsMasterDetailsBlock(SkillsPage skillsPage) {
 		super(skillsPage);
-		this.skillFreeDetailsPage = new SkillDetailsPage(true);
-		this.skillDetailsPage = new SkillDetailsPage(false);
+		this.skillFreeDetailsPage = new SkillFreeDetailsPage();
+		this.skillDetailsPage = new SkillDetailsPage();
 	}
 
 	@Override

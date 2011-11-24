@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dynaresume.admin.eclipse.ui.graphics.skill.editor.model.SkillTreeDiagram;
-import org.dynaresume.admin.eclipse.ui.skill.editors.SkillEditorInput;
 import org.dynaresume.domain.hr.Skill;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.ui.IEditorInput;
 
+import fr.opensagres.eclipse.forms.editor.IModelProvider;
 import fr.opensagres.eclipse.gef.tree.editor.GraphicalTreeEditor;
 import fr.opensagres.eclipse.gef.tree.editor.model.TreeDiagram;
 
@@ -23,9 +23,9 @@ public class GraphicalSkillEditor extends GraphicalTreeEditor {
 	}
 
 	protected Iterable<Skill> getSkills(IEditorInput input) {
-		if (input instanceof SkillEditorInput) {
+		if (input instanceof IModelProvider<?>) {
 			List<Skill> skills = new ArrayList<Skill>();
-			skills.add(((SkillEditorInput) input).getModel());
+			skills.add(((IModelProvider<Skill>) input).getModel());
 			return skills;
 		}
 		return null;

@@ -11,6 +11,7 @@ import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.observable.ChangeEvent;
 import org.eclipse.core.databinding.observable.IChangeListener;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.ui.IEditorInput;
 
 import fr.opensagres.eclipse.forms.IBindableAware;
@@ -178,4 +179,8 @@ public abstract class ModelFormEditor<EditorInput extends IEditorInput, Model>
 	}
 
 	protected abstract Model onSave(Model modelObject, IProgressMonitor monitor);
+
+	public void contributeToToolbar(IToolBarManager manager) {
+		
+	}
 }

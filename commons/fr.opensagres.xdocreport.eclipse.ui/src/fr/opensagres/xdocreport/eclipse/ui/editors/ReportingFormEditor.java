@@ -11,8 +11,8 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 
+import fr.opensagres.eclipse.forms.editor.IModelProvider;
 import fr.opensagres.eclipse.forms.editor.ModelFormEditor;
-import fr.opensagres.xdocreport.eclipse.extensions.IModelProvider;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModule;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntry;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntryProvider;

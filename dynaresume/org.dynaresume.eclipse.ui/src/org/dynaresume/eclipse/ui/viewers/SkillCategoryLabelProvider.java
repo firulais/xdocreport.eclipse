@@ -27,7 +27,7 @@ public class SkillCategoryLabelProvider extends LabelProvider {
 		if (element instanceof SkillResume) {
 			SkillResume skillResume = (SkillResume) element;
 			if (skillResume.getSkill() != null) {
-				return skillResume.getSkill().getLabel();
+				return skillResume.getSkill().getName();
 			}
 			return skillResume.getFreeSkill();
 		}

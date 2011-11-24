@@ -190,7 +190,7 @@ public class SearchSkillDialog extends SearchDialog {
 			@Override
 			public String getText(Object element) {
 				Skill p = (Skill) element;
-				return p.getLabel();
+				return p.getName();
 			}
 		});
 
@@ -201,7 +201,7 @@ public class SearchSkillDialog extends SearchDialog {
 			public String getText(Object element) {
 				Skill p = (Skill) element;
 				if (p.getParent() != null) {
-					return p.getParent().getLabel();
+					return p.getParent().getName();
 				}
 				return "";
 			}
