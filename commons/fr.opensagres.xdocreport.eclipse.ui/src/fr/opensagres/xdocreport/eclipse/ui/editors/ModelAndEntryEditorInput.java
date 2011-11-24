@@ -1,20 +1,16 @@
 package fr.opensagres.xdocreport.eclipse.ui.editors;
 
-import fr.opensagres.eclipse.forms.editor.AbstractEditorInput;
+import fr.opensagres.eclipse.forms.editor.ModelEditorInput;
 import fr.opensagres.xdocreport.eclipse.extensions.modules.IReportModuleEntry;
 
-public abstract class ModelAndEntryEditorInput<Model> extends AbstractEditorInput {
+public abstract class ModelAndEntryEditorInput<Model> extends
+		ModelEditorInput<Model> {
 
 	private final IReportModuleEntry entry;
-	private final Model model;
 
 	public ModelAndEntryEditorInput(IReportModuleEntry entry, Model model) {
-		this.model = model;
+		super(model);
 		this.entry = entry;
-	}
-
-	public Model getModel() {
-		return model;
 	}
 
 	public IReportModuleEntry getEntry() {

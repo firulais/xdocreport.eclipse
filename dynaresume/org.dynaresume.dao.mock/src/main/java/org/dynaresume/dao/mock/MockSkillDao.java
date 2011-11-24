@@ -34,7 +34,9 @@ public class MockSkillDao extends AbstractDaoMock<Skill> implements SkillDao {
 	private Skill clone(Skill skill) {
 		Skill newSkill = new Skill();
 		newSkill.setId(skill.getId());
-		newSkill.setLabel(skill.getLabel());
+		newSkill.setName(skill.getName());
+		newSkill.setDescription(skill.getDescription());
+		newSkill.setURL(skill.getURL());
 		newSkill.setParent(skill.getParent());
 		return newSkill;
 	}

@@ -1,14 +1,9 @@
 package fr.opensagres.xdocreport.eclipse.ui.editors;
 
-import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.ui.forms.IManagedForm;
-import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.ScrolledForm;
+import fr.opensagres.eclipse.forms.editor.ModelToolbarFormPage;
 
-import fr.opensagres.eclipse.forms.editor.ModelFormPage;
-
-public abstract class ReportingFormPage<Model> extends ModelFormPage<Model> {
+public abstract class ReportingFormPage<Model> extends
+		ModelToolbarFormPage<Model> {
 
 	public ReportingFormPage(ReportingFormEditor<Model> editor, String id,
 			String title) {
@@ -19,34 +14,5 @@ public abstract class ReportingFormPage<Model> extends ModelFormPage<Model> {
 	public ReportingFormEditor<Model> getEditor() {
 		return (ReportingFormEditor<Model>) super.getEditor();
 	}
-
-	@Override
-	protected void onCreateUI(IManagedForm managedForm) {
-		final ScrolledForm form = managedForm.getForm();
-		FormToolkit toolkit = managedForm.getToolkit();
-		toolkit.decorateFormHeading(form.getForm());
-
-		IToolBarManager manager = form.getToolBarManager();
-		getEditor().contributeToToolbar(manager);
-		form.updateToolBar();
-		form.setText(getFormTitleText());
-		Image titleImage = getFormTitleImage();
-		if (titleImage != null) {
-			form.setImage(titleImage);
-		}
-		toolkit.decorateFormHeading(form.getForm());
-		fillBody(managedForm, toolkit);
-	}
-
-	protected String getFormTitleText() {
-		return getTitle();
-	}
-
-	protected Image getFormTitleImage() {
-		return null;
-	}
-
-	protected abstract void fillBody(IManagedForm managedForm,
-			FormToolkit toolkit);
 
 }

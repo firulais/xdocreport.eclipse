@@ -16,7 +16,7 @@ public class SkillTreeNode extends TreeNode<Skill> {
 
 	@Override
 	protected String getModelLabel() {
-		return getModel().getLabel();
+		return getModel().getName();
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class SkillTreeNode extends TreeNode<Skill> {
 
 	@Override
 	protected void setModelLabel(String label) {
-		getModel().setLabel(label);
+		getModel().setName(label);
 	}
 	
 	@Override

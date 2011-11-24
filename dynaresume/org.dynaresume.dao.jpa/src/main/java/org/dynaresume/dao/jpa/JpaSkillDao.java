@@ -38,7 +38,7 @@ public class JpaSkillDao implements SkillDao {
 	private Skill clone(Skill skill) {
 		Skill newSkill = new Skill();
 		newSkill.setId(skill.getId());
-		newSkill.setLabel(skill.getLabel());
+		newSkill.setName(skill.getName());
 		newSkill.setParent(skill.getParent());
 		return newSkill;
 	}

@@ -59,7 +59,7 @@ public class SkillsData {
 	private static Skill addSkill(String label, Skill parent) {
 		Skill skill = new Skill();
 		skill.setId(getId());
-		skill.setLabel(label);
+		skill.setName(label);
 		skill.setParent(parent);
 		addSkill(skill);
 		return skill;
