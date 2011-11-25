@@ -237,7 +237,7 @@ public class OSGiUnitTest {
 		ServiceTracker tracker = new ServiceTracker(ctx,
 				DataSource.class.getName(), null);
 		tracker.open();
-		Object dataSource = tracker.waitForService(1000);
+		Object dataSource = tracker.waitForService(2000);
 
 		tracker.close();
 		assertNotNull(dataSource);
@@ -253,7 +253,7 @@ public class OSGiUnitTest {
 		ServiceTracker tracker = new ServiceTracker(ctx,
 				ResumeDao.class.getName(), null);
 		tracker.open();
-		Object resumeDao = tracker.waitForService(2000);
+		Object resumeDao = tracker.waitForService(3000);
 
 		tracker.close();
 		assertNotNull(resumeDao);
