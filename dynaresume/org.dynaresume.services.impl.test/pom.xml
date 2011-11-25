@@ -28,6 +28,11 @@
 	<artifactId>org.dynaresume.services.impl.test</artifactId>
 
 	<dependencies>
+	<dependency>
+    <groupId>org.aspectj</groupId>
+    <artifactId>com.springsource.org.aspectj.weaver</artifactId>
+    <version>1.6.8.RELEASE</version>
+</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -203,6 +208,11 @@
 			<id>zodiac-repository</id>
 			<name>Zodiac Release Repository</name>
 			<url>http://zodiac.springsource.com/maven/bundles/release</url>
+		</repository>
+		<repository>
+			<id>com.springsource.repository.bundles.external</id>
+			<name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name>
+			<url>http://repository.springsource.com/maven/bundles/external</url>
 		</repository>
 
 	</repositories>

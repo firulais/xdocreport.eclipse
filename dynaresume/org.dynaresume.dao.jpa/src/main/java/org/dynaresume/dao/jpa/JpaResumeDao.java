@@ -15,9 +15,10 @@ import org.dynaresume.dao.ResumeDao;
 import org.dynaresume.domain.hr.Resume;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-@org.springframework.stereotype.Repository
+@Repository("resumeDao")
 @Transactional(readOnly = true)
 public class JpaResumeDao implements ResumeDao {
 
