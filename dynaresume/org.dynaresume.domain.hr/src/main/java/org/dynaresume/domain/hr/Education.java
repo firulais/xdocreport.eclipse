@@ -10,7 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import fr.opensagres.xdocreport.commons.utils.DateUtils;
+//FIXME : please don't put any technical dependencies on Domain Model.
+//import fr.opensagres.xdocreport.commons.utils.DateUtils;
 
 @Entity
 public class Education {
@@ -71,22 +72,34 @@ public class Education {
 	}
 
 	public void setInstitute(String institute) {
-		// Object oldValue = this.institute;
 		this.institute = institute;
-		// firePropertyChange("institute", oldValue, institute);
 	}
 
 	public void setLabel(String label) {
-		// Object oldValue = this.label;
 		this.label = label;
-		// firePropertyChange("label", oldValue, label);
 	}
 
+	//kept for compatibility reason
+	//I don't think It's a good Idea :
+	//this code should be placed in the caller  
 	public int getStartDateYear() {
-		return DateUtils.getDateYear(startDate);
+		
+		return getDateYear(startDate);
 	}
 	
+	private int getDateYear(Date date) {
+		if (date == null) {
+			return 0;
+		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		return calendar.get(Calendar.YEAR);
+
+	}
+	//kept for compatibility reason
+	//I don't think It's a good Idea :
+	//this code should be placed in the caller 
 	public int getEndDateYear() {
-		return DateUtils.getDateYear(endDate);
+		return getDateYear(endDate);
 	}
 }
