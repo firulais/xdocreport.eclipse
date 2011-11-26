@@ -146,10 +146,8 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 			id = currentId++;
 		}
 		newDiploma.setId(id);
-		newDiploma.setStartDate(diploma.getStartDate());
-		newDiploma.setEndDate(diploma.getEndDate());
 		newDiploma.setLabel(diploma.getLabel());
-		newDiploma.setInstitute(diploma.getInstitute());		
+		newDiploma.setInstitute(diploma.getInstitute());
 		return newDiploma;
 	}
 

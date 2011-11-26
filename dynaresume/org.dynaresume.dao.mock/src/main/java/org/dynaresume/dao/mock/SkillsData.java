@@ -3,6 +3,7 @@ package org.dynaresume.dao.mock;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.dynaresume.domain.hr.DefaultSkillCategoryCode;
 import org.dynaresume.domain.hr.Skill;
 import org.dynaresume.domain.hr.SkillCategory;
 
@@ -29,19 +30,35 @@ public class SkillsData {
 		skillsByLabel = new HashMap<String, Skill>();
 		categories = new HashMap<Long, SkillCategory>();
 
-		functionalSkills = addCategory("Functional skills", null);
-		processSkills = addCategory("Process skills", null);
+		functionalSkills = addCategory(
+				DefaultSkillCategoryCode.FunctionalSkills.getCode(),
+				"Functional skills", null);
+		processSkills = addCategory(
+				DefaultSkillCategoryCode.ProcessSkills.getCode(),
+				"Process skills", null);
 
-		technicalSkills = addCategory("Technical skills", null);
-		osTechnicalSkills = addCategory("OS", technicalSkills);
-		databaseTechnicalSkills = addCategory("Database", technicalSkills);
-		langagesTechnicalSkills = addCategory("Langages", technicalSkills);
-		technologiesTechnicalSkills = addCategory("Technologies",
+		technicalSkills = addCategory(
+				DefaultSkillCategoryCode.TechnicalSkills.getCode(),
+				"Technical skills", null);
+		osTechnicalSkills = addCategory(
+				DefaultSkillCategoryCode.OSTechnicalSkills.getCode(), "OS",
 				technicalSkills);
-		softwaresTechnicalSkills = addCategory("Softwares", technicalSkills);
+		databaseTechnicalSkills = addCategory(
+				DefaultSkillCategoryCode.DatabaseTechnicalSkills.getCode(),
+				"Database", technicalSkills);
+		langagesTechnicalSkills = addCategory(
+				DefaultSkillCategoryCode.LangagesTechnicalSkills.getCode(),
+				"Langages", technicalSkills);
+		technologiesTechnicalSkills = addCategory(
+				DefaultSkillCategoryCode.TechnologiesTechnicalSkills.getCode(),
+				"Technologies", technicalSkills);
+		softwaresTechnicalSkills = addCategory(
+				DefaultSkillCategoryCode.SoftwaresTechnicalSkills.getCode(),
+				"Softwares", technicalSkills);
 
-		methodsAndToolsSkills = addCategory("Methods and associated tools",
-				null);
+		methodsAndToolsSkills = addCategory(
+				DefaultSkillCategoryCode.MethodsAndToolsSkills.getCode(),
+				"Methods and associated tools", null);
 
 		Skill javaSkill = addSkill("Java", null);
 		addSkill("Spring", javaSkill, "", "http://www.springsource.org/");
@@ -186,11 +203,13 @@ public class SkillsData {
 		return skill;
 	}
 
-	private static SkillCategory addCategory(String label, SkillCategory parent) {
+	private static SkillCategory addCategory(String code, String label,
+			SkillCategory parent) {
 		SkillCategory skill = new SkillCategory();
 		// skill.setChildren(new ArrayList<SkillCategory>());
 		skill.setId(getId());
 		skill.setLabel(label);
+		skill.setCode(code);
 		if (parent != null) {
 			skill.setParent(parent);
 			// parent.getChildren().add(skill);

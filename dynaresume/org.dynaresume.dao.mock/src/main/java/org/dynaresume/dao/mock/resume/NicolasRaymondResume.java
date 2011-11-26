@@ -46,9 +46,9 @@ public class NicolasRaymondResume extends BaseResume {
 //
 		// Educations
 		addEducation("Diplôme d’ingénieur", "Ecole Centrale de Lyon (69)",
-				"30/06/2001", "30/06/2001");
+				null, "30/06/2001");
 		addEducation("BAC S option Technologies Industrielles",
-				"Trévoux (01)", "30/06/1995", "30/06/1995");
+				"Trévoux (01)", null, "30/06/1995");
 //
 //		// Experiences
 //		addExperience(
