@@ -22,8 +22,8 @@ public class EducationViewerComparator extends ViewerComparator {
 	
 	@Override
 	public int compare(Viewer viewer, Object e1, Object e2) {
-		Date d1 = ((Education) e1).getDate();
-		Date d2 = ((Education) e2).getDate();
+		Date d1 = ((Education) e1).getEndDate();
+		Date d2 = ((Education) e2).getEndDate();
 		if (d1 == null) {
 			return 1;
 		}

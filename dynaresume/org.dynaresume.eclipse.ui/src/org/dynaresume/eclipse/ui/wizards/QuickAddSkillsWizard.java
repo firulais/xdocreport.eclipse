@@ -1,6 +1,5 @@
 package org.dynaresume.eclipse.ui.wizards;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.dynaresume.domain.hr.SkillResume;

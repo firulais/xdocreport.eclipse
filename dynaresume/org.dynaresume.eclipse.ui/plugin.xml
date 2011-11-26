@@ -52,11 +52,13 @@
         point="fr.opensagres.xdocreport.eclipse.ui.wizardFactories">
      <factory
            id="org.dynaresume.eclipse.ui.wizards.NewResumeWizard"
-           class="org.eclipse.springframework.util.SpringExtensionFactory:newResumeWizard">
+           class="org.eclipse.springframework.util.SpringExtensionFactory:newResumeWizard"
+           title="%NewResumeWizard.title" >
      </factory>
      <factory
            id="org.dynaresume.eclipse.ui.wizards.QuickAddSkillsWizard"
-           class="org.eclipse.springframework.util.SpringExtensionFactory:quickAddSkillsWizard">
+           class="org.eclipse.springframework.util.SpringExtensionFactory:quickAddSkillsWizard"
+           title="%QuickAddSkillsWizard.title" >
      </factory>             
   </extension>
   

@@ -10,10 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import fr.opensagres.xdocreport.commons.utils.DateUtils;
+
 @Entity
 public class Education {
 
-	public static final String DATE_PROPERTY = "date";
+	public static final String START_DATE_PROPERTY = "startDate";
+	public static final String END_DATE_PROPERTY = "endDate";
 	public static final String LABEL_PROPERTY = "label";
 	public static final String INSTITUTE_PROPERTY = "institute";
 
@@ -29,14 +32,22 @@ public class Education {
 
 	@Column
 	@Temporal(TemporalType.DATE)
-	private Date date;
+	private Date startDate;
+
+	@Column
+	@Temporal(TemporalType.DATE)
+	private Date endDate;
 
 	public Long getId() {
 		return id;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
 	}
 
 	public String getInstitute() {
@@ -51,8 +62,12 @@ public class Education {
 		this.id = id;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	public void setInstitute(String institute) {
@@ -67,12 +82,11 @@ public class Education {
 		// firePropertyChange("label", oldValue, label);
 	}
 
-	public int getDateYear() {
-		if (date == null) {
-			return 0;
-		}
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		return calendar.get(Calendar.YEAR);
+	public int getStartDateYear() {
+		return DateUtils.getDateYear(startDate);
+	}
+	
+	public int getEndDateYear() {
+		return DateUtils.getDateYear(endDate);
 	}
 }

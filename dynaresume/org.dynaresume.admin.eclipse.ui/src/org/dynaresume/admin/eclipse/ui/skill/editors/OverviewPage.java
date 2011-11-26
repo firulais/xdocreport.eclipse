@@ -21,7 +21,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
@@ -41,7 +40,7 @@ public class OverviewPage extends ModelToolbarFormPage<Skill> implements
 		IHyperlinkListener {
 
 	public static final String ID = "overview";
-	private Control nameText;
+	private Text nameText;
 	private Text descriptionText;
 	private Text urlText;
 

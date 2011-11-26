@@ -83,7 +83,7 @@ public class ExperienceDetailsPage extends ModelDetailsPage<Experience> {
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit,
 				experienceStartDateDateTime);
 
-		// Start date
+		// End date
 		toolkit.createLabel(
 				parent,
 				Messages.ResumeFormEditor_ExperiencesPage_ExperienceDetailsPage_experienceEndDate_label);

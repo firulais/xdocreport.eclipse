@@ -15,6 +15,7 @@ public class Messages extends NLS {
 	public static String SkillFormEditor_OverviewPage_GeneralInfo_title;
 	public static String SkillFormEditor_OverviewPage_GeneralInfo_desc;
 	public static String SkillFormEditor_OverviewPage_GeneralInfo_Name_label;
+	public static String SkillFormEditor_OverviewPage_GeneralInfo_Code_label;
 	public static String SkillFormEditor_OverviewPage_GeneralInfo_Description_label;
 	public static String SkillFormEditor_OverviewPage_GeneralInfo_URL_label;
 	

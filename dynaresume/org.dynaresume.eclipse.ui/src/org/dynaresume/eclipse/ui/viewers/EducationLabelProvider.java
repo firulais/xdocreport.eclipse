@@ -24,7 +24,7 @@ public class EducationLabelProvider extends LabelProvider {
 		if (element instanceof Education) {
 			Education education = ((Education) element);
 			StringBuilder text = new StringBuilder();
-			text.append(education.getDateYear());
+			text.append(education.getEndDateYear());
 			text.append(" - ");
 			text.append(education.getLabel());
 			return text.toString();

@@ -19,7 +19,7 @@ public class BaseResume extends Resume {
 
 	static long currentId = 0;
 
-	protected void addEducation(String label, String institute, String date) {
+	protected void addEducation(String label, String institute, String startDate, String endDate) {
 		Set<Education> educations = getEducations();
 		if (educations == null) {
 			educations = new HashSet<Education>();
@@ -29,14 +29,23 @@ public class BaseResume extends Resume {
 		education.setId(getCurrentId());
 		education.setLabel(label);
 		education.setInstitute(institute);
-		if (date != null) {
+		if (startDate != null) {
 			try {
-				education.setDate(DateUtils.toDate(date,
+				education.setStartDate(DateUtils.toDate(startDate,
 						DateUtils.FRENCH_PATTERN));
 			} catch (ParseException e1) {
 				e1.printStackTrace();
 			}
 		}
+		if (endDate != null) {
+			try {
+				education.setEndDate(DateUtils.toDate(endDate,
+						DateUtils.FRENCH_PATTERN));
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+		}
+
 		educations.add(education);
 
 	}

@@ -11,20 +11,20 @@
          				  <!-- Resume with docx -->
          				  <reportLoader
          				  		  id="resume.xdocreport.docx"
-         				  		  name="Resume from docx" 
-         				  		  description="Docx document for Resume"
+         				  		  name="%DocxResumeName" 
+         				  		  description="%DocxResumeDesc"
          				  		  class="org.dynaresume.eclipse.reporting.DocxResumeReportLoader" />
          				  <!-- Resume with another docx -->         				  		  
 						  <reportLoader
-         				  		  id="resume.xdocreport.docx2"
-         				  		  name="Resume2 from docx" 
-         				  		  description="Another Docx document for Resume"
-         				  		  class="org.dynaresume.eclipse.reporting.DocxResumeReportLoader2" />
+         				  		  id="resume.xdocreport.sodifrance"
+         				  		  name="%SodifranceResumeName" 
+         				  		  description="%SodifranceResumeDesc"
+         				  		  class="org.dynaresume.eclipse.reporting.SodifranceResumeReportLoader" />
          				  <!-- Resume with ODT -->         				  		           				  		  
 						  <reportLoader
          				  		  id="resume.xdocreport.odt"
-         				  		  name="Resume from ODT"
-         				  		  description="ODT document for Resume" 
+         				  		  name="%ODTResumeName"
+         				  		  description="%ODTResumeDesc" 
          				  		  class="org.dynaresume.eclipse.reporting.ODTResumeReportLoader" />         				  		  
          </reportProcessor>				         				  
 	</extension>

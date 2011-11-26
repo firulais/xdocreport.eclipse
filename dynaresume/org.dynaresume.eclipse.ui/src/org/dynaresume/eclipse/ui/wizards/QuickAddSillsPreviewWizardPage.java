@@ -11,18 +11,18 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.Text;
 
 public class QuickAddSillsPreviewWizardPage extends WizardPage {
 
 	private static final String ID = "QuickAddSillsPreviewWizardPage";
-	private Text skillText;
+
 	private TableViewer existingSkillsViewer;
 	private TableViewer skillsViewer;
 	private TableViewer freeSkillsViewer;
 
 	protected QuickAddSillsPreviewWizardPage() {
 		super(ID, Messages.QuickAddSillsPreviewWizardPage_title, null);
+		super.setDescription(Messages.QuickAddSillsPreviewWizardPage_desc);
 	}
 
 	public void createControl(Composite parent) {
@@ -49,8 +49,9 @@ public class QuickAddSillsPreviewWizardPage extends WizardPage {
 		skillsTable.setLayoutData(gd);
 
 		skillsViewer = new TableViewer(skillsTable);
-		skillsViewer.setContentProvider(SkillResumeContentProvider.getInstance());
-		skillsViewer.setLabelProvider(SkillResumeLabelProvider.getInstance());		
+		skillsViewer.setContentProvider(SkillResumeContentProvider
+				.getInstance());
+		skillsViewer.setLabelProvider(SkillResumeLabelProvider.getInstance());
 	}
 
 	private void createFreeSkillsTable(Composite parent) {
@@ -65,9 +66,10 @@ public class QuickAddSillsPreviewWizardPage extends WizardPage {
 		skillsTable.setLayoutData(gd);
 
 		freeSkillsViewer = new TableViewer(skillsTable);
-		freeSkillsViewer.setContentProvider(SkillResumeContentProvider.getInstance());
-		freeSkillsViewer.setLabelProvider(SkillResumeLabelProvider.getInstance());
-		freeSkillsViewer.setInput(getWizard().getFreeSkills());
+		freeSkillsViewer.setContentProvider(SkillResumeContentProvider
+				.getInstance());
+		freeSkillsViewer.setLabelProvider(SkillResumeLabelProvider
+				.getInstance());
 	}
 
 	private void createExistingSkillsTable(Composite parent) {
@@ -82,8 +84,10 @@ public class QuickAddSillsPreviewWizardPage extends WizardPage {
 		skillsTable.setLayoutData(gd);
 
 		existingSkillsViewer = new TableViewer(skillsTable);
-		existingSkillsViewer.setContentProvider(SkillResumeContentProvider.getInstance());
-		existingSkillsViewer.setLabelProvider(SkillResumeLabelProvider.getInstance());
+		existingSkillsViewer.setContentProvider(SkillResumeContentProvider
+				.getInstance());
+		existingSkillsViewer.setLabelProvider(SkillResumeLabelProvider
+				.getInstance());
 	}
 
 	@Override

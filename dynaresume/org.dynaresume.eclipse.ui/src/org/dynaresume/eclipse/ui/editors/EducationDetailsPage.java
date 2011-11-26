@@ -1,6 +1,5 @@
 package org.dynaresume.eclipse.ui.editors;
 
-import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.Education;
 import org.dynaresume.eclipse.ui.internal.Messages;
 import org.eclipse.core.databinding.DataBindingContext;
@@ -31,16 +30,14 @@ public class EducationDetailsPage extends ModelDetailsPage<Education> {
 
 	private Text educationLabelText;
 	private Text educationInstituteText;
-	private DateTimeControl educationDateTime;
+	private DateTimeControl educationStartDateTime;
+	private DateTimeControl educationEndDateTime;
 
 	@Override
 	protected void onCreateUI(Composite parent) {
 
-		TableWrapLayout layout = new TableWrapLayout();
-		layout.topMargin = 5;
-		layout.leftMargin = 5;
-		layout.rightMargin = 2;
-		layout.bottomMargin = 2;
+		GridLayout layout = new GridLayout();
+		layout.numColumns = 1;
 		parent.setLayout(layout);
 
 		FormToolkit toolkit = getManagedForm().getToolkit();
@@ -53,9 +50,8 @@ public class EducationDetailsPage extends ModelDetailsPage<Education> {
 		educationDetailSection
 				.setDescription(Messages.ResumeFormEditor_EducationsPage_EducationDetailsPage_desc); //$NON-NLS-1$
 
-		TableWrapData td = new TableWrapData(TableWrapData.FILL,
-				TableWrapData.TOP);
-		td.grabHorizontal = true;
+		GridData td = new GridData(GridData.FILL_HORIZONTAL
+				| GridData.FILL_VERTICAL);
 		educationDetailSection.setLayoutData(td);
 
 		Composite client = toolkit.createComposite(educationDetailSection);
@@ -69,55 +65,86 @@ public class EducationDetailsPage extends ModelDetailsPage<Education> {
 
 	private void createBodyContent(FormToolkit toolkit, Composite parent) {
 		GridLayout glayout = new GridLayout();
-		glayout.numColumns = 2;
+		glayout.numColumns = 4;
 		parent.setLayout(glayout);
 
-		// Education date
+		// Education start date
 		toolkit.createLabel(
 				parent,
-				Messages.ResumeFormEditor_EducationsPage_EducationDetailsPage_educationDate_label);
-		educationDateTime = new DateTimeControl(parent, SWT.NONE, SWT.SINGLE,
+				Messages.ResumeFormEditor_EducationsPage_EducationDetailsPage_educationStartDate_label);
+		educationStartDateTime = new DateTimeControl(parent, SWT.NONE, SWT.SINGLE,
 				SWT.FLAT, toolkit);
-		educationDateTime.setOutputPattern(PlatformXDocReport.getDatePattern());
+		educationStartDateTime.setOutputPattern(PlatformXDocReport.getDatePattern());
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
 		data.widthHint = 150;
-		educationDateTime.setLayoutData(data);
+		educationStartDateTime.setLayoutData(data);
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit,
-				educationDateTime);
+				educationStartDateTime);
+
+		// Education end date
+		toolkit.createLabel(
+				parent,
+				Messages.ResumeFormEditor_EducationsPage_EducationDetailsPage_educationEndDate_label);
+		educationEndDateTime = new DateTimeControl(parent, SWT.NONE, SWT.SINGLE,
+				SWT.FLAT, toolkit);
+		educationEndDateTime.setOutputPattern(PlatformXDocReport.getDatePattern());
+		data = new GridData(GridData.FILL_HORIZONTAL);
+		data.widthHint = 150;
+		educationEndDateTime.setLayoutData(data);
+		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit,
+				educationEndDateTime);
 
 		// Education label
 		toolkit.createLabel(
 				parent,
 				Messages.ResumeFormEditor_EducationsPage_EducationDetailsPage_educationLabel_label);
 		educationLabelText = toolkit.createText(parent, "", SWT.SINGLE);
+		data = new GridData(GridData.FILL_HORIZONTAL);
+		data.horizontalSpan = 3;
 		educationLabelText
-				.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+				.setLayoutData(data);
 
 		// Education institute
 		toolkit.createLabel(
 				parent,
 				Messages.ResumeFormEditor_EducationsPage_EducationDetailsPage_educationInstitute_label);
 		educationInstituteText = toolkit.createText(parent, "", SWT.SINGLE);
-		educationInstituteText.setLayoutData(new GridData(
-				GridData.FILL_HORIZONTAL));
+		data = new GridData(GridData.FILL_HORIZONTAL);
+		data.horizontalSpan = 3;
+		educationInstituteText.setLayoutData(data);
 
 	}
 
 	public void onBind(DataBindingContext bindingContext) {
 
-		// Date binding
 		StringToDateConverter stringToDateConverter = DateConverterRegistry
 				.getStringToDateConverter(PlatformXDocReport.getDatePattern());
 		DateToStringConverter dateToStringConverter = DateConverterRegistry
 				.getDateToStringConverter(PlatformXDocReport.getDatePattern());
-		IObservableValue educationDateTimeObserveTextObserveWidget = SWTObservables
-				.observeText(educationDateTime.getDateFieldText(), SWT.Modify);
-		IObservableValue educationDateObserveValue = PojoObservables
+
+		// Start Date binding
+		IObservableValue educationStartDateTimeObserveTextObserveWidget = SWTObservables
+				.observeText(educationStartDateTime.getDateFieldText(), SWT.Modify);
+		IObservableValue educationStartDateObserveValue = PojoObservables
 				.observeValue(getModelObject(),
-						Education.DATE_PROPERTY);
+						Education.START_DATE_PROPERTY);
 		bindingContext.bindValue(
-				educationDateTimeObserveTextObserveWidget,
-				educationDateObserveValue,
+				educationStartDateTimeObserveTextObserveWidget,
+				educationStartDateObserveValue,
+				new UpdateValueStrategy().setAfterGetValidator(
+						new StringToDateValidator(stringToDateConverter))
+						.setConverter(stringToDateConverter),
+				new UpdateValueStrategy().setConverter(dateToStringConverter));
+
+		// End Date binding
+		IObservableValue educationEndDateTimeObserveTextObserveWidget = SWTObservables
+				.observeText(educationEndDateTime.getDateFieldText(), SWT.Modify);
+		IObservableValue educationEndDateObserveValue = PojoObservables
+				.observeValue(getModelObject(),
+						Education.END_DATE_PROPERTY);
+		bindingContext.bindValue(
+				educationEndDateTimeObserveTextObserveWidget,
+				educationEndDateObserveValue,
 				new UpdateValueStrategy().setAfterGetValidator(
 						new StringToDateValidator(stringToDateConverter))
 						.setConverter(stringToDateConverter),

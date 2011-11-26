@@ -7,6 +7,7 @@ import org.dynaresume.domain.hr.Skill;
 import org.dynaresume.domain.hr.SkillResume;
 import org.dynaresume.eclipse.ui.internal.Messages;
 import org.dynaresume.eclipse.ui.viewers.SkillCategoryWrapper;
+import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -21,7 +22,7 @@ public class QuickAddSillsFillSkillsWizardPage extends WizardPage implements
 		ModifyListener {
 
 	private static final String ID = "QuickAddSillFillSkillsWizardPage";
-	private Text skillText;
+	private Text skillsText;
 	private boolean dirty;
 	private final List<SkillResume> skills;
 	private final List<SkillResume> freeSkills;
@@ -29,6 +30,7 @@ public class QuickAddSillsFillSkillsWizardPage extends WizardPage implements
 
 	protected QuickAddSillsFillSkillsWizardPage() {
 		super(ID, Messages.QuickAddSillFillSkillsWizardPage_title, null);
+		super.setDescription(Messages.QuickAddSillFillSkillsWizardPage_desc);
 		this.skills = new ArrayList<SkillResume>();
 		this.freeSkills = new ArrayList<SkillResume>();
 		this.existingSkills = new ArrayList<SkillResume>();
@@ -40,11 +42,11 @@ public class QuickAddSillsFillSkillsWizardPage extends WizardPage implements
 		Label label = new Label(composite, SWT.LEFT);
 		label.setText(Messages.QuickAddSillFillSkillsWizardPage_Skills_label);
 		label.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING));
-		skillText = new Text(composite, SWT.BORDER | SWT.MULTI | SWT.WRAP);
-		skillText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1,
-				1));
-		skillText.addModifyListener(this);
-		super.setControl(composite);
+		skillsText = new Text(composite, SWT.BORDER | SWT.MULTI | SWT.WRAP);
+		skillsText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true,
+				1, 1));
+		skillsText.addModifyListener(this);
+		super.setControl(composite);		
 	}
 
 	@Override
@@ -77,7 +79,7 @@ public class QuickAddSillsFillSkillsWizardPage extends WizardPage implements
 
 		List<String> skillsToSearch = null;
 		SkillCategoryWrapper categoryWrapper = getWizard().getCategory();
-		String skills = skillText.getText();
+		String skills = skillsText.getText();
 		String[] s = skills.split(",");
 		String skill = null;
 		for (int i = 0; i < s.length; i++) {
@@ -127,5 +129,38 @@ public class QuickAddSillsFillSkillsWizardPage extends WizardPage implements
 
 	public void modifyText(ModifyEvent e) {
 		dirty = true;
+		validate();
+	}
+
+	public void validate() {
+		if (!isSkillsFilled()) {
+			super.setMessage(
+					Messages.QuickAddSillFillSkillsWizardPage_skillsText_required,
+					IMessageProvider.ERROR);
+		} else {
+			super.setMessage(null);
+		}
+		getWizard().getContainer().updateButtons();
+	}
+
+	@Override
+	public boolean canFlipToNextPage() {
+		if (!super.canFlipToNextPage()) {
+			return false;
+		}
+		return isSkillsFilled();
+	}
+
+	private boolean isSkillsFilled() {
+		return skillsText.getText().length() > 0;
+	}
+
+	@Override
+	public void setVisible(boolean visible) {
+		super.setVisible(visible);
+		if (visible) {
+			skillsText.setFocus();
+			validate();
+		}
 	}
 }

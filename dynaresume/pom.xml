@@ -20,6 +20,8 @@
 		<module>org.dynaresume.dao.mock</module>
 
 		
+		<module>org.dynaresume.admin.eclipse.ui</module>
+		<module>org.dynaresume.admin.eclipse.ui.graphics</module>
 		
 		<module>org.dynaresume.eclipse.reporting</module>
 		<module>org.dynaresume.eclipse.ui</module>

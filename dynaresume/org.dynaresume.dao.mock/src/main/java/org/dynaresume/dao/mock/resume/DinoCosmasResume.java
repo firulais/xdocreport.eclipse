@@ -49,16 +49,16 @@ public class DinoCosmasResume extends BaseResume {
 
 		// Educations
 		addEducation("Diplôme d'ingénieur en informatique", "CNAM Rhône Alpes",
-				"30/06/2012");
+				"30/06/2012", "30/06/2012");
 		addEducation("Licence Nouvelles Architectures Applicatives",
-				"Université Claude Bernard Lyon1", "30/06/2005");
+				"Université Claude Bernard Lyon1", "30/06/2005", "30/06/2005");
 		addEducation(
 				"BTS Informatique de Gestion option développeur d'application",
-				"Lycée Lamartine", "30/06/2004");
+				"Lycée Lamartine", "30/06/2004", "30/06/2004");
 		addEducation("DEUG MIAS", "Université Claude Bernard Lyon1",
-				"30/06/2004");
+				"30/06/2004", "30/06/2004");
 		addEducation("BAS S option Science de la Vie et de la Terre",
-				"Lycée René Cassin", "30/06/2004");
+				"Lycée René Cassin", "30/06/2004", "30/06/2004");
 
 		// Experiences
 		addExperience(

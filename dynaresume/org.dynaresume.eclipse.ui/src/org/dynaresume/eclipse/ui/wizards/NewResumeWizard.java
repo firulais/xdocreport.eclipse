@@ -31,7 +31,6 @@ public class NewResumeWizard extends AbstractWizard {
 		// addPage( new MoreInformationPage() );
 		this.collaborateurWizardPage = new CollaborateurWizardPage(resume);
 		addPage(collaborateurWizardPage);
-		setWindowTitle("Create Resume Wizard");
 	}
 
 	public boolean canFinish() {

@@ -50,7 +50,8 @@ public class Messages extends NLS {
 	public static String ResumeFormEditor_EducationsPage_EducationsMasterDetailsBlock_desc;
 	public static String ResumeFormEditor_EducationsPage_EducationDetailsPage_title;
 	public static String ResumeFormEditor_EducationsPage_EducationDetailsPage_desc;	
-	public static String ResumeFormEditor_EducationsPage_EducationDetailsPage_educationDate_label;
+	public static String ResumeFormEditor_EducationsPage_EducationDetailsPage_educationStartDate_label;
+	public static String ResumeFormEditor_EducationsPage_EducationDetailsPage_educationEndDate_label;
 	public static String ResumeFormEditor_EducationsPage_EducationDetailsPage_educationLabel_label;
 	public static String ResumeFormEditor_EducationsPage_EducationDetailsPage_educationInstitute_label;
 
@@ -87,8 +88,11 @@ public class Messages extends NLS {
 
 	// Quick Add Skill wizard
 	public static String QuickAddSillFillSkillsWizardPage_title;
+	public static String QuickAddSillFillSkillsWizardPage_desc;
 	public static String QuickAddSillFillSkillsWizardPage_Skills_label;
+	public static String QuickAddSillFillSkillsWizardPage_skillsText_required;
 	public static String QuickAddSillsPreviewWizardPage_title;
+	public static String QuickAddSillsPreviewWizardPage_desc;
 	public static String QuickAddSillsPreviewWizardPage_skillsTable_label;
 	public static String QuickAddSillsPreviewWizardPage_freeSkillsTable_label;
 	public static String QuickAddSillsPreviewWizardPage_existingSkillsTable_label;
