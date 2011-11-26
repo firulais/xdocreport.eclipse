@@ -14,10 +14,10 @@ public class SkillResume {
 	@Id
 	@GeneratedValue
 	long id;
-	
+
 	@ManyToOne
 	private SkillCategory category;
-	
+
 	@ManyToOne
 	private Skill skill;
 	@Column
@@ -53,6 +53,17 @@ public class SkillResume {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getSkillLabel() {
+		if (isFreeSkill()) {
+			return freeSkill;
+		}
+		return skill.getName();
+	}
+
+	public boolean isFreeSkill() {
+		return skill == null;
 	}
 
 }
