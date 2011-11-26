@@ -40,8 +40,8 @@ public class LarsVogelResume extends BaseResume {
 
 		// Diplomas
 		addEducation("Economics / Operations Research / IT", "University Kiel",
-				"30/06/1998", "30/06/1998");
-		addEducation("School", "Abitur", "30/06/1992", "30/06/1992");
+				null, "30/06/1998");
+		addEducation("School", "Abitur", null, "30/06/1992");
 
 		// Experiences
 		addExperience("Eclipse and Android Trainer and Consultant", "", "",

@@ -19,7 +19,8 @@ public class BaseResume extends Resume {
 
 	static long currentId = 0;
 
-	protected void addEducation(String label, String institute, String startDate, String endDate) {
+	protected void addEducation(String label, String institute,
+			String startDate, String endDate) {
 		Set<Education> educations = getEducations();
 		if (educations == null) {
 			educations = new HashSet<Education>();
@@ -45,7 +46,6 @@ public class BaseResume extends Resume {
 				e1.printStackTrace();
 			}
 		}
-
 		educations.add(education);
 
 	}

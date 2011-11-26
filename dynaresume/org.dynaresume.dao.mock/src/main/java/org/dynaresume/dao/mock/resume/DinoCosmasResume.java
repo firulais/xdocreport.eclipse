@@ -49,9 +49,9 @@ public class DinoCosmasResume extends BaseResume {
 
 		// Educations
 		addEducation("Diplôme d'ingénieur en informatique", "CNAM Rhône Alpes",
-				"30/06/2012", "30/06/2012");
+				"01/09/2005", "30/06/2012");
 		addEducation("Licence Nouvelles Architectures Applicatives",
-				"Université Claude Bernard Lyon1", "30/06/2005", "30/06/2005");
+				"Université Claude Bernard Lyon1", "01/09/2004", "30/06/2005");
 		addEducation(
 				"BTS Informatique de Gestion option développeur d'application",
 				"Lycée Lamartine", "30/06/2004", "30/06/2004");
@@ -92,7 +92,7 @@ public class DinoCosmasResume extends BaseResume {
 				"Oracle 8i,Oracle 9i, Oracle 10g, SQL Server, MySQL, Postgres, KTBS");
 		addSkillWithSplit(
 				SkillsData.technologiesTechnicalSkills,
-				"OSGi , Eclipse RCP, J2EE, JSP, Struts, Ant, POI, Hibernate, Spring, EJB2-3, Freemarker, Velocity, HTML, CSS, JavaScript, JQuery, XML, XSL, XSD, RDF, Ajax, XQuery");
+				"OSGi , Eclipse RCP, J2EE, JSP, Struts, Ant, POI, Hibernate, Spring, EJB2-3, Freemarker, Velocity, HTML, CSS, JavaScript, jQuery, XML, XSL, XSD, RDF, Ajax, XQuery");
 		addSkillWithSplit(SkillsData.softwaresTechnicalSkills,
 				"Jetty, Apache/Tomcat 5.0, BEA/WebLogic 6.1-8.1, Eclipse");
 		addSkillWithSplit(SkillsData.methodsAndToolsSkills, "Merise, UML, MDA");

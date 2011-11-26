@@ -54,9 +54,9 @@ public class AngeloZerrResume extends BaseResume {
 
 		// Educations
 		addEducation("Diplôme d'ingénieur en informatique", "INSA de Lyon",
-				"01/09/1997", "30/06/2001");
+				"01/09/1996", "30/06/2001");
 		addEducation("BAC S option Physique C", "Georges de la Tour (Nancy)",
-				"01/09/1991","30/06/1996");
+				"01/09/1992", "30/06/1996");
 
 		// Experiences
 		addExperience(

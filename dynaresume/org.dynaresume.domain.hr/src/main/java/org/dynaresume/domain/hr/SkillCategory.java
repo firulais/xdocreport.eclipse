@@ -14,6 +14,9 @@ public class SkillCategory {
 	private Long id;
 
 	@Column
+	private String code;
+	
+	@Column
 	private String label;
 	@Transient
 	private SkillCategory parent;
@@ -44,6 +47,13 @@ public class SkillCategory {
 		this.parent = parent;
 	}
 
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
+	public String getCode() {
+		return code;
+	}
 //	public void setChildren(Collection<SkillCategory> children) {
 //		this.children = children;
 //	}
