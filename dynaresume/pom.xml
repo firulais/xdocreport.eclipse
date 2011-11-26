@@ -19,10 +19,6 @@
 		<module>org.dynaresume.dao.jpa</module>
 		<module>org.dynaresume.dao.mock</module>
 
-<<<<<<< HEAD
-		
-=======
->>>>>>> 48a143d61776d43b14d7d15b83003b6193b046d1
 		<module>org.dynaresume.eclipse.reporting</module>
 		<module>org.dynaresume.eclipse.ui</module>
 	
