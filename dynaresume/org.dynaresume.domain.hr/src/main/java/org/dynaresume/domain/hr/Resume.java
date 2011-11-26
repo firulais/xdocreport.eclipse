@@ -1,7 +1,6 @@
 package org.dynaresume.domain.hr;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
 
@@ -66,9 +65,7 @@ public class Resume {
 	}
 
 	public void setTitle(String title) {
-		// Object oldValue = this.title;
 		this.title = title;
-		// firePropertyChange("title", oldValue, title);
 	}
 
 	public byte[] getPicture() {
@@ -76,16 +73,7 @@ public class Resume {
 	}
 
 	public void setPicture(byte[] picture) {
-		// Object oldValue = this.picture;
 		this.picture = picture;
-		// this.photo.setImageByteArray(picture);
-		// try {
-		// this.photo.getImageInfo();
-		// } catch (IOException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// firePropertyChange("picture", oldValue, picture);
 	}
 
 	/**
@@ -99,23 +87,14 @@ public class Resume {
 		return new ByteArrayInputStream(picture);
 	}
 
-	/**
-	 * @deprecated use byte[] as much as possible
-	 * @param picture
-	 * @throws IOException
-	 */
-	// public void setPictureAsStream(InputStream picture) throws IOException {
-	// this.setPicture(IOUtils.toByteArray(picture));
-	// }
+	
 
 	public NaturalPerson getOwner() {
 		return owner;
 	}
 
 	public void setOwner(NaturalPerson owner) {
-		// Object oldValue = this.owner;
 		this.owner = owner;
-		// firePropertyChange("owner", oldValue, owner);
 	}
 
 	public long getOwnerId() {
@@ -123,9 +102,7 @@ public class Resume {
 	}
 
 	public void setOwnerId(Long ownerId) {
-		// Object oldValue = this.ownerId;
 		this.ownerId = ownerId;
-		// firePropertyChange("ownerId", oldValue, ownerId);
 	}
 
 	public Set<Experience> getExperiences() {
@@ -133,9 +110,7 @@ public class Resume {
 	}
 
 	public void setExperiences(Set<Experience> experiences) {
-		// Object oldValue = this.experiences;
 		this.experiences = experiences;
-		// firePropertyChange("experiences", oldValue, experiences);
 	}
 
 	public Set<Education> getEducations() {
@@ -143,9 +118,7 @@ public class Resume {
 	}
 
 	public void setEducations(Set<Education> educations) {
-		// Object oldValue = this.diplomas;
 		this.educations = educations;
-		// firePropertyChange("diplomas", oldValue, diplomas);
 	}
 
 	public Set<SkillResume> getSkills() {
@@ -153,14 +126,8 @@ public class Resume {
 	}
 
 	public void setSkills(Set<SkillResume> skills) {
-		// Object oldValue = this.competences;
 		this.skills = skills;
-		// firePropertyChange("competences", oldValue, competences);
 	}
-
-	// public ByteArrayImageProvider getPhoto() {
-	// return photo;
-	// }
 
 	public void setHobbies(Set<Hobby> hobbies) {
 		this.hobbies = hobbies;
