@@ -31,5 +31,7 @@
 
 		<module>org.dynaresume.dao.jpa.hibernate</module>
 		<module>org.dynaresume.dao.jpa.eclipselink</module>
+		<module>org.dynaresume.admin.eclipse.ui</module>
+		<module>org.dynaresume.admin.eclipse.ui.graphics</module>
 	</modules>
 </project>

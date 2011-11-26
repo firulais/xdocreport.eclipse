@@ -17,8 +17,10 @@ package org.dynaresume.services.impl;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.ops4j.pax.exam.CoreOptions.cleanCaches;
 import static org.ops4j.pax.exam.CoreOptions.felix;
 import static org.ops4j.pax.exam.CoreOptions.junitBundles;
@@ -35,7 +37,7 @@ import java.io.IOException;
 import javax.sql.DataSource;
 
 import org.dynaresume.dao.ResumeDao;
-import org.junit.Ignore;
+import org.dynaresume.domain.hr.Resume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Option;
@@ -237,7 +239,7 @@ public class OSGiEclipseLinkUnitTest {
 		ServiceTracker tracker = new ServiceTracker(ctx,
 				DataSource.class.getName(), null);
 		tracker.open();
-		Object dataSource = tracker.waitForService(2000);
+		Object dataSource = tracker.waitForService(10000);
 
 		tracker.close();
 		assertNotNull(dataSource);
@@ -253,10 +255,20 @@ public class OSGiEclipseLinkUnitTest {
 		ServiceTracker tracker = new ServiceTracker(ctx,
 				ResumeDao.class.getName(), null);
 		tracker.open();
-		Object resumeDao = tracker.waitForService(10000);
+		ResumeDao resumeDao = (ResumeDao) tracker.waitForService(10000);
 
 		tracker.close();
 		assertNotNull(resumeDao);
+		
+		
+	Iterable<Resume> resumes=	resumeDao.findAll();
+	resumeDao.delete(resumes);
+	assertEquals(0,resumeDao.count());
+		Resume resume = new Resume();
+		resume.setTitle("test");
+		Resume other = resumeDao.save(resume);
+		System.out.println(other);
+		assertEquals(1,resumeDao.count());
 	}
 
 }
