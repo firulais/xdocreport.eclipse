@@ -56,13 +56,13 @@ public class SkillResume {
 	}
 
 	public String getSkillLabel() {
-		if (isFreeSkill()) {
+		if (isAFreeSkill()) {
 			return freeSkill;
 		}
 		return skill.getName();
 	}
 
-	public boolean isFreeSkill() {
+	public boolean isAFreeSkill() {
 		return skill == null;
 	}
 
