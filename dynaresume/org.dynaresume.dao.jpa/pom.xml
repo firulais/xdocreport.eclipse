@@ -8,5 +8,6 @@
 		<relativePath>..</relativePath>
 	</parent>
 	<packaging>eclipse-plugin</packaging>
-	
+	<artifactId>org.dynaresume.dao.jpa</artifactId>
+
 </project>
