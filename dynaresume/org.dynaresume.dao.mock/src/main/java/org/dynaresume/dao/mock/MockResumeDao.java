@@ -12,6 +12,7 @@ import org.dynaresume.dao.mock.resume.DinoCosmasResume;
 import org.dynaresume.dao.mock.resume.LarsVogelResume;
 import org.dynaresume.dao.mock.resume.NicolasRaymondResume;
 import org.dynaresume.dao.mock.resume.PascalLeclercqResume;
+import org.dynaresume.dao.mock.resume.RalfSternbergResume;
 import org.dynaresume.domain.core.Address;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.Education;
@@ -31,6 +32,7 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		addResume(new AngeloZerrResume());
 		addResume(new PascalLeclercqResume());
 		addResume(new AmineBoustaResume());
+		addResume(new RalfSternbergResume());
 		addResume(new LarsVogelResume());
 		addResume(new DinoCosmasResume());
 		addResume(new NicolasRaymondResume());
