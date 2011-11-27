@@ -1,6 +1,7 @@
 package org.dynaresume.eclipse.ui.dialogs;
 
 import org.dynaresume.domain.hr.Resume;
+import org.dynaresume.eclipse.ui.internal.Messages;
 import org.dynaresume.services.ResumeService;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
@@ -37,7 +38,7 @@ public class SearchResumeDialog extends SearchDialog {
 	private String firstNameCriteria;
 	private String lastNameCriteria;
 
-	private PageableTable paginationTable;
+	private PageableTable resumeTable;
 
 	public void setResumeService(ResumeService resumeService) {
 		this.resumeService = resumeService;
@@ -69,30 +70,32 @@ public class SearchResumeDialog extends SearchDialog {
 		group.setLayoutData(new GridData(GridData.FILL_BOTH));
 		group.setLayout(new GridLayout());
 
-		group.setText("Resume search criteria");
+		group.setText(Messages.SearchResumeDialog_searchCriteria_label);
 		toolkit.adapt(group);
 
 		Composite container = toolkit.createComposite(group);
 		container.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		container.setLayout(new GridLayout(4, false));
 
-		toolkit.createLabel(container, "First name:");
+		toolkit.createLabel(container,
+				Messages.SearchResumeDialog_searchCriteria_FirstName_label);
 		final Text firstNameText = toolkit
 				.createText(container, "", SWT.BORDER);
 		firstNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-		toolkit.createLabel(container, "Last name:");
+		toolkit.createLabel(container,
+				Messages.SearchResumeDialog_searchCriteria_LastName_label);
 		final Text lastNameText = toolkit.createText(container, "", SWT.BORDER);
 		lastNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-		Button searchButton = toolkit.createButton(container, "Search",
-				SWT.BORDER);
+		Button searchButton = toolkit.createButton(container,
+				Messages.searchButton_label, SWT.BORDER);
 		searchButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				firstNameCriteria = firstNameText.getText();
 				lastNameCriteria = lastNameText.getText();
-				paginationTable.refreshPage();
+				resumeTable.refreshPage();
 			}
 		});
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
@@ -119,8 +122,8 @@ public class SearchResumeDialog extends SearchDialog {
 		// managedForm.getForm().reflow(true);
 		// }
 		// });
-		section.setText("Resume search results");
-		section.setDescription("Select one or several resume from the below list of resume search results and click OK to open the selected resumes.");
+		section.setText(Messages.SearchResumeDialog_searchResults_label);
+		section.setDescription(Messages.SearchResumeDialog_searchResults_desc);
 
 		Composite container = toolkit.createComposite(section);
 		container.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -128,7 +131,7 @@ public class SearchResumeDialog extends SearchDialog {
 		layout.marginHeight = 0;
 		container.setLayout(layout);
 
-		paginationTable = new PageableTable(container, SWT.NONE, toolkit) {
+		resumeTable = new PageableTable(container, SWT.NONE, toolkit) {
 
 			@Override
 			protected Page<Resume> loadPage(PageableController controller) {
@@ -143,16 +146,16 @@ public class SearchResumeDialog extends SearchDialog {
 						| SWT.FULL_SELECTION | SWT.BORDER;
 			}
 		};
-		paginationTable.setLayoutData(new GridData(GridData.FILL_BOTH));
+		resumeTable.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-		TableViewer viewer = paginationTable.getViewer();
+		TableViewer viewer = resumeTable.getViewer();
 		createColumns(viewer);
 		final Table table = viewer.getTable();
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 		viewer.setContentProvider(new ArrayContentProvider());
 
-		paginationTable.setCurrentPage(0);
+		resumeTable.setCurrentPage(0);
 		section.setClient(container);
 	}
 
@@ -188,8 +191,11 @@ public class SearchResumeDialog extends SearchDialog {
 
 	// This will create the columns for the table
 	private void createColumns(final TableViewer viewer) {
-		String[] titles = { "First name", "Last name" };
-		int[] bounds = { 180, 180 };
+		String[] titles = {
+				Messages.SearchResumeDialog_resumeTable_FirstName_label,
+				Messages.SearchResumeDialog_resumeTable_LastName_label,
+				Messages.SearchResumeDialog_resumeTable_ResumeTitle_label };
+		int[] bounds = { 120, 120, 180 };
 
 		// First column is for the first name
 		TableViewerColumn col = createTableViewerColumn(viewer, titles[0],
@@ -212,6 +218,15 @@ public class SearchResumeDialog extends SearchDialog {
 			}
 		});
 
+		// Title column is for the last name
+		col = createTableViewerColumn(viewer, titles[2], bounds[2], 2);
+		col.setLabelProvider(new ColumnLabelProvider() {
+			@Override
+			public String getText(Object element) {
+				Resume p = (Resume) element;
+				return p.getTitle();
+			}
+		});
 		// // Now the gender
 		// col = createTableViewerColumn(titles[2], bounds[2], 2);
 		// col.setLabelProvider(new ColumnLabelProvider() {
@@ -251,7 +266,7 @@ public class SearchResumeDialog extends SearchDialog {
 	 */
 	protected void okPressed() {
 		// Build a list of selected children.
-		IStructuredSelection selection = (IStructuredSelection) paginationTable
+		IStructuredSelection selection = (IStructuredSelection) resumeTable
 				.getViewer().getSelection();
 		setResult(selection.toList());
 		super.okPressed();

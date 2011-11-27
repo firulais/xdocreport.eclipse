@@ -10,6 +10,7 @@ public class Messages extends NLS {
 	public static String addButton_label;
 	public static String quickAddButton_label;
 	public static String removeButton_label;
+	public static String searchButton_label;
 
 	// Overview Page
 	public static String ResumeFormEditor_OverviewPage_title;
@@ -96,7 +97,17 @@ public class Messages extends NLS {
 	public static String QuickAddSillsPreviewWizardPage_skillsTable_label;
 	public static String QuickAddSillsPreviewWizardPage_freeSkillsTable_label;
 	public static String QuickAddSillsPreviewWizardPage_existingSkillsTable_label;
-	
+
+	// SearchResumeDialog
+	public static String SearchResumeDialog_searchCriteria_label;
+	public static String SearchResumeDialog_searchCriteria_FirstName_label;
+	public static String SearchResumeDialog_searchCriteria_LastName_label;
+	public static String SearchResumeDialog_searchResults_label;
+	public static String SearchResumeDialog_searchResults_desc;
+	public static String SearchResumeDialog_resumeTable_FirstName_label;
+	public static String SearchResumeDialog_resumeTable_LastName_label;
+	public static String SearchResumeDialog_resumeTable_ResumeTitle_label;
+
 	static {
 		// load message values from bundle file
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
