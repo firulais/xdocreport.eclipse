@@ -30,11 +30,16 @@ public class GenerationReportAction extends Action {
 		if (descriptor != null) {
 			super.setImageDescriptor(descriptor);
 		}
+		String reportName = reportLoader.getName();
+		if (reportName == null) {
+			reportName = reportLoader.getReportId();
+		}
+		super.setText(reportName);
 		String description = reportLoader.getDescription();
 		if (description == null) {
-			description = reportLoader.getReportId();
+			super.setToolTipText(description);
 		}
-		super.setText(description);
+		
 		this.entryProvider = entryProvider;
 		this.modelProvider = modelProvider;
 		this.serviceLocator = serviceLocator;
