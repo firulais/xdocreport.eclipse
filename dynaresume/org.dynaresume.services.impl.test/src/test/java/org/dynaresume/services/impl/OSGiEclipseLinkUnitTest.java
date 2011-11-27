@@ -44,8 +44,8 @@ import org.springframework.data.domain.Pageable;
 @ExamReactorStrategy(EagerSingleStagedReactorFactory.class)
 public class OSGiEclipseLinkUnitTest {
 
-	 private static final String SPRING_VERSION = "3.1.0.RC1";
-	//private static final String SPRING_VERSION = "3.0.6.RELEASE";
+	 //private static final String SPRING_VERSION = "3.1.0.RC1";
+	private static final String SPRING_VERSION = "3.0.6.RELEASE";
 
 	@Configuration()
 	public Option[] config() {
