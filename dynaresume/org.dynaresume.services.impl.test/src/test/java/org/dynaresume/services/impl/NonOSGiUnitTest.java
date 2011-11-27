@@ -1,14 +1,19 @@
 package org.dynaresume.services.impl;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import javax.inject.Inject;
 
+import org.dynaresume.dao.ResumeDao;
+import org.dynaresume.domain.core.MaritalStatus;
+import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.Resume;
-import org.dynaresume.services.ResumeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -17,18 +22,31 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class NonOSGiUnitTest {
 
 	@Inject
-	private ResumeService resumeService;
+	private ResumeDao resumeDao;
 
 	@Test
 	public void validate() {
-		assertNotNull(resumeService);
-		//assertFalse(resumeService.findAll().iterator().hasNext());
+		assertNotNull(resumeDao);
+		assertEquals(0,resumeDao.count());
 		
 		Resume resume = new Resume();
 		resume.setTitle("test");
-		Resume other = resumeService.save(resume);
+		NaturalPerson owner = new NaturalPerson();
+		owner.setMaritalStatus(MaritalStatus.SINGLE);
+		
+		owner.setFirstName("demo");
+		owner.setLastName("demo");
+		owner.setEmail("demo@demo.com");
+		resume.setOwner(owner);
+		Resume other = resumeDao.save(resume);
 		System.out.println(other);
-		assertTrue(resumeService.findAll().iterator().hasNext());
+		assertEquals(1,resumeDao.count());
+		Pageable page = new PageRequest(0,100);
+		Page<Resume> resumes=	resumeDao.findByOwnerFirstNameAndOwnerLastName("demo","demo", page);
+		
+		assertNotNull(resumes);
+		System.out.println(resumes.getContent().size());
+		assertEquals(1,resumes.getContent().size());
 
 	}
 }

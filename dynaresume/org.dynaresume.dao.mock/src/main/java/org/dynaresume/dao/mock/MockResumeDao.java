@@ -1,7 +1,10 @@
 package org.dynaresume.dao.mock;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,6 +23,9 @@ import org.dynaresume.domain.hr.Experience;
 import org.dynaresume.domain.hr.Hobby;
 import org.dynaresume.domain.hr.Resume;
 import org.dynaresume.domain.hr.SkillResume;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository("resumeDao")
@@ -113,7 +119,7 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		}
 
 		return newResume;
-	}	
+	}
 
 	private NaturalPerson clone(NaturalPerson person) {
 		NaturalPerson newPerson = new NaturalPerson();
@@ -163,7 +169,7 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		newHobby.setLabel(hobby.getLabel());
 		return newHobby;
 	}
-	
+
 	private SkillResume clone(SkillResume skill) {
 		SkillResume newSkill = new SkillResume();
 		newSkill.setCategory(skill.getCategory());
@@ -189,6 +195,21 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		newAddress.setTelephone(address.getTelephone());
 		newAddress.setZipCode(address.getZipCode());
 		return newAddress;
+	}
+
+	public Page<Resume> findByOwnerFirstNameAndOwnerLastName(String firstName,
+			String lastName, Pageable pageable) {
+		List<Resume> result = new ArrayList<Resume>();
+		Collection<Resume> tmp = resumes.values();
+		for (Resume resume : tmp) {
+			if ((resume.getOwner().getFirstName().equalsIgnoreCase(firstName))
+					&& resume.getOwner().getLastName().equalsIgnoreCase(lastName)) {
+
+				result.add(resume);
+			}
+		}
+
+		return new PageImpl(result);
 	}
 
 }

@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import org.dynaresume.domain.core.NaturalPerson;
@@ -33,10 +34,10 @@ public class Resume {
 	@Column
 	private byte[] picture;
 
-	@Column(name = "owner_id", unique = true)
-	private Long ownerId;
+//	@Column(name = "owner_id", unique = true)
+//	private Long ownerId;
 
-	@Transient
+	@OneToOne(cascade=CascadeType.PERSIST)
 	private NaturalPerson owner;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -97,13 +98,6 @@ public class Resume {
 		this.owner = owner;
 	}
 
-	public long getOwnerId() {
-		return ownerId;
-	}
-
-	public void setOwnerId(Long ownerId) {
-		this.ownerId = ownerId;
-	}
 
 	public Set<Experience> getExperiences() {
 		return experiences;
