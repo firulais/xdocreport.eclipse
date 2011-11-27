@@ -3,8 +3,9 @@ package org.dynaresume.domain.core;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
-
+@Entity
 public class Country implements Serializable {
 
 	/**

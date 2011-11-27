@@ -4,25 +4,32 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
-
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+@Entity
 public class Collaboration implements Serializable {
 	/**
     * 
     */
 	private static final long serialVersionUID = 1L;
-	 @Id
+	@Id
+	 @GeneratedValue
 	private long id;
 	// @Id
 	// private long projectId;
 
 	 @Column
+	 @Temporal(TemporalType.DATE)
 	private Date startDate;
 	 @Column
+	 @Temporal(TemporalType.DATE)
 	private Date endDate;
 
 	 @OneToOne(fetch=FetchType.EAGER)

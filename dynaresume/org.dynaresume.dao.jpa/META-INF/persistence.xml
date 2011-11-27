@@ -11,7 +11,16 @@
 		<class>org.dynaresume.domain.hr.Resume</class>
 		<class>org.dynaresume.domain.hr.Skill</class>
 		<class>org.dynaresume.domain.hr.SkillCategory</class>
-		<class>org.dynaresume.domain.hr.SkillResume</class>		
+		<class>org.dynaresume.domain.hr.SkillResume</class>
+		<class>org.dynaresume.domain.core.Group</class>
+		<class>org.dynaresume.domain.core.Agency</class>
+		<class>org.dynaresume.domain.core.LegalEntity</class>
+		<class>org.dynaresume.domain.core.Person</class>
+		<class>org.dynaresume.domain.core.Collaboration</class>
+		<class>org.dynaresume.domain.core.Person</class>
+		<class>org.dynaresume.domain.core.NaturalPerson</class>	
+		<class>org.dynaresume.domain.core.Address</class>
+		<class>org.dynaresume.domain.core.Country</class>	
 	</persistence-unit>
 
 </persistence>
