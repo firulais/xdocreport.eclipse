@@ -6,8 +6,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.ops4j.pax.exam.CoreOptions.cleanCaches;
-import static org.ops4j.pax.exam.CoreOptions.felix;
+import static org.ops4j.pax.exam.CoreOptions.equinox;
+import static org.ops4j.pax.exam.CoreOptions.*;
 import static org.ops4j.pax.exam.CoreOptions.junitBundles;
+import static org.ops4j.pax.exam.CoreOptions.knopflerfish;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 import static org.ops4j.pax.exam.CoreOptions.options;
 import static org.ops4j.pax.exam.CoreOptions.profile;
@@ -21,6 +23,8 @@ import java.io.IOException;
 import javax.sql.DataSource;
 
 import org.dynaresume.dao.ResumeDao;
+import org.dynaresume.domain.core.MaritalStatus;
+import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.Resume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,8 +36,9 @@ import org.ops4j.pax.exam.junit.JUnit4TestRunner;
 import org.ops4j.pax.exam.spi.reactors.EagerSingleStagedReactorFactory;
 import org.osgi.framework.BundleContext;
 import org.osgi.util.tracker.ServiceTracker;
-
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @RunWith(JUnit4TestRunner.class)
 @ExamReactorStrategy(EagerSingleStagedReactorFactory.class)
@@ -48,10 +53,15 @@ public class OSGiEclipseLinkUnitTest {
 				systemProperty("org.ops4j.pax.logging.DefaultServiceLog.level")
 						.value("INFO"),
 				// profile("spring.dm").version("2.0.O"),
-				cleanCaches(),
+				 cleanCaches(),
 				junitBundles(),
+				knopflerfish(),
 				felix(),
-				// equinox(),
+				equinox(),
+
+
+				mavenBundle("org.apache.commons",
+						"com.springsource.org.apache.commons.logging", "1.1.1"),
 				// ***************** Common dependencies ********************
 				mavenBundle().groupId("org.aopalliance")
 						.artifactId("com.springsource.org.aopalliance")
@@ -72,13 +82,6 @@ public class OSGiEclipseLinkUnitTest {
 						.artifactId("spring-data-commons-core")
 						.version("1.1.0.RELEASE"),
 
-				// mavenBundle().groupId("javax.el")
-				// .artifactId("com.springsource.javax.el")
-				// .version("1.0.0"),
-				// mavenBundle().groupId("javax.inject")
-				// .artifactId("com.springsource.javax.inject")
-				// .version("1.0.0"),
-
 				mavenBundle().groupId("org.apache.derby").artifactId("derby")
 						.version("10.8.2.2"),
 
@@ -97,12 +100,6 @@ public class OSGiEclipseLinkUnitTest {
 				mavenBundle().groupId("org.springframework")
 						.artifactId("spring-expression")
 						.version(SPRING_VERSION),
-				// mavenBundle().groupId("javax.inject")
-				// .artifactId("com.springsource.org.atinject.tck")
-				// .version("1.0.0"),
-				// mavenBundle().groupId("org.junit")
-				// .artifactId("com.springsource.org.junit")
-				// .version("4.8.2"),
 
 				mavenBundle().groupId("org.eclipse.gemini.blueprint")
 						.artifactId("gemini-blueprint-core")
@@ -115,67 +112,18 @@ public class OSGiEclipseLinkUnitTest {
 				mavenBundle().groupId("org.eclipse.gemini.blueprint")
 						.artifactId("gemini-blueprint-extender")
 						.version("1.0.0.RELEASE").startLevel(5),
-						// ***************** EclipseLink dependencies ********************
-						mavenBundle("org.eclipse.persistence", "javax.persistence", "2.0.3.v201010191057"),
-						mavenBundle("org.eclipse.persistence", "org.eclipse.persistence.antlr", "2.3.0"),
-						mavenBundle("org.eclipse.persistence", "org.eclipse.persistence.asm", "2.3.0"),
-						mavenBundle("org.eclipse.persistence", "org.eclipse.persistence.core", "2.3.0"),
-						mavenBundle("org.eclipse.persistence", "org.eclipse.persistence.jpa", "2.3.0"),
-				// persistence api
-//				mavenBundle().groupId("javax.persistence")
-//						.artifactId("com.springsource.javax.persistence")
-//						.version("2.0.0"),
-//
-//				mavenBundle().groupId("com.fasterxml")
-//						.artifactId("com.springsource.com.fasterxml.classmate")
-//						.version("0.5.4"),
-//				mavenBundle()
-//						.groupId("org.apache.commons")
-//						.artifactId(
-//								"com.springsource.org.apache.commons.collections")
-//						.version("3.2.1"),
-//				mavenBundle().groupId("org.jboss.javassist")
-//						.artifactId("com.springsource.javassist")
-//						.version("3.12.1.GA"),
-//
-//				mavenBundle().groupId("org.apache.ant")
-//						.artifactId("com.springsource.org.apache.tools.ant")
-//						.version("1.8.1"),
-//				mavenBundle().groupId("org.jboss.logging")
-//						.artifactId("com.springsource.org.jboss.logging")
-//						.version("3.0.0.GA"),
-//
-//				mavenBundle().groupId("org.jboss")
-//						.artifactId("com.springsource.org.jboss.jandex")
-//						.version("1.0.3.Final"),
-//				mavenBundle().groupId("javax.xml.stream")
-//						.artifactId("com.springsource.javax.xml.stream")
-//						.version("1.0.1"),
-//
-//				mavenBundle().groupId("org.dom4j")
-//						.artifactId("com.springsource.org.dom4j")
-//						.version("1.6.1"),
-//
-//				mavenBundle().groupId("org.hibernate")
-//						.artifactId("com.springsource.org.hibernate.ejb")
-//						.version("4.0.0.CR4").noStart(),
-//
-//				mavenBundle().groupId("org.hibernate")
-//						.artifactId("com.springsource.org.hibernate")
-//						.version("4.0.0.CR4").noStart(),
-//
-//				mavenBundle().groupId("org.antlr")
-//						.artifactId("com.springsource.antlr").version("2.7.7"),
-//
-//				mavenBundle().groupId("org.apache.log4j")
-//						.artifactId("com.springsource.org.apache.log4j")
-//						.version("1.2.16"),
-//
-//				wrappedBundle(
-//						mavenBundle().groupId("org.jboss.logmanager")
-//								.artifactId("jboss-logmanager")
-//								.version("1.2.0.GA")).exports(
-//						"org.jboss.logmanager;version=\"1.2.0.GA\""),
+				// ***************** EclipseLink dependencies
+				// ********************
+				mavenBundle("org.eclipse.persistence", "javax.persistence",
+						"2.0.3.v201010191057"),
+				mavenBundle("org.eclipse.persistence",
+						"org.eclipse.persistence.antlr", "2.3.0"),
+				mavenBundle("org.eclipse.persistence",
+						"org.eclipse.persistence.asm", "2.3.0"),
+				mavenBundle("org.eclipse.persistence",
+						"org.eclipse.persistence.core", "2.3.0"),
+				mavenBundle("org.eclipse.persistence",
+						"org.eclipse.persistence.jpa", "2.3.0"),
 
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
 						"org.dynaresume.domain.core", "1.0.0-SNAPSHOT"),
@@ -188,7 +136,8 @@ public class OSGiEclipseLinkUnitTest {
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
 						"org.dynaresume.dao.jpa", "1.0.0-SNAPSHOT"),
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
-						"org.dynaresume.dao.jpa.eclipselink", "1.0.0-SNAPSHOT").noStart()
+						"org.dynaresume.dao.jpa.eclipselink", "1.0.0-SNAPSHOT")
+						.noStart()
 
 		// mavenBundle("fr.opensagres.xdocreport-eclipse",
 		// "org.dynaresume.services", "1.0.0-SNAPSHOT"),
@@ -200,20 +149,11 @@ public class OSGiEclipseLinkUnitTest {
 
 	public static void main(String[] args) throws TimeoutException, IOException {
 		createContainer(
-				createTestSystem(combine(new OSGiEclipseLinkUnitTest().config(),
-						profile("gogo")))).start();
+				createTestSystem(combine(
+						new OSGiEclipseLinkUnitTest().config(), profile("gogo"))))
+				.start();
 	}
 
-	/**
-	 * Just like any other Test in previous lessons, they can receive an
-	 * instance of BundleContext plus optional arguments. Because you have Test
-	 * Setup (@Configuration method) and Tests (this method) side by side, there
-	 * is no point passing additional arguments.
-	 * 
-	 * @param ctx
-	 *            BundleContext injected. Must be first argument, if any.
-	 * @throws InterruptedException
-	 */
 	@Test
 	public void findDataSource(BundleContext ctx) throws InterruptedException {
 		assertThat(ctx, is(notNullValue()));
@@ -229,7 +169,6 @@ public class OSGiEclipseLinkUnitTest {
 		assertNotNull(dataSource);
 	}
 
-	
 	@Test
 	public void findResumeDao(BundleContext ctx) throws InterruptedException {
 		assertThat(ctx, is(notNullValue()));
@@ -243,16 +182,28 @@ public class OSGiEclipseLinkUnitTest {
 
 		tracker.close();
 		assertNotNull(resumeDao);
-		
-		
-	Iterable<Resume> resumes=	resumeDao.findAll();
-	resumeDao.delete(resumes);
-	assertEquals(0,resumeDao.count());
+		assertEquals(0, resumeDao.count());
+
 		Resume resume = new Resume();
 		resume.setTitle("test");
+		NaturalPerson owner = new NaturalPerson();
+		owner.setMaritalStatus(MaritalStatus.SINGLE);
+
+		owner.setFirstName("demo");
+		owner.setLastName("demo");
+		owner.setEmail("demo@demo.com");
+		resume.setOwner(owner);
 		Resume other = resumeDao.save(resume);
 		System.out.println(other);
-		assertEquals(1,resumeDao.count());
+		assertEquals(1, resumeDao.count());
+		Pageable page = new PageRequest(0, 100);
+		Page<Resume> resumes = resumeDao.findByOwnerFirstNameAndOwnerLastName(
+				"demo", "demo", page);
+
+		assertNotNull(resumes);
+		System.out.println(resumes.getContent().size());
+		assertEquals(1, resumes.getContent().size());
+		Thread.sleep(1000);
 	}
 
 }
