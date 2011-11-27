@@ -1,8 +1,8 @@
 package org.dynaresume.dao;
 
 import org.dynaresume.domain.hr.Resume;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface ResumeDao extends CrudRepository<Resume, Long> {
+public interface ResumeDao extends PagingAndSortingRepository<Resume, Long> {
 
 }
