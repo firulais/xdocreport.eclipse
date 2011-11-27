@@ -55,7 +55,7 @@ public class OSGiEclipseLinkUnitTest {
 				// profile("spring.dm").version("2.0.O"),
 				 cleanCaches(),
 				junitBundles(),
-			//	knopflerfish(),
+				knopflerfish(),
 				felix(),
 				equinox(),
 
