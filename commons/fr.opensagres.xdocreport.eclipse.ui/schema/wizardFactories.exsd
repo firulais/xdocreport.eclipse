@@ -3,7 +3,7 @@
 <schema targetNamespace="fr.opensagres.xdocreport.eclipse.ui" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="fr.opensagres.xdocreport.eclipse.ui" id="wizardFactories" name="Dialogs Contribution"/>
+         <meta.schema plugin="fr.opensagres.xdocreport.eclipse.ui" id="wizardFactories" name="Wizards Contribution"/>
       </appinfo>
       <documentation>
          Extension point for create JFace Wizard with extension point.
@@ -77,6 +77,13 @@
                <appinfo>
                   <meta.attribute kind="java" basedOn="org.eclipse.jface.wizard.Wizard:"/>
                </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="title" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
             </annotation>
          </attribute>
       </complexType>

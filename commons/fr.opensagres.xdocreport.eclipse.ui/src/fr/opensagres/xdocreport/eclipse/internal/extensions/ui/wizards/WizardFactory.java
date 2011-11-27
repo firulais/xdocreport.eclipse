@@ -19,7 +19,8 @@ public class WizardFactory extends AbstractRegistry implements IWizardFactory {
 
 	private static final String WIZARD_FACTORIES_EXTENSION_POINT = "wizardFactories";
 	private static final IWizardFactory INSTANCE = new WizardFactory();
-	private static final Object FACTORY_ELT = "factory";
+	private static final String FACTORY_ELT = "factory";
+	private static final String TITLE_ATTR = "title";
 
 	private final Map<String, WizardDescriptor> descriptors = new HashMap<String, WizardDescriptor>();
 
@@ -67,11 +68,12 @@ public class WizardFactory extends AbstractRegistry implements IWizardFactory {
 	private void parseWizards(IConfigurationElement[] cf) {
 		for (IConfigurationElement ce : cf) {
 			String id = null;
-
+			String title = null;
 			if (FACTORY_ELT.equals(ce.getName())) {
 				id = ce.getAttribute(ID_ATTR);
+				title = ce.getAttribute(TITLE_ATTR);
 
-				WizardDescriptor descriptor = new WizardDescriptor(id, ce);
+				WizardDescriptor descriptor = new WizardDescriptor(id, title, ce);
 				descriptors.put(id, descriptor);
 			}
 		}
