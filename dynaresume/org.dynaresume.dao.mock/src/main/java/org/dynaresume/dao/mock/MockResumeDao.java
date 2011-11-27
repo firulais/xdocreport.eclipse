@@ -197,7 +197,7 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		return newAddress;
 	}
 
-	public Page<Resume> findByOwnerFirstNameAndOwnerLastName(String firstName,
+	public Page<Resume> findByOwnerFirstNameLikeAndOwnerLastNameLike(String firstName,
 			String lastName, Pageable pageable) {
 		List<Resume> result = new ArrayList<Resume>();
 		Collection<Resume> tmp = resumes.values();

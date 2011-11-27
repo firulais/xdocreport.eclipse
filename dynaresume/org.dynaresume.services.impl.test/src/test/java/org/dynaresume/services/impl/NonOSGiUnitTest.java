@@ -42,7 +42,7 @@ public class NonOSGiUnitTest {
 		System.out.println(other);
 		assertEquals(1,resumeDao.count());
 		Pageable page = new PageRequest(0,100);
-		Page<Resume> resumes=	resumeDao.findByOwnerFirstNameAndOwnerLastName("demo","demo", page);
+		Page<Resume> resumes=	resumeDao.findByOwnerFirstNameLikeAndOwnerLastNameLike("demo","demo", page);
 		
 		assertNotNull(resumes);
 		System.out.println(resumes.getContent().size());

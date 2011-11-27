@@ -7,7 +7,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.ops4j.pax.exam.CoreOptions.cleanCaches;
 import static org.ops4j.pax.exam.CoreOptions.equinox;
-import static org.ops4j.pax.exam.CoreOptions.*;
+import static org.ops4j.pax.exam.CoreOptions.felix;
 import static org.ops4j.pax.exam.CoreOptions.junitBundles;
 import static org.ops4j.pax.exam.CoreOptions.knopflerfish;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
@@ -44,8 +44,8 @@ import org.springframework.data.domain.Pageable;
 @ExamReactorStrategy(EagerSingleStagedReactorFactory.class)
 public class OSGiEclipseLinkUnitTest {
 
-	// private static final String SPRING_VERSION = "3.1.0.RC1";
-	private static final String SPRING_VERSION = "3.0.6.RELEASE";
+	 private static final String SPRING_VERSION = "3.1.0.RC1";
+	//private static final String SPRING_VERSION = "3.0.6.RELEASE";
 
 	@Configuration()
 	public Option[] config() {
@@ -197,7 +197,7 @@ public class OSGiEclipseLinkUnitTest {
 		System.out.println(other);
 		assertEquals(1, resumeDao.count());
 		Pageable page = new PageRequest(0, 100);
-		Page<Resume> resumes = resumeDao.findByOwnerFirstNameAndOwnerLastName(
+		Page<Resume> resumes = resumeDao.findByOwnerFirstNameLikeAndOwnerLastNameLike(
 				"demo", "demo", page);
 
 		assertNotNull(resumes);
