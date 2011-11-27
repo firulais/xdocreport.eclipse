@@ -235,7 +235,7 @@ public class OSGiHibernateUnitTest {
 		ServiceTracker tracker = new ServiceTracker(ctx,
 				ResumeDao.class.getName(), null);
 		tracker.open();
-		Object resumeDao = tracker.waitForService(3000);
+		Object resumeDao = tracker.waitForService(10000);
 
 		tracker.close();
 		assertNotNull(resumeDao);
