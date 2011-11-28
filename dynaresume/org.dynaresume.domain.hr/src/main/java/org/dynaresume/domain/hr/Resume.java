@@ -20,7 +20,6 @@ import org.dynaresume.domain.core.NaturalPerson;
 @Entity
 public class Resume {
 
-	
 	public static final String PICTURE_PROPERTY = "picture";
 	public static final String TITLE_PROPERTY = "title";
 
@@ -34,10 +33,10 @@ public class Resume {
 	@Column
 	private byte[] picture;
 
-//	@Column(name = "owner_id", unique = true)
-//	private Long ownerId;
+	// @Column(name = "owner_id", unique = true)
+	// private Long ownerId;
 
-	@OneToOne(cascade=CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private NaturalPerson owner;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -52,6 +51,10 @@ public class Resume {
 	private Set<SkillResume> skills;
 	@Transient
 	private Set<Hobby> hobbies;
+	@Transient
+	private Set<SkillLanguage> languages;
+	@Transient
+	private Set<Reference> references;
 
 	public Long getId() {
 		return id;
@@ -88,8 +91,6 @@ public class Resume {
 		return new ByteArrayInputStream(picture);
 	}
 
-	
-
 	public NaturalPerson getOwner() {
 		return owner;
 	}
@@ -97,7 +98,6 @@ public class Resume {
 	public void setOwner(NaturalPerson owner) {
 		this.owner = owner;
 	}
-
 
 	public Set<Experience> getExperiences() {
 		return experiences;
@@ -131,4 +131,19 @@ public class Resume {
 		return hobbies;
 	}
 
+	public void setLanguages(Set<SkillLanguage> languages) {
+		this.languages = languages;
+	}
+
+	public Set<SkillLanguage> getLanguages() {
+		return languages;
+	}
+
+	public void setReferences(Set<Reference> references) {
+		this.references = references;
+	}
+
+	public Set<Reference> getReferences() {
+		return references;
+	}
 }

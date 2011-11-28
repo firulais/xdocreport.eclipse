@@ -1,7 +1,6 @@
 package org.dynaresume.dao.mock;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -11,8 +10,11 @@ import java.util.Set;
 import org.dynaresume.dao.ResumeDao;
 import org.dynaresume.dao.mock.resume.AmineBoustaResume;
 import org.dynaresume.dao.mock.resume.AngeloZerrResume;
+import org.dynaresume.dao.mock.resume.ArnaudCogoluegnesResume;
 import org.dynaresume.dao.mock.resume.DinoCosmasResume;
+import org.dynaresume.dao.mock.resume.KaiTodterResume;
 import org.dynaresume.dao.mock.resume.LarsVogelResume;
+import org.dynaresume.dao.mock.resume.MickaelBaronResume;
 import org.dynaresume.dao.mock.resume.NicolasRaymondResume;
 import org.dynaresume.dao.mock.resume.PascalLeclercqResume;
 import org.dynaresume.dao.mock.resume.RalfSternbergResume;
@@ -21,7 +23,10 @@ import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.Education;
 import org.dynaresume.domain.hr.Experience;
 import org.dynaresume.domain.hr.Hobby;
+import org.dynaresume.domain.hr.Language;
+import org.dynaresume.domain.hr.Reference;
 import org.dynaresume.domain.hr.Resume;
+import org.dynaresume.domain.hr.SkillLanguage;
 import org.dynaresume.domain.hr.SkillResume;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -40,6 +45,9 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		addResume(new AmineBoustaResume());
 		addResume(new RalfSternbergResume());
 		addResume(new LarsVogelResume());
+		addResume(new KaiTodterResume());
+		addResume(new ArnaudCogoluegnesResume());
+		addResume(new MickaelBaronResume());		
 		addResume(new DinoCosmasResume());
 		addResume(new NicolasRaymondResume());
 	}
@@ -98,7 +106,7 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 			newResume.setExperiences(newExperiences);
 		}
 
-		// Hobbies
+		// Skills
 		Set<SkillResume> skills = resume.getSkills();
 		if (skills != null) {
 			Set<SkillResume> newSkills = new HashSet<SkillResume>();
@@ -108,6 +116,26 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 			newResume.setSkills(newSkills);
 		}
 
+		// References
+		Set<Reference> references = resume.getReferences();
+		if (references != null) {
+			Set<Reference> newReferences = new HashSet<Reference>();
+			for (Reference reference : references) {
+				newReferences.add(clone(reference));
+			}
+			newResume.setReferences(newReferences);
+		}
+
+		// Languages
+		Set<SkillLanguage> languages = resume.getLanguages();
+		if (languages != null) {
+			Set<SkillLanguage> newLanguages = new HashSet<SkillLanguage>();
+			for (SkillLanguage language : languages) {
+				newLanguages.add(clone(language));
+			}
+			newResume.setLanguages(newLanguages);
+		}
+		
 		// Hobbies
 		Set<Hobby> hobbies = resume.getHobbies();
 		if (hobbies != null) {
@@ -169,6 +197,19 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		newHobby.setLabel(hobby.getLabel());
 		return newHobby;
 	}
+	
+	private Reference clone(Reference reference) {
+		Reference newReference = new Reference();
+		Long id = reference.getId();
+		if (id == null) {
+			id = currentId++;
+		}
+		newReference.setId(id);
+		newReference.setLabel(reference.getLabel());
+		newReference.setStartDate(reference.getStartDate());
+		newReference.setEndDate(reference.getEndDate());
+		return newReference;
+	}
 
 	private SkillResume clone(SkillResume skill) {
 		SkillResume newSkill = new SkillResume();
@@ -176,6 +217,13 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		newSkill.setSkill(skill.getSkill());
 		newSkill.setFreeSkill(skill.getFreeSkill());
 		return newSkill;
+	}
+
+	private SkillLanguage clone(SkillLanguage language) {
+		SkillLanguage newLanguage = new SkillLanguage();
+		newLanguage.setId(language.getId());
+		newLanguage.setLanguage(language.getLanguage());
+		return newLanguage;
 	}
 
 	private Address clone(Address address) {
@@ -197,19 +245,53 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		return newAddress;
 	}
 
-	public Page<Resume> findByOwnerFirstNameLikeAndOwnerLastNameLike(String firstName,
-			String lastName, Pageable pageable) {
-		List<Resume> result = new ArrayList<Resume>();
-		Collection<Resume> tmp = resumes.values();
-		for (Resume resume : tmp) {
-			if ((resume.getOwner().getFirstName().equalsIgnoreCase(firstName))
-					&& resume.getOwner().getLastName().equalsIgnoreCase(lastName)) {
-
-				result.add(resume);
+	
+	public Page<Resume> findByOwnerFirstNameLikeAndOwnerLastNameLike(
+			String firstName, String lastName, Pageable pageable) {
+		int pageSize = pageable.getPageSize();
+		int pageIndex = pageable.getOffset();
+		Iterable<Resume> allResumes = findAll();		
+		//List<Resume> fullList = new ArrayList<Resume>(allResumes);
+		List<Resume> filteredList = new ArrayList<Resume>();
+		for (Resume resume : allResumes) {
+			if (isPersonOK(resume, firstName, lastName)) {
+				filteredList.add(resume);
 			}
 		}
+		long totalSize = filteredList.size();
+		List<Resume> paginatedList = new ArrayList<Resume>();
+		for (int i = pageIndex; i < pageIndex + pageSize && i < totalSize; i++) {
+			Resume resume = filteredList.get(i);
+			paginatedList.add(resume);
+		}
+		
+		
+		return new PageImpl<Resume>(paginatedList, pageable, totalSize);
 
-		return new PageImpl(result);
+	}
+	
+	private boolean isPersonOK(Resume resume, String firstNameCriteria,
+			String lastNameCriteria) {
+		NaturalPerson person = resume.getOwner();
+		if (person == null) {
+			return false;
+		}
+		String firstName = person.getFirstName();
+		if (firstNameCriteria != null) {
+			if (!(firstName != null && firstName.toUpperCase().startsWith(
+					firstNameCriteria.toUpperCase()))) {
+				return false;
+			}
+		}
+		String lastName = person.getLastName();
+		if (lastNameCriteria != null) {
+			if (!(lastName != null && lastName.toUpperCase().startsWith(
+					lastNameCriteria.toUpperCase()))) {
+				return false;
+			}
+		}
+		return true;
+
 	}
 
 }

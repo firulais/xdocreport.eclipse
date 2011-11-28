@@ -4,13 +4,18 @@ import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.dynaresume.dao.mock.LanguagesData;
 import org.dynaresume.dao.mock.SkillsData;
+import org.dynaresume.domain.hr.DefaultLanguageCode;
 import org.dynaresume.domain.hr.Education;
 import org.dynaresume.domain.hr.Experience;
 import org.dynaresume.domain.hr.Hobby;
+import org.dynaresume.domain.hr.Language;
+import org.dynaresume.domain.hr.Reference;
 import org.dynaresume.domain.hr.Resume;
 import org.dynaresume.domain.hr.Skill;
 import org.dynaresume.domain.hr.SkillCategory;
+import org.dynaresume.domain.hr.SkillLanguage;
 import org.dynaresume.domain.hr.SkillResume;
 
 import fr.opensagres.xdocreport.commons.utils.DateUtils;
@@ -106,6 +111,53 @@ public class BaseResume extends Resume {
 		for (int i = 0; i < labels.length; i++) {
 			addSkill(category, labels[i].trim());
 		}
+	}
+
+	protected void addReference(String label, String startDate, String endDate) {
+		Set<Reference> references = getReferences();
+		if (references == null) {
+			references = new HashSet<Reference>();
+			super.setReferences(references);
+		}
+		Reference reference = new Reference();
+		reference.setId(getCurrentId());
+		reference.setLabel(label);
+		if (startDate != null) {
+			try {
+				reference.setStartDate(DateUtils.toDate(startDate,
+						DateUtils.FRENCH_PATTERN));
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+		}
+		if (endDate != null) {
+			try {
+				reference.setEndDate(DateUtils.toDate(endDate,
+						DateUtils.FRENCH_PATTERN));
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+		}
+		references.add(reference);
+	}
+
+	protected void addLanguage(DefaultLanguageCode code) {
+		Language language= LanguagesData.getLanguageByCode(code.getCode());
+		if (language!=null) {
+			addLanguage(language);
+		}
+	}
+	
+	protected void addLanguage(Language language) {
+		Set<SkillLanguage> languages = getLanguages();
+		if (languages == null) {
+			languages = new HashSet<SkillLanguage>();
+			super.setLanguages(languages);
+		}
+		SkillLanguage skillLanguage = new SkillLanguage();
+		language.setId(getCurrentId());
+		skillLanguage.setLanguage(language);
+		languages.add(skillLanguage);
 	}
 
 	protected void addHobby(String label) {

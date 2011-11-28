@@ -8,6 +8,7 @@
 		scope="prototype">
 		<property name="resumeService" ref="resumeService" />
 		<property name="skillCategoryService" ref="skillCategoryService" />
+		<property name="languageService" ref="languageService" />
 	</bean>
 
 	<bean id="searchResumeDialog" class="org.dynaresume.eclipse.ui.dialogs.SearchResumeDialog"

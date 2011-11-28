@@ -9,6 +9,8 @@
 	<reference id="resumeService" interface="org.dynaresume.services.ResumeService" />
 	<reference id="skillCategoryService" interface="org.dynaresume.services.SkillCategoryService" />
 	<reference id="skillService" interface="org.dynaresume.services.SkillService" />
+	<reference id="languageService" interface="org.dynaresume.services.LanguageService" />
 	
 </beans:beans>           
+
 

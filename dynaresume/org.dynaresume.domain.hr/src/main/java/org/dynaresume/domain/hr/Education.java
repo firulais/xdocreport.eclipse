@@ -16,9 +16,9 @@ import javax.persistence.TemporalType;
 @Entity
 public class Education {
 
+	public static final String LABEL_PROPERTY = "label";
 	public static final String START_DATE_PROPERTY = "startDate";
 	public static final String END_DATE_PROPERTY = "endDate";
-	public static final String LABEL_PROPERTY = "label";
 	public static final String INSTITUTE_PROPERTY = "institute";
 
 	@Id

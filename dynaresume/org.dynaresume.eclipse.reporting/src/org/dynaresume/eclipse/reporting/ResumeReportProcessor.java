@@ -25,6 +25,8 @@ public class ResumeReportProcessor extends XDocReportProcessor {
 		context.put("experiences", resume.getExperiences());
 		context.put("educations", resume.getEducations());
 		context.put("hobbies", resume.getHobbies());
+		context.put("references", resume.getReferences());
+		context.put("languages", resume.getLanguages());
 		if (resume.getPicture() != null) {
 			context.put("photo",
 					new ByteArrayImageProvider(resume.getPicture()));

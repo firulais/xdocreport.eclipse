@@ -87,6 +87,22 @@ public class Messages extends NLS {
 	public static String ResumeFormEditor_HobbiesPage_HobbyDetailsPage_desc;
 	public static String ResumeFormEditor_HobbiesPage_HobbyDetailsPage_hobbyLabel_label;
 
+	// Languages Page
+	public static String ResumeFormEditor_LanguagesPage_title;
+	public static String ResumeFormEditor_LanguagesPage_LanguagesMasterDetailsBlock_title;
+	public static String ResumeFormEditor_LanguagesPage_LanguagesMasterDetailsBlock_desc;
+	public static String ResumeFormEditor_LanguagesPage_LanguageDetailsPage_title;
+	public static String ResumeFormEditor_LanguagesPage_LanguageDetailsPage_desc;
+	public static String ResumeFormEditor_LanguagesPage_LanguageDetailsPage_languageLabel_label;
+
+	// References Page
+	public static String ResumeFormEditor_ReferencesPage_title;
+	public static String ResumeFormEditor_ReferencesPage_ReferencesMasterDetailsBlock_title;
+	public static String ResumeFormEditor_ReferencesPage_ReferencesMasterDetailsBlock_desc;
+	public static String ResumeFormEditor_ReferencesPage_ReferenceDetailsPage_title;
+	public static String ResumeFormEditor_ReferencesPage_ReferenceDetailsPage_desc;
+	public static String ResumeFormEditor_ReferencesPage_ReferenceDetailsPage_referenceLabel_label;
+	
 	// Quick Add Skill wizard
 	public static String QuickAddSillFillSkillsWizardPage_title;
 	public static String QuickAddSillFillSkillsWizardPage_desc;

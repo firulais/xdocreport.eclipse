@@ -6,6 +6,7 @@ import java.text.ParseException;
 import org.dynaresume.dao.mock.SkillsData;
 import org.dynaresume.domain.core.Address;
 import org.dynaresume.domain.core.NaturalPerson;
+import org.dynaresume.domain.hr.DefaultLanguageCode;
 import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.DateUtils;
@@ -92,6 +93,18 @@ public class AngeloZerrResume extends BaseResume {
 				"Jetty, Apache/Tomcat 5.0, BEA/WebLogic 6.1-8.1, Orion, Eclipse, JBuilder 7 et 9, JBuilder X, Visual Studio");
 		addSkillWithSplit(SkillsData.methodsAndToolsSkills,
 				"Merise, UML (Power Designer)");
+
+		// References
+		addReference(
+				"Commiteur Eclipse depuis janvier 2009. Participe à la future version de l'IDE Eclipse E4 (IBM). Créateur du moteur CSS de E4.",
+				"01/01/2009", null);
+		addReference(
+				"Architecte du projet open source XDocReport http://code.google.com/p/xdocreport/",
+				"01/01/2011", null);
+		addReference("Blog technique http://angelozerr.wordpress.com/about",
+				"01/01/2009", null);
+		// Languages
+		addLanguage(DefaultLanguageCode.English);
 
 		// Hobbies
 		addHobby("Sport: Badminton.");

@@ -10,5 +10,6 @@
 	<service ref="skillDao" interface="org.dynaresume.dao.SkillDao" />
 	<service ref="skillCategoryDao" interface="org.dynaresume.dao.SkillCategoryDao" />
 	<service ref="groupDao" interface="org.dynaresume.dao.GroupDao" />
+	<service ref="languageDao" interface="org.dynaresume.dao.LanguageDao" />
 	
 </beans:beans>           

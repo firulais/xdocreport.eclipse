@@ -9,9 +9,13 @@
 		<class>org.dynaresume.domain.hr.Experience</class>		
 		<class>org.dynaresume.domain.hr.Hobby</class>
 		<class>org.dynaresume.domain.hr.Resume</class>
+		<class>org.dynaresume.domain.hr.Resume</class>
 		<class>org.dynaresume.domain.hr.Skill</class>
 		<class>org.dynaresume.domain.hr.SkillCategory</class>
+		<class>org.dynaresume.domain.hr.Reference</class>
 		<class>org.dynaresume.domain.hr.SkillResume</class>
+		<class>org.dynaresume.domain.hr.Language</class>
+		<class>org.dynaresume.domain.hr.SkillLanguage</class>		
 		<class>org.dynaresume.domain.core.Group</class>
 		<class>org.dynaresume.domain.core.Agency</class>
 		<class>org.dynaresume.domain.core.LegalEntity</class>
