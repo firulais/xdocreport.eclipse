@@ -15,6 +15,7 @@ import org.dynaresume.dao.mock.resume.DinoCosmasResume;
 import org.dynaresume.dao.mock.resume.KaiTodterResume;
 import org.dynaresume.dao.mock.resume.LarsVogelResume;
 import org.dynaresume.dao.mock.resume.MickaelBaronResume;
+import org.dynaresume.dao.mock.resume.MickaelIstriaResume;
 import org.dynaresume.dao.mock.resume.NicolasRaymondResume;
 import org.dynaresume.dao.mock.resume.PascalLeclercqResume;
 import org.dynaresume.dao.mock.resume.RalfSternbergResume;
@@ -23,7 +24,6 @@ import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.Education;
 import org.dynaresume.domain.hr.Experience;
 import org.dynaresume.domain.hr.Hobby;
-import org.dynaresume.domain.hr.Language;
 import org.dynaresume.domain.hr.Reference;
 import org.dynaresume.domain.hr.Resume;
 import org.dynaresume.domain.hr.SkillLanguage;
@@ -47,7 +47,8 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		addResume(new LarsVogelResume());
 		addResume(new KaiTodterResume());
 		addResume(new ArnaudCogoluegnesResume());
-		addResume(new MickaelBaronResume());		
+		addResume(new MickaelIstriaResume());
+		addResume(new MickaelBaronResume());
 		addResume(new DinoCosmasResume());
 		addResume(new NicolasRaymondResume());
 	}
@@ -135,7 +136,7 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 			}
 			newResume.setLanguages(newLanguages);
 		}
-		
+
 		// Hobbies
 		Set<Hobby> hobbies = resume.getHobbies();
 		if (hobbies != null) {
@@ -197,7 +198,7 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		newHobby.setLabel(hobby.getLabel());
 		return newHobby;
 	}
-	
+
 	private Reference clone(Reference reference) {
 		Reference newReference = new Reference();
 		Long id = reference.getId();
@@ -245,13 +246,12 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		return newAddress;
 	}
 
-	
 	public Page<Resume> findByOwnerFirstNameLikeAndOwnerLastNameLike(
 			String firstName, String lastName, Pageable pageable) {
 		int pageSize = pageable.getPageSize();
 		int pageIndex = pageable.getOffset();
-		Iterable<Resume> allResumes = findAll();		
-		//List<Resume> fullList = new ArrayList<Resume>(allResumes);
+		Iterable<Resume> allResumes = findAll();
+		// List<Resume> fullList = new ArrayList<Resume>(allResumes);
 		List<Resume> filteredList = new ArrayList<Resume>();
 		for (Resume resume : allResumes) {
 			if (isPersonOK(resume, firstName, lastName)) {
@@ -264,12 +264,11 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 			Resume resume = filteredList.get(i);
 			paginatedList.add(resume);
 		}
-		
-		
+
 		return new PageImpl<Resume>(paginatedList, pageable, totalSize);
 
 	}
-	
+
 	private boolean isPersonOK(Resume resume, String firstNameCriteria,
 			String lastNameCriteria) {
 		NaturalPerson person = resume.getOwner();
