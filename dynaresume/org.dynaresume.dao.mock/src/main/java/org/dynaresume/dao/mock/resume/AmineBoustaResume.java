@@ -3,6 +3,7 @@ package org.dynaresume.dao.mock.resume;
 import java.io.IOException;
 
 import org.dynaresume.domain.core.NaturalPerson;
+import org.dynaresume.domain.hr.DefaultLanguageCode;
 import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
@@ -26,6 +27,9 @@ public class AmineBoustaResume extends BaseResume {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		// Languages
+		addLanguage(DefaultLanguageCode.English);
 	}
 
 }

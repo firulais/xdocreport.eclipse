@@ -19,7 +19,7 @@ public class DateUtils {
 	
 	public static int getDateYear(Date date) {
 		if (date == null) {
-			return 0;
+			return -1;
 		}
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
@@ -29,7 +29,7 @@ public class DateUtils {
 
 	public static int getDateMonth(Date date) {
 		if (date == null) {
-			return 0;
+			return -1;
 		}
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);

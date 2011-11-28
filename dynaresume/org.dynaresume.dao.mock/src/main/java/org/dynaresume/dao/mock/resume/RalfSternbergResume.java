@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.dynaresume.dao.mock.SkillsData;
 import org.dynaresume.domain.core.Address;
 import org.dynaresume.domain.core.NaturalPerson;
+import org.dynaresume.domain.hr.DefaultLanguageCode;
 import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
@@ -64,6 +65,10 @@ public class RalfSternbergResume extends BaseResume {
 		addSkillWithSplit(
 				SkillsData.technologiesTechnicalSkills,
 				"Java, JavaScript, Web technologies, Eclipse, SWT, Eclipse RCP, Eclipse RAP, jQuery");
+
+		// Languages
+		addLanguage(DefaultLanguageCode.English);
+		addLanguage(DefaultLanguageCode.Germany);
 
 		// Hobbies
 		// addHobby("Sport: Badminton.");

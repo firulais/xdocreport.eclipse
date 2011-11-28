@@ -2,9 +2,8 @@ package org.dynaresume.dao.mock.resume;
 
 import java.io.IOException;
 
-import org.dynaresume.dao.mock.SkillsData;
-import org.dynaresume.domain.core.Address;
 import org.dynaresume.domain.core.NaturalPerson;
+import org.dynaresume.domain.hr.DefaultLanguageCode;
 import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
@@ -84,6 +83,9 @@ public class ArnaudCogoluegnesResume extends BaseResume {
 //		addSkillWithSplit(SkillsData.methodsAndToolsSkills,
 //				"Merise, UML (Power Designer)");
 
+		// Languages
+		addLanguage(DefaultLanguageCode.English);
+				
 		// Hobbies
 //		addHobby("Sport: Badminton.");
 //		addHobby("Musique : pratique la batterie dans un groupe.");

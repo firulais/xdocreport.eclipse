@@ -103,6 +103,7 @@ public class AngeloZerrResume extends BaseResume {
 				"01/01/2011", null);
 		addReference("Blog technique http://angelozerr.wordpress.com/about",
 				"01/01/2009", null);
+		
 		// Languages
 		addLanguage(DefaultLanguageCode.English);
 

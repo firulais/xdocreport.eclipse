@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
+import org.dynaresume.domain.core.Address;
+import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultSkillCategoryCode;
 import org.dynaresume.domain.hr.Resume;
 import org.dynaresume.domain.hr.SkillCategory;
@@ -21,7 +23,14 @@ public class ResumeReportProcessor extends XDocReportProcessor {
 	public void populateContext(IContext context, Object model) {
 		Resume resume = (Resume) model;
 		context.put("resume", resume);
-		context.put("person", resume.getOwner());
+		NaturalPerson person = resume.getOwner();
+		context.put("person", person);
+		if (person!=null) {
+			Address address = person.getAddress();
+			if (address!=null) {
+				context.put("address", address);
+			}
+		}
 		context.put("experiences", resume.getExperiences());
 		context.put("educations", resume.getEducations());
 		context.put("hobbies", resume.getHobbies());
@@ -40,7 +49,8 @@ public class ResumeReportProcessor extends XDocReportProcessor {
 				e.printStackTrace();
 			}
 
-		}
+		}		
+		
 		Collection<String> functionalSkills = null;
 		Collection<String> processSkills = null;
 		Collection<String> technicalSkills = null;
@@ -154,5 +164,6 @@ public class ResumeReportProcessor extends XDocReportProcessor {
 		context.put("methodsAndToolsSkills",
 				methodsAndToolsSkills != null ? methodsAndToolsSkills
 						: Collections.emptyList());
+		context.put("utils", Utils.getInstance());
 	}
 }

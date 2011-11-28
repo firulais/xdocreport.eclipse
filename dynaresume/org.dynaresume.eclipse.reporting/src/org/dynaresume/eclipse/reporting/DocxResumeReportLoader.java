@@ -32,6 +32,7 @@ public class DocxResumeReportLoader extends XDocReportLoader {
 		metadata.addFieldAsList("educations.Label");
 		metadata.addFieldAsList("educations.StartDateYear");
 		metadata.addFieldAsList("educations.EndDateYear");
+		metadata.addFieldAsList("languages.Language.Label");
 		metadata.addFieldAsList("hobbies.Label");
 		return metadata;
 	}

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.dynaresume.dao.mock.SkillsData;
 import org.dynaresume.domain.core.NaturalPerson;
+import org.dynaresume.domain.hr.DefaultLanguageCode;
 import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
@@ -31,6 +32,10 @@ public class PascalLeclercqResume extends BaseResume {
 		
 		addSkillWithSplit(
 				SkillsData.technologiesTechnicalSkills,
-				"OSGi, Spring, Eclipse RCP, Maven");		
+				"OSGi, Spring, Eclipse RCP, Maven");
+		
+		// Languages
+		addLanguage(DefaultLanguageCode.English);
+		
 	}
 }

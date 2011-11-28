@@ -6,6 +6,7 @@ import java.text.ParseException;
 import org.dynaresume.dao.mock.SkillsData;
 import org.dynaresume.domain.core.Address;
 import org.dynaresume.domain.core.NaturalPerson;
+import org.dynaresume.domain.hr.DefaultLanguageCode;
 import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.DateUtils;
@@ -71,6 +72,9 @@ public class DinoCosmasResume extends BaseResume {
 				"Conception / Développement",
 				"Projet de création et maintenance documentaire sur les différentes thématiques de la caisse d’allocation familiale.",
 				"01/07/2009", "21/01/2011");
+
+		// Languages
+		addLanguage(DefaultLanguageCode.English);
 
 		// Skills
 		addSkill(SkillsData.functionalSkills, "Gestion documentaire");

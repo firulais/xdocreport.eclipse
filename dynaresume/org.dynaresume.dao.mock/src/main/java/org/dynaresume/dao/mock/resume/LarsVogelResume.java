@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.dynaresume.dao.mock.SkillsData;
 import org.dynaresume.domain.core.NaturalPerson;
+import org.dynaresume.domain.hr.DefaultLanguageCode;
 import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
@@ -42,6 +43,10 @@ public class LarsVogelResume extends BaseResume {
 		addEducation("Economics / Operations Research / IT", "University Kiel",
 				null, "30/06/1998");
 		addEducation("School", "Abitur", null, "30/06/1992");
+
+		// Languages
+		addLanguage(DefaultLanguageCode.English);
+		addLanguage(DefaultLanguageCode.Germany);
 
 		// Experiences
 		addExperience("Eclipse and Android Trainer and Consultant", "", "",

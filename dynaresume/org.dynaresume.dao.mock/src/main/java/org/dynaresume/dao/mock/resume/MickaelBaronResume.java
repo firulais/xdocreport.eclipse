@@ -3,6 +3,7 @@ package org.dynaresume.dao.mock.resume;
 import java.io.IOException;
 
 import org.dynaresume.domain.core.NaturalPerson;
+import org.dynaresume.domain.hr.DefaultLanguageCode;
 import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
@@ -81,6 +82,9 @@ public class MickaelBaronResume extends BaseResume {
 		// "Jetty, Apache/Tomcat 5.0, BEA/WebLogic 6.1-8.1, Orion, Eclipse, JBuilder 7 et 9, JBuilder X, Visual Studio");
 		// addSkillWithSplit(SkillsData.methodsAndToolsSkills,
 		// "Merise, UML (Power Designer)");
+
+		// Languages
+		addLanguage(DefaultLanguageCode.English);
 
 		// Hobbies
 		// addHobby("Sport: Badminton.");

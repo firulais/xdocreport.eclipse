@@ -12,7 +12,7 @@ public class Utils {
 		return INSTANCE;
 	}
 
-	public String displayRange(Date startDate, Date endDate) {
+	public String rangeDateMonth(Date startDate, Date endDate) {
 		int startDateYear = DateUtils.getDateYear(startDate);
 		int endDateYear = DateUtils.getDateYear(endDate);
 
@@ -38,12 +38,20 @@ public class Utils {
 			result.append(endDateMonthLabel);
 			result.append(" ");
 			result.append(endDateYear);
+		} else {
+			if (result.length() > 0) {
+				result.append("-");
+			}
+			result.append("Aujourd'hui");
 		}
 
 		return result.toString();
 	}
 
 	private static String getMonthLabel(int month) {
+		if (month >= 0) {
+			month++;
+		}
 		switch (month) {
 		case 1:
 			return "Janvier";
@@ -72,5 +80,21 @@ public class Utils {
 
 		}
 		return null;
+	}
+
+	public String rangeDateYear(Date startDate, Date endDate) {
+		StringBuilder result = new StringBuilder();
+		int startYear = DateUtils.getDateYear(startDate);
+		int endYear = DateUtils.getDateYear(endDate);
+		if (startYear > 0) {
+			result.append(startYear);
+		}
+		if (endYear > 0 && endYear != startYear) {
+			if (startYear > 0) {
+				result.append(" - ");
+			}
+			result.append(endYear);
+		}
+		return result.toString();
 	}
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.dynaresume.domain.core.Address;
 import org.dynaresume.domain.core.NaturalPerson;
+import org.dynaresume.domain.hr.DefaultLanguageCode;
 import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
@@ -62,6 +63,9 @@ public class NicolasRaymondResume extends BaseResume {
 //				"Projet de création et maintenance documentaire sur les différentes thématiques de la caisse d’allocation familiale.",
 //				"01/07/2009", "21/01/2011");
 //
+		// Languages
+		addLanguage(DefaultLanguageCode.English);
+		
 //		// Skills
 //		addSkill(SkillsData.functionalSkills, "Gestion documentaire");
 //		addSkill(SkillsData.functionalSkills, "Logistique/Transport");
