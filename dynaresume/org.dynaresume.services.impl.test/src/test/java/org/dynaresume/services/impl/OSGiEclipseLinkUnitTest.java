@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.ops4j.pax.exam.CoreOptions.cleanCaches;
+import static org.ops4j.pax.exam.CoreOptions.equinox;
 import static org.ops4j.pax.exam.CoreOptions.felix;
 import static org.ops4j.pax.exam.CoreOptions.junitBundles;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
@@ -65,7 +66,7 @@ public class OSGiEclipseLinkUnitTest {
 				junitBundles(),
 			//	knopflerfish(),
 				felix(),
-//				equinox(),
+				equinox(),
 
 
 				mavenBundle("org.apache.commons",
