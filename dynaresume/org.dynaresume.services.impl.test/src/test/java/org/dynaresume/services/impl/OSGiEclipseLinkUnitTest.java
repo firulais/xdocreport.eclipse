@@ -53,7 +53,8 @@ import org.springframework.data.domain.Pageable;
 @ExamReactorStrategy(EagerSingleStagedReactorFactory.class)
 public class OSGiEclipseLinkUnitTest {
 
-	 //private static final String SPRING_VERSION = "3.1.0.RC1";
+	 private static final int timeout = 30000;
+	//private static final String SPRING_VERSION = "3.1.0.RC1";
 	private static final String SPRING_VERSION = "3.0.6.RELEASE";
 
 	@Configuration()
@@ -173,7 +174,7 @@ public class OSGiEclipseLinkUnitTest {
 		ServiceTracker tracker = new ServiceTracker(ctx,
 				DataSource.class.getName(), null);
 		tracker.open();
-		Object dataSource = tracker.waitForService(10000);
+		Object dataSource = tracker.waitForService(timeout);
 
 		tracker.close();
 		assertNotNull(dataSource);
@@ -189,7 +190,7 @@ public class OSGiEclipseLinkUnitTest {
 		ServiceTracker tracker = new ServiceTracker(ctx,
 				ResumeDao.class.getName(), null);
 		tracker.open();
-		ResumeDao resumeDao = (ResumeDao) tracker.waitForService(10000);
+		ResumeDao resumeDao = (ResumeDao) tracker.waitForService(timeout);
 
 		tracker.close();
 		assertNotNull(resumeDao);
@@ -224,7 +225,7 @@ public class OSGiEclipseLinkUnitTest {
 		ServiceTracker tracker = new ServiceTracker(ctx,
 				SkillDao.class.getName(), null);
 		tracker.open();
-		SkillDao skillDao = (SkillDao) tracker.waitForService(10000);
+		SkillDao skillDao = (SkillDao) tracker.waitForService(timeout);
 
 		tracker.close();
 		assertNotNull(skillDao);
@@ -244,7 +245,7 @@ public class OSGiEclipseLinkUnitTest {
 		ServiceTracker groupTracker = new ServiceTracker(ctx,
 				GroupDao.class.getName(), null);
 		groupTracker.open();
-		GroupDao groupDao = (GroupDao) groupTracker.waitForService(10000);
+		GroupDao groupDao = (GroupDao) groupTracker.waitForService(timeout);
 
 		groupTracker.close();
 		assertNotNull(groupDao);
@@ -260,7 +261,7 @@ public class OSGiEclipseLinkUnitTest {
 		ServiceTracker agencyTracker = new ServiceTracker(ctx,
 				AgencyDao.class.getName(), null);
 		agencyTracker.open();
-		AgencyDao agencyDao = (AgencyDao) agencyTracker.waitForService(10000);
+		AgencyDao agencyDao = (AgencyDao) agencyTracker.waitForService(timeout);
 
 		agencyTracker.close();
 		assertNotNull(agencyDao);
@@ -278,7 +279,7 @@ public class OSGiEclipseLinkUnitTest {
 		ServiceTracker skillCategoryDaoTracker = new ServiceTracker(ctx,
 				SkillCategoryDao.class.getName(), null);
 		skillCategoryDaoTracker.open();
-		SkillCategoryDao skillCategoryDao = (SkillCategoryDao) skillCategoryDaoTracker.waitForService(10000);
+		SkillCategoryDao skillCategoryDao = (SkillCategoryDao) skillCategoryDaoTracker.waitForService(timeout);
 
 		skillCategoryDaoTracker.close();
 		assertNotNull(skillCategoryDao);
@@ -295,7 +296,7 @@ public class OSGiEclipseLinkUnitTest {
 		ServiceTracker tracker = new ServiceTracker(ctx,
 				LanguageDao.class.getName(), null);
 		tracker.open();
-		LanguageDao languageDao = (LanguageDao) tracker.waitForService(10000);
+		LanguageDao languageDao = (LanguageDao) tracker.waitForService(timeout);
 
 		tracker.close();
 		assertNotNull(languageDao);
