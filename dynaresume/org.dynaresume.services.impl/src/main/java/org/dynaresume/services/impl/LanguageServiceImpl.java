@@ -14,9 +14,7 @@ public class LanguageServiceImpl implements LanguageService {
 	@Autowired
 	private LanguageDao languageDao;
 
-	public void setLanguageDao(LanguageDao languageDao) {
-		this.languageDao = languageDao;
-	}
+	
 
 	public Iterable<Language> findAll() {
 		return languageDao.findAll();

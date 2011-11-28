@@ -27,8 +27,7 @@ public class Skill {
 	@Column
 	private String url;
 
-	// @ManyToOne(optional=true)
-	@Transient
+	@ManyToOne(optional = true)
 	private Skill parent;
 	@ManyToOne
 	private SkillCategory category;

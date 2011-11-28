@@ -7,6 +7,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface ResumeDao extends PagingAndSortingRepository<Resume, Long> {
 
-	public Page<Resume> findByOwnerFirstNameLikeAndOwnerLastNameLike(String firstName,
+	 Page<Resume> findByOwnerFirstNameLikeAndOwnerLastNameLike(String firstName,
 			String lastName, Pageable pageable);
 }

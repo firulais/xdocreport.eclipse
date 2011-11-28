@@ -41,9 +41,10 @@
 
 	<bean id="jpaDialect" class="${jpaDialect}" />
 	<tx:annotation-driven transaction-manager="transactionManager" />
-	<!-- <context:annotation-config /> -->
-	<jpa:repositories base-package="org.dynaresume.dao" entity-manager-factory-ref="entityManagerFactory" />
+	
+	<jpa:repositories base-package="org.dynaresume.dao"/>
 	<!-- 
+	<context:annotation-config />
 	<jpa:repository id="resumeDao" query-lookup-strategy="use-declared-query" />
 		<jpa:repository id="groupDao" query-lookup-strategy="use-declared-query" /> -->
 	<!-- <context:component-scan base-package="org.dynaresume.dao.jpa" /> -->

@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class SkillCategory {
@@ -18,7 +18,7 @@ public class SkillCategory {
 	
 	@Column
 	private String label;
-	@Transient
+	@ManyToOne(optional=true)
 	private SkillCategory parent;
 
 	//private Collection<SkillCategory> children;

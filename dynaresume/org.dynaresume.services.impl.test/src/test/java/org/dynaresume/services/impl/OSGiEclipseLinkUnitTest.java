@@ -6,10 +6,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.ops4j.pax.exam.CoreOptions.cleanCaches;
-import static org.ops4j.pax.exam.CoreOptions.equinox;
 import static org.ops4j.pax.exam.CoreOptions.felix;
 import static org.ops4j.pax.exam.CoreOptions.junitBundles;
-import static org.ops4j.pax.exam.CoreOptions.knopflerfish;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 import static org.ops4j.pax.exam.CoreOptions.options;
 import static org.ops4j.pax.exam.CoreOptions.profile;
@@ -22,10 +20,20 @@ import java.io.IOException;
 
 import javax.sql.DataSource;
 
+import org.dynaresume.dao.AgencyDao;
+import org.dynaresume.dao.GroupDao;
+import org.dynaresume.dao.LanguageDao;
 import org.dynaresume.dao.ResumeDao;
+import org.dynaresume.dao.SkillCategoryDao;
+import org.dynaresume.dao.SkillDao;
+import org.dynaresume.domain.core.Agency;
+import org.dynaresume.domain.core.Group;
 import org.dynaresume.domain.core.MaritalStatus;
 import org.dynaresume.domain.core.NaturalPerson;
+import org.dynaresume.domain.hr.Language;
 import org.dynaresume.domain.hr.Resume;
+import org.dynaresume.domain.hr.Skill;
+import org.dynaresume.domain.hr.SkillCategory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Option;
@@ -55,9 +63,9 @@ public class OSGiEclipseLinkUnitTest {
 				// profile("spring.dm").version("2.0.O"),
 				 cleanCaches(),
 				junitBundles(),
-				knopflerfish(),
+			//	knopflerfish(),
 				felix(),
-				equinox(),
+//				equinox(),
 
 
 				mavenBundle("org.apache.commons",
@@ -154,6 +162,7 @@ public class OSGiEclipseLinkUnitTest {
 				.start();
 	}
 
+	
 	@Test
 	public void findDataSource(BundleContext ctx) throws InterruptedException {
 		assertThat(ctx, is(notNullValue()));
@@ -169,6 +178,7 @@ public class OSGiEclipseLinkUnitTest {
 		assertNotNull(dataSource);
 	}
 
+	
 	@Test
 	public void findResumeDao(BundleContext ctx) throws InterruptedException {
 		assertThat(ctx, is(notNullValue()));
@@ -203,7 +213,96 @@ public class OSGiEclipseLinkUnitTest {
 		assertNotNull(resumes);
 		System.out.println(resumes.getContent().size());
 		assertEquals(1, resumes.getContent().size());
-		Thread.sleep(1000);
+		
 	}
 
+	@Test
+	public void testSkillDao(BundleContext ctx) throws InterruptedException {
+		assertThat(ctx, is(notNullValue()));
+		
+		ServiceTracker tracker = new ServiceTracker(ctx,
+				SkillDao.class.getName(), null);
+		tracker.open();
+		SkillDao skillDao = (SkillDao) tracker.waitForService(10000);
+
+		tracker.close();
+		assertNotNull(skillDao);
+		assertEquals(0, skillDao.count());
+		
+		Skill entity= new Skill();
+		entity.setName("Jedi Master");
+		skillDao.save(entity);
+		assertEquals(1, skillDao.count());
+		
+	}
+	
+	@Test
+	public void testGroupDao(BundleContext ctx) throws InterruptedException {
+		assertThat(ctx, is(notNullValue()));
+		
+		ServiceTracker groupTracker = new ServiceTracker(ctx,
+				GroupDao.class.getName(), null);
+		groupTracker.open();
+		GroupDao groupDao = (GroupDao) groupTracker.waitForService(10000);
+
+		groupTracker.close();
+		assertNotNull(groupDao);
+		assertEquals(0, groupDao.count());
+		
+		Group aGroup = new Group();
+		aGroup.setName("demo");
+		groupDao.save(aGroup);
+		assertEquals(1, groupDao.count());
+		Pageable page = new PageRequest(0, 100);
+		Page<Group> groups =groupDao.findByNameLike("demo", page);
+		assertEquals(1, groups.getContent().size());
+		ServiceTracker agencyTracker = new ServiceTracker(ctx,
+				AgencyDao.class.getName(), null);
+		agencyTracker.open();
+		AgencyDao agencyDao = (AgencyDao) agencyTracker.waitForService(10000);
+
+		agencyTracker.close();
+		assertNotNull(agencyDao);
+		assertEquals(0, agencyDao.count());
+		Agency entity= new Agency();
+		entity.setName("Opensagres, New-York");
+		entity.setGroup(aGroup);
+		agencyDao.save(entity);
+		
+		assertEquals(1, agencyDao.count());
+	}
+	@Test
+	public void testSkillCategoryDao(BundleContext ctx) throws InterruptedException {
+
+		ServiceTracker skillCategoryDaoTracker = new ServiceTracker(ctx,
+				SkillCategoryDao.class.getName(), null);
+		skillCategoryDaoTracker.open();
+		SkillCategoryDao skillCategoryDao = (SkillCategoryDao) skillCategoryDaoTracker.waitForService(10000);
+
+		skillCategoryDaoTracker.close();
+		assertNotNull(skillCategoryDao);
+		assertEquals(0, skillCategoryDao.count());
+		
+		SkillCategory skillCategory= new SkillCategory();
+		skillCategory.setLabel("demo");
+		skillCategoryDao.save(skillCategory);
+		assertEquals(1, skillCategoryDao.count());
+		
+	}
+	@Test
+	public void testLanguageDao(BundleContext ctx) throws InterruptedException {
+		ServiceTracker tracker = new ServiceTracker(ctx,
+				LanguageDao.class.getName(), null);
+		tracker.open();
+		LanguageDao languageDao = (LanguageDao) tracker.waitForService(10000);
+
+		tracker.close();
+		assertNotNull(languageDao);
+		assertEquals(0, languageDao.count());
+		
+		Language language= new Language();
+		language.setLabel("demo");
+		languageDao.save(language);
+		assertEquals(1, languageDao.count());
+	}
 }
