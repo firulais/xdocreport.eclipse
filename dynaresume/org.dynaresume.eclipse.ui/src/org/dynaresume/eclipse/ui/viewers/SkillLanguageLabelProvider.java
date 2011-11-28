@@ -3,6 +3,7 @@ package org.dynaresume.eclipse.ui.viewers;
 import org.dynaresume.domain.hr.Language;
 import org.dynaresume.domain.hr.SkillLanguage;
 import org.dynaresume.eclipse.ui.internal.ImageResources;
+import org.dynaresume.eclipse.ui.internal.Messages;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
@@ -27,7 +28,7 @@ public class SkillLanguageLabelProvider extends LabelProvider {
 				return language.getLabel();
 			}
 		}
-		return super.getText(element);
+		return Messages.SkillLanguageLabelProvider_unknown;
 	}
 
 	@Override

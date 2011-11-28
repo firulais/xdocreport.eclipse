@@ -215,6 +215,10 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 				ImageResources.getImage(ImageResources.IMG_EXPERIENCES_16));
 		text.setImage("skills_page",
 				ImageResources.getImage(ImageResources.IMG_SKILLS_16));
+		text.setImage("references_page",
+				ImageResources.getImage(ImageResources.IMG_REFERENCES_16));
+		text.setImage("languages_page",
+				ImageResources.getImage(ImageResources.IMG_LANGUAGES_16));		
 		text.setImage("hobbies_page",
 				ImageResources.getImage(ImageResources.IMG_HOBBIES_16));
 		section.setClient(container);

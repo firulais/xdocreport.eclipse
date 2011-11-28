@@ -124,6 +124,8 @@ public class Messages extends NLS {
 	public static String SearchResumeDialog_resumeTable_LastName_label;
 	public static String SearchResumeDialog_resumeTable_ResumeTitle_label;
 
+	public static String SkillLanguageLabelProvider_unknown;
+	
 	static {
 		// load message values from bundle file
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

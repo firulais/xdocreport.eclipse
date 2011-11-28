@@ -3,16 +3,18 @@ package org.dynaresume.eclipse.ui.editors;
 import org.dynaresume.domain.hr.Language;
 import org.dynaresume.domain.hr.SkillLanguage;
 import org.dynaresume.eclipse.ui.internal.Messages;
+import org.dynaresume.eclipse.ui.viewers.LanguageContentProvider;
+import org.dynaresume.eclipse.ui.viewers.LanguageLabelProvider;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.PojoObservables;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.jface.databinding.swt.SWTObservables;
+import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
@@ -22,7 +24,7 @@ import fr.opensagres.eclipse.forms.editor.ModelDetailsPage;
 
 public class LanguageDetailsPage extends ModelDetailsPage<Language> {
 
-	private Text languageLabelText;
+	private ComboViewer languageComboViewer;
 
 	@Override
 	protected void onCreateUI(Composite parent) {
@@ -67,19 +69,30 @@ public class LanguageDetailsPage extends ModelDetailsPage<Language> {
 		toolkit.createLabel(
 				parent,
 				Messages.ResumeFormEditor_LanguagesPage_LanguageDetailsPage_languageLabel_label);
-		languageLabelText = toolkit.createText(parent, "", SWT.SINGLE);
-		languageLabelText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		languageComboViewer = new ComboViewer(parent, SWT.READ_ONLY);
+		languageComboViewer.setContentProvider(LanguageContentProvider
+				.getInstance());
+		languageComboViewer.setLabelProvider(LanguageLabelProvider
+				.getInstance());
+		languageComboViewer
+				.setInput(getEditor().getLanguageService().findAll());
+		languageComboViewer.getControl().setLayoutData(
+				new GridData(GridData.FILL_HORIZONTAL));
 
+	}
+
+	protected ResumeFormEditor getEditor() {
+		return (ResumeFormEditor) getModelFormPage().getEditor();
 	}
 
 	public void onBind(DataBindingContext bindingContext) {
 		// Label binding
-		IObservableValue languageLabelTextObserveTextObserveWidget = SWTObservables
-				.observeText(languageLabelText, SWT.Modify);
+		IObservableValue languageComboObserveSelectionObserveWidget = SWTObservables
+				.observeSelection(languageComboViewer.getCombo());
 		IObservableValue modelLanguageLabelObserveValue = PojoObservables
 				.observeValue(getModelObject(), SkillLanguage.LANGUAGE_PROPERTY
 						+ "." + Language.LABEL_PROPERTY);
-		bindingContext.bindValue(languageLabelTextObserveTextObserveWidget,
+		bindingContext.bindValue(languageComboObserveSelectionObserveWidget,
 				modelLanguageLabelObserveValue, null, null);
 
 	}
