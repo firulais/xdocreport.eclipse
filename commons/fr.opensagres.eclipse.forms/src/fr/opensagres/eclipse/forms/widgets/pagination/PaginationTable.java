@@ -14,13 +14,19 @@ import fr.opensagres.eclipse.forms.widgets.pagination.spring.PageableController;
 public abstract class PaginationTable extends BaseComposite implements
 		PageControllerChangedListener {
 
+	private static final int DEFAULT_SIZE = 5;
 	private final PaginationController controller;
 	protected final TableViewer viewer;
 
 	public PaginationTable(Composite parent, int style, FormToolkit toolkit) {
+		this(parent, style, DEFAULT_SIZE, toolkit);
+	}
+
+	public PaginationTable(Composite parent, int style, int size,
+			FormToolkit toolkit) {
 		super(parent, style, toolkit);
 		this.setLayout(new GridLayout());
-		this.controller = createController(-1, 5);
+		this.controller = createController(-1, size);
 		createBannerTop();
 		Table table = createTable();
 		viewer = new TableViewer(table);
@@ -43,12 +49,11 @@ public abstract class PaginationTable extends BaseComposite implements
 	}
 
 	private Table createTable() {
-		Table table = super.createTable(this,
-				getTableStyle());
+		Table table = super.createTable(this, getTableStyle());
 		table.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		return table;
 	}
-	
+
 	protected int getTableStyle() {
 		return SWT.BORDER | SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL;
 	}

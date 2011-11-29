@@ -9,6 +9,11 @@ import fr.opensagres.eclipse.forms.widgets.pagination.PaginationTable;
 
 public abstract class PageableTable extends PaginationTable {
 
+	public PageableTable(Composite parent, int style, int size,
+			FormToolkit toolkit) {
+		super(parent, style, size, toolkit);
+	}
+
 	public PageableTable(Composite parent, int style, FormToolkit toolkit) {
 		super(parent, style, toolkit);
 	}
