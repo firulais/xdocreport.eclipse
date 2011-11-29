@@ -53,8 +53,8 @@ import org.springframework.data.domain.Pageable;
 @ExamReactorStrategy(EagerSingleStagedReactorFactory.class)
 public class OSGiEclipseLinkUnitTest {
 
-	 private static final int timeout = 30000;
-	//private static final String SPRING_VERSION = "3.1.0.RC1";
+	private static final int timeout = 30000;
+	// private static final String SPRING_VERSION = "3.1.0.RC1";
 	private static final String SPRING_VERSION = "3.0.6.RELEASE";
 
 	@Configuration()
@@ -63,12 +63,11 @@ public class OSGiEclipseLinkUnitTest {
 				systemProperty("org.ops4j.pax.logging.DefaultServiceLog.level")
 						.value("INFO"),
 				// profile("spring.dm").version("2.0.O"),
-				 cleanCaches(),
+				cleanCaches(),
 				junitBundles(),
-			//	knopflerfish(),
+				// knopflerfish(),
 				felix(),
 				equinox(),
-
 
 				mavenBundle("org.apache.commons",
 						"com.springsource.org.apache.commons.logging", "1.1.1"),
@@ -135,6 +134,13 @@ public class OSGiEclipseLinkUnitTest {
 				mavenBundle("org.eclipse.persistence",
 						"org.eclipse.persistence.jpa", "2.3.0"),
 
+				mavenBundle("org.apache.commons",
+						"com.springsource.org.apache.commons.dbcp",
+						"1.2.2.osgi"),
+				mavenBundle("org.apache.commons",
+						"com.springsource.org.apache.commons.pool", "1.3.0"),
+				mavenBundle("org.apache.commons",
+						"com.springsource.org.apache.commons.pool", "1.5.3"),
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
 						"org.dynaresume.domain.core", "1.0.0-SNAPSHOT"),
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
@@ -164,7 +170,6 @@ public class OSGiEclipseLinkUnitTest {
 				.start();
 	}
 
-	
 	@Test
 	public void findDataSource(BundleContext ctx) throws InterruptedException {
 		assertThat(ctx, is(notNullValue()));
@@ -180,7 +185,6 @@ public class OSGiEclipseLinkUnitTest {
 		assertNotNull(dataSource);
 	}
 
-	
 	@Test
 	public void findResumeDao(BundleContext ctx) throws InterruptedException {
 		assertThat(ctx, is(notNullValue()));
@@ -209,19 +213,20 @@ public class OSGiEclipseLinkUnitTest {
 		System.out.println(other);
 		assertEquals(1, resumeDao.count());
 		Pageable page = new PageRequest(0, 100);
-		Page<Resume> resumes = resumeDao.findByOwnerFirstNameLikeAndOwnerLastNameLike(
-				"demo", "demo", page);
+		Page<Resume> resumes = resumeDao
+				.findByOwnerFirstNameLikeAndOwnerLastNameLike("demo", "demo",
+						page);
 
 		assertNotNull(resumes);
 		System.out.println(resumes.getContent().size());
 		assertEquals(1, resumes.getContent().size());
-		
+
 	}
 
 	@Test
 	public void testSkillDao(BundleContext ctx) throws InterruptedException {
 		assertThat(ctx, is(notNullValue()));
-		
+
 		ServiceTracker tracker = new ServiceTracker(ctx,
 				SkillDao.class.getName(), null);
 		tracker.open();
@@ -230,18 +235,18 @@ public class OSGiEclipseLinkUnitTest {
 		tracker.close();
 		assertNotNull(skillDao);
 		assertEquals(0, skillDao.count());
-		
-		Skill entity= new Skill();
+
+		Skill entity = new Skill();
 		entity.setName("Jedi Master");
 		skillDao.save(entity);
 		assertEquals(1, skillDao.count());
-		
+
 	}
-	
+
 	@Test
 	public void testGroupDao(BundleContext ctx) throws InterruptedException {
 		assertThat(ctx, is(notNullValue()));
-		
+
 		ServiceTracker groupTracker = new ServiceTracker(ctx,
 				GroupDao.class.getName(), null);
 		groupTracker.open();
@@ -250,13 +255,13 @@ public class OSGiEclipseLinkUnitTest {
 		groupTracker.close();
 		assertNotNull(groupDao);
 		assertEquals(0, groupDao.count());
-		
+
 		Group aGroup = new Group();
 		aGroup.setName("demo");
 		groupDao.save(aGroup);
 		assertEquals(1, groupDao.count());
 		Pageable page = new PageRequest(0, 100);
-		Page<Group> groups =groupDao.findByNameLike("demo", page);
+		Page<Group> groups = groupDao.findByNameLike("demo", page);
 		assertEquals(1, groups.getContent().size());
 		ServiceTracker agencyTracker = new ServiceTracker(ctx,
 				AgencyDao.class.getName(), null);
@@ -266,31 +271,35 @@ public class OSGiEclipseLinkUnitTest {
 		agencyTracker.close();
 		assertNotNull(agencyDao);
 		assertEquals(0, agencyDao.count());
-		Agency entity= new Agency();
+		Agency entity = new Agency();
 		entity.setName("Opensagres, New-York");
 		entity.setGroup(aGroup);
 		agencyDao.save(entity);
-		
+
 		assertEquals(1, agencyDao.count());
 	}
+
 	@Test
-	public void testSkillCategoryDao(BundleContext ctx) throws InterruptedException {
+	public void testSkillCategoryDao(BundleContext ctx)
+			throws InterruptedException {
 
 		ServiceTracker skillCategoryDaoTracker = new ServiceTracker(ctx,
 				SkillCategoryDao.class.getName(), null);
 		skillCategoryDaoTracker.open();
-		SkillCategoryDao skillCategoryDao = (SkillCategoryDao) skillCategoryDaoTracker.waitForService(timeout);
+		SkillCategoryDao skillCategoryDao = (SkillCategoryDao) skillCategoryDaoTracker
+				.waitForService(timeout);
 
 		skillCategoryDaoTracker.close();
 		assertNotNull(skillCategoryDao);
 		assertEquals(0, skillCategoryDao.count());
-		
-		SkillCategory skillCategory= new SkillCategory();
+
+		SkillCategory skillCategory = new SkillCategory();
 		skillCategory.setLabel("demo");
 		skillCategoryDao.save(skillCategory);
 		assertEquals(1, skillCategoryDao.count());
-		
+
 	}
+
 	@Test
 	public void testLanguageDao(BundleContext ctx) throws InterruptedException {
 		ServiceTracker tracker = new ServiceTracker(ctx,
@@ -301,8 +310,8 @@ public class OSGiEclipseLinkUnitTest {
 		tracker.close();
 		assertNotNull(languageDao);
 		assertEquals(0, languageDao.count());
-		
-		Language language= new Language();
+
+		Language language = new Language();
 		language.setLabel("demo");
 		languageDao.save(language);
 		assertEquals(1, languageDao.count());

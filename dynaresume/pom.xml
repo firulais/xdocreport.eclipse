@@ -25,9 +25,10 @@
 		<module>org.dynaresume.services.impl</module>
 		<module>org.dynaresume.services.impl.test</module>
 
-		<module>org.dynaresume.dao.jpa.hibernate</module>
+<!-- 		<module>org.dynaresume.dao.jpa.hibernate</module> -->
 		<module>org.dynaresume.dao.jpa.eclipselink</module>
 		<module>org.dynaresume.admin.eclipse.ui</module>
 		<module>org.dynaresume.admin.eclipse.ui.graphics</module>
+		<module>org.dynaresume.datasource.embedded</module>
 	</modules>
 </project>

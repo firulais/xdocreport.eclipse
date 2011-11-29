@@ -48,8 +48,6 @@ import org.ops4j.pax.exam.spi.reactors.EagerSingleStagedReactorFactory;
 import org.osgi.framework.BundleContext;
 import org.osgi.util.tracker.ServiceTracker;
 
-
-
 @RunWith(JUnit4TestRunner.class)
 @ExamReactorStrategy(EagerSingleStagedReactorFactory.class)
 public class OSGiHibernateUnitTest {
@@ -117,7 +115,8 @@ public class OSGiHibernateUnitTest {
 				mavenBundle().groupId("org.eclipse.gemini.blueprint")
 						.artifactId("gemini-blueprint-extender")
 						.version("1.0.0.RELEASE").startLevel(5),
-						// ***************** Hibernate OSGi dependencies ********************
+				// ***************** Hibernate OSGi dependencies
+				// ********************
 				mavenBundle().groupId("javax.persistence")
 						.artifactId("com.springsource.javax.persistence")
 						.version("2.0.0"),
@@ -172,7 +171,12 @@ public class OSGiHibernateUnitTest {
 								.artifactId("jboss-logmanager")
 								.version("1.2.0.GA")).exports(
 						"org.jboss.logmanager;version=\"1.2.0.GA\""),
-
+				mavenBundle("org.apache.commons",
+						"com.springsource.org.apache.commons.dbcp",
+						"1.2.2.osgi"),
+						mavenBundle("org.apache.commons",
+								"com.springsource.org.apache.commons.pool",
+								"1.3.0"),		
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
 						"org.dynaresume.domain.core", "1.0.0-SNAPSHOT"),
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
@@ -184,7 +188,8 @@ public class OSGiHibernateUnitTest {
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
 						"org.dynaresume.dao.jpa", "1.0.0-SNAPSHOT"),
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
-						"org.dynaresume.dao.jpa.hibernate", "1.0.0-SNAPSHOT").noStart()
+						"org.dynaresume.dao.jpa.hibernate", "1.0.0-SNAPSHOT")
+						.noStart()
 
 		// mavenBundle("fr.opensagres.xdocreport-eclipse",
 		// "org.dynaresume.services", "1.0.0-SNAPSHOT"),
@@ -210,6 +215,7 @@ public class OSGiHibernateUnitTest {
 	 *            BundleContext injected. Must be first argument, if any.
 	 * @throws InterruptedException
 	 */
+	
 	@Test
 	public void findDataSource(BundleContext ctx) throws InterruptedException {
 		assertThat(ctx, is(notNullValue()));
@@ -225,7 +231,7 @@ public class OSGiHibernateUnitTest {
 		assertNotNull(dataSource);
 	}
 
-	@Ignore
+	@Ignore("Temporary ignore the test until I can find a usable hibernate bundle")
 	@Test
 	public void findResumeDao(BundleContext ctx) throws InterruptedException {
 		assertThat(ctx, is(notNullValue()));
