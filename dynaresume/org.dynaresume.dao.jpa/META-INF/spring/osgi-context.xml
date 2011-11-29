@@ -5,15 +5,16 @@
        http://www.springframework.org/schema/osgi/spring-osgi-1.0.xsd
        http://www.springframework.org/schema/beans   
        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<reference  id="dataSource" interface="javax.sql.DataSource"/>
 
-<!-- -->
-	<service ref="resumeDao" interface="org.dynaresume.dao.ResumeDao" />
+ 
+ 
+	<service ref="resumeDao" interface="org.dynaresume.dao.ResumeDao"  />
 	<service ref="skillDao" interface="org.dynaresume.dao.SkillDao" />
  	<service ref="groupDao" interface="org.dynaresume.dao.GroupDao" />
 	<service ref="agencyDao" interface="org.dynaresume.dao.AgencyDao" />
  	<service ref="languageDao" interface="org.dynaresume.dao.LanguageDao" />
 	<service ref="skillCategoryDao" interface="org.dynaresume.dao.SkillCategoryDao" />
 	
-	<reference  id="dataSource" interface="javax.sql.DataSource"/>
 
 </beans:beans>           
