@@ -6,6 +6,7 @@ import java.text.ParseException;
 import org.dynaresume.dao.mock.SkillsData;
 import org.dynaresume.domain.core.Address;
 import org.dynaresume.domain.core.NaturalPerson;
+import org.dynaresume.domain.hr.DefaultLanguageCode;
 import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.DateUtils;
@@ -53,10 +54,10 @@ public class YannickVimalResume extends BaseResume {
 		address.setZipCode("69003");
 
 		// Educations
-		addEducation("Ecole Ingénieur informatique", "3iL",
-				null, "30/06/2009");
-		addEducation("Master management international par projet", "ISMANS (Le mans) et L’UQO (Gatineau, Quebec)",
-				null, "30/06/2010");
+		addEducation("Ecole Ingénieur informatique", "3iL", null, "30/06/2009");
+		addEducation("Master management international par projet",
+				"ISMANS (Le mans) et L’UQO (Gatineau, Quebec)", null,
+				"30/06/2010");
 
 		// Experiences
 		addExperience(
@@ -86,14 +87,14 @@ public class YannickVimalResume extends BaseResume {
 		addSkill(SkillsData.osTechnicalSkills, "Windows");
 		addSkillWithSplit(SkillsData.databaseTechnicalSkills,
 				"SQL Server, MySQL, XHive");
-		addSkillWithSplit(
-				SkillsData.technologiesTechnicalSkills,
+		addSkillWithSplit(SkillsData.technologiesTechnicalSkills,
 				"Eclipse,JAVA, JEE, PHP, HTML, CSS, JavaScript, XML, XSL, XSD, Xforms, XQuery");
-		addSkillWithSplit(
-				SkillsData.softwaresTechnicalSkills,
+		addSkillWithSplit(SkillsData.softwaresTechnicalSkills,
 				"Eclipse, Visual Studio, Team Foundation server, Photoshop");
-		addSkillWithSplit(SkillsData.methodsAndToolsSkills,
-				"Merise, UML");
+		addSkillWithSplit(SkillsData.methodsAndToolsSkills, "Merise, UML");
+
+		// Languages
+		addLanguage(DefaultLanguageCode.English);
 
 		// Hobbies
 		addHobby("Moto");
