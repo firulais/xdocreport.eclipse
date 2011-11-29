@@ -27,6 +27,7 @@ public class SodifranceResumeReportLoader extends XDocReportLoader {
 		//metadata.addFieldAsList("experiences.Detail");
 		metadata.addFieldAsTextStyling("exp.Detail", SyntaxKind.Html);
 		metadata.addFieldAsList("educations.Label");
+		metadata.addFieldAsList("educations.Institute");
 		metadata.addFieldAsList("educations.StartDateYear");
 		metadata.addFieldAsList("educations.EndDateYear");
 		metadata.addFieldAsList("languages.Language.Label");

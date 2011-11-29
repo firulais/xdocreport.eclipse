@@ -70,6 +70,8 @@ public class RalfSternbergResume extends BaseResume {
 		addLanguage(DefaultLanguageCode.English);
 		addLanguage(DefaultLanguageCode.Germany);
 
+		addReference("Project Co-Lead of Eclipse Rich Ajax Platform",
+				"01/04/2011", null);
 		// Hobbies
 		// addHobby("Sport: Badminton.");
 		// addHobby("Musique : pratique la batterie dans un groupe.");

@@ -12,6 +12,7 @@ import org.dynaresume.dao.mock.resume.AmineBoustaResume;
 import org.dynaresume.dao.mock.resume.AngeloZerrResume;
 import org.dynaresume.dao.mock.resume.ArnaudCogoluegnesResume;
 import org.dynaresume.dao.mock.resume.DinoCosmasResume;
+import org.dynaresume.dao.mock.resume.GeorgeGastaldiResume;
 import org.dynaresume.dao.mock.resume.KaiTodterResume;
 import org.dynaresume.dao.mock.resume.LarsVogelResume;
 import org.dynaresume.dao.mock.resume.MickaelBaronResume;
@@ -19,6 +20,7 @@ import org.dynaresume.dao.mock.resume.MickaelIstriaResume;
 import org.dynaresume.dao.mock.resume.NicolasRaymondResume;
 import org.dynaresume.dao.mock.resume.PascalLeclercqResume;
 import org.dynaresume.dao.mock.resume.RalfSternbergResume;
+import org.dynaresume.dao.mock.resume.YannickVimalResume;
 import org.dynaresume.domain.core.Address;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.Education;
@@ -46,11 +48,13 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		addResume(new RalfSternbergResume());
 		addResume(new LarsVogelResume());
 		addResume(new KaiTodterResume());
+		addResume(new GeorgeGastaldiResume());
 		addResume(new ArnaudCogoluegnesResume());
 		addResume(new MickaelIstriaResume());
 		addResume(new MickaelBaronResume());
 		addResume(new DinoCosmasResume());
 		addResume(new NicolasRaymondResume());
+		addResume(new YannickVimalResume());
 	}
 
 	private static void addResume(Resume resume) {

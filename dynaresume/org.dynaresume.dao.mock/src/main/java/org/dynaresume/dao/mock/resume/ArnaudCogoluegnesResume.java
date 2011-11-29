@@ -2,6 +2,7 @@ package org.dynaresume.dao.mock.resume;
 
 import java.io.IOException;
 
+import org.dynaresume.dao.mock.SkillsData;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultLanguageCode;
 import org.dynaresume.domain.hr.Resume;
@@ -12,7 +13,7 @@ public class ArnaudCogoluegnesResume extends BaseResume {
 
 	public ArnaudCogoluegnesResume() {
 		super.setId(getCurrentId());
-		super.setTitle("Consultant");
+		super.setTitle("Consultant Zenika");
 		try {
 			setPicture(IOUtils.toByteArray(Resume.class
 					.getResourceAsStream("ArnaudCogoluegnes.jpg")));
@@ -43,17 +44,23 @@ public class ArnaudCogoluegnesResume extends BaseResume {
 //		address.setZipCode("26130");
 
 		// Educations
-//		addEducation("Diplôme d'ingénieur en informatique", "INSA de Lyon",
-//				"01/09/1996", "30/06/2001");
-//		addEducation("BAC S option Physique C", "Georges de la Tour (Nancy)",
-//				"01/09/1992", "30/06/1996");
+		addEducation("Internship at the mechanical and aeronautical engineering departement.", "University of California, Davis",
+				"01/09/1996", "30/06/2001");
+		addEducation("Ingénieur", "Ecole catholique d'Arts et Métiers de Lyon",
+				"01/09/1997", "30/06/2002");
 
 		// Experiences
-//		addExperience(
-//				"Projet SIDoc",
-//				"Conception / Développement",
-//				"Mise en place de l'application <b>WEB de diffusion</b> (qui sera accessible dans les accueils des CAF) qui permet de publier les documents XML produits par l'application WEB de production.",
-//				"01/04/2009", null);
+		addExperience(
+				"Consultant Zenika",
+				"",
+				"",
+				"01/01/2009", null);
+		addExperience(
+				"Software architect - SQLI",
+				"",
+				"",
+				"01/08/2004", "30/11/2009");	
+		
 //		addExperience(
 //				"ERP AgroV3",
 //				"Conception / Développement",
@@ -74,18 +81,29 @@ public class ArnaudCogoluegnesResume extends BaseResume {
 //		addSkill(SkillsData.osTechnicalSkills, "Windows");
 //		addSkillWithSplit(SkillsData.databaseTechnicalSkills,
 //				"Oracle 8i, Oracle 9i, Oracle 10g, SQL Server, MySQL");
-//		addSkillWithSplit(
-//				SkillsData.technologiesTechnicalSkills,
-//				"OSGi , Spring DM, Eclipse RCP, SWT/JFace, EMF, GEF, JEE, JSP, Struts 1.x, Ant, POI, Hibernate, Spring, EJB2, Freemarker, Velocity, Web Service (AXIS), HTML, CSS, JavaScript, XML, XSL, XSD, Ajax, XQuery");
+		addSkillWithSplit(
+				SkillsData.technologiesTechnicalSkills,
+				"OSGi , Spring, Spring DM");
 //		addSkillWithSplit(
 //				SkillsData.softwaresTechnicalSkills,
 //				"Jetty, Apache/Tomcat 5.0, BEA/WebLogic 6.1-8.1, Orion, Eclipse, JBuilder 7 et 9, JBuilder X, Visual Studio");
 //		addSkillWithSplit(SkillsData.methodsAndToolsSkills,
 //				"Merise, UML (Power Designer)");
 
+		// References 
+		addReference(
+				"Co-author of \"Spring Batch in Action\"",
+				"01/05/2010", null);		
+		addReference(
+				"Co-author of \"Spring Dynamic Modules in action\"",
+				"01/03/2009", null);
+		addReference(
+				"Co-author of \"Spring par la pratique\", 2nd edition",
+				"01/07/2008", "01/07/2009");
+		
 		// Languages
 		addLanguage(DefaultLanguageCode.English);
-				
+		
 		// Hobbies
 //		addHobby("Sport: Badminton.");
 //		addHobby("Musique : pratique la batterie dans un groupe.");
