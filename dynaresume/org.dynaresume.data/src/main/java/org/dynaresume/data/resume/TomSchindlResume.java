@@ -1,26 +1,26 @@
-package org.dynaresume.dao.mock.resume;
+package org.dynaresume.data.resume;
 
-import org.dynaresume.dao.mock.SkillsData;
+import org.dynaresume.data.SkillsInjector;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultLanguageCode;
-import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
-public class TomSchindlResume extends BaseResume {
+public class TomSchindlResume extends AbstractResumeFactory {
 
-	public TomSchindlResume() {
-		super.setId(getCurrentId());
+	public TomSchindlResume(SkillsInjector skillsInjector) {
+		super(skillsInjector);
+		// super.setId(getCurrentId());
 		super.setTitle("Owner, BestSolution Systemhaus Gmbh and Information Technology and Services Consultant");
 		try {
-			setPicture(IOUtils.toByteArray(Resume.class
+			setPicture(IOUtils.toByteArray(TomSchindlResume.class
 					.getResourceAsStream("TomSchindl.jpeg")));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 
 		NaturalPerson person = new NaturalPerson();
-		person.setId(getCurrentId());
+		// person.setId(getCurrentId());
 		person.setFirstName("Tom");
 		person.setLastName("Schindl");
 		person.setEmail("tom.schindl@bestsolution.at");
@@ -52,13 +52,16 @@ public class TomSchindlResume extends BaseResume {
 				"01/04/2003");
 
 		// Skills
-		// addSkill(SkillsData.functionalSkills, "Gestion documentaire");
-		// addSkill(SkillsData.functionalSkills, "Logistique/Transport");
-		// addSkill(SkillsData.functionalSkills, "Nucléaire");
-		// addSkill(SkillsData.functionalSkills, "Agroalimentaire");
-		addSkill(SkillsData.processSkills, "Eclipse-Platform Committer");
-		addSkill(SkillsData.langagesTechnicalSkills, "Java");
-		addSkillWithSplit(SkillsData.technologiesTechnicalSkills,
+		// addSkill(getSkillsInjector().functionalSkills,
+		// "Gestion documentaire");
+		// addSkill(getSkillsInjector().functionalSkills,
+		// "Logistique/Transport");
+		// addSkill(getSkillsInjector().functionalSkills, "Nucléaire");
+		// addSkill(getSkillsInjector().functionalSkills, "Agroalimentaire");
+		addSkill(getSkillsInjector().processSkills,
+				"Eclipse-Platform Committer");
+		addSkill(getSkillsInjector().langagesTechnicalSkills, "Java");
+		addSkillWithSplit(getSkillsInjector().technologiesTechnicalSkills,
 				"OSGi, SWT, JFace, Eclipse RCP, EJB3, JBoss");
 
 		// References

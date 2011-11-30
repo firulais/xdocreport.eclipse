@@ -1,27 +1,27 @@
-package org.dynaresume.dao.mock.resume;
+package org.dynaresume.data.resume;
 
 import java.io.IOException;
 
+import org.dynaresume.data.SkillsInjector;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultLanguageCode;
-import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
-public class MickaelBaronResume extends BaseResume {
+public class MickaelBaronResume extends AbstractResumeFactory {
 
-	public MickaelBaronResume() {
-		super.setId(getCurrentId());
+	public MickaelBaronResume(SkillsInjector skillsInjector) {
+		super(skillsInjector);
 		super.setTitle("Eclipse and Java Team Leader at Developpez.com");
 		try {
-			setPicture(IOUtils.toByteArray(Resume.class
+			setPicture(IOUtils.toByteArray(MickaelBaronResume.class
 					.getResourceAsStream("MickaelBaron.jpg")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		NaturalPerson person = new NaturalPerson();
-		person.setId(getCurrentId());
+		// person.setId(getCurrentId());
 		person.setFirstName("Mickaël");
 		person.setLastName("BARON");
 		// person.setEmail("");
@@ -61,26 +61,28 @@ public class MickaelBaronResume extends BaseResume {
 		// "30/08/2007", "31/03/2009");
 
 		// Skills
-		// addSkill(SkillsData.functionalSkills, "Gestion documentaire");
-		// addSkill(SkillsData.functionalSkills, "Logistique/Transport");
-		// addSkill(SkillsData.functionalSkills, "Nucléaire");
-		// addSkill(SkillsData.functionalSkills, "Agroalimentaire");
+		// addSkill(getSkillsInjector().functionalSkills,
+		// "Gestion documentaire");
+		// addSkill(getSkillsInjector().functionalSkills,
+		// "Logistique/Transport");
+		// addSkill(getSkillsInjector().functionalSkills, "Nucléaire");
+		// addSkill(getSkillsInjector().functionalSkills, "Agroalimentaire");
 		// addSkill(
-		// SkillsData.processSkills,
+		// getSkillsInjector().processSkills,
 		// "Analyse, conception et développement Nouvelles Technologies de logiciels et applications WEB.s");
-		// addSkill(SkillsData.processSkills,
+		// addSkill(getSkillsInjector().processSkills,
 		// "Rédaction de documents, manuel d’utilisation, proposition commerciales");
-		// addSkill(SkillsData.langagesTechnicalSkills, "Java");
-		// addSkill(SkillsData.osTechnicalSkills, "Windows");
-		// addSkillWithSplit(SkillsData.databaseTechnicalSkills,
+		// addSkill(getSkillsInjector().langagesTechnicalSkills, "Java");
+		// addSkill(getSkillsInjector().osTechnicalSkills, "Windows");
+		// addSkillWithSplit(getSkillsInjector().databaseTechnicalSkills,
 		// "Oracle 8i, Oracle 9i, Oracle 10g, SQL Server, MySQL");
 		// addSkillWithSplit(
-		// SkillsData.technologiesTechnicalSkills,
+		// getSkillsInjector().technologiesTechnicalSkills,
 		// "OSGi , Spring DM, Eclipse RCP, SWT/JFace, EMF, GEF, JEE, JSP, Struts 1.x, Ant, POI, Hibernate, Spring, EJB2, Freemarker, Velocity, Web Service (AXIS), HTML, CSS, JavaScript, XML, XSL, XSD, Ajax, XQuery");
 		// addSkillWithSplit(
-		// SkillsData.softwaresTechnicalSkills,
+		// getSkillsInjector().softwaresTechnicalSkills,
 		// "Jetty, Apache/Tomcat 5.0, BEA/WebLogic 6.1-8.1, Orion, Eclipse, JBuilder 7 et 9, JBuilder X, Visual Studio");
-		// addSkillWithSplit(SkillsData.methodsAndToolsSkills,
+		// addSkillWithSplit(getSkillsInjector().methodsAndToolsSkills,
 		// "Merise, UML (Power Designer)");
 
 		// Languages

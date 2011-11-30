@@ -6,4 +6,6 @@ public interface LanguageService {
 
 	Iterable<Language> findAll();
 
+	Language save(Language language);
+
 }

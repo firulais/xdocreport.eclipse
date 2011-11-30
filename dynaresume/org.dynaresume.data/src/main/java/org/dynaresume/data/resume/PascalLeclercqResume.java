@@ -1,41 +1,38 @@
-package org.dynaresume.dao.mock.resume;
+package org.dynaresume.data.resume;
 
 import java.io.IOException;
 
-import org.dynaresume.dao.mock.SkillsData;
+import org.dynaresume.data.SkillsInjector;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultLanguageCode;
-import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
-public class PascalLeclercqResume extends BaseResume {
+public class PascalLeclercqResume extends AbstractResumeFactory {
 
-	public PascalLeclercqResume() {
-		super.setId(getCurrentId());
+	public PascalLeclercqResume(SkillsInjector skillsInjector) {
+		super(skillsInjector);
 		super.setTitle("Consultant et développeur Java");
 
 		NaturalPerson person = new NaturalPerson();
-		person.setId(getCurrentId());
+		// person.setId(getCurrentId());
 		person.setFirstName("Pascal");
 		person.setLastName("Leclercq");
-		person.setEmail("pascal.leclercq@gmail.com");		
+		person.setEmail("pascal.leclercq@gmail.com");
 		super.setOwner(person);
-		
-		
+
 		try {
-			setPicture(IOUtils.toByteArray(Resume.class
+			setPicture(IOUtils.toByteArray(PascalLeclercqResume.class
 					.getResourceAsStream("PascalLeclercq.jpg")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		addSkillWithSplit(
-				SkillsData.technologiesTechnicalSkills,
+
+		addSkillWithSplit(getSkillsInjector().technologiesTechnicalSkills,
 				"OSGi, Spring, Eclipse RCP, Maven");
-		
+
 		// Languages
 		addLanguage(DefaultLanguageCode.English);
-		
+
 	}
 }

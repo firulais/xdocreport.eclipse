@@ -1,11 +1,12 @@
-package org.dynaresume.dao.mock.resume;
+package org.dynaresume.data.resume;
 
+import java.io.InputStream;
 import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.dynaresume.dao.mock.LanguagesData;
-import org.dynaresume.dao.mock.SkillsData;
+import org.dynaresume.data.SkillsInjector;
+import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultLanguageCode;
 import org.dynaresume.domain.hr.Education;
 import org.dynaresume.domain.hr.Experience;
@@ -20,19 +21,127 @@ import org.dynaresume.domain.hr.SkillResume;
 
 import fr.opensagres.xdocreport.commons.utils.DateUtils;
 
-public class BaseResume extends Resume {
+public abstract class AbstractResumeFactory extends Resume {
 
-	static long currentId = 0;
+	private final Resume resume;
+	private final SkillsInjector skillsInjector;
+
+	public AbstractResumeFactory(SkillsInjector skillsInjector) {
+		this.resume = new Resume();
+		this.skillsInjector = skillsInjector;
+	}
+	
+	public boolean equals(Object arg0) {
+		return resume.equals(arg0);
+	}
+
+	public Long getId() {
+		return resume.getId();
+	}
+
+	public String getTitle() {
+		return resume.getTitle();
+	}
+
+	public byte[] getPicture() {
+		return resume.getPicture();
+	}
+
+	public InputStream getPictureAsStream() {
+		return resume.getPictureAsStream();
+	}
+
+	public NaturalPerson getOwner() {
+		return resume.getOwner();
+	}
+
+	public Set<Experience> getExperiences() {
+		return resume.getExperiences();
+	}
+
+	public Set<Education> getEducations() {
+		return resume.getEducations();
+	}
+
+	public Set<SkillResume> getSkills() {
+		return resume.getSkills();
+	}
+
+	public Set<Hobby> getHobbies() {
+		return resume.getHobbies();
+	}
+
+	public Set<SkillLanguage> getLanguages() {
+		return resume.getLanguages();
+	}
+
+	public Set<Reference> getReferences() {
+		return resume.getReferences();
+	}
+
+	public int hashCode() {
+		return resume.hashCode();
+	}
+
+	public void setId(long id) {
+		resume.setId(id);
+	}
+
+	public void setTitle(String title) {
+		resume.setTitle(title);
+	}
+
+	public void setPicture(byte[] picture) {
+		resume.setPicture(picture);
+	}
+
+	public void setOwner(NaturalPerson owner) {
+		resume.setOwner(owner);
+	}
+
+	public void setExperiences(Set<Experience> experiences) {
+		resume.setExperiences(experiences);
+	}
+
+	public void setEducations(Set<Education> educations) {
+		resume.setEducations(educations);
+	}
+
+	public void setSkills(Set<SkillResume> skills) {
+		resume.setSkills(skills);
+	}
+
+	public void setHobbies(Set<Hobby> hobbies) {
+		resume.setHobbies(hobbies);
+	}
+
+	public void setLanguages(Set<SkillLanguage> languages) {
+		resume.setLanguages(languages);
+	}
+
+	public void setReferences(Set<Reference> references) {
+		resume.setReferences(references);
+	}
+
+	public String toString() {
+		return resume.toString();
+	}
+
+	
+
+	public Resume getResume() {
+		return resume;
+	}
 
 	protected void addEducation(String label, String institute,
 			String startDate, String endDate) {
 		Set<Education> educations = getEducations();
 		if (educations == null) {
 			educations = new HashSet<Education>();
-			super.setEducations(educations);
+			setEducations(educations);
 		}
 		Education education = new Education();
-		education.setId(getCurrentId());
+		// education.setId(getCurrentId());
 		education.setLabel(label);
 		education.setInstitute(institute);
 		if (startDate != null) {
@@ -60,11 +169,11 @@ public class BaseResume extends Resume {
 		Set<Experience> experiences = getExperiences();
 		if (experiences == null) {
 			experiences = new HashSet<Experience>();
-			super.setExperiences(experiences);
+			setExperiences(experiences);
 		}
 
 		Experience experience = new Experience();
-		experience.setId(getCurrentId());
+		// experience.setId(getCurrentId());
 		experience.setTitle(title);
 		experience.setMission(mission);
 		experience.setDetail(detail);
@@ -90,7 +199,7 @@ public class BaseResume extends Resume {
 	}
 
 	protected void addSkill(SkillCategory category, String skillLabel) {
-		Skill skill = SkillsData.getSkillByLabel(skillLabel);
+		Skill skill = skillsInjector.getSkillByLabel(skillLabel);
 		SkillResume skillResume = new SkillResume();
 		skillResume.setCategory(category);
 		if (skill != null) {
@@ -98,10 +207,10 @@ public class BaseResume extends Resume {
 		} else {
 			skillResume.setFreeSkill(skillLabel);
 		}
-		Set<SkillResume> skills = super.getSkills();
+		Set<SkillResume> skills = getSkills();
 		if (skills == null) {
 			skills = new HashSet<SkillResume>();
-			super.setSkills(skills);
+			setSkills(skills);
 		}
 		skills.add(skillResume);
 	}
@@ -117,10 +226,10 @@ public class BaseResume extends Resume {
 		Set<Reference> references = getReferences();
 		if (references == null) {
 			references = new HashSet<Reference>();
-			super.setReferences(references);
+			setReferences(references);
 		}
 		Reference reference = new Reference();
-		reference.setId(getCurrentId());
+		// reference.setId(getCurrentId());
 		reference.setLabel(label);
 		if (startDate != null) {
 			try {
@@ -142,20 +251,20 @@ public class BaseResume extends Resume {
 	}
 
 	protected void addLanguage(DefaultLanguageCode code) {
-		Language language= LanguagesData.getLanguageByCode(code.getCode());
-		if (language!=null) {
+		Language language = null;//LanguagesData.getLanguageByCode(code.getCode());
+		if (language != null) {
 			addLanguage(language);
 		}
 	}
-	
+
 	protected void addLanguage(Language language) {
 		Set<SkillLanguage> languages = getLanguages();
 		if (languages == null) {
 			languages = new HashSet<SkillLanguage>();
-			super.setLanguages(languages);
+			setLanguages(languages);
 		}
 		SkillLanguage skillLanguage = new SkillLanguage();
-		language.setId(getCurrentId());
+		// language.setId(getCurrentId());
 		skillLanguage.setLanguage(language);
 		languages.add(skillLanguage);
 	}
@@ -164,15 +273,15 @@ public class BaseResume extends Resume {
 		Set<Hobby> hobbies = getHobbies();
 		if (hobbies == null) {
 			hobbies = new HashSet<Hobby>();
-			super.setHobbies(hobbies);
+			setHobbies(hobbies);
 		}
 		Hobby hobby = new Hobby();
-		hobby.setId(getCurrentId());
+		// hobby.setId(getCurrentId());
 		hobby.setLabel(label);
 		hobbies.add(hobby);
 	}
 
-	protected static long getCurrentId() {
-		return currentId++;
+	public SkillsInjector getSkillsInjector() {
+		return skillsInjector;
 	}
 }

@@ -1,0 +1,100 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>dynaresume</artifactId>
+		<groupId>fr.opensagres.xdocreport-eclipse</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	<packaging>eclipse-plugin</packaging>
+	<!-- <packaging>eclipse-plugin</packaging> -->
+	<artifactId>org.dynaresume.data</artifactId>
+	<build>
+		<resources>
+			<resource>
+				<directory>${basedir}</directory>
+				<includes>
+					<include>META-INF/**</include>
+				</includes>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<forkMode>always</forkMode>
+
+					<basedir>${project.build.directory}</basedir>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestFile>META-INF/MANIFEST.MF</manifestFile>
+					</archive>
+				</configuration>
+			</plugin>
+			<!-- <plugin> <groupId>org.apache.felix</groupId> <artifactId>maven-bundle-plugin</artifactId> 
+				<extensions>true</extensions> <executions> <execution> <id>bundle-manifest</id> 
+				<phase>process-classes</phase> <goals> <goal>manifest</goal> </goals> </execution> 
+				</executions> <configuration> <manifestLocation>META-INF</manifestLocation> 
+				<instructions> <_include>TEMPLATE.MF</_include> <Bundle-Version>${project.parent.version}.v${maven.build.timestamp}</Bundle-Version> 
+				<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName> <Bundle-RequiredExecutionEnvironment>J2SE-1.5, 
+				JavaSE-1.6</Bundle-RequiredExecutionEnvironment> </instructions> </configuration> 
+				</plugin> -->
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>fr.opensagres.xdocreport-eclipse</groupId>
+			<version>1.0.0-SNAPSHOT</version>
+			<artifactId>fr.opensagres.xdocreport.commons.utils</artifactId>
+		</dependency>	
+		<dependency>
+			<groupId>fr.opensagres.xdocreport-eclipse</groupId>
+			<version>1.0.0-SNAPSHOT</version>
+			<artifactId>org.dynaresume.services</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>fr.opensagres.xdocreport-eclipse</groupId>
+			<version>1.0.0-SNAPSHOT</version>
+			<artifactId>org.dynaresume.domain.core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>fr.opensagres.xdocreport-eclipse</groupId>
+			<version>1.0.0-SNAPSHOT</version>
+			<artifactId>org.dynaresume.domain.hr</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>3.0.6.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>1.0.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>3.0.6.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>

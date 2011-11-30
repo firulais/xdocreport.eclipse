@@ -1,28 +1,27 @@
-package org.dynaresume.dao.mock.resume;
+package org.dynaresume.data.resume;
 
 import java.io.IOException;
 
-import org.dynaresume.dao.mock.SkillsData;
+import org.dynaresume.data.SkillsInjector;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultLanguageCode;
-import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
-public class MickaelIstriaResume extends BaseResume {
+public class MickaelIstriaResume extends AbstractResumeFactory {
 
-	public MickaelIstriaResume() {
-		super.setId(getCurrentId());
+	public MickaelIstriaResume(SkillsInjector skillsInjector) {
+		super(skillsInjector);
 		super.setTitle("Eclipse (Plugin/RCP) expert developer");
 		try {
-			setPicture(IOUtils.toByteArray(Resume.class
+			setPicture(IOUtils.toByteArray(MickaelIstriaResume.class
 					.getResourceAsStream("MickaelIstria.jpg")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		NaturalPerson person = new NaturalPerson();
-		person.setId(getCurrentId());
+		// person.setId(getCurrentId());
 		person.setFirstName("Mickael");
 		person.setLastName("Istria");
 		person.setEmail("mickael.istria@petalslink.com");
@@ -89,9 +88,9 @@ public class MickaelIstriaResume extends BaseResume {
 						+ "Working on SCOrWare project, contributing to Eclipse JWT and OW2 Frascati. ",
 				"01/02/2008", "01/07/2009");
 		// Skills
-		addSkillWithSplit(SkillsData.technologiesTechnicalSkills,
+		addSkillWithSplit(getSkillsInjector().technologiesTechnicalSkills,
 				"Eclipse, Plugins, Eclipse RCP, GMF, EMF");
-		addSkillWithSplit(SkillsData.methodsAndToolsSkills,
+		addSkillWithSplit(getSkillsInjector().methodsAndToolsSkills,
 				"Model Driven Development, Modeling, BPMN, Agile Scrum");
 
 		// References

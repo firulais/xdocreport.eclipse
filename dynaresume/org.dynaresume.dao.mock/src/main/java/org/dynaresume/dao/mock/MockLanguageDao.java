@@ -1,7 +1,5 @@
 package org.dynaresume.dao.mock;
 
-import java.util.Map;
-
 import org.dynaresume.dao.LanguageDao;
 import org.dynaresume.domain.hr.Language;
 import org.springframework.stereotype.Repository;
@@ -10,29 +8,13 @@ import org.springframework.stereotype.Repository;
 public class MockLanguageDao extends AbstractDaoMock<Language> implements
 		LanguageDao {
 
-	private final Map<Long, Language> languages = LanguagesData.languages;
-
-	public Iterable<Language> findAll() {
-		return languages.values();
+	@Override
+	public Language save(Language model) {
+		// TODO Auto-generated method stub
+		return super.save(model);
 	}
-
-	public Language findOne(Long id) {
-		Language language = languages.get(id);
-		if (language != null) {
-			return clone(language);
-		}
-		return languages.get(id);
-	}
-
-	public Language save(Language language) {
-		if (language.getId() == null) {
-			language.setId(LanguagesData.getId());
-		}
-		languages.put(language.getId(), language);
-		return clone(language);
-	}
-
-	private Language clone(Language language) {
+	
+	protected Language clone(Language language) {
 		Language newLanguage = new Language();
 		newLanguage.setId(language.getId());
 		newLanguage.setCode(language.getCode());

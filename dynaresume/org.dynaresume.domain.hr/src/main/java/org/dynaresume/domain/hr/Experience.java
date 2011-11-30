@@ -27,7 +27,7 @@ public class Experience {
 	@Column
 	@Temporal(TemporalType.DATE)
 	private Date endDate;
-	@Column
+	@Column(length=1000)
 	private String detail;
 	@Column
 	private String mission;

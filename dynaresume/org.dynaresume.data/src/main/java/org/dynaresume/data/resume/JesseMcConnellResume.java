@@ -1,26 +1,26 @@
-package org.dynaresume.dao.mock.resume;
+package org.dynaresume.data.resume;
 
-import org.dynaresume.dao.mock.SkillsData;
+import org.dynaresume.data.SkillsInjector;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultLanguageCode;
-import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
-public class JesseMcConnellResume extends BaseResume {
+public class JesseMcConnellResume extends AbstractResumeFactory {
 
-	public JesseMcConnellResume() {
-		super.setId(getCurrentId());
+	public JesseMcConnellResume(SkillsInjector skillsInjector) {
+		super(skillsInjector);
+		// super.setId(getCurrentId());
 		super.setTitle("US Lead Developer at Intalio");
 		try {
-			setPicture(IOUtils.toByteArray(Resume.class
+			setPicture(IOUtils.toByteArray(JesseMcConnellResume.class
 					.getResourceAsStream("JesseMcConnell.jpg")));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 
 		NaturalPerson person = new NaturalPerson();
-		person.setId(getCurrentId());
+		// person.setId(getCurrentId());
 		person.setFirstName("Jesse");
 		person.setLastName("McConnell");
 		person.setEmail("");
@@ -42,8 +42,7 @@ public class JesseMcConnellResume extends BaseResume {
 		// address.setZipCode("26130");
 
 		// Educations
-		addEducation("",
-				"University of Idaho", "01/09/1993", "30/06/2000");
+		addEducation("", "University of Idaho", "01/09/1993", "30/06/2000");
 
 		// Experiences
 		addExperience("Intalio", "US Lead Developer", "", "01/06/2011", null);
@@ -55,13 +54,16 @@ public class JesseMcConnellResume extends BaseResume {
 				"01/06/2001", "01/02/2006");
 
 		// Skills
-		// addSkill(SkillsData.functionalSkills, "Gestion documentaire");
-		// addSkill(SkillsData.functionalSkills, "Logistique/Transport");
-		// addSkill(SkillsData.functionalSkills, "Nucléaire");
-		// addSkill(SkillsData.functionalSkills, "Agroalimentaire");
-		// addSkill(SkillsData.processSkills, "Java Architect and Consultant");
-		addSkill(SkillsData.langagesTechnicalSkills, "Java");
-		addSkillWithSplit(SkillsData.technologiesTechnicalSkills,
+		// addSkill(getSkillsInjector().functionalSkills,
+		// "Gestion documentaire");
+		// addSkill(getSkillsInjector().functionalSkills,
+		// "Logistique/Transport");
+		// addSkill(getSkillsInjector().functionalSkills, "Nucléaire");
+		// addSkill(getSkillsInjector().functionalSkills, "Agroalimentaire");
+		// addSkill(getSkillsInjector().processSkills,
+		// "Java Architect and Consultant");
+		addSkill(getSkillsInjector().langagesTechnicalSkills, "Java");
+		addSkillWithSplit(getSkillsInjector().technologiesTechnicalSkills,
 				"Java, Maven, Eclipse, Jetty");
 
 		// References

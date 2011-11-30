@@ -1,26 +1,25 @@
-package org.dynaresume.dao.mock.resume;
+package org.dynaresume.data.resume;
 
 import java.io.IOException;
 
-import org.dynaresume.dao.mock.SkillsData;
+import org.dynaresume.data.SkillsInjector;
 import org.dynaresume.domain.core.Address;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultLanguageCode;
-import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
-public class RalfSternbergResume extends BaseResume {
+public class RalfSternbergResume extends AbstractResumeFactory {
 
-	public RalfSternbergResume() {
-		super.setId(getCurrentId());
+	public RalfSternbergResume(SkillsInjector skillsInjector) {
+		super(skillsInjector);
 		super.setTitle("Co-Lead of Rich Ajax Platform ");
 		try {
 			// InputStream in =Resume.class
 			// .getResourceAsStream("AngeloZERR.jpg");
 			// IOUtils.toByteArray(Resume.class
 			// .getResourceAsStream("AngeloZERR.jpg"));
-			setPicture(IOUtils.toByteArray(Resume.class
+			setPicture(IOUtils.toByteArray(RalfSternbergResume.class
 					.getResourceAsStream("RalfSternberg.jpg")));
 			// super.setPictureAsStream(Resume.class
 			// .getResourceAsStream("AngeloZERR.jpg"));
@@ -29,7 +28,7 @@ public class RalfSternbergResume extends BaseResume {
 		}
 
 		NaturalPerson person = new NaturalPerson();
-		person.setId(getCurrentId());
+		// person.setId(getCurrentId());
 		person.setFirstName("Ralf");
 		person.setLastName("Sternberg");
 		person.setEmail("rsternberg@eclipsesource.com");
@@ -63,7 +62,7 @@ public class RalfSternbergResume extends BaseResume {
 				"01/12/2006", null);
 		// Skills
 		addSkillWithSplit(
-				SkillsData.technologiesTechnicalSkills,
+				getSkillsInjector().technologiesTechnicalSkills,
 				"Java, JavaScript, Web technologies, Eclipse, SWT, Eclipse RCP, Eclipse RAP, jQuery");
 
 		// Languages

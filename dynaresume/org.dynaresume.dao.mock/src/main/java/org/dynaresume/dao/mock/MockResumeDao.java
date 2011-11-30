@@ -2,28 +2,10 @@ package org.dynaresume.dao.mock;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.dynaresume.dao.ResumeDao;
-import org.dynaresume.dao.mock.resume.AmineBoustaResume;
-import org.dynaresume.dao.mock.resume.AngeloZerrResume;
-import org.dynaresume.dao.mock.resume.ArnaudCogoluegnesResume;
-import org.dynaresume.dao.mock.resume.DinoCosmasResume;
-import org.dynaresume.dao.mock.resume.GeorgeGastaldiResume;
-import org.dynaresume.dao.mock.resume.JawherMoussaResume;
-import org.dynaresume.dao.mock.resume.JesseMcConnellResume;
-import org.dynaresume.dao.mock.resume.KaiTodterResume;
-import org.dynaresume.dao.mock.resume.LarsVogelResume;
-import org.dynaresume.dao.mock.resume.MickaelBaronResume;
-import org.dynaresume.dao.mock.resume.MickaelIstriaResume;
-import org.dynaresume.dao.mock.resume.NicolasRaymondResume;
-import org.dynaresume.dao.mock.resume.PascalLeclercqResume;
-import org.dynaresume.dao.mock.resume.RalfSternbergResume;
-import org.dynaresume.dao.mock.resume.TomSchindlResume;
-import org.dynaresume.dao.mock.resume.YannickVimalResume;
 import org.dynaresume.domain.core.Address;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.Education;
@@ -41,53 +23,7 @@ import org.springframework.stereotype.Repository;
 @Repository("resumeDao")
 public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao {
 
-	private static final Map<Long, Resume> resumes;
-	static long currentId = 0;
-	static {
-		resumes = new LinkedHashMap<Long, Resume>();
-		addResume(new AngeloZerrResume());
-		addResume(new PascalLeclercqResume());
-		addResume(new AmineBoustaResume());
-		addResume(new JawherMoussaResume());
-		addResume(new RalfSternbergResume());
-		addResume(new TomSchindlResume());
-		addResume(new LarsVogelResume());
-		addResume(new KaiTodterResume());
-		addResume(new GeorgeGastaldiResume());
-		addResume(new JesseMcConnellResume());		
-		addResume(new ArnaudCogoluegnesResume());
-		addResume(new MickaelIstriaResume());
-		addResume(new MickaelBaronResume());
-		addResume(new DinoCosmasResume());
-		addResume(new NicolasRaymondResume());
-		addResume(new YannickVimalResume());
-	}
-
-	private static void addResume(Resume resume) {
-		resumes.put(resume.getId(), resume);
-	}
-
-	public Iterable<Resume> findAll() {
-		return resumes.values();
-	}
-
-	public Resume findOne(Long id) {
-		Resume Resume = resumes.get(id);
-		if (Resume != null) {
-			return clone(Resume);
-		}
-		return resumes.get(id);
-	}
-
-	public Resume save(Resume resume) {
-		if (resume.getId() == null) {
-			resume.setId(currentId++);
-		}
-		resumes.put(resume.getId(), resume);
-		return clone(resume);
-	}
-
-	private Resume clone(Resume resume) {
+	protected Resume clone(Resume resume) {
 		NaturalPerson person = resume.getOwner();
 		NaturalPerson newPerson = clone(person);
 
@@ -162,7 +98,11 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 
 	private NaturalPerson clone(NaturalPerson person) {
 		NaturalPerson newPerson = new NaturalPerson();
-		newPerson.setId(person.getId());
+		Long id = person.getId();
+		if (id == null) {
+			id = getId();
+		}
+		newPerson.setId(id);
 		newPerson.setLastName(person.getLastName());
 		newPerson.setFirstName(person.getFirstName());
 		newPerson.setBirthDate(person.getBirthDate());
@@ -175,7 +115,7 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		Experience newExperience = new Experience();
 		Long id = experience.getId();
 		if (id == null) {
-			id = currentId++;
+			id = getId();
 		}
 		newExperience.setId(id);
 		newExperience.setTitle(experience.getTitle());
@@ -190,7 +130,7 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		Education newDiploma = new Education();
 		Long id = diploma.getId();
 		if (id == null) {
-			id = currentId++;
+			id = getId();
 		}
 		newDiploma.setId(id);
 		newDiploma.setLabel(diploma.getLabel());
@@ -202,7 +142,7 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		Hobby newHobby = new Hobby();
 		Long id = hobby.getId();
 		if (id == null) {
-			id = currentId++;
+			id = getId();
 		}
 		newHobby.setId(id);
 		newHobby.setLabel(hobby.getLabel());
@@ -213,7 +153,7 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		Reference newReference = new Reference();
 		Long id = reference.getId();
 		if (id == null) {
-			id = currentId++;
+			id = getId();
 		}
 		newReference.setId(id);
 		newReference.setLabel(reference.getLabel());
@@ -224,6 +164,11 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 
 	private SkillResume clone(SkillResume skill) {
 		SkillResume newSkill = new SkillResume();
+		Long id = skill.getId();
+		if (id == null) {
+			id = getId();
+		}
+		newSkill.setId(id);
 		newSkill.setCategory(skill.getCategory());
 		newSkill.setSkill(skill.getSkill());
 		newSkill.setFreeSkill(skill.getFreeSkill());
@@ -232,7 +177,11 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 
 	private SkillLanguage clone(SkillLanguage language) {
 		SkillLanguage newLanguage = new SkillLanguage();
-		newLanguage.setId(language.getId());
+		Long id = language.getId();
+		if (id == null) {
+			id = getId();
+		}
+		newLanguage.setId(id);
 		newLanguage.setLanguage(language.getLanguage());
 		return newLanguage;
 	}
@@ -244,7 +193,7 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		Address newAddress = new Address();
 		Long id = address.getId();
 		if (id == null) {
-			id = currentId++;
+			id = getId();
 		}
 		newAddress.setId(id);
 		newAddress.setCity(address.getCity());

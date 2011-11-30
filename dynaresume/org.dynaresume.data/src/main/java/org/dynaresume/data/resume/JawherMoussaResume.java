@@ -1,32 +1,26 @@
-package org.dynaresume.dao.mock.resume;
+package org.dynaresume.data.resume;
 
-import org.dynaresume.dao.mock.SkillsData;
+import org.dynaresume.data.SkillsInjector;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultLanguageCode;
-import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
-public class JawherMoussaResume extends BaseResume {
+public class JawherMoussaResume extends AbstractResumeFactory {
 
-	public JawherMoussaResume() {
-		super.setId(getCurrentId());
+	public JawherMoussaResume(SkillsInjector skillsInjector) {
+		super(skillsInjector);
+		// super.setId(getCurrentId());
 		super.setTitle("Consultant chez Zenika");
 		try {
-			// InputStream in =Resume.class
-			// .getResourceAsStream("AngeloZERR.jpg");
-			// IOUtils.toByteArray(Resume.class
-			// .getResourceAsStream("AngeloZERR.jpg"));
-			setPicture(IOUtils.toByteArray(Resume.class
+			setPicture(IOUtils.toByteArray(JawherMoussaResume.class
 					.getResourceAsStream("JawherMoussa.jpg")));
-			// super.setPictureAsStream(Resume.class
-			// .getResourceAsStream("AngeloZERR.jpg"));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 
 		NaturalPerson person = new NaturalPerson();
-		person.setId(getCurrentId());
+		// person.setId(getCurrentId());
 		person.setFirstName("Jawher");
 		person.setLastName("Moussa");
 		person.setEmail("");
@@ -74,13 +68,13 @@ public class JawherMoussaResume extends BaseResume {
 				"01/10/2007", "01/03/2010");
 
 		// Skills
-		// addSkill(SkillsData.functionalSkills, "Gestion documentaire");
-		// addSkill(SkillsData.functionalSkills, "Logistique/Transport");
-		// addSkill(SkillsData.functionalSkills, "Nucléaire");
-		// addSkill(SkillsData.functionalSkills, "Agroalimentaire");
-		addSkill(SkillsData.processSkills, "Java Architect and Consultant");
-		addSkill(SkillsData.langagesTechnicalSkills, "Java");
-		addSkillWithSplit(SkillsData.technologiesTechnicalSkills,
+		// addSkill(getSkillsInjector().functionalSkills, "Gestion documentaire");
+		// addSkill(getSkillsInjector().functionalSkills, "Logistique/Transport");
+		// addSkill(getSkillsInjector().functionalSkills, "Nucléaire");
+		// addSkill(getSkillsInjector().functionalSkills, "Agroalimentaire");
+		addSkill(getSkillsInjector().processSkills, "Java Architect and Consultant");
+		addSkill(getSkillsInjector().langagesTechnicalSkills, "Java");
+		addSkillWithSplit(getSkillsInjector().technologiesTechnicalSkills,
 				"Java, OSGi, Eclipse RCP, Spring, Spring Dynamic Modules, Wicket");
 
 		// References

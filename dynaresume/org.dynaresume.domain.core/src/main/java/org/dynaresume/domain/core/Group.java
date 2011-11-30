@@ -47,7 +47,7 @@ public class Group implements Serializable {
 		this.name = name;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 
 		this.id = id;
 

@@ -1,38 +1,32 @@
-package org.dynaresume.dao.mock.resume;
+package org.dynaresume.data.resume;
 
 import java.io.IOException;
 import java.text.ParseException;
 
-import org.dynaresume.dao.mock.SkillsData;
+import org.dynaresume.data.SkillsInjector;
 import org.dynaresume.domain.core.Address;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultLanguageCode;
-import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.DateUtils;
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
-public class AngeloZerrResume extends BaseResume {
+public class AngeloZerrResume extends AbstractResumeFactory {
 
-	public AngeloZerrResume() {
-		super.setId(getCurrentId());
+	public AngeloZerrResume(SkillsInjector skillsInjector) {
+		super(skillsInjector);
 		super.setTitle("Ingénieur Etude JEE/Eclipse RCP");
 		try {
-			// InputStream in =Resume.class
-			// .getResourceAsStream("AngeloZERR.jpg");
-			// IOUtils.toByteArray(Resume.class
-			// .getResourceAsStream("AngeloZERR.jpg"));
-			setPicture(IOUtils.toByteArray(Resume.class
+			;
+			setPicture(IOUtils.toByteArray(AngeloZerrResume.class
 					.getResourceAsStream("AngeloZERR.jpg")));
-			// super.setPictureAsStream(Resume.class
-			// .getResourceAsStream("AngeloZERR.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		// Angelo
 		NaturalPerson person = new NaturalPerson();
-		person.setId(getCurrentId());
+		// person.setId(getCurrentId());
 		person.setFirstName("Angelo");
 		person.setLastName("ZERR");
 		person.setEmail("angelo.zerr@gmail.com");
@@ -46,7 +40,7 @@ public class AngeloZerrResume extends BaseResume {
 
 		// Address
 		Address address = new Address();
-		address.setId(getCurrentId());
+		// address.setId(getCurrentId());
 		person.setAddress(address);
 
 		address.setStreet("5 avenue Frederic Mistral");
@@ -72,26 +66,26 @@ public class AngeloZerrResume extends BaseResume {
 				"30/08/2007", "31/03/2009");
 
 		// Skills
-		addSkill(SkillsData.functionalSkills, "Gestion documentaire");
-		addSkill(SkillsData.functionalSkills, "Logistique/Transport");
-		addSkill(SkillsData.functionalSkills, "Nucléaire");
-		addSkill(SkillsData.functionalSkills, "Agroalimentaire");
+		addSkill(getSkillsInjector().functionalSkills, "Gestion documentaire");
+		addSkill(getSkillsInjector().functionalSkills, "Logistique/Transport");
+		addSkill(getSkillsInjector().functionalSkills, "Nucléaire");
+		addSkill(getSkillsInjector().functionalSkills, "Agroalimentaire");
 		addSkill(
-				SkillsData.processSkills,
+				getSkillsInjector().processSkills,
 				"Analyse, conception et développement Nouvelles Technologies de logiciels et applications WEB.s");
-		addSkill(SkillsData.processSkills,
+		addSkill(getSkillsInjector().processSkills,
 				"Rédaction de documents, manuel d’utilisation, proposition commerciales");
-		addSkill(SkillsData.langagesTechnicalSkills, "Java");
-		addSkill(SkillsData.osTechnicalSkills, "Windows");
-		addSkillWithSplit(SkillsData.databaseTechnicalSkills,
+		addSkill(getSkillsInjector().langagesTechnicalSkills, "Java");
+		addSkill(getSkillsInjector().osTechnicalSkills, "Windows");
+		addSkillWithSplit(getSkillsInjector().databaseTechnicalSkills,
 				"Oracle 8i, Oracle 9i, Oracle 10g, SQL Server, MySQL");
 		addSkillWithSplit(
-				SkillsData.technologiesTechnicalSkills,
+				getSkillsInjector().technologiesTechnicalSkills,
 				"OSGi , Spring DM, Eclipse RCP, SWT/JFace, EMF, GEF, JEE, JSP, Struts 1.x, Ant, POI, Hibernate, Spring, EJB2, Freemarker, Velocity, Web Service (AXIS), HTML, CSS, JavaScript, XML, XSL, XSD, Ajax, XQuery");
 		addSkillWithSplit(
-				SkillsData.softwaresTechnicalSkills,
+				getSkillsInjector().softwaresTechnicalSkills,
 				"Jetty, Apache/Tomcat 5.0, BEA/WebLogic 6.1-8.1, Orion, Eclipse, JBuilder 7 et 9, JBuilder X, Visual Studio");
-		addSkillWithSplit(SkillsData.methodsAndToolsSkills,
+		addSkillWithSplit(getSkillsInjector().methodsAndToolsSkills,
 				"Merise, UML (Power Designer)");
 
 		// References
@@ -103,7 +97,7 @@ public class AngeloZerrResume extends BaseResume {
 				"01/01/2011", null);
 		addReference("Blog technique http://angelozerr.wordpress.com/about",
 				"01/01/2009", null);
-		
+
 		// Languages
 		addLanguage(DefaultLanguageCode.English);
 
@@ -112,4 +106,5 @@ public class AngeloZerrResume extends BaseResume {
 		addHobby("Musique : pratique la batterie dans un groupe.");
 		addHobby("Projets Open source.");
 	}
+
 }

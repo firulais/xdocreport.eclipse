@@ -23,8 +23,8 @@ public class Person implements Serializable {
      * 
      */
 	private static final long serialVersionUID = 298482050929739147L;
-	@Column(length = 100, nullable = false)
-	@Size(max = 100)
+	@Column(length = 100)
+	//@Size(max = 100)
 	@Pattern(regexp = ".+@.+\\.[a-z]+")
 	private String email;
 
@@ -51,7 +51,7 @@ public class Person implements Serializable {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

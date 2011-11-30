@@ -38,7 +38,7 @@ public class NaturalPerson extends Person {
 	 @GeneratedValue
 	private Long id;
 
-	public void setId(Long id) {
+	public void setId(long id) {
 
 		this.id = id;
 

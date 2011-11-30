@@ -1,25 +1,25 @@
-package org.dynaresume.dao.mock;
+package org.dynaresume.data;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 
 import org.dynaresume.domain.core.Agency;
 import org.dynaresume.domain.core.Group;
+import org.dynaresume.services.GroupService;
 
-public class GroupsAndAgenciesData {
+public class GroupsInjector {
 
-	static long currentId = 0;
-	static final Map<Long, Group> groups;
-	static final Map<Long, Agency> agencies;
+	private GroupService groupService;
 
-	static {
-		groups = new HashMap<Long, Group>();
-		agencies = new HashMap<Long, Agency>();
+	public void setGroupService(GroupService groupService) {
+		this.groupService = groupService;
+	}
+	
+	public void inject() {
 
 		// Opensagres
 		Group opensagresGroup = createGroup("Opensagres");
 		createAgency("Opensagres", opensagresGroup);
+		groupService.save(opensagresGroup);
 
 		// Sodifrance
 		Group sodifranceGroup = createGroup("Sodifrance");
@@ -36,30 +36,28 @@ public class GroupsAndAgenciesData {
 		createAgency("Tours", sodifranceGroup);
 		createAgency("Bruxelles (Belgique)", sodifranceGroup);
 		createAgency("Tunis (Tunisie)", sodifranceGroup);
+		groupService.save(sodifranceGroup);
 	}
 
-	private static Group createGroup(String name) {
+	private Group createGroup(String name) {
 		Group group = new Group();
 		group.setName(name);
-		group.setId(getId());
+		// group.setId(getId());
 		group.setSubsidiaries(new HashSet<Agency>());
-		GroupsAndAgenciesData.groups.put(group.getId(), group);
+		// GroupsInjector.groups.put(group.getId(), group);
 		return group;
 	}
 
-	private static Agency createAgency(String name, Group group) {
+	private Agency createAgency(String name, Group group) {
 		Agency agency = new Agency();
-		agency.setId(agency.getId());
+		// agency.setId(agency.getId());
 		agency.setName(name);
 		if (group != null) {
 			agency.setGroup(group);
 			group.getSubsidiaries().add(agency);
 		}
-		GroupsAndAgenciesData.agencies.put(agency.getId(), agency);
+		// GroupsInjector.agencies.put(agency.getId(), agency);
 		return agency;
 	}
 
-	public synchronized static Long getId() {
-		return currentId++;
-	}
 }

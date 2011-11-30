@@ -1,26 +1,26 @@
-package org.dynaresume.dao.mock.resume;
+package org.dynaresume.data.resume;
 
 import java.io.IOException;
 
+import org.dynaresume.data.SkillsInjector;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultLanguageCode;
-import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
-public class AmineBoustaResume extends BaseResume {
+public class AmineBoustaResume extends AbstractResumeFactory {
 
-	public AmineBoustaResume() {
-		// Pascal
+	public AmineBoustaResume(SkillsInjector skillsInjector) {
+		super(skillsInjector);
 		NaturalPerson person = new NaturalPerson();
-		person.setId(getCurrentId());
+		// person.setId(getCurrentId());
 		person.setFirstName("Amine");
 		person.setLastName("Bousta");
 
-		super.setId(getCurrentId());
+		// super.setId(getCurrentId());
 		super.setOwner(person);
 		try {
-			setPicture(IOUtils.toByteArray(Resume.class
+			setPicture(IOUtils.toByteArray(AmineBoustaResume.class
 					.getResourceAsStream("AmineBousta.jpg")));
 			// super.setPictureAsStream(Resume.class
 			// .getResourceAsStream("AmineBousta.jpg"));

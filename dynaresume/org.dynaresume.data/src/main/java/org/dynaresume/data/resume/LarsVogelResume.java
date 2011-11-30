@@ -1,42 +1,43 @@
-package org.dynaresume.dao.mock.resume;
+package org.dynaresume.data.resume;
 
 import java.io.IOException;
 
-import org.dynaresume.dao.mock.SkillsData;
+import org.dynaresume.data.SkillsInjector;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultLanguageCode;
-import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
-public class LarsVogelResume extends BaseResume {
+public class LarsVogelResume extends AbstractResumeFactory {
 
-	public LarsVogelResume() {
-		super.setId(getCurrentId());
+	public LarsVogelResume(SkillsInjector skillsInjector) {
+		super(skillsInjector);
+		// super.setId(getCurrentId());
 		super.setTitle("Eclipse and Android Evangelist");
 
 		NaturalPerson person = new NaturalPerson();
-		person.setId(getCurrentId());
+		// person.setId(getCurrentId());
 		person.setFirstName("Lars");
 		person.setLastName("Vogel");
 		person.setEmail("lars.vogel@gmail.com");
 
-		super.setId(getCurrentId());
+		// super.setId(getCurrentId());
 		super.setOwner(person);
 
 		try {
-			setPicture(IOUtils.toByteArray(Resume.class
+			setPicture(IOUtils.toByteArray(LarsVogelResume.class
 					.getResourceAsStream("LarsVogel.jpg")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		// Skills
-		addSkillWithSplit(SkillsData.functionalSkills, "Product Management");
-		addSkillWithSplit(SkillsData.processSkills,
+		addSkillWithSplit(getSkillsInjector().functionalSkills,
+				"Product Management");
+		addSkillWithSplit(getSkillsInjector().processSkills,
 				"IT solutions in Consumer products, Mill, Chemical and Oil and Gas Industry");
 		addSkillWithSplit(
-				SkillsData.technologiesTechnicalSkills,
+				getSkillsInjector().technologiesTechnicalSkills,
 				"Eclipse RCP, Eclipse Plugin Development,OSGi,Android Training and Consulting,Ecipse RCP Training and Consulting ");
 
 		// Diplomas

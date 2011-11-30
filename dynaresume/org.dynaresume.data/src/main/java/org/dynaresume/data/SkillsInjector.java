@@ -1,4 +1,4 @@
-package org.dynaresume.dao.mock;
+package org.dynaresume.data;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,29 +6,36 @@ import java.util.Map;
 import org.dynaresume.domain.hr.DefaultSkillCategoryCode;
 import org.dynaresume.domain.hr.Skill;
 import org.dynaresume.domain.hr.SkillCategory;
+import org.dynaresume.services.SkillCategoryService;
+import org.dynaresume.services.SkillService;
 
-public class SkillsData {
+public class SkillsInjector {
 
-	static long currentId = 0;
+	private Map<String, Skill> skillsByLabel = new HashMap<String, Skill>();
 
-	public static final SkillCategory functionalSkills;
-	public static final SkillCategory processSkills;
-	public static final SkillCategory technicalSkills;
-	public static final SkillCategory osTechnicalSkills;
-	public static final SkillCategory databaseTechnicalSkills;
-	public static final SkillCategory langagesTechnicalSkills;
-	public static final SkillCategory technologiesTechnicalSkills;
-	public static final SkillCategory softwaresTechnicalSkills;
-	public static final SkillCategory methodsAndToolsSkills;
+	private SkillCategoryService skillCategoryService;
+	private SkillService skillService;
 
-	static final Map<Long, SkillCategory> categories;
-	static final Map<Long, Skill> skills;
-	private static Map<String, Skill> skillsByLabel;
+	public SkillCategory functionalSkills;
+	public SkillCategory processSkills;
+	public SkillCategory technicalSkills;
+	public SkillCategory osTechnicalSkills;
+	public SkillCategory databaseTechnicalSkills;
+	public SkillCategory langagesTechnicalSkills;
+	public SkillCategory technologiesTechnicalSkills;
+	public SkillCategory softwaresTechnicalSkills;
+	public SkillCategory methodsAndToolsSkills;
 
-	static {
-		skills = new HashMap<Long, Skill>();
-		skillsByLabel = new HashMap<String, Skill>();
-		categories = new HashMap<Long, SkillCategory>();
+	public void setSkillCategoryService(
+			SkillCategoryService skillCategoryService) {
+		this.skillCategoryService = skillCategoryService;
+	}
+
+	public void setSkillService(SkillService skillService) {
+		this.skillService = skillService;
+	}
+
+	public void inject() {
 
 		functionalSkills = addCategory(
 				DefaultSkillCategoryCode.FunctionalSkills.getCode(),
@@ -65,9 +72,11 @@ public class SkillsData {
 		addSkill(
 				"OSGi",
 				javaSkill,
-				"The OSGi technology is a set of specifications that define a dynamic component system for Java. These specifications enable a development model where applications are (dynamically) composed of many different (reusable) components. The OSGi specifications enable components to hide their implementations from other components while communicating through services, which are objects that are specifically shared between components. This surprisingly simple model has far reaching effects for almost any aspect of the software development process."
-						+ "\n\nThough components have been on the horizon for a long time, so far they failed to make good on their promises. OSGi is the first technology that actually succeeded with a component system that is solving many real problems in software development. Adopters of OSGi technology see significantly reduced complexity in almost all aspects of development. Code is easier to write and test, reuse is increased, build systems become significantly simpler, deployment is more manageable, bugs are detected early, and the runtime provides an enormous insight into what is running. Most important, it works as is testified by the wide adoption and use in popular applications like Eclipse and Spring."
-						+ "\n\nWe developed the OSGi technology to create a collaborative software environment. We were not looking for the possibility to run multiple applications in a single VM. Application servers do that already (though they were not yet around when we started in 1998). No, our problem was harder. We wanted an application to emerge from putting together different reusable components that had no a-priori knowledge of each other. Even harder, we wanted that application to emerge from dynamically assembling a set of components. For example, you have a home server that is capable of managing your lights and appliances. A component could allow you to turn on and off the light over a web page. Another component could allow you to control the appliances via a mobile text message. The goal was to allow these other functions to be added without requiring that the developers had intricate knowledge of each other and let these components be added independently. ",
+				"The OSGi technology is a set of specifications that define a dynamic component system for Java. These specifications enable a development model where applications are (dynamically) composed of many different (reusable) components. The OSGi specifications enable components to hide their implementations from other components while communicating through services, which are objects that are specifically shared between components. This surprisingly simple model has far reaching effects for almost any aspect of the software development process.",
+				// +
+				// "\n\nThough components have been on the horizon for a long time, so far they failed to make good on their promises. OSGi is the first technology that actually succeeded with a component system that is solving many real problems in software development. Adopters of OSGi technology see significantly reduced complexity in almost all aspects of development. Code is easier to write and test, reuse is increased, build systems become significantly simpler, deployment is more manageable, bugs are detected early, and the runtime provides an enormous insight into what is running. Most important, it works as is testified by the wide adoption and use in popular applications like Eclipse and Spring."
+				// +
+				// "\n\nWe developed the OSGi technology to create a collaborative software environment. We were not looking for the possibility to run multiple applications in a single VM. Application servers do that already (though they were not yet around when we started in 1998). No, our problem was harder. We wanted an application to emerge from putting together different reusable components that had no a-priori knowledge of each other. Even harder, we wanted that application to emerge from dynamically assembling a set of components. For example, you have a home server that is capable of managing your lights and appliances. A component could allow you to turn on and off the light over a web page. Another component could allow you to control the appliances via a mobile text message. The goal was to allow these other functions to be added without requiring that the developers had intricate knowledge of each other and let these components be added independently. ",
 				"http://www.osgi.org/Main/HomePage");
 
 		Skill eclipseSkill = addSkill("Eclipse", javaSkill);
@@ -187,15 +196,18 @@ public class SkillsData {
 
 	}
 
-	private static Skill addSkill(String label, Skill parent) {
+	private Skill addSkill(String label, Skill parent) {
 		return addSkill(label, parent, null, null);
 	}
 
-	private static Skill addSkill(String label, Skill parent,
-			String description, String url) {
+	private Skill addSkill(String label, Skill parent, String description,
+			String url) {
 		Skill skill = new Skill();
-		skill.setId(getId());
+		// skill.setId(getId());
 		skill.setName(label);
+		if (description != null && description.length() > 255) {
+			description = description.substring(0, 255);
+		}
 		skill.setDescription(description);
 		skill.setURL(url);
 		skill.setParent(parent);
@@ -203,11 +215,11 @@ public class SkillsData {
 		return skill;
 	}
 
-	private static SkillCategory addCategory(String code, String label,
+	private SkillCategory addCategory(String code, String label,
 			SkillCategory parent) {
 		SkillCategory skill = new SkillCategory();
 		// skill.setChildren(new ArrayList<SkillCategory>());
-		skill.setId(getId());
+		// skill.setId(getId());
 		skill.setLabel(label);
 		skill.setCode(code);
 		if (parent != null) {
@@ -218,20 +230,17 @@ public class SkillsData {
 		return skill;
 	}
 
-	private static void addSkill(Skill skill) {
-		skills.put(skill.getId(), skill);
-		skillsByLabel.put(skill.getName(), skill);
+	private void addSkill(Skill skill) {
+		Skill newSkill = skillService.save(skill);
+		skillsByLabel.put(newSkill.getName(), newSkill);
 	}
 
-	private static void addCategory(SkillCategory category) {
-		categories.put(category.getId(), category);
+	private void addCategory(SkillCategory category) {
+		skillCategoryService.save(category);
 	}
 
-	public synchronized static Long getId() {
-		return currentId++;
+	public Skill getSkillByLabel(String name) {
+		return skillsByLabel.get(name);
 	}
 
-	public static Skill getSkillByLabel(String label) {
-		return skillsByLabel.get(label);
-	}
 }

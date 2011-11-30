@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
 
 @Entity
 public class Skill {
@@ -21,7 +20,7 @@ public class Skill {
 	@Column
 	private String name;
 
-	@Column
+	@Column(length = 255)
 	private String description;
 
 	@Column
@@ -48,7 +47,7 @@ public class Skill {
 		return url;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

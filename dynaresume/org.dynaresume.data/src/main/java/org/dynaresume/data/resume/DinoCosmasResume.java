@@ -1,25 +1,25 @@
-package org.dynaresume.dao.mock.resume;
+package org.dynaresume.data.resume;
 
 import java.io.IOException;
 import java.text.ParseException;
 
-import org.dynaresume.dao.mock.SkillsData;
+import org.dynaresume.data.SkillsInjector;
 import org.dynaresume.domain.core.Address;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultLanguageCode;
-import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.DateUtils;
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
-public class DinoCosmasResume extends BaseResume {
+public class DinoCosmasResume extends AbstractResumeFactory {
 
-	public DinoCosmasResume() {
-		super.setId(getCurrentId());
+	public DinoCosmasResume(SkillsInjector skillsInjector) {
+		super(skillsInjector);
+		// super.setId(getCurrentId());
 		super.setTitle("Ingénieur Etude JEE");
 
 		NaturalPerson person = new NaturalPerson();
-		person.setId(getCurrentId());
+		// person.setId(getCurrentId());
 		person.setFirstName("Dino");
 		person.setLastName("COSMAS");
 		person.setEmail("dino.cosmas@gmail.com");
@@ -30,18 +30,18 @@ public class DinoCosmasResume extends BaseResume {
 			e1.printStackTrace();
 		}
 
-		super.setId(getCurrentId());
+		// super.setId(getCurrentId());
 		super.setOwner(person);
 
 		try {
-			setPicture(IOUtils.toByteArray(Resume.class
+			setPicture(IOUtils.toByteArray(DinoCosmasResume.class
 					.getResourceAsStream("DinoCOSMAS.jpg")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		// Address
 		Address address = new Address();
-		address.setId(getCurrentId());
+		// address.setId(getCurrentId());
 		person.setAddress(address);
 
 		address.setStreet("2 rue Greuze");
@@ -77,29 +77,30 @@ public class DinoCosmasResume extends BaseResume {
 		addLanguage(DefaultLanguageCode.English);
 
 		// Skills
-		addSkill(SkillsData.functionalSkills, "Gestion documentaire");
-		addSkill(SkillsData.functionalSkills, "Logistique/Transport");
-		addSkill(SkillsData.functionalSkills, "Energie");
-		addSkill(SkillsData.functionalSkills, "E-commerce");
-		addSkill(SkillsData.functionalSkills, "R&D");
-		addSkill(SkillsData.functionalSkills, "Web Sémantique");
+		addSkill(getSkillsInjector().functionalSkills, "Gestion documentaire");
+		addSkill(getSkillsInjector().functionalSkills, "Logistique/Transport");
+		addSkill(getSkillsInjector().functionalSkills, "Energie");
+		addSkill(getSkillsInjector().functionalSkills, "E-commerce");
+		addSkill(getSkillsInjector().functionalSkills, "R&D");
+		addSkill(getSkillsInjector().functionalSkills, "Web Sémantique");
 		addSkill(
-				SkillsData.processSkills,
+				getSkillsInjector().processSkills,
 				"Analyse, conception et développement Nouvelles Technologies de logiciels et applications WEB.");
-		addSkill(SkillsData.processSkills,
+		addSkill(getSkillsInjector().processSkills,
 				"Rédaction de documents, manuel d’utilisation, proposition commerciales");
-		addSkill(SkillsData.langagesTechnicalSkills, "Java");
-		addSkill(SkillsData.osTechnicalSkills, "Windows");
-		addSkill(SkillsData.osTechnicalSkills, "Linux");
-		addSkill(SkillsData.osTechnicalSkills, "Mac OS");
-		addSkillWithSplit(SkillsData.databaseTechnicalSkills,
+		addSkill(getSkillsInjector().langagesTechnicalSkills, "Java");
+		addSkill(getSkillsInjector().osTechnicalSkills, "Windows");
+		addSkill(getSkillsInjector().osTechnicalSkills, "Linux");
+		addSkill(getSkillsInjector().osTechnicalSkills, "Mac OS");
+		addSkillWithSplit(getSkillsInjector().databaseTechnicalSkills,
 				"Oracle 8i,Oracle 9i, Oracle 10g, SQL Server, MySQL, Postgres, KTBS");
 		addSkillWithSplit(
-				SkillsData.technologiesTechnicalSkills,
+				getSkillsInjector().technologiesTechnicalSkills,
 				"OSGi , Eclipse RCP, J2EE, JSP, Struts, Ant, POI, Hibernate, Spring, EJB2-3, Freemarker, Velocity, HTML, CSS, JavaScript, jQuery, XML, XSL, XSD, RDF, Ajax, XQuery");
-		addSkillWithSplit(SkillsData.softwaresTechnicalSkills,
+		addSkillWithSplit(getSkillsInjector().softwaresTechnicalSkills,
 				"Jetty, Apache/Tomcat 5.0, BEA/WebLogic 6.1-8.1, Eclipse");
-		addSkillWithSplit(SkillsData.methodsAndToolsSkills, "Merise, UML, MDA");
+		addSkillWithSplit(getSkillsInjector().methodsAndToolsSkills,
+				"Merise, UML, MDA");
 
 		// Hobbies
 		addHobby("Sport: football, handball, natation, plongée.");

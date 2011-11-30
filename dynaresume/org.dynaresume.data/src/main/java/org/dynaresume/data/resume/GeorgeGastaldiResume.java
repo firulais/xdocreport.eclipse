@@ -1,32 +1,26 @@
-package org.dynaresume.dao.mock.resume;
+package org.dynaresume.data.resume;
 
-import org.dynaresume.dao.mock.SkillsData;
+import org.dynaresume.data.SkillsInjector;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultLanguageCode;
-import org.dynaresume.domain.hr.Resume;
 
 import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
-public class GeorgeGastaldiResume extends BaseResume {
+public class GeorgeGastaldiResume extends AbstractResumeFactory {
 
-	public GeorgeGastaldiResume() {
-		super.setId(getCurrentId());
+	public GeorgeGastaldiResume(SkillsInjector skillsInjector) {
+		super(skillsInjector);
+		// super.setId(getCurrentId());
 		super.setTitle("JBoss Seam 3 Module Lead (Seam Reports)");
 		try {
-			// InputStream in =Resume.class
-			// .getResourceAsStream("AngeloZERR.jpg");
-			// IOUtils.toByteArray(Resume.class
-			// .getResourceAsStream("AngeloZERR.jpg"));
-			setPicture(IOUtils.toByteArray(Resume.class
+			setPicture(IOUtils.toByteArray(GeorgeGastaldiResume.class
 					.getResourceAsStream("GeorgeGastaldi.jpg")));
-			// super.setPictureAsStream(Resume.class
-			// .getResourceAsStream("AngeloZERR.jpg"));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 
 		NaturalPerson person = new NaturalPerson();
-		person.setId(getCurrentId());
+		// person.setId(getCurrentId());
 		person.setFirstName("George");
 		person.setLastName("Gastaldi");
 		person.setEmail("");
@@ -65,13 +59,17 @@ public class GeorgeGastaldiResume extends BaseResume {
 				"01/01/2006");
 
 		// Skills
-		// addSkill(SkillsData.functionalSkills, "Gestion documentaire");
-		// addSkill(SkillsData.functionalSkills, "Logistique/Transport");
-		// addSkill(SkillsData.functionalSkills, "Nucléaire");
-		// addSkill(SkillsData.functionalSkills, "Agroalimentaire");
-		addSkill(SkillsData.processSkills, "Java Architect and Consultant");
-		addSkill(SkillsData.langagesTechnicalSkills, "Java");
-		addSkillWithSplit(SkillsData.technologiesTechnicalSkills, "JBoss, SOA");
+		// addSkill(getSkillsInjector().functionalSkills,
+		// "Gestion documentaire");
+		// addSkill(getSkillsInjector().functionalSkills,
+		// "Logistique/Transport");
+		// addSkill(getSkillsInjector().functionalSkills, "Nucléaire");
+		// addSkill(getSkillsInjector().functionalSkills, "Agroalimentaire");
+		addSkill(getSkillsInjector().processSkills,
+				"Java Architect and Consultant");
+		addSkill(getSkillsInjector().langagesTechnicalSkills, "Java");
+		addSkillWithSplit(getSkillsInjector().technologiesTechnicalSkills,
+				"JBoss, SOA");
 
 		// References
 		addReference("JBoss Seam 3 Module Lead (Seam Reports)", "01/06/2011",
@@ -79,9 +77,10 @@ public class GeorgeGastaldiResume extends BaseResume {
 		addReference("Committer on ServiceMix http://www.servicemix.org ",
 				"01/08/2005", null);
 		addReference("SCEA : Sun Certified Enterprise Architect", null, null);
-		addReference("SCBCD: Sun Certified Business Component Developer 5", null,
+		addReference("SCBCD: Sun Certified Business Component Developer 5",
+				null, null);
+		addReference("SCWCD: Sun Certified Web Component Developer 5", null,
 				null);
-		addReference("SCWCD: Sun Certified Web Component Developer 5", null, null);
 		addReference("SCJP: Sun Certified Java Programmer", null, null);
 
 		// Languages
