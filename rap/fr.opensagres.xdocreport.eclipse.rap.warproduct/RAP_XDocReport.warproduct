@@ -93,6 +93,7 @@
       <plugin id="org.eclipse.gemini.blueprint.extender"/>
       <plugin id="org.eclipse.gemini.blueprint.io"/>
       <plugin id="org.eclipse.help"/>
+      <plugin id="org.eclipse.nebula.widgets.pshelf"/>
       <plugin id="org.eclipse.osgi"/>
       <plugin id="org.eclipse.osgi.services"/>
       <plugin id="org.eclipse.rap.design.example"/>
@@ -139,7 +140,7 @@
       <plugin id="com.springsource.org.dom4j" autoStart="true" startLevel="0" />
       <plugin id="com.springsource.org.hibernate.validator" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.eclipse.forms" autoStart="true" startLevel="0" />
-      <plugin id="fr.opensagres.eclipse.gef.tree" autoStart="true" startLevel="0" />      
+      <plugin id="fr.opensagres.eclipse.gef.tree" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.org.apache.poi.osgi" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.org.openxmlformats.schemas" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.xdocreport.commons.utils" autoStart="true" startLevel="0" />
@@ -205,6 +206,7 @@
       <plugin id="org.eclipse.gemini.blueprint.extender" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.gemini.blueprint.io" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.help" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.nebula.widgets.pshelf" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.osgi" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.osgi.services" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.rap.design.example" autoStart="true" startLevel="0" />
