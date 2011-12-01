@@ -38,4 +38,5 @@ Bundle-ActivationPolicy: lazy
 Import-Package: fr.opensagres.eclipse.forms.dialogs,
  fr.opensagres.eclipse.forms.editor,
  fr.opensagres.eclipse.forms.registry,
- fr.opensagres.xdocreport.commons.utils
+ fr.opensagres.xdocreport.commons.utils,
+ org.eclipse.nebula.widgets.pshelf
