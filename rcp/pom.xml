@@ -11,6 +11,10 @@
 
 	<modules>
 		<module>fr.opensagres.xdocreport.eclipse.rcp</module>
+		
+		<!-- Nebula for RCP -->
+		<module>org.eclipse.nebula.widgets.pshelf</module>
+		
 		<!-- <module>fr.opensagres.xdocreport.eclipse.product.win32</module>  -->
 		<!-- <module>fr.opensagres.xdocreport.eclipse.product.macosx</module> -->
 		 <!-- <module>fr.opensagres.xdocreport.eclipse.product.linux</module>  -->
