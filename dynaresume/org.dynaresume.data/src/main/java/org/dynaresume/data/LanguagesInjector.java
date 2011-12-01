@@ -1,15 +1,17 @@
 package org.dynaresume.data;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.dynaresume.domain.hr.DefaultLanguageCode;
 import org.dynaresume.domain.hr.Language;
-import org.dynaresume.services.LanguageService;
 
-public class LanguagesInjector {
+public class LanguagesInjector extends AbstractInjector {
 
-	private LanguageService languageService;
+	private final Map<String, Language> languagesByLabel = new LinkedHashMap<String, Language>();
 
-	public void setLanguageService(LanguageService languageService) {
-		this.languageService = languageService;
+	public LanguagesInjector(DataInjector dataInjector) {
+		super(dataInjector);
 	}
 
 	public void inject() {
@@ -28,16 +30,15 @@ public class LanguagesInjector {
 		// language.setId(getId());
 		language.setCode(code);
 		language.setLabel(label);
-		languageService.save(language);
+		Language newLanguage = getDataInjector().getLanguageService().save(
+				language);
+		if (newLanguage != null) {
+			languagesByLabel.put(newLanguage.getCode(), language);
+		}
 	}
 
-	// public Language getLanguageByCode(String code) {
-	// for (Language language : languages.values()) {
-	// if (code.equals(language.getCode())) {
-	// return language;
-	// }
-	// }
-	// return null;
-	// }
+	public Language getLanguageByCode(String code) {
+		return languagesByLabel.get(code);
+	}
 
 }

@@ -13,6 +13,10 @@ public class DataInjector implements Runnable {
 	private SkillCategoryService skillCategoryService;
 	private GroupService groupService;
 	private LanguageService languageService;
+	private SkillsInjector skillsInjector;
+	private GroupsInjector groupsInjector;
+	private LanguagesInjector languagesInjector;
+	private ResumesInjector resumesInjector;
 
 	public void setResumeService(ResumeService resumeService) {
 		this.resumeService = resumeService;
@@ -37,30 +41,60 @@ public class DataInjector implements Runnable {
 
 	public void run() {
 		// Skills + Skills categories data injections
-		SkillsInjector skillsInjector = new SkillsInjector();
-		skillsInjector.setSkillCategoryService(skillCategoryService);
-		skillsInjector.setSkillService(skillService);
+		skillsInjector = new SkillsInjector(this);
 		skillsInjector.inject();
 
 		// Group data injections
-		GroupsInjector groupsInjector = new GroupsInjector();
-		groupsInjector.setGroupService(groupService);
+		groupsInjector = new GroupsInjector(this);
 		groupsInjector.inject();
 
 		// Languages data injection
-		LanguagesInjector languagesInjector = new LanguagesInjector();
-		languagesInjector.setLanguageService(languageService);
+		languagesInjector = new LanguagesInjector(this);
 		languagesInjector.inject();
 
 		// Resumes data injection
-		ResumesInjector resumesInjector = new ResumesInjector();
-		resumesInjector.setResumeService(resumeService);
-		resumesInjector.setSkillsInjector(skillsInjector);
+		resumesInjector = new ResumesInjector(this);
 		resumesInjector.inject();
 
 	}
 
 	public void interrupt() {
 
+	}
+
+	public SkillsInjector getSkillsInjector() {
+		return skillsInjector;
+	}
+
+	public GroupsInjector getGroupsInjector() {
+		return groupsInjector;
+	}
+
+	public ResumesInjector getResumesInjector() {
+		return resumesInjector;
+	}
+
+	public LanguagesInjector getLanguagesInjector() {
+		return languagesInjector;
+	}
+
+	public GroupService getGroupService() {
+		return groupService;
+	}
+
+	public LanguageService getLanguageService() {
+		return languageService;
+	}
+
+	public ResumeService getResumeService() {
+		return resumeService;
+	}
+
+	public SkillCategoryService getSkillCategoryService() {
+		return skillCategoryService;
+	}
+
+	public SkillService getSkillService() {
+		return skillService;
 	}
 }

@@ -9,12 +9,9 @@ import org.dynaresume.domain.hr.SkillCategory;
 import org.dynaresume.services.SkillCategoryService;
 import org.dynaresume.services.SkillService;
 
-public class SkillsInjector {
+public class SkillsInjector extends AbstractInjector {
 
 	private Map<String, Skill> skillsByLabel = new HashMap<String, Skill>();
-
-	private SkillCategoryService skillCategoryService;
-	private SkillService skillService;
 
 	public SkillCategory functionalSkills;
 	public SkillCategory processSkills;
@@ -26,13 +23,8 @@ public class SkillsInjector {
 	public SkillCategory softwaresTechnicalSkills;
 	public SkillCategory methodsAndToolsSkills;
 
-	public void setSkillCategoryService(
-			SkillCategoryService skillCategoryService) {
-		this.skillCategoryService = skillCategoryService;
-	}
-
-	public void setSkillService(SkillService skillService) {
-		this.skillService = skillService;
+	public SkillsInjector(DataInjector dataInjector) {
+		super(dataInjector);
 	}
 
 	public void inject() {
@@ -231,12 +223,15 @@ public class SkillsInjector {
 	}
 
 	private void addSkill(Skill skill) {
+		SkillService skillService = getDataInjector().getSkillService();
 		Skill newSkill = skillService.save(skill);
 		skillsByLabel.put(newSkill.getName(), newSkill);
 	}
 
 	private void addCategory(SkillCategory category) {
-		skillCategoryService.save(category);
+		SkillCategoryService categoryService = getDataInjector()
+				.getSkillCategoryService();
+		categoryService.save(category);
 	}
 
 	public Skill getSkillByLabel(String name) {

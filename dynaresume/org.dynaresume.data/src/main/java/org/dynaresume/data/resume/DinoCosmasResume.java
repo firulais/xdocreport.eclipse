@@ -3,7 +3,7 @@ package org.dynaresume.data.resume;
 import java.io.IOException;
 import java.text.ParseException;
 
-import org.dynaresume.data.SkillsInjector;
+import org.dynaresume.data.DataInjector;
 import org.dynaresume.domain.core.Address;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultLanguageCode;
@@ -13,8 +13,8 @@ import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
 public class DinoCosmasResume extends AbstractResumeFactory {
 
-	public DinoCosmasResume(SkillsInjector skillsInjector) {
-		super(skillsInjector);
+	public DinoCosmasResume(DataInjector dataInjector) {
+		super(dataInjector);
 		// super.setId(getCurrentId());
 		super.setTitle("Ingénieur Etude JEE");
 

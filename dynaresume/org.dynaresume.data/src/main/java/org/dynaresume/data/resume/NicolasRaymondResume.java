@@ -2,7 +2,7 @@ package org.dynaresume.data.resume;
 
 import java.io.IOException;
 
-import org.dynaresume.data.SkillsInjector;
+import org.dynaresume.data.DataInjector;
 import org.dynaresume.domain.core.Address;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultLanguageCode;
@@ -11,8 +11,8 @@ import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
 public class NicolasRaymondResume extends AbstractResumeFactory {
 
-	public NicolasRaymondResume(SkillsInjector skillsInjector) {
-		super(skillsInjector);
+	public NicolasRaymondResume(DataInjector dataInjector) {
+		super(dataInjector);
 		super.setTitle("Ingénieur Etude JEE");
 
 		NaturalPerson person = new NaturalPerson();

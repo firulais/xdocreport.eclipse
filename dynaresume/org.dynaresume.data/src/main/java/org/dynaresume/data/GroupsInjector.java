@@ -6,16 +6,15 @@ import org.dynaresume.domain.core.Agency;
 import org.dynaresume.domain.core.Group;
 import org.dynaresume.services.GroupService;
 
-public class GroupsInjector {
+public class GroupsInjector extends AbstractInjector {
 
-	private GroupService groupService;
-
-	public void setGroupService(GroupService groupService) {
-		this.groupService = groupService;
+	public GroupsInjector(DataInjector dataInjector) {
+		super(dataInjector);
 	}
-	
+
 	public void inject() {
 
+		GroupService groupService = getDataInjector().getGroupService();
 		// Opensagres
 		Group opensagresGroup = createGroup("Opensagres");
 		createAgency("Opensagres", opensagresGroup);

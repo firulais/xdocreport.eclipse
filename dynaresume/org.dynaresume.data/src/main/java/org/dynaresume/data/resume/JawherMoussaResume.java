@@ -1,6 +1,6 @@
 package org.dynaresume.data.resume;
 
-import org.dynaresume.data.SkillsInjector;
+import org.dynaresume.data.DataInjector;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultLanguageCode;
 
@@ -8,8 +8,8 @@ import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
 public class JawherMoussaResume extends AbstractResumeFactory {
 
-	public JawherMoussaResume(SkillsInjector skillsInjector) {
-		super(skillsInjector);
+	public JawherMoussaResume(DataInjector dataInjector) {
+		super(dataInjector);
 		// super.setId(getCurrentId());
 		super.setTitle("Consultant chez Zenika");
 		try {

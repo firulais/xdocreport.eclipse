@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.dynaresume.data.DataInjector;
 import org.dynaresume.data.SkillsInjector;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultLanguageCode;
@@ -24,13 +25,13 @@ import fr.opensagres.xdocreport.commons.utils.DateUtils;
 public abstract class AbstractResumeFactory extends Resume {
 
 	private final Resume resume;
-	private final SkillsInjector skillsInjector;
+	private final DataInjector dataInjector;
 
-	public AbstractResumeFactory(SkillsInjector skillsInjector) {
+	public AbstractResumeFactory(DataInjector dataInjector) {
 		this.resume = new Resume();
-		this.skillsInjector = skillsInjector;
+		this.dataInjector = dataInjector;
 	}
-	
+
 	public boolean equals(Object arg0) {
 		return resume.equals(arg0);
 	}
@@ -127,8 +128,6 @@ public abstract class AbstractResumeFactory extends Resume {
 		return resume.toString();
 	}
 
-	
-
 	public Resume getResume() {
 		return resume;
 	}
@@ -199,7 +198,8 @@ public abstract class AbstractResumeFactory extends Resume {
 	}
 
 	protected void addSkill(SkillCategory category, String skillLabel) {
-		Skill skill = skillsInjector.getSkillByLabel(skillLabel);
+		Skill skill = dataInjector.getSkillsInjector().getSkillByLabel(
+				skillLabel);
 		SkillResume skillResume = new SkillResume();
 		skillResume.setCategory(category);
 		if (skill != null) {
@@ -251,7 +251,8 @@ public abstract class AbstractResumeFactory extends Resume {
 	}
 
 	protected void addLanguage(DefaultLanguageCode code) {
-		Language language = null;//LanguagesData.getLanguageByCode(code.getCode());
+		Language language = dataInjector.getLanguagesInjector()
+				.getLanguageByCode(code.getCode());
 		if (language != null) {
 			addLanguage(language);
 		}
@@ -281,7 +282,7 @@ public abstract class AbstractResumeFactory extends Resume {
 		hobbies.add(hobby);
 	}
 
-	public SkillsInjector getSkillsInjector() {
-		return skillsInjector;
+	protected SkillsInjector getSkillsInjector() {
+		return dataInjector.getSkillsInjector();
 	}
 }

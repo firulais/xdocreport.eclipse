@@ -3,7 +3,7 @@
 import java.io.IOException;
 import java.text.ParseException;
 
-import org.dynaresume.data.SkillsInjector;
+import org.dynaresume.data.DataInjector;
 import org.dynaresume.domain.core.Address;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultLanguageCode;
@@ -13,8 +13,8 @@ import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
 public class YannickVimalResume extends AbstractResumeFactory {
 
-	public YannickVimalResume(SkillsInjector skillsInjector) {
-		super(skillsInjector);
+	public YannickVimalResume(DataInjector dataInjector) {
+		super(dataInjector);
 		super.setTitle("Ingénieur Etude JEE");
 		try {
 			setPicture(IOUtils.toByteArray(YannickVimalResume.class

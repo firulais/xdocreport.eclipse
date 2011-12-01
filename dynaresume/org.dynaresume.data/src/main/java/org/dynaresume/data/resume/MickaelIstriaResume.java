@@ -2,7 +2,7 @@ package org.dynaresume.data.resume;
 
 import java.io.IOException;
 
-import org.dynaresume.data.SkillsInjector;
+import org.dynaresume.data.DataInjector;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultLanguageCode;
 
@@ -10,8 +10,8 @@ import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
 public class MickaelIstriaResume extends AbstractResumeFactory {
 
-	public MickaelIstriaResume(SkillsInjector skillsInjector) {
-		super(skillsInjector);
+	public MickaelIstriaResume(DataInjector dataInjector) {
+		super(dataInjector);
 		super.setTitle("Eclipse (Plugin/RCP) expert developer");
 		try {
 			setPicture(IOUtils.toByteArray(MickaelIstriaResume.class

@@ -18,43 +18,38 @@ import org.dynaresume.data.resume.RalfSternbergResume;
 import org.dynaresume.data.resume.TomSchindlResume;
 import org.dynaresume.data.resume.YannickVimalResume;
 import org.dynaresume.domain.hr.Resume;
-import org.dynaresume.services.ResumeService;
 
-public class ResumesInjector {
+public class ResumesInjector extends AbstractInjector {
 
-	private ResumeService resumeService;
-	private SkillsInjector skillsInjector;
-	public void setResumeService(ResumeService resumeService) {
-		this.resumeService = resumeService;
-	}
-	public void setSkillsInjector(SkillsInjector skillsInjector) {
-		this.skillsInjector = skillsInjector;
+	public ResumesInjector(DataInjector dataInjector) {
+		super(dataInjector);
 	}
 
 	public void inject() {
-		addResume(new AngeloZerrResume(skillsInjector));
-		addResume(new PascalLeclercqResume(skillsInjector));
-		addResume(new AmineBoustaResume(skillsInjector));
-		addResume(new JawherMoussaResume(skillsInjector));
-		addResume(new RalfSternbergResume(skillsInjector));
-		addResume(new TomSchindlResume(skillsInjector));
-		addResume(new LarsVogelResume(skillsInjector));
-		addResume(new KaiTodterResume(skillsInjector));
-		addResume(new GeorgeGastaldiResume(skillsInjector));
-		addResume(new JesseMcConnellResume(skillsInjector));
-		addResume(new ArnaudCogoluegnesResume(skillsInjector));
-		addResume(new MickaelIstriaResume(skillsInjector));
-		addResume(new MickaelBaronResume(skillsInjector));
-		addResume(new DinoCosmasResume(skillsInjector));
-		addResume(new NicolasRaymondResume(skillsInjector));
-		addResume(new YannickVimalResume(skillsInjector));
+		DataInjector dataInjector = getDataInjector();
+		addResume(new AngeloZerrResume(dataInjector));
+		addResume(new PascalLeclercqResume(dataInjector));
+		addResume(new AmineBoustaResume(dataInjector));
+		addResume(new JawherMoussaResume(dataInjector));
+		addResume(new RalfSternbergResume(dataInjector));
+		addResume(new TomSchindlResume(dataInjector));
+		addResume(new LarsVogelResume(dataInjector));
+		addResume(new KaiTodterResume(dataInjector));
+		addResume(new GeorgeGastaldiResume(dataInjector));
+		addResume(new JesseMcConnellResume(dataInjector));
+		addResume(new ArnaudCogoluegnesResume(dataInjector));
+		addResume(new MickaelIstriaResume(dataInjector));
+		addResume(new MickaelBaronResume(dataInjector));
+		addResume(new DinoCosmasResume(dataInjector));
+		addResume(new NicolasRaymondResume(dataInjector));
+		addResume(new YannickVimalResume(dataInjector));
 	}
 
 	private void addResume(AbstractResumeFactory factory) {
-		addResume(factory.getResume());		
+		addResume(factory.getResume());
 	}
 
 	private void addResume(Resume resume) {
-		resumeService.save(resume);
+		getDataInjector().getResumeService().save(resume);
 	}
 }

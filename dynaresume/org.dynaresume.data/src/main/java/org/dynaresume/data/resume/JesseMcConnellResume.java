@@ -1,6 +1,6 @@
 package org.dynaresume.data.resume;
 
-import org.dynaresume.data.SkillsInjector;
+import org.dynaresume.data.DataInjector;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.DefaultLanguageCode;
 
@@ -8,8 +8,8 @@ import fr.opensagres.xdocreport.commons.utils.IOUtils;
 
 public class JesseMcConnellResume extends AbstractResumeFactory {
 
-	public JesseMcConnellResume(SkillsInjector skillsInjector) {
-		super(skillsInjector);
+	public JesseMcConnellResume(DataInjector dataInjector) {
+		super(dataInjector);
 		// super.setId(getCurrentId());
 		super.setTitle("US Lead Developer at Intalio");
 		try {
