@@ -67,7 +67,7 @@ public class RalfSternbergResume extends AbstractResumeFactory {
 
 		// Languages
 		addLanguage(DefaultLanguageCode.English);
-		addLanguage(DefaultLanguageCode.Germany);
+		addLanguage(DefaultLanguageCode.German);
 
 		addReference("Project Co-Lead of Eclipse Rich Ajax Platform",
 				"01/04/2011", null);

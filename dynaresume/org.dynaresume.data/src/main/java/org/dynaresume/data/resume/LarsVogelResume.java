@@ -47,7 +47,7 @@ public class LarsVogelResume extends AbstractResumeFactory {
 
 		// Languages
 		addLanguage(DefaultLanguageCode.English);
-		addLanguage(DefaultLanguageCode.Germany);
+		addLanguage(DefaultLanguageCode.German);
 
 		// Experiences
 		addExperience("Eclipse and Android Trainer and Consultant", "", "",

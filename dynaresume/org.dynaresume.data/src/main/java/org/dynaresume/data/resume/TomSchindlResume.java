@@ -70,7 +70,7 @@ public class TomSchindlResume extends AbstractResumeFactory {
 
 		// Languages
 		addLanguage(DefaultLanguageCode.English);
-		addLanguage(DefaultLanguageCode.Germany);
+		addLanguage(DefaultLanguageCode.German);
 
 		// Hobbies
 		// addHobby("Sport: Badminton.");

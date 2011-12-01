@@ -2,7 +2,7 @@ package org.dynaresume.domain.hr;
 
 public enum DefaultLanguageCode {
 
-	Frensh("FR"), English("EN"), Germany("GE");
+	French("FR"), English("EN"), German("GE");
 
 	private final String code;
 
