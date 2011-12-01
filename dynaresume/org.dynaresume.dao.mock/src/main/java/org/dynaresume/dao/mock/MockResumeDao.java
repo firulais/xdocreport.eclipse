@@ -206,14 +206,18 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 	}
 
 	public Page<Resume> findByOwnerFirstNameLikeAndOwnerLastNameLike(
-			String firstName, String lastName, Pageable pageable) {
+			String firstNameCriteria, String lastNameCriteria, Pageable pageable) {
 		int pageSize = pageable.getPageSize();
 		int pageIndex = pageable.getOffset();
 		Iterable<Resume> allResumes = findAll();
 		// List<Resume> fullList = new ArrayList<Resume>(allResumes);
+
+		firstNameCriteria = getCriteria(firstNameCriteria);
+		lastNameCriteria = getCriteria(lastNameCriteria);
+
 		List<Resume> filteredList = new ArrayList<Resume>();
 		for (Resume resume : allResumes) {
-			if (isPersonOK(resume, firstName, lastName)) {
+			if (isPersonOK(resume, firstNameCriteria, lastNameCriteria)) {
 				filteredList.add(resume);
 			}
 		}
@@ -228,6 +232,19 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 
 	}
 
+	private String getCriteria(String criteria) {
+		if (criteria == null) {
+			return null;
+		}
+		if (criteria.endsWith("%")) {
+			criteria = criteria.substring(0, criteria.length() - 1);
+		}
+		if (criteria.length() == 0) {
+			return null;
+		}
+		return criteria;
+	}
+
 	private boolean isPersonOK(Resume resume, String firstNameCriteria,
 			String lastNameCriteria) {
 		NaturalPerson person = resume.getOwner();
@@ -240,6 +257,7 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 					firstNameCriteria.toUpperCase()))) {
 				return false;
 			}
+
 		}
 		String lastName = person.getLastName();
 		if (lastNameCriteria != null) {

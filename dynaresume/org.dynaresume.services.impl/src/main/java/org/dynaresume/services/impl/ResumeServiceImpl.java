@@ -29,7 +29,9 @@ public class ResumeServiceImpl implements ResumeService {
 	}
 
 	public Page<Resume> findByFirstNameAndLastName(String firstName,
-			String lastName, Pageable pageable) {
+			String lastName, Pageable pageable) {		
+		firstName=firstName != null ? firstName+"%" : "%";
+		lastName=lastName != null ? lastName+"%" : "%";
 		return resumeDao.findByOwnerFirstNameLikeAndOwnerLastNameLike(
 				firstName, lastName, pageable);
 	}
