@@ -52,7 +52,7 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 	private GridData gd_firstNameText;
 	private Text lastNameText;
 	private DateTimeControl birthDayDateTime;
-	private PhotoControl photo;
+	private FormPhotoControl photo;
 	private Text emailText;
 	private Text zipCodeText;
 	private Text cityText;
