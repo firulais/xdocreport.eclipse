@@ -12,6 +12,10 @@ import java.io.InputStream;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.DragDetectEvent;
+import org.eclipse.swt.events.DragDetectListener;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
@@ -27,6 +31,7 @@ import org.eclipse.ui.internal.dialogs.DialogUtil;
 
 import fr.opensagres.eclipse.forms.internal.IOUtils;
 
+@Deprecated
 public class PhotoControl extends BaseComposite implements
 		PropertyChangeListener {
 
@@ -47,6 +52,30 @@ public class PhotoControl extends BaseComposite implements
 		layout.numColumns = 2;
 		this.setLayout(layout);
 		this.photoLabel = createLabelImage(this, labelStyle);
+		
+		photoLabel.addMouseListener(new MouseListener() {
+			
+			public void mouseUp(MouseEvent e) {
+			System.err.println(e);	
+			}
+			
+			public void mouseDown(MouseEvent e) {
+				System.err.println("mouseDown");	
+				
+			}
+			
+			public void mouseDoubleClick(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		photoLabel.addDragDetectListener(new DragDetectListener() {
+			
+			public void dragDetected(DragDetectEvent event) {
+				System.err.println(event);
+				
+			}
+		});
 		this.uploadButton = createUploadButton();
 	}
 

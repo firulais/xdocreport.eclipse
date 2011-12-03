@@ -104,10 +104,13 @@ public class Messages extends NLS {
 	public static String ResumeFormEditor_ReferencesPage_ReferenceDetailsPage_referenceLabel_label;
 	
 	// Quick Add Skill wizard
+	public static String QuickAddSkillsWizard_error;
 	public static String QuickAddSillFillSkillsWizardPage_title;
 	public static String QuickAddSillFillSkillsWizardPage_desc;
 	public static String QuickAddSillFillSkillsWizardPage_Skills_label;
 	public static String QuickAddSillFillSkillsWizardPage_skillsText_required;
+	public static String QuickAddSillFillSkillsWizardPage_SkillCategory_label;	
+	public static String QuickAddSillFillSkillsWizardPage_categoryCombo_required;
 	public static String QuickAddSillsPreviewWizardPage_title;
 	public static String QuickAddSillsPreviewWizardPage_desc;
 	public static String QuickAddSillsPreviewWizardPage_skillsTable_label;

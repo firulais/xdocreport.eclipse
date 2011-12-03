@@ -14,7 +14,8 @@ public class QuickAddSkillsWizard extends Wizard {
 	private final QuickAddSillsFillSkillsWizardPage page1;
 	private final QuickAddSillsPreviewWizardPage page2;
 
-	private SkillCategoryWrapper category;
+	private SkillCategoryWrapper selectedCategory;
+	private Iterable<SkillCategoryWrapper> categories;
 	private SkillService skillService;
 
 	public QuickAddSkillsWizard() {
@@ -35,15 +36,16 @@ public class QuickAddSkillsWizard extends Wizard {
 
 	@Override
 	public boolean canFinish() {
-		return getSkills().size() > 0 || getFreeSkills().size() > 0;
+		return getSelectedCategory() != null
+				&& (getSkills().size() > 0 || getFreeSkills().size() > 0);
 	}
 
-	public void setCategory(SkillCategoryWrapper category) {
-		this.category = category;
+	public void setSelectedCategory(SkillCategoryWrapper category) {
+		this.selectedCategory = category;
 	}
 
-	public SkillCategoryWrapper getCategory() {
-		return category;
+	public SkillCategoryWrapper getSelectedCategory() {
+		return selectedCategory;
 	}
 
 	public SkillService getSkillService() {
@@ -60,5 +62,13 @@ public class QuickAddSkillsWizard extends Wizard {
 
 	public List<SkillResume> getExistingSkills() {
 		return page1.getExistingSkills();
+	}
+
+	public void setCategories(Iterable<SkillCategoryWrapper> iterable) {
+		this.categories = iterable;
+	}
+
+	public Iterable<SkillCategoryWrapper> getCategories() {
+		return categories;
 	}
 }

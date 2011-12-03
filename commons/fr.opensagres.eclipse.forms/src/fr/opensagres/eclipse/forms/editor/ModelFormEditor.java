@@ -42,7 +42,7 @@ public abstract class ModelFormEditor<EditorInput extends IEditorInput, Model>
 		}
 	}
 
-	private ChangeTracker changeTracker= new ChangeTracker();
+	private ChangeTracker changeTracker = new ChangeTracker();
 	private boolean initializeBinding;
 	private final List<IBindableAware> pagesAlreadyBounded;
 	private final Map<String, DataBindingContextWrapper> dataBindingContextCahe;
@@ -64,7 +64,7 @@ public abstract class ModelFormEditor<EditorInput extends IEditorInput, Model>
 		// // Load model
 		reload();
 		dirtyFlag = new DirtyFlag();
-		
+
 		changeTracker.addChangeListener(dirtyFlag);
 	}
 
@@ -154,6 +154,12 @@ public abstract class ModelFormEditor<EditorInput extends IEditorInput, Model>
 		dirtyFlag.setDirty(false);
 	}
 
+	public void setForceDirty(boolean dirty) {
+		if (dirtyFlag != null) {
+			dirtyFlag.setDirty(dirty);
+		}
+	}
+
 	@Override
 	public void dispose() {
 		super.dispose();
@@ -181,6 +187,6 @@ public abstract class ModelFormEditor<EditorInput extends IEditorInput, Model>
 	protected abstract Model onSave(Model modelObject, IProgressMonitor monitor);
 
 	public void contributeToToolbar(IToolBarManager manager) {
-		
+
 	}
 }

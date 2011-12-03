@@ -13,6 +13,8 @@ import org.eclipse.core.databinding.beans.PojoObservables;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.validation.jsr303.Jsr303BeansUpdateValueStrategyFactory;
 import org.eclipse.jface.databinding.swt.SWTObservables;
+import org.eclipse.nebula.widgets.photo.PhotoControl;
+import org.eclipse.nebula.widgets.photo.forms.FormPhotoControl;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -36,7 +38,6 @@ import fr.opensagres.eclipse.forms.conversion.DateToStringConverter;
 import fr.opensagres.eclipse.forms.conversion.StringToDateConverter;
 import fr.opensagres.eclipse.forms.conversion.StringToDateValidator;
 import fr.opensagres.eclipse.forms.widgets.DateTimeControl;
-import fr.opensagres.eclipse.forms.widgets.PhotoControl;
 import fr.opensagres.xdocreport.eclipse.PlatformXDocReport;
 import fr.opensagres.xdocreport.eclipse.ui.FormLayoutFactory;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormEditor;
@@ -248,7 +249,7 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 		resumeTitleText = toolkit.createText(sbody, "", SWT.SINGLE);
 		GridData resumeTitleData = new GridData(GridData.FILL_HORIZONTAL);
 		resumeTitleData.widthHint = 150;
-		resumeTitleText.setLayoutData(resumeTitleData);
+		resumeTitleText.setLayoutData(resumeTitleData);		
 		
 		// Photo
 		Label photoLabel = toolkit.createLabel(sbody,
@@ -256,10 +257,10 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 		GridData gd_photoLabel = new GridData();
 		gd_photoLabel.verticalAlignment = SWT.TOP;
 		photoLabel.setLayoutData(gd_photoLabel);
-		photo = new PhotoControl(sbody, SWT.NONE, SWT.BORDER, toolkit);
+		photo = new FormPhotoControl(sbody, toolkit);
 		GridData gd_photo = new GridData(GridData.FILL_HORIZONTAL);
 		gd_photo.widthHint = 150;
-		photo.setLayoutData(gd_photo);
+		//photo.setLayoutData(gd_photo);
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, photo);
 
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);

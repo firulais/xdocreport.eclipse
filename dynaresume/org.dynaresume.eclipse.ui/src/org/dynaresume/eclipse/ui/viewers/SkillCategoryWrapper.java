@@ -30,7 +30,11 @@ public class SkillCategoryWrapper {
 	}
 
 	public SkillCategoryWrapper getParent() {
-		return treeModel.getCategoryWrapper(category.getParent());
+		SkillCategory parent = category.getParent();
+		if (parent == null) {
+			return null;
+		}
+		return treeModel.getCategoryWrapper(parent);
 	}
 
 	public Collection<Object> getChildren() {
@@ -69,7 +73,7 @@ public class SkillCategoryWrapper {
 		children.addAll(skills);
 		treeModel.addSkills(skills);
 	}
-	
+
 	public void removeChild(SkillResume skill) {
 		children.remove(skill);
 		treeModel.removeSkill(skill);

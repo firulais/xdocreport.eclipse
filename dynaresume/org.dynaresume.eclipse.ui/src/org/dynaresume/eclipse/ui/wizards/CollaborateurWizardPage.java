@@ -14,10 +14,13 @@ package org.dynaresume.eclipse.ui.wizards;
 import org.dynaresume.domain.hr.Resume;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Text;
 
 
@@ -55,6 +58,24 @@ class CollaborateurWizardPage extends WizardPage {
 		lastNameText = new Text(composite, SWT.BORDER);
 		lastNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
+		Link link= new Link(composite, SWT.WRAP | SWT.RIGHT);
+		link.setText("BLABLAhhhhhhhhhhhhhh");
+		GridData resumeTitleData = new GridData(GridData.FILL_HORIZONTAL);
+		resumeTitleData.widthHint = 150;
+		link.setLayoutData(resumeTitleData);
+		link.addSelectionListener(new SelectionListener() {
+			
+			public void widgetSelected(SelectionEvent e) {
+				System.err.println(e);
+			}
+			
+			public void widgetDefaultSelected(SelectionEvent e) {
+			System.err.println(e);	
+			}
+		});
+		
+		link.setToolTipText("aaaaaaaaaaaaa");
+		
 		super.setControl(composite);
 	}
 

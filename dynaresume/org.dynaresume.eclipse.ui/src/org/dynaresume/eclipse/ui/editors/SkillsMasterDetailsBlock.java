@@ -5,13 +5,17 @@ import java.util.Collection;
 import org.dynaresume.domain.hr.Resume;
 import org.dynaresume.domain.hr.SkillCategory;
 import org.dynaresume.domain.hr.SkillResume;
+import org.dynaresume.eclipse.ui.internal.Activator;
 import org.dynaresume.eclipse.ui.internal.Messages;
-import org.dynaresume.eclipse.ui.viewers.SkillCategoryContentProvider;
-import org.dynaresume.eclipse.ui.viewers.SkillCategoryLabelProvider;
+import org.dynaresume.eclipse.ui.viewers.SkillCategoryTreeContentProvider;
+import org.dynaresume.eclipse.ui.viewers.SkillCategoryTreeLabelProvider;
 import org.dynaresume.eclipse.ui.viewers.SkillCategoryWrapper;
 import org.dynaresume.eclipse.ui.viewers.SkillsResumeTreeModel;
 import org.dynaresume.eclipse.ui.wizards.QuickAddSkillsWizard;
 import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -80,11 +84,11 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 		layout.marginHeight = 2;
 		client.setLayout(layout);
 
-		Tree skillsTable = toolkit.createTree(client, SWT.MULTI);
+		Tree skillsTree = toolkit.createTree(client, SWT.MULTI);
 		GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.heightHint = 20;
 		gd.widthHint = 100;
-		skillsTable.setLayoutData(gd);
+		skillsTree.setLayoutData(gd);
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, client);
 
 		createButtons(toolkit, client);
@@ -93,7 +97,7 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 
 		final SectionPart spart = new SectionPart(section);
 		managedForm.addPart(spart);
-		viewer = new TreeViewer(skillsTable);
+		viewer = new TreeViewer(skillsTree);
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			public void selectionChanged(SelectionChangedEvent event) {
 				IStructuredSelection selection = (IStructuredSelection) event
@@ -105,8 +109,9 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 				modifyEnabledButtons(selection);
 			}
 		});
-		viewer.setContentProvider(SkillCategoryContentProvider.getInstance());
-		viewer.setLabelProvider(SkillCategoryLabelProvider.getInstance());
+		viewer.setContentProvider(SkillCategoryTreeContentProvider
+				.getInstance());
+		viewer.setLabelProvider(SkillCategoryTreeLabelProvider.getInstance());
 		// viewer.setComparator(SkillsViewerComparator.getInstance());
 		modifyEnabledButtons(null);
 	}
@@ -140,7 +145,6 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 			}
 		}
 		addButton.setEnabled(enabledAdd);
-		quickAddButton.setEnabled(enabledAdd);
 		removeButton.setEnabled(enabledRemove);
 	}
 
@@ -211,22 +215,35 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 		try {
 			wizard = PlatformXDocReport.getWizardFactory().createWizard(
 					QuickAddSkillsWizard.ID, QuickAddSkillsWizard.class);
-			wizard.setCategory(selectedCategory);
+			wizard.setSelectedCategory(selectedCategory);
+			wizard.setCategories(treeModel.getCategories());
 			WizardDialog dlg = new WizardDialog(quickAddButton.getShell(),
 					wizard);
 			dlg.open();
-
-			// Add skills and free skills created by the wizard.
-			Collection<SkillResume> newSkills= wizard.getSkills();
-			Collection<SkillResume> newFreeSkills= wizard.getFreeSkills();
-			if (newSkills.size() > 0 || newFreeSkills.size() > 0) {
-				selectedCategory.addAllChild(newSkills);
-				selectedCategory.addAllChild(newFreeSkills);
-				viewer.refresh();
-			}						
+			selectedCategory = wizard.getSelectedCategory();
+			if (selectedCategory != null) {
+				// Add skills and free skills created by the wizard.
+				Collection<SkillResume> newSkills = wizard.getSkills();
+				Collection<SkillResume> newFreeSkills = wizard.getFreeSkills();
+				if (newSkills.size() > 0 || newFreeSkills.size() > 0) {
+					selectedCategory.addAllChild(newSkills);
+					selectedCategory.addAllChild(newFreeSkills);
+					viewer.refresh();
+					// Open the category tree node where skills was been added.
+					viewer.expandToLevel(selectedCategory, 1);
+					// Force the dirty flag
+					// TODO : manage that with JFace DB.
+					getEditor().setForceDirty(true);
+				}
+			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+					e.getMessage(), e);
+			ErrorDialog
+					.openError(viewer.getControl().getShell(),
+							Messages.QuickAddSkillsWizard_error,
+							e.getMessage(), status);
 		}
 	}
 
@@ -263,11 +280,15 @@ public class SkillsMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
 	@Override
 	public void onBind(DataBindingContext dataBindingContext) {
 		// Set<Skill> skills = getSkills();
-		Iterable<SkillCategory> categories = ((ResumeFormEditor) getDetailsPage()
-				.getEditor()).getSkillCategoryService().findAll();
+		Iterable<SkillCategory> categories = getCategories();
 		treeModel = new SkillsResumeTreeModel(categories, getModelObject());
 		viewer.setInput(treeModel);
 		viewer.expandToLevel(2);
+	}
+
+	private Iterable<SkillCategory> getCategories() {
+		return ((ResumeFormEditor) getEditor()).getSkillCategoryService()
+				.findAll();
 	}
 
 	public IDetailsPage getPage(Object key) {

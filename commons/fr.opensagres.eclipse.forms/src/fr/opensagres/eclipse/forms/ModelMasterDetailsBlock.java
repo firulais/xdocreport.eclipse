@@ -2,6 +2,7 @@ package fr.opensagres.eclipse.forms;
 
 import org.eclipse.core.databinding.DataBindingContext;
 
+import fr.opensagres.eclipse.forms.editor.ModelFormEditor;
 import fr.opensagres.eclipse.forms.editor.ModelMasterDetailsFormPage;
 
 public abstract class ModelMasterDetailsBlock<Model> extends
@@ -21,6 +22,10 @@ public abstract class ModelMasterDetailsBlock<Model> extends
 		return (Model) getDetailsPage().getModelObject();
 	}
 
+	public ModelFormEditor getEditor() {
+		return getDetailsPage().getEditor();
+	}
+	
 	public abstract void onBind(DataBindingContext dataBindingContext);
 
 }

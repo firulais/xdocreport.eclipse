@@ -18,8 +18,8 @@ public class SkillsResumeTreeModel {
 
 	private final Resume resume;
 	private final List<SkillCategoryWrapper> rootCategories;
-	private final Map<SkillCategory, SkillCategoryWrapper> categories;
-	private final Map<SkillCategory, Collection<SkillResume>> skillsResumeCache;
+	private final Map<Long, SkillCategoryWrapper> categories;
+	private final Map<Long, Collection<SkillResume>> skillsResumeCache;
 
 	public SkillsResumeTreeModel(Iterable<SkillCategory> categories,
 			Resume resume) {
@@ -27,25 +27,27 @@ public class SkillsResumeTreeModel {
 		Set<SkillResume> skills = resume.getSkills();
 		if (skills == null) {
 			resume.setSkills(new HashSet<SkillResume>());
-			this.skillsResumeCache = new HashMap<SkillCategory, Collection<SkillResume>>();
+			this.skillsResumeCache = new HashMap<Long, Collection<SkillResume>>();
 		} else {
-			this.skillsResumeCache = new HashMap<SkillCategory, Collection<SkillResume>>();
+			this.skillsResumeCache = new HashMap<Long, Collection<SkillResume>>();
 			SkillCategory category = null;
 			for (SkillResume skillResume : skills) {
 				category = skillResume.getCategory();
-				Collection<SkillResume> skillResumes = skillsResumeCache
-						.get(category);
-				if (skillResumes == null) {
-					skillResumes = new ArrayList<SkillResume>();
-					skillsResumeCache.put(category, skillResumes);
+				if (category != null) {
+					Collection<SkillResume> skillResumes = skillsResumeCache
+							.get(category.getId());
+					if (skillResumes == null) {
+						skillResumes = new ArrayList<SkillResume>();
+						skillsResumeCache.put(category.getId(), skillResumes);
+					}
+					skillResumes.add(skillResume);
 				}
-				skillResumes.add(skillResume);
 			}
 		}
 
 		if (categories != null) {
 			this.rootCategories = new ArrayList<SkillCategoryWrapper>();
-			this.categories = new LinkedHashMap<SkillCategory, SkillCategoryWrapper>();
+			this.categories = new LinkedHashMap<Long, SkillCategoryWrapper>();
 			for (SkillCategory category : categories) {
 				getCategoryWrapper(category);
 			}
@@ -56,15 +58,15 @@ public class SkillsResumeTreeModel {
 
 	}
 
-	public Iterable<SkillCategoryWrapper> getCategories() {
+	public Iterable<SkillCategoryWrapper> getRootCategories() {
 		return rootCategories;
 	}
 
 	public SkillCategoryWrapper getCategoryWrapper(SkillCategory category) {
-		SkillCategoryWrapper wrapper = categories.get(category);
+		SkillCategoryWrapper wrapper = categories.get(category.getId());
 		if (wrapper == null) {
 			wrapper = new SkillCategoryWrapper(this, category);
-			this.categories.put(wrapper.getCategory(), wrapper);
+			this.categories.put(category.getId(), wrapper);
 			if (category.getParent() != null) {
 				SkillCategoryWrapper parentWrapper = getCategoryWrapper(category
 						.getParent());
@@ -77,7 +79,10 @@ public class SkillsResumeTreeModel {
 	}
 
 	public Collection<SkillResume> getSkillsResume(SkillCategory category) {
-		return skillsResumeCache.get(category);
+		if (category == null) {
+			return null;
+		}
+		return skillsResumeCache.get(category.getId());
 	}
 
 	public void removeSkill(SkillResume skill) {
@@ -90,8 +95,10 @@ public class SkillsResumeTreeModel {
 			skillsResumeCache.remove(skill);
 			resume.getSkills().add(skill);
 		}
-		
-		
+	}
+
+	public Collection<SkillCategoryWrapper> getCategories() {
+		return categories.values();
 	}
 
 }

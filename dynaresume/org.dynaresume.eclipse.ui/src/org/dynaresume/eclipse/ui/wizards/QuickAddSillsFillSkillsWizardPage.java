@@ -6,12 +6,19 @@ import java.util.List;
 import org.dynaresume.domain.hr.Skill;
 import org.dynaresume.domain.hr.SkillResume;
 import org.dynaresume.eclipse.ui.internal.Messages;
+import org.dynaresume.eclipse.ui.viewers.SkillCategoryContentProvider;
+import org.dynaresume.eclipse.ui.viewers.SkillCategoryLabelProvider;
 import org.dynaresume.eclipse.ui.viewers.SkillCategoryWrapper;
 import org.eclipse.jface.dialogs.IMessageProvider;
+import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -19,7 +26,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 public class QuickAddSillsFillSkillsWizardPage extends WizardPage implements
-		ModifyListener {
+		ModifyListener, SelectionListener {
 
 	private static final String ID = "QuickAddSillFillSkillsWizardPage";
 	private Text skillsText;
@@ -27,6 +34,7 @@ public class QuickAddSillsFillSkillsWizardPage extends WizardPage implements
 	private final List<SkillResume> skills;
 	private final List<SkillResume> freeSkills;
 	private final List<SkillResume> existingSkills;
+	private ComboViewer viewer;
 
 	protected QuickAddSillsFillSkillsWizardPage() {
 		super(ID, Messages.QuickAddSillFillSkillsWizardPage_title, null);
@@ -39,6 +47,23 @@ public class QuickAddSillsFillSkillsWizardPage extends WizardPage implements
 	public void createControl(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(2, false));
+
+		// Skill category
+		Label categoryLabel = new Label(composite, SWT.LEFT);
+		categoryLabel
+				.setText(Messages.QuickAddSillFillSkillsWizardPage_SkillCategory_label);
+		viewer = new ComboViewer(composite, SWT.READ_ONLY);
+		viewer.getCombo().setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		viewer.setContentProvider(SkillCategoryContentProvider.getInstance());
+		viewer.setLabelProvider(SkillCategoryLabelProvider.getInstance());
+		viewer.setInput(getWizard().getCategories());
+		SkillCategoryWrapper selectedCategory = getWizard().getSelectedCategory();
+		if (selectedCategory != null) {
+			viewer.setSelection(new StructuredSelection(selectedCategory));
+		}
+		viewer.getCombo().addSelectionListener(this);
+
+		// Skills text area
 		Label label = new Label(composite, SWT.LEFT);
 		label.setText(Messages.QuickAddSillFillSkillsWizardPage_Skills_label);
 		label.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING));
@@ -46,7 +71,7 @@ public class QuickAddSillsFillSkillsWizardPage extends WizardPage implements
 		skillsText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true,
 				1, 1));
 		skillsText.addModifyListener(this);
-		super.setControl(composite);		
+		super.setControl(composite);
 	}
 
 	@Override
@@ -78,7 +103,10 @@ public class QuickAddSillsFillSkillsWizardPage extends WizardPage implements
 		existingSkills.clear();
 
 		List<String> skillsToSearch = null;
-		SkillCategoryWrapper categoryWrapper = getWizard().getCategory();
+		SkillCategoryWrapper categoryWrapper = getWizard().getSelectedCategory();
+		if (categoryWrapper == null) {
+			return;
+		}
 		String skills = skillsText.getText();
 		String[] s = skills.split(",");
 		String skill = null;
@@ -107,7 +135,7 @@ public class QuickAddSillsFillSkillsWizardPage extends WizardPage implements
 
 				SkillResume skillResume = new SkillResume();
 				skillResume
-						.setCategory(getWizard().getCategory().getCategory());
+						.setCategory(getWizard().getSelectedCategory().getCategory());
 				skillResume.setSkill(skillFromDB);
 
 				this.skills.add(skillResume);
@@ -117,7 +145,7 @@ public class QuickAddSillsFillSkillsWizardPage extends WizardPage implements
 			for (String name : skillsToSearch) {
 				SkillResume skillResume = new SkillResume();
 				skillResume
-						.setCategory(getWizard().getCategory().getCategory());
+						.setCategory(getWizard().getSelectedCategory().getCategory());
 				skillResume.setFreeSkill(name);
 				freeSkills.add(skillResume);
 			}
@@ -127,16 +155,16 @@ public class QuickAddSillsFillSkillsWizardPage extends WizardPage implements
 		dirty = false;
 	}
 
-	public void modifyText(ModifyEvent e) {
-		dirty = true;
-		validate();
-	}
-
 	public void validate() {
-		if (!isSkillsFilled()) {
+		if (!isCategoryFilled()) {
+			super.setMessage(
+					Messages.QuickAddSillFillSkillsWizardPage_categoryCombo_required,
+					IMessageProvider.ERROR);
+		} else if (!isSkillsFilled()) {
 			super.setMessage(
 					Messages.QuickAddSillFillSkillsWizardPage_skillsText_required,
 					IMessageProvider.ERROR);
+
 		} else {
 			super.setMessage(null);
 		}
@@ -148,7 +176,11 @@ public class QuickAddSillsFillSkillsWizardPage extends WizardPage implements
 		if (!super.canFlipToNextPage()) {
 			return false;
 		}
-		return isSkillsFilled();
+		return isSkillsFilled() && isCategoryFilled();
+	}
+
+	private boolean isCategoryFilled() {
+		return !((IStructuredSelection) viewer.getSelection()).isEmpty();
 	}
 
 	private boolean isSkillsFilled() {
@@ -159,8 +191,35 @@ public class QuickAddSillsFillSkillsWizardPage extends WizardPage implements
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
 		if (visible) {
-			skillsText.setFocus();
+			if (!isCategoryFilled()) {
+				viewer.getCombo().setFocus();
+			} else {
+				skillsText.setFocus();
+			}
 			validate();
 		}
+	}
+
+	public void modifyText(ModifyEvent e) {
+		update();
+	}
+
+	public void widgetSelected(SelectionEvent e) {
+		getWizard().setSelectedCategory(
+				(SkillCategoryWrapper) ((IStructuredSelection) viewer
+						.getSelection()).getFirstElement());
+		update();
+	}
+
+	public void widgetDefaultSelected(SelectionEvent e) {
+		getWizard().setSelectedCategory(
+				(SkillCategoryWrapper) ((IStructuredSelection) viewer
+						.getSelection()).getFirstElement());
+		update();
+	}
+
+	private void update() {
+		dirty = true;
+		validate();
 	}
 }
