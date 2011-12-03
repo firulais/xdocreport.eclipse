@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Nebula Pshelf Plug-in for RAP
-Bundle-SymbolicName: org.eclipse.nebula.widgets.pshelf
+Bundle-SymbolicName: org.eclipse.nebula.widgets.pshelf.rap
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Angelo ZERR
 Require-Bundle: org.eclipse.rap.rwt
