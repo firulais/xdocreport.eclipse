@@ -11,9 +11,8 @@ import java.io.InputStream;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import org.eclipse.nebula.widgets.photo.internal.IOUtils;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.layout.GridData;
@@ -22,7 +21,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Link;
 
 public abstract class AbstractPhotoControl<T extends Control> extends Composite
 		implements PropertyChangeListener {
@@ -42,9 +40,7 @@ public abstract class AbstractPhotoControl<T extends Control> extends Composite
 
 	private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
 			this);
-	private Locale locale;
 
-	
 	public AbstractPhotoControl(Composite parent) {
 		this(parent, SWT.NONE, SWT.BORDER, true);
 	}
@@ -53,7 +49,7 @@ public abstract class AbstractPhotoControl<T extends Control> extends Composite
 			int labelStyle) {
 		this(parent, compositeStyle, labelStyle, true);
 	}
-	
+
 	protected AbstractPhotoControl(Composite parent, int compositeStyle,
 			int labelStyle, boolean createUI) {
 		super(parent, compositeStyle);
@@ -120,9 +116,13 @@ public abstract class AbstractPhotoControl<T extends Control> extends Composite
 				FileInputStream in = new FileInputStream(f);
 				setImageStream(in);
 			} catch (Throwable e) {
-				e.printStackTrace();
+				handleError(e);
 			}
 		}
+	}
+
+	protected void handleError(Throwable e) {
+		e.printStackTrace();
 	}
 
 	public Label getPhotoLabel() {
@@ -147,7 +147,7 @@ public abstract class AbstractPhotoControl<T extends Control> extends Composite
 	}
 
 	public void setImageStream(InputStream stream) throws IOException {
-		// setImageByteArray(IOUtils.toByteArray(stream));
+		setImageByteArray(IOUtils.toByteArray(stream));
 	}
 
 	public InputStream getImageStream() {
@@ -165,11 +165,10 @@ public abstract class AbstractPhotoControl<T extends Control> extends Composite
 		int height = imageData.height;
 		int width = imageData.width;
 
-		if (width > 96){
-			
+		if (width > 96) {
+
 		}
-		
-		
+
 		float ratio = Math.max(height / 50, width / 50);
 
 		final ImageData resizedImageData = ratio > 0 ? imageData.scaledTo(
@@ -200,8 +199,6 @@ public abstract class AbstractPhotoControl<T extends Control> extends Composite
 		checkWidget();
 		if (locale == null)
 			SWT.error(SWT.ERROR_NULL_ARGUMENT);
-
-		this.locale = locale;
 
 		// Loads the resources
 		resources = ResourceBundle.getBundle(BUNDLE_NAME, locale);

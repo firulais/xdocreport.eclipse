@@ -8,7 +8,7 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	
-	<artifactId>org.eclipse.nebula.widgets.pshelf</artifactId>
+	<artifactId>org.eclipse.nebula.widgets.pshelf.rap</artifactId>
 	<packaging>eclipse-plugin</packaging>
 
 </project>

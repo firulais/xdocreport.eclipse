@@ -14,7 +14,7 @@
 		<!-- <module>fr.opensagres.xdocreport.eclipse.rap.war</module> -->
 
 		<!-- Nebula for RAP -->
-		<module>org.eclipse.nebula.widgets.pshelf</module>
+		<module>org.eclipse.nebula.widgets.pshelf.rap</module>
 
 		<!-- GEF for RAP -->
 		<module>org.eclipse.draw2d</module>
