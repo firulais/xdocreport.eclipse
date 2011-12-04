@@ -33,6 +33,8 @@ public abstract class AbstractPhotoControl<T extends Control> extends Composite
 	private byte[] imageByteArray;
 	private Image resizedPhotoImage;
 
+	private int maxHeight = 96;
+
 	/** Resources bundle */
 	protected ResourceBundle resources;
 
@@ -85,8 +87,9 @@ public abstract class AbstractPhotoControl<T extends Control> extends Composite
 
 	protected Label createLabelImage(Composite parent, int style) {
 		Label label = createLabel(parent, style);
-		label.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, false, false, 1,
-				1));
+
+		label.setLayoutData(new GridData(GridData.CENTER, GridData.CENTER,
+				true, false));
 		return label;
 	}
 
@@ -162,17 +165,11 @@ public abstract class AbstractPhotoControl<T extends Control> extends Composite
 		if (this.resizedPhotoImage != null && !resizedPhotoImage.isDisposed()) {
 			this.resizedPhotoImage.dispose();
 		}
-		int height = imageData.height;
-		int width = imageData.width;
-
-		if (width > 96) {
-
-		}
-
-		float ratio = Math.max(height / 50, width / 50);
-
-		final ImageData resizedImageData = ratio > 0 ? imageData.scaledTo(
-				(int) (height / ratio), (int) (width / ratio)) : imageData;
+		final ImageData resizedImageData = getResizedImageData(imageData);
+		// float ratio = Math.max(height / 50, width / 50);
+		//
+		// // final ImageData resizedImageData = ratio > 0 ? imageData.scaledTo(
+		// (int) (width / ratio), (int) (height / ratio)) : imageData;
 
 		this.resizedPhotoImage = new Image(super.getDisplay(), resizedImageData);
 		photoLabel.setImage(resizedPhotoImage);
@@ -182,6 +179,20 @@ public abstract class AbstractPhotoControl<T extends Control> extends Composite
 
 		propertyChangeSupport.firePropertyChange(IMAGE_BYTEARRAY_PROPERTY,
 				oldImageByteArray, imageByteArray);
+	}
+
+	protected ImageData getResizedImageData(ImageData imageData) {
+		int height = imageData.height;
+		int width = imageData.width;
+		if (height <= maxHeight) {
+			return imageData;
+		}
+		int newHeight = maxHeight;
+		float w = (float) width;
+		float h = (float) height;
+		float nw = (w / h) * maxHeight;
+		int newWidth = (int) nw;
+		return imageData.scaledTo(newWidth, newHeight);
 	}
 
 	public byte[] getImageByteArray() {
@@ -204,6 +215,10 @@ public abstract class AbstractPhotoControl<T extends Control> extends Composite
 		resources = ResourceBundle.getBundle(BUNDLE_NAME, locale);
 	}
 
+	public void setMaxHeight(int maxHeight) {
+		this.maxHeight = maxHeight;
+	}
+	
 	protected abstract Label createLabel(Composite parent, int style);
 
 	protected abstract T createLink(Composite parent);
