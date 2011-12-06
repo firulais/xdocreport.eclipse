@@ -52,8 +52,8 @@ import org.osgi.util.tracker.ServiceTracker;
 @ExamReactorStrategy(EagerSingleStagedReactorFactory.class)
 public class OSGiHibernateUnitTest {
 
-	 private static final String SPRING_VERSION = "3.1.0.RC1";
-	//private static final String SPRING_VERSION = "3.0.6.RELEASE";
+	 private static final String SPRING_VERSION = "3.1.0.RC2";
+
 
 	@Configuration()
 	public Option[] config() {

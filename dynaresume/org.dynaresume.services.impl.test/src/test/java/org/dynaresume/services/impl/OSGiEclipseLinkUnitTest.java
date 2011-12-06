@@ -55,7 +55,7 @@ public class OSGiEclipseLinkUnitTest {
 
 	private static final int timeout = 30000;
 	 private static final String SPRING_VERSION = "3.1.0.RC2";
-	//private static final String SPRING_VERSION = "3.0.6.RELEASE";
+	
 
 	@Configuration()
 	public Option[] config() {
