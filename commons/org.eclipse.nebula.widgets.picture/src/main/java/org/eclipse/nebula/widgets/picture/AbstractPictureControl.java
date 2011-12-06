@@ -48,18 +48,26 @@ import org.eclipse.swt.widgets.MenuItem;
  * @param <T>
  *            the "Modify" Link control used to upload a new image picture.
  */
-public abstract class AbstractPictureControl<T extends Control> extends Composite
-		implements PropertyChangeListener {
+public abstract class AbstractPictureControl<T extends Control> extends
+		Composite implements PropertyChangeListener {
 
 	/** Bundle name constant */
 	public static final String BUNDLE_NAME = "org.eclipse.nebula.widgets.picture.resources"; //$NON-NLS-1$
 
 	/** Resources constants */
-	private static final String PHOTO_CONTROL_MODIFY_IMAGE = "PictureControl.modifyImage";
-	private static final String PHOTO_CONTROL_DELETE = "PictureControl.delete";
-	private static final String PHOTO_CONTROL_MODIFY = "PictureControl.modify";
+	private static final String PICTURE_CONTROL_MODIFY_IMAGE = "PictureControl.modifyImage";
+	private static final String PICTURE_CONTROL_DELETE = "PictureControl.delete";
+	private static final String PICTURE_CONTROL_MODIFY = "PictureControl.modify";
+	private static final String PICTURE_CONTROL_FILEDIALOG_TEXT = "PictureControl.fileDialog.text";
 
 	public static final String IMAGE_BYTEARRAY_PROPERTY = "imageByteArray";
+
+	private static final String[] DEFAULT_EXTENSIONS;
+
+	static {
+		DEFAULT_EXTENSIONS = ImageFilterExtension.createFilterExtension(true,
+				ImageFilterExtension.values());
+	}
 
 	/** Picture label which host the picture image **/
 	private Label pictureLabel;
@@ -80,6 +88,8 @@ public abstract class AbstractPictureControl<T extends Control> extends Composit
 	/** Default image picture to display when none picture is displayed **/
 	private Image defaultImage;
 
+	private String[] extensions;
+
 	private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
 			this);
 
@@ -94,7 +104,7 @@ public abstract class AbstractPictureControl<T extends Control> extends Composit
 	 *            instance (cannot be null)
 	 */
 	public AbstractPictureControl(Composite parent) {
-		this(parent, SWT.NONE, SWT.BORDER, SWT.NONE, true);
+		this(parent, SWT.NONE, SWT.BORDER | SWT.CENTER, SWT.NONE, true);
 	}
 
 	/**
@@ -136,6 +146,7 @@ public abstract class AbstractPictureControl<T extends Control> extends Composit
 			int labelStyle, int linkStyle, boolean createUI) {
 		super(parent, compositeStyle);
 		setLocale(Locale.getDefault());
+		setFilterExtensions(DEFAULT_EXTENSIONS);
 		if (createUI) {
 			createUI(labelStyle, linkStyle);
 		}
@@ -220,7 +231,7 @@ public abstract class AbstractPictureControl<T extends Control> extends Composit
 
 		// "Delete" menu item.
 		final MenuItem deleteItem = new MenuItem(menu, SWT.NONE);
-		deleteItem.setText(resources.getString(PHOTO_CONTROL_DELETE));
+		deleteItem.setText(resources.getString(PICTURE_CONTROL_DELETE));
 		deleteItem.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -231,7 +242,7 @@ public abstract class AbstractPictureControl<T extends Control> extends Composit
 
 		// "Modify" menu item.
 		final MenuItem modifyItem = new MenuItem(menu, SWT.NONE);
-		modifyItem.setText(resources.getString(PHOTO_CONTROL_MODIFY));
+		modifyItem.setText(resources.getString(PICTURE_CONTROL_MODIFY));
 		modifyItem.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -255,7 +266,7 @@ public abstract class AbstractPictureControl<T extends Control> extends Composit
 				true, false);
 		modifyImageLink.setLayoutData(gridData);
 		setModifyImageLinkText(modifyImageLink,
-				resources.getString(PHOTO_CONTROL_MODIFY_IMAGE));
+				resources.getString(PICTURE_CONTROL_MODIFY_IMAGE));
 		addModifyImageHandler(modifyImageLink);
 		return modifyImageLink;
 	}
@@ -277,11 +288,31 @@ public abstract class AbstractPictureControl<T extends Control> extends Composit
 	}
 
 	/**
+	 * Set the file extensions which the dialog will use to filter the files it
+	 * shows to the argument, which may be null.
+	 * <p>
+	 * The strings are platform specific. For example, on some platforms, an
+	 * extension filter string is typically of the form "*.extension", where
+	 * "*.*" matches all files. For filters with multiple extensions, use
+	 * semicolon as a separator, e.g. "*.jpg;*.png".
+	 * </p>
+	 * 
+	 * @param extensions
+	 *            the file extension filter
+	 * 
+	 * @see #setFilterNames to specify the user-friendly names corresponding to
+	 *      the extensions
+	 */
+	public void setFilterExtensions(String[] extensions) {
+		this.extensions = extensions;
+	}
+
+	/**
 	 * Open the Explorer File to select a new image.
 	 */
 	protected void handleModifyImage() {
-		FileDialog fd = new FileDialog(this.getShell(), SWT.SHELL_TRIM
-				| SWT.SINGLE | SWT.APPLICATION_MODAL);
+		FileDialog fd = new FileDialog(this.getShell(), getFileDialogStyle());
+		configure(fd);
 		String selected = fd.open();
 		if (selected != null && selected.length() > 0) {
 			File f = new File(selected);
@@ -292,6 +323,29 @@ public abstract class AbstractPictureControl<T extends Control> extends Composit
 				handleError(e);
 			}
 		}
+	}
+
+	/**
+	 * Configure the {@link FileDialog} to set the file extension, the text,
+	 * etc. This method can be override to custome the configuration.
+	 * 
+	 * @param fd
+	 */
+	protected void configure(FileDialog fd) {
+		fd.setText(resources.getString(PICTURE_CONTROL_FILEDIALOG_TEXT));
+		if (extensions != null) {
+			fd.setFilterExtensions(extensions);
+		}
+	}
+
+	/**
+	 * Returns the {@link FileDialog}SWT style. This method can be override if
+	 * the SWT style should be customized.
+	 * 
+	 * @return
+	 */
+	protected int getFileDialogStyle() {
+		return SWT.SHELL_TRIM | SWT.SINGLE | SWT.APPLICATION_MODAL;
 	}
 
 	/**
@@ -336,8 +390,8 @@ public abstract class AbstractPictureControl<T extends Control> extends Composit
 	}
 
 	/**
-	 * Set the current {@link InputStream} of the image picture. null is accepted
-	 * to delete the image.
+	 * Set the current {@link InputStream} of the image picture. null is
+	 * accepted to delete the image.
 	 * 
 	 * @param stream
 	 * @throws IOException
@@ -351,8 +405,8 @@ public abstract class AbstractPictureControl<T extends Control> extends Composit
 	}
 
 	/**
-	 * Returns the {@link InputStream} of the image picture and null if none picture
-	 * was setted.
+	 * Returns the {@link InputStream} of the image picture and null if none
+	 * picture was setted.
 	 * 
 	 * @return
 	 */
@@ -365,8 +419,8 @@ public abstract class AbstractPictureControl<T extends Control> extends Composit
 	}
 
 	/**
-	 * Set the current byte array of the image picture. null is accepted to delete
-	 * the image.
+	 * Set the current byte array of the image picture. null is accepted to
+	 * delete the image.
 	 * 
 	 * @param imageByteArray
 	 */
@@ -430,8 +484,8 @@ public abstract class AbstractPictureControl<T extends Control> extends Composit
 	}
 
 	/**
-	 * Sets a new locale to use for picture controle. Locale will choose the well
-	 * resources bundle.
+	 * Sets a new locale to use for picture controle. Locale will choose the
+	 * well resources bundle.
 	 * 
 	 * @param locale
 	 *            new locale (must not be null)
@@ -496,9 +550,10 @@ public abstract class AbstractPictureControl<T extends Control> extends Composit
 	}
 
 	/**
-	 * Set the default image for the picture. The default image doesn't store the
-	 * input stream of the image in this control. It is used just to display an
-	 * "empty" picture and set the maximum/minimum width of the picture Label.
+	 * Set the default image for the picture. The default image doesn't store
+	 * the input stream of the image in this control. It is used just to display
+	 * an "empty" picture and set the maximum/minimum width of the picture
+	 * Label.
 	 * 
 	 * @param defaultImage
 	 */
@@ -514,7 +569,8 @@ public abstract class AbstractPictureControl<T extends Control> extends Composit
 	 * Dispose the current image if needed.s
 	 */
 	private void disposePictureImage() {
-		if (this.resizedPictureImage != null && !resizedPictureImage.isDisposed()) {
+		if (this.resizedPictureImage != null
+				&& !resizedPictureImage.isDisposed()) {
 			this.resizedPictureImage.dispose();
 		}
 	}

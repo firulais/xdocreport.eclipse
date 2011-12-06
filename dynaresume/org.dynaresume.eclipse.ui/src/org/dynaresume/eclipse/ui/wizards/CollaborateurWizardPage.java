@@ -57,24 +57,6 @@ class CollaborateurWizardPage extends WizardPage {
 		new Label(composite, SWT.LEFT).setText("Last name:");
 		lastNameText = new Text(composite, SWT.BORDER);
 		lastNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-
-		Link link= new Link(composite, SWT.WRAP | SWT.RIGHT);
-		link.setText("BLABLAhhhhhhhhhhhhhh");
-		GridData resumeTitleData = new GridData(GridData.FILL_HORIZONTAL);
-		resumeTitleData.widthHint = 150;
-		link.setLayoutData(resumeTitleData);
-		link.addSelectionListener(new SelectionListener() {
-			
-			public void widgetSelected(SelectionEvent e) {
-				System.err.println(e);
-			}
-			
-			public void widgetDefaultSelected(SelectionEvent e) {
-			System.err.println(e);	
-			}
-		});
-		
-		link.setToolTipText("aaaaaaaaaaaaa");
 		
 		super.setControl(composite);
 	}

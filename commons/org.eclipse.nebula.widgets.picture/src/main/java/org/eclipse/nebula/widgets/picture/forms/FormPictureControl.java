@@ -35,7 +35,7 @@ public class FormPictureControl extends AbstractPictureControl<Hyperlink> {
 	 *            instance (cannot be null)
 	 */
 	public FormPictureControl(Composite parent, FormToolkit toolkit) {
-		this(parent, toolkit, SWT.NONE, SWT.BORDER, SWT.NONE);
+		this(parent, toolkit, SWT.NONE, SWT.BORDER | SWT.CENTER, SWT.NONE);
 	}
 
 	/**
