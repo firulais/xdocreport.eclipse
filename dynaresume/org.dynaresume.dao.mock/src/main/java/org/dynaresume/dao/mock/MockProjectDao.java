@@ -23,7 +23,7 @@ public class MockProjectDao extends AbstractDaoMock<Project> implements ProjectD
 	}
 
 	public Page<Project> findByNameLike(String name, Pageable pageable) {
-		// TODO : manage pagination with the DAO
+		name = Utils.getCriteria(name);
 		int pageSize = pageable.getPageSize();
 		int pageIndex = pageable.getOffset();
 		Iterable<Project> allProjects = findAll();

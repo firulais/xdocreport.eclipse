@@ -29,6 +29,7 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	public Page<Project> findByName(String name, Pageable pageable) {
+		name=name != null ? name+"%" : "%";
 		return projectDao.findByNameLike(name, pageable);
 	}
 

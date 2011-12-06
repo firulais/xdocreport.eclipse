@@ -7,7 +7,7 @@ public class XDocReportPerspective implements IPerspectiveFactory {
 
 	public void createInitialLayout(IPageLayout layout) {
 		layout.setEditorAreaVisible(true);
-		layout.addView(XDocReportExplorerView.ID, IPageLayout.LEFT, 0.25f, "org.eclipse.ui.editorss");
+		layout.addView(ModuleExplorerView.ID, IPageLayout.LEFT, 0.25f, "org.eclipse.ui.editorss");
 		
 //		layout.setEditorAreaVisible(false);
 //		layout.setFixed(true);

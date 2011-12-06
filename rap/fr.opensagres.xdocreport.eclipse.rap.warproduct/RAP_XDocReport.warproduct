@@ -29,7 +29,6 @@
       <plugin id="fr.opensagres.xdocreport.document.odt" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.document.pptx" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.eclipse.core"/>
-      <plugin id="fr.opensagres.xdocreport.eclipse.demo.lettrerelance"/>
       <plugin id="fr.opensagres.xdocreport.eclipse.rap" fragment="true"/>
       <plugin id="fr.opensagres.xdocreport.eclipse.reporting.core"/>
       <plugin id="fr.opensagres.xdocreport.eclipse.reporting.ui"/>
@@ -66,6 +65,7 @@
       <plugin id="org.dynaresume.domain.project"/>
       <plugin id="org.dynaresume.eclipse.reporting"/>
       <plugin id="org.dynaresume.eclipse.ui"/>
+      <plugin id="org.dynaresume.project.eclipse.reporting"/>
       <plugin id="org.dynaresume.project.eclipse.ui"/>
       <plugin id="org.dynaresume.services"/>
       <plugin id="org.dynaresume.services.impl"/>
@@ -151,7 +151,6 @@
       <plugin id="fr.opensagres.xdocreport.core" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.xdocreport.document" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.xdocreport.eclipse.core" autoStart="true" startLevel="0" />
-      <plugin id="fr.opensagres.xdocreport.eclipse.demo.lettrerelance" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.xdocreport.eclipse.reporting.core" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.xdocreport.eclipse.reporting.ui" autoStart="true" startLevel="0" />
       <plugin id="fr.opensagres.xdocreport.eclipse.reporting.xdocreport.core" autoStart="true" startLevel="0" />
@@ -183,6 +182,7 @@
       <plugin id="org.dynaresume.domain.project" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.eclipse.reporting" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.eclipse.ui" autoStart="true" startLevel="0" />
+      <plugin id="org.dynaresume.project.eclipse.reporting" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.project.eclipse.ui" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.services" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.services.impl" autoStart="true" startLevel="0" />

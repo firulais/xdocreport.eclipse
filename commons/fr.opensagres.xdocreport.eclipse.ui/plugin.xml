@@ -31,9 +31,9 @@
    <extension
          point="org.eclipse.ui.views">
       <view
-            name="%XDocReportExplorerView.name"
-            class="fr.opensagres.xdocreport.eclipse.internal.ui.XDocReportExplorerView"
-            id="fr.opensagres.xdocreport.eclipse.reportExplorer" 
+            name="%ModuleExplorerView.name"
+            class="fr.opensagres.xdocreport.eclipse.internal.ui.ModuleExplorerView"
+            id="fr.opensagres.xdocreport.eclipse.moduleExplorer" 
             allowMultiple="false">
       </view>
    </extension>

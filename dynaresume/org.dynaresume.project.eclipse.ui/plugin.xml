@@ -24,9 +24,7 @@
 	                   icon="icons/obj16/search_client.gif" />	                   
 	        </entries>
 	        <reportProcessors commandId="fr.opensagres.xdocreport.eclipse.ui.handlers.GenerateReportHandler">
-	        	<reportProcessor reportProcessorId="fr.opensagres.xdocreport.eclipse.demo.resume.reporting.xdocreport" />
-	        	<!--<reportProcessor reportProcessorId="resume2" />
-	        	<reportProcessor reportProcessorId="resume3" />-->
+	        	<reportProcessor reportProcessorId="org.dynaresume.project.eclipse.reporting" />
 	        </reportProcessors>	        
       </reportModule>
    </extension>

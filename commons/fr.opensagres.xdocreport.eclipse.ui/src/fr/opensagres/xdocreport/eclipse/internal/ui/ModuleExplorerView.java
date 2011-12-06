@@ -35,14 +35,14 @@ import fr.opensagres.xdocreport.eclipse.internal.ImageResources;
 import fr.opensagres.xdocreport.eclipse.internal.extensions.modules.ReportBaseModule;
 import fr.opensagres.xdocreport.eclipse.ui.handlers.ContextHandlerUtils;
 
-public class XDocReportExplorerView extends ViewPart implements
+public class ModuleExplorerView extends ViewPart implements
 		IDoubleClickListener {
-	public XDocReportExplorerView() {
+	public ModuleExplorerView() {
 	}
 
-	public static final String ID = "fr.opensagres.xdocreport.eclipse.reportExplorer";
+	public static final String ID = "fr.opensagres.xdocreport.eclipse.moduleExplorer";
 
-	//private TreeViewer viewer;
+	// private TreeViewer viewer;
 
 	/**
 	 * The content provider class is responsible for providing objects to the
@@ -93,11 +93,11 @@ public class XDocReportExplorerView extends ViewPart implements
 
 		public Image getImage(Object element) {
 			if (element instanceof IReportModule) {
-				return XDocReportExplorerView.this.getImage(
+				return ModuleExplorerView.this.getImage(
 						(IReportModule) element, ImageResources.IMG_MODULE);
 			}
 			if (element instanceof IReportModuleEntry) {
-				return XDocReportExplorerView.this.getImage(
+				return ModuleExplorerView.this.getImage(
 						(IReportModuleEntry) element, "entry");
 			}
 			return PlatformUI.getWorkbench().getSharedImages()
@@ -125,69 +125,28 @@ public class XDocReportExplorerView extends ViewPart implements
 	 * This is a callback that will allow us to create the viewer and initialize
 	 * it.
 	 */
-	public void createPartControl(Composite parent) {		
-		
+	public void createPartControl(Composite parent) {
+
 		AbstractRenderer renderer = new RedmondShelfRenderer();
-		PShelf shelf = new PShelf(parent,SWT.BORDER);        
-        shelf.setRenderer(renderer);
-		
-		List<IReportModule> modules =PlatformXDocReport.getReportModuleRegistry()
-		.getReportModules();
-		
+		PShelf shelf = new PShelf(parent, SWT.BORDER);
+		shelf.setRenderer(renderer);
+
+		List<IReportModule> modules = PlatformXDocReport
+				.getReportModuleRegistry().getReportModules();
+
 		for (IReportModule module : modules) {
 			createModule(shelf, module);
 		}
-		
-//        
-//        
-//        
-//        item.getBody().setLayout(new FillLayout());
-//        Tree tree = new Tree(item.getBody(),SWT.NONE);
-//        TreeItem tItem = new TreeItem(tree,SWT.NONE);
-//        tItem.setText("tree item");
-//        tItem = new TreeItem(tItem,SWT.NONE);
-//        tItem.setText("child tree item");
-//        tItem = new TreeItem(tItem,SWT.NONE);
-//        tItem.setText("child two");
-//        
-//        PShelfItem item2 = new PShelfItem(shelf,SWT.NONE);
-//        item2.setText("2nd Item");
-//        //item2.setImage(i);
-//        
-//        item2.getBody().setLayout(new FillLayout());
-//        
-//        Text t = new Text(item2.getBody(),SWT.WRAP);
-//        t.setText("The England defender and United captain infamously ran the length of the pitch at Old Trafford to celebrate Rio Ferdinand's late winner in front of the Liverpool fans last season by screaming, clutching his shirt and pointing to the United badge. ");
-//        
-//        
-//        PShelfItem item3 = new PShelfItem(shelf,SWT.NONE);
-//        item3.setText("Item Number 3");
-//        //item3.setImage(i);
-//        
-//        item3.getBody().setLayout(new FillLayout());
-//        
-//        Table table = new Table(item3.getBody(),SWT.NONE);
-//        table.setHeaderVisible(true);
-//        TableColumn col = new TableColumn(table,SWT.NONE);
-//        col.setText("Column1");
-//        col.setWidth(100);
-//        col = new TableColumn(table,SWT.NONE);
-//        col.setText("Column2");
-//        col.setWidth(100);
-//        
-//        TableItem tableItem = new TableItem(table,SWT.NONE);
-//        tableItem.setText("afsffsd");
-//        tableItem.setText(1,"asfdsdf");
-
 	}
 
 	private void createModule(PShelf shelf, IReportModule module) {
-		PShelfItem item = new PShelfItem(shelf,SWT.NONE);
-        item.setText(module.getName());
-        item.setImage(module.getIcon());
-        item.getBody().setLayout(new FillLayout());
-        
-        TreeViewer viewer = new TreeViewer(item.getBody(), SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+		PShelfItem item = new PShelfItem(shelf, SWT.NONE);
+		item.setText(module.getName());
+		item.setImage(module.getIcon());
+		item.getBody().setLayout(new FillLayout());
+
+		TreeViewer viewer = new TreeViewer(item.getBody(), SWT.MULTI
+				| SWT.H_SCROLL | SWT.V_SCROLL);
 		viewer.setContentProvider(new ViewContentProvider());
 		viewer.setLabelProvider(new ViewLabelProvider());
 		// Provide the input to the ContentProvider
@@ -200,7 +159,7 @@ public class XDocReportExplorerView extends ViewPart implements
 	 * Passing the focus request to the viewer's control.
 	 */
 	public void setFocus() {
-		//viewer.getControl().setFocus();
+		// viewer.getControl().setFocus();
 	}
 
 	public void doubleClick(final DoubleClickEvent event) {
@@ -219,9 +178,9 @@ public class XDocReportExplorerView extends ViewPart implements
 					e.printStackTrace();
 					IStatus status = new Status(IStatus.ERROR,
 							Activator.PLUGIN_ID, e.getMessage(), e);
-//					ErrorDialog.openError(viewer.getControl().getShell(),
-//							Messages.XDocReportExplorerView_error,
-//							e.getMessage(), status);										
+					// ErrorDialog.openError(viewer.getControl().getShell(),
+					// Messages.XDocReportExplorerView_error,
+					// e.getMessage(), status);
 				}
 			}
 		}

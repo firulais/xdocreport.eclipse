@@ -21,7 +21,7 @@ public class MockClientDao extends AbstractDaoMock<Client> implements ClientDao 
 	}
 
 	public Page<Client> findByNameLike(String name, Pageable pageable) {
-		// TODO : manage pagination with the DAO
+		name = Utils.getCriteria(name);
 		int pageSize = pageable.getPageSize();
 		int pageIndex = pageable.getOffset();
 		Iterable<Client> allClients = findAll();

@@ -212,8 +212,8 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 		Iterable<Resume> allResumes = findAll();
 		// List<Resume> fullList = new ArrayList<Resume>(allResumes);
 
-		firstNameCriteria = getCriteria(firstNameCriteria);
-		lastNameCriteria = getCriteria(lastNameCriteria);
+		firstNameCriteria = Utils.getCriteria(firstNameCriteria);
+		lastNameCriteria = Utils.getCriteria(lastNameCriteria);
 
 		List<Resume> filteredList = new ArrayList<Resume>();
 		for (Resume resume : allResumes) {
@@ -230,19 +230,6 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 
 		return new PageImpl<Resume>(paginatedList, pageable, totalSize);
 
-	}
-
-	private String getCriteria(String criteria) {
-		if (criteria == null) {
-			return null;
-		}
-		if (criteria.endsWith("%")) {
-			criteria = criteria.substring(0, criteria.length() - 1);
-		}
-		if (criteria.length() == 0) {
-			return null;
-		}
-		return criteria;
 	}
 
 	private boolean isPersonOK(Resume resume, String firstNameCriteria,
