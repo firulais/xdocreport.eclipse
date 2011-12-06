@@ -54,7 +54,11 @@ import org.springframework.data.domain.Pageable;
 public class OSGiEclipseLinkUnitTest {
 
 	private static final int timeout = 30000;
-	 private static final String SPRING_VERSION = "3.1.0.RC2";
+	private static final String GEMINI_BLUEPRINT_VERSION = "1.0.0.RELEASE";
+	private static final String STRING_DATA_VERSION = "1.0.1.RELEASE";
+	private static final String SPRING_VERSION = "3.1.0.RC2";
+
+
 	
 
 	@Configuration()
@@ -69,58 +73,29 @@ public class OSGiEclipseLinkUnitTest {
 				felix(),
 				equinox(),
 
-				mavenBundle("org.apache.commons",
-						"com.springsource.org.apache.commons.logging", "1.1.1"),
+						mavenBundle("org.apache.commons","com.springsource.org.apache.commons.logging", "1.1.1"),
 				// ***************** Common dependencies ********************
-				mavenBundle().groupId("org.aopalliance")
-						.artifactId("com.springsource.org.aopalliance")
-						.version("1.0.0"),
-				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-aop").version(SPRING_VERSION),
-				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-beans").version(SPRING_VERSION),
-				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-context").version(SPRING_VERSION),
+						// ***************** Common dependencies ********************
+						mavenBundle("org.aopalliance","com.springsource.org.aopalliance").version("1.0.0"),
+						mavenBundle("org.springframework","spring-aop").version(SPRING_VERSION),
+						mavenBundle("org.springframework","spring-beans").version(SPRING_VERSION),
+						mavenBundle("org.springframework","spring-context").version(SPRING_VERSION),
+						mavenBundle("org.springframework","spring-core").version(SPRING_VERSION),
+						mavenBundle("org.springframework","spring-tx").version(SPRING_VERSION),
+						mavenBundle("org.springframework","spring-orm").version(SPRING_VERSION),
+						mavenBundle("org.springframework","spring-jdbc").version(SPRING_VERSION),
+						mavenBundle("org.springframework","spring-asm").version(SPRING_VERSION),
+						mavenBundle("org.springframework","spring-expression").version(SPRING_VERSION),
+						
+						mavenBundle("org.springframework.data","spring-data-jpa").version(STRING_DATA_VERSION),
+						mavenBundle("org.springframework.data","spring-data-commons-core").version("1.1.0.RELEASE"),
+						mavenBundle("org.apache.derby","derby").version("10.8.2.2"),
+						mavenBundle("javax.validation","com.springsource.javax.validation").version("1.0.0.GA"),
+						
+						mavenBundle("org.eclipse.gemini.blueprint","gemini-blueprint-core").version(GEMINI_BLUEPRINT_VERSION),
+						mavenBundle("org.eclipse.gemini.blueprint","gemini-blueprint-io").version(GEMINI_BLUEPRINT_VERSION),
+						mavenBundle("org.eclipse.gemini.blueprint","gemini-blueprint-extender").version(GEMINI_BLUEPRINT_VERSION).startLevel(5),
 
-				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-core").version(SPRING_VERSION),
-
-				mavenBundle().groupId("org.springframework.data")
-						.artifactId("spring-data-jpa").version("1.0.1.RELEASE"),
-				mavenBundle().groupId("org.springframework.data")
-						.artifactId("spring-data-commons-core")
-						.version("1.1.0.RELEASE"),
-
-				mavenBundle().groupId("org.apache.derby").artifactId("derby")
-						.version("10.8.2.2"),
-
-				mavenBundle().groupId("javax.validation")
-						.artifactId("com.springsource.javax.validation")
-						.version("1.0.0.GA"),
-
-				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-tx").version(SPRING_VERSION),
-				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-orm").version(SPRING_VERSION),
-				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-jdbc").version(SPRING_VERSION),
-				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-asm").version(SPRING_VERSION),
-				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-expression")
-						.version(SPRING_VERSION),
-
-				mavenBundle().groupId("org.eclipse.gemini.blueprint")
-						.artifactId("gemini-blueprint-core")
-						.version("1.0.0.RELEASE"),
-
-				mavenBundle().groupId("org.eclipse.gemini.blueprint")
-						.artifactId("gemini-blueprint-io")
-						.version("1.0.0.RELEASE"),
-
-				mavenBundle().groupId("org.eclipse.gemini.blueprint")
-						.artifactId("gemini-blueprint-extender")
-						.version("1.0.0.RELEASE").startLevel(5),
 				// ***************** EclipseLink dependencies
 				// ********************
 				mavenBundle("org.eclipse.persistence", "javax.persistence",

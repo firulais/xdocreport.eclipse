@@ -52,7 +52,9 @@ import org.osgi.util.tracker.ServiceTracker;
 @ExamReactorStrategy(EagerSingleStagedReactorFactory.class)
 public class OSGiHibernateUnitTest {
 
-	 private static final String SPRING_VERSION = "3.1.0.RC2";
+	 private static final String GEMINI_BLUEPRINT_VERSION = "1.0.0.RELEASE";
+	private static final String STRING_DATA_VERSION = "1.0.1.RELEASE";
+	private static final String SPRING_VERSION = "3.1.0.RC2";
 
 
 	@Configuration()
@@ -66,135 +68,58 @@ public class OSGiHibernateUnitTest {
 				felix(),
 				// equinox(),
 				// ***************** Common dependencies ********************
-				mavenBundle().groupId("org.aopalliance")
-						.artifactId("com.springsource.org.aopalliance")
-						.version("1.0.0"),
-				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-aop").version(SPRING_VERSION),
-				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-beans").version(SPRING_VERSION),
-				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-context").version(SPRING_VERSION),
-
-				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-core").version(SPRING_VERSION),
-
-				mavenBundle().groupId("org.springframework.data")
-						.artifactId("spring-data-jpa").version("1.0.1.RELEASE"),
-				mavenBundle().groupId("org.springframework.data")
-						.artifactId("spring-data-commons-core")
-						.version("1.1.0.RELEASE"),
-
-				mavenBundle().groupId("org.apache.derby").artifactId("derby")
-						.version("10.8.2.2"),
-
-				mavenBundle().groupId("javax.validation")
-						.artifactId("com.springsource.javax.validation")
-						.version("1.0.0.GA"),
-
-				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-tx").version(SPRING_VERSION),
-				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-orm").version(SPRING_VERSION),
-				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-jdbc").version(SPRING_VERSION),
-				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-asm").version(SPRING_VERSION),
-				mavenBundle().groupId("org.springframework")
-						.artifactId("spring-expression")
-						.version(SPRING_VERSION),
-
-				mavenBundle().groupId("org.eclipse.gemini.blueprint")
-						.artifactId("gemini-blueprint-core")
-						.version("1.0.0.RELEASE"),
-
-				mavenBundle().groupId("org.eclipse.gemini.blueprint")
-						.artifactId("gemini-blueprint-io")
-						.version("1.0.0.RELEASE"),
-
-				mavenBundle().groupId("org.eclipse.gemini.blueprint")
-						.artifactId("gemini-blueprint-extender")
-						.version("1.0.0.RELEASE").startLevel(5),
+				mavenBundle("org.aopalliance","com.springsource.org.aopalliance").version("1.0.0"),
+				mavenBundle("org.springframework","spring-aop").version(SPRING_VERSION),
+				mavenBundle("org.springframework","spring-beans").version(SPRING_VERSION),
+				mavenBundle("org.springframework","spring-context").version(SPRING_VERSION),
+				mavenBundle("org.springframework","spring-core").version(SPRING_VERSION),
+				mavenBundle("org.springframework","spring-tx").version(SPRING_VERSION),
+				mavenBundle("org.springframework","spring-orm").version(SPRING_VERSION),
+				mavenBundle("org.springframework","spring-jdbc").version(SPRING_VERSION),
+				mavenBundle("org.springframework","spring-asm").version(SPRING_VERSION),
+				mavenBundle("org.springframework","spring-expression").version(SPRING_VERSION),
+				
+				mavenBundle("org.springframework.data","spring-data-jpa").version(STRING_DATA_VERSION),
+				mavenBundle("org.springframework.data","spring-data-commons-core").version("1.1.0.RELEASE"),
+				mavenBundle("org.apache.derby","derby").version("10.8.2.2"),
+				mavenBundle("javax.validation","com.springsource.javax.validation").version("1.0.0.GA"),
+				
+				mavenBundle("org.eclipse.gemini.blueprint","gemini-blueprint-core").version(GEMINI_BLUEPRINT_VERSION),
+				mavenBundle("org.eclipse.gemini.blueprint","gemini-blueprint-io").version(GEMINI_BLUEPRINT_VERSION),
+				mavenBundle("org.eclipse.gemini.blueprint","gemini-blueprint-extender").version(GEMINI_BLUEPRINT_VERSION).startLevel(5),
 				// ***************** Hibernate OSGi dependencies
 				// ********************
-				mavenBundle().groupId("javax.persistence")
-						.artifactId("com.springsource.javax.persistence")
-						.version("2.0.0"),
+				mavenBundle("javax.persistence","com.springsource.javax.persistence").version("2.0.0"),
+				mavenBundle("com.fasterxml","com.springsource.com.fasterxml.classmate").version("0.5.4"),
+				mavenBundle("org.apache.commons","com.springsource.org.apache.commons.collections").version("3.2.1"),
+				mavenBundle("org.jboss.javassist","com.springsource.javassist").version("3.12.1.GA"),
 
-				mavenBundle().groupId("com.fasterxml")
-						.artifactId("com.springsource.com.fasterxml.classmate")
-						.version("0.5.4"),
-				mavenBundle()
-						.groupId("org.apache.commons")
-						.artifactId(
-								"com.springsource.org.apache.commons.collections")
-						.version("3.2.1"),
-				mavenBundle().groupId("org.jboss.javassist")
-						.artifactId("com.springsource.javassist")
-						.version("3.12.1.GA"),
+				mavenBundle("org.apache.ant","com.springsource.org.apache.tools.ant").version("1.8.1"),
+				mavenBundle("org.jboss.logging","com.springsource.org.jboss.logging").version("3.0.0.GA"),
+				mavenBundle("org.jboss","com.springsource.org.jboss.jandex").version("1.0.3.Final"),
+				mavenBundle("javax.xml.stream","com.springsource.javax.xml.stream").version("1.0.1"),
 
-				mavenBundle().groupId("org.apache.ant")
-						.artifactId("com.springsource.org.apache.tools.ant")
-						.version("1.8.1"),
-				mavenBundle().groupId("org.jboss.logging")
-						.artifactId("com.springsource.org.jboss.logging")
-						.version("3.0.0.GA"),
+				mavenBundle("org.dom4j","com.springsource.org.dom4j").version("1.6.1"),
 
-				mavenBundle().groupId("org.jboss")
-						.artifactId("com.springsource.org.jboss.jandex")
-						.version("1.0.3.Final"),
-				mavenBundle().groupId("javax.xml.stream")
-						.artifactId("com.springsource.javax.xml.stream")
-						.version("1.0.1"),
+				mavenBundle("org.hibernate","com.springsource.org.hibernate.ejb").version("4.0.0.CR4").noStart(),
 
-				mavenBundle().groupId("org.dom4j")
-						.artifactId("com.springsource.org.dom4j")
-						.version("1.6.1"),
+				mavenBundle("org.hibernate","com.springsource.org.hibernate").version("4.0.0.CR4").noStart(),
 
-				mavenBundle().groupId("org.hibernate")
-						.artifactId("com.springsource.org.hibernate.ejb")
-						.version("4.0.0.CR4").noStart(),
+				mavenBundle("org.antlr","com.springsource.antlr").version("2.7.7"),
 
-				mavenBundle().groupId("org.hibernate")
-						.artifactId("com.springsource.org.hibernate")
-						.version("4.0.0.CR4").noStart(),
-
-				mavenBundle().groupId("org.antlr")
-						.artifactId("com.springsource.antlr").version("2.7.7"),
-
-				mavenBundle().groupId("org.apache.log4j")
-						.artifactId("com.springsource.org.apache.log4j")
-						.version("1.2.16"),
+				mavenBundle("org.apache.log4j","com.springsource.org.apache.log4j").version("1.2.16"),
 
 				wrappedBundle(
-						mavenBundle().groupId("org.jboss.logmanager")
-								.artifactId("jboss-logmanager")
-								.version("1.2.0.GA")).exports(
+						mavenBundle("org.jboss.logmanager","jboss-logmanager","1.2.0.GA")).exports(
 						"org.jboss.logmanager;version=\"1.2.0.GA\""),
-				mavenBundle("org.apache.commons",
-						"com.springsource.org.apache.commons.dbcp",
-						"1.2.2.osgi"),
-						mavenBundle("org.apache.commons",
-								"com.springsource.org.apache.commons.pool",
-								"1.3.0"),		
-				mavenBundle("fr.opensagres.xdocreport-eclipse",
-						"org.dynaresume.domain.core", "1.0.0-SNAPSHOT"),
-				mavenBundle("fr.opensagres.xdocreport-eclipse",
-						"org.dynaresume.domain.hr", "1.0.0-SNAPSHOT"),
-				mavenBundle("fr.opensagres.xdocreport-eclipse",
-						"org.dynaresume.datasource", "1.0.0-SNAPSHOT"),
-				mavenBundle("fr.opensagres.xdocreport-eclipse",
-						"org.dynaresume.dao", "1.0.0-SNAPSHOT"),
-				mavenBundle("fr.opensagres.xdocreport-eclipse",
-						"org.dynaresume.dao.jpa", "1.0.0-SNAPSHOT"),
-				mavenBundle("fr.opensagres.xdocreport-eclipse",
-						"org.dynaresume.dao.jpa.hibernate", "1.0.0-SNAPSHOT")
-						.noStart()
-
-		// mavenBundle("fr.opensagres.xdocreport-eclipse",
-		// "org.dynaresume.services", "1.0.0-SNAPSHOT"),
-		// mavenBundle("fr.opensagres.xdocreport-eclipse",
-		// "org.dynaresume.services.impl", "1.0.0-SNAPSHOT")
+				mavenBundle("org.apache.commons","com.springsource.org.apache.commons.dbcp","1.2.2.osgi"),
+				mavenBundle("org.apache.commons","com.springsource.org.apache.commons.pool","1.3.0"),		
+				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.core", "1.0.0-SNAPSHOT"),
+				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.hr", "1.0.0-SNAPSHOT"),
+				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.datasource", "1.0.0-SNAPSHOT"),
+				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao", "1.0.0-SNAPSHOT"),
+				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa", "1.0.0-SNAPSHOT"),
+				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa.hibernate", "1.0.0-SNAPSHOT").noStart()
 
 		);
 	}
