@@ -55,6 +55,21 @@
 		</dependency>
 		<dependency>
 			<groupId>fr.opensagres.xdocreport-eclipse</groupId>
+    		<version>1.0.0-SNAPSHOT</version>
+  			<artifactId>org.dynaresume.domain.project</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>fr.opensagres.xdocreport-eclipse</groupId>
+    		<version>1.0.0-SNAPSHOT</version>
+			<artifactId>org.dynaresume.domain.core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>fr.opensagres.xdocreport-eclipse</groupId>
+    		<version>1.0.0-SNAPSHOT</version>
+			<artifactId>org.dynaresume.domain.hr</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>fr.opensagres.xdocreport-eclipse</groupId>
 			<version>1.0.0-SNAPSHOT</version>
 			<artifactId>org.dynaresume.services</artifactId>
 		</dependency>

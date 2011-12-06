@@ -54,7 +54,7 @@ import org.springframework.data.domain.Pageable;
 public class OSGiEclipseLinkUnitTest {
 
 	private static final int timeout = 30000;
-	 private static final String SPRING_VERSION = "3.1.0.RC1";
+	 private static final String SPRING_VERSION = "3.1.0.RC2";
 	//private static final String SPRING_VERSION = "3.0.6.RELEASE";
 
 	@Configuration()
@@ -143,6 +143,8 @@ public class OSGiEclipseLinkUnitTest {
 						"com.springsource.org.apache.commons.pool", "1.5.3"),
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
 						"org.dynaresume.domain.core", "1.0.0-SNAPSHOT"),
+				mavenBundle("fr.opensagres.xdocreport-eclipse",
+							"org.dynaresume.domain.project", "1.0.0-SNAPSHOT"),		
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
 						"org.dynaresume.domain.hr", "1.0.0-SNAPSHOT"),
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
