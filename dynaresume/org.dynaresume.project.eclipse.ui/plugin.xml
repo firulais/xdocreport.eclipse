@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   
+   <extension
+         point="fr.opensagres.xdocreport.eclipse.ui.reportModules">
+      <reportModule
+            id="resume"
+            name="%ProjectModule.name"
+            description="%ProjectModule.desc"
+            icon="icons/obj16/project.gif" >
+            <entries>
+	            <entry name="%NewProjectEntry.name"
+	            	   commandId="org.dynaresume.project.eclipse.ui.handlers.NewProjectHandler"
+	            	   icon="icons/obj16/new_project.gif" />
+	            <entry name="%SearchProjectEntry.name"
+	                   commandId="org.dynaresume.project.eclipse.ui.handlers.SearchProjectHandler"
+	                   icon="icons/obj16/search_project.gif" />
+	            <entry name="%NewClientEntry.name"
+	            	   commandId="org.dynaresume.project.eclipse.ui.handlers.NewClientHandler"
+	            	   icon="icons/obj16/new_client.gif" />
+	            <entry name="%SearchClientEntry.name"
+	                   commandId="org.dynaresume.project.eclipse.ui.handlers.SearchClientHandler"
+	                   icon="icons/obj16/search_client.gif" />	                   
+	        </entries>
+	        <reportProcessors commandId="fr.opensagres.xdocreport.eclipse.ui.handlers.GenerateReportHandler">
+	        	<reportProcessor reportProcessorId="fr.opensagres.xdocreport.eclipse.demo.resume.reporting.xdocreport" />
+	        	<!--<reportProcessor reportProcessorId="resume2" />
+	        	<reportProcessor reportProcessorId="resume3" />-->
+	        </reportProcessors>	        
+      </reportModule>
+   </extension>
+   
+  <extension
+        point="org.eclipse.ui.editors">
+     <editor
+           class="org.eclipse.springframework.util.SpringExtensionFactory:projectEditor"           
+           extensions="*"
+           icon="icons/obj16/project.gif"
+           id="org.dynaresume.project.eclipse.ui.editors.project.ProjectFormEditor"
+           name="%ProjectFormEditor.name">
+     </editor>
+  </extension>
+
+  <extension
+        point="org.eclipse.ui.editors">
+     <editor
+           class="org.eclipse.springframework.util.SpringExtensionFactory:clientEditor"           
+           extensions="*"
+           icon="icons/obj16/client.gif"
+           id="org.dynaresume.project.eclipse.ui.editors.client.ClientFormEditorPart"
+           name="%ClientFormEditor.name">
+     </editor>
+  </extension>
+  
+  <extension
+        point="fr.opensagres.xdocreport.eclipse.ui.dialogFactories">
+     <factory
+           id="org.dynaresume.project.eclipse.ui.dialogs.SearchProjectDialog"
+           class="org.eclipse.springframework.util.SpringExtensionFactory:searchProjectDialog"
+           title="%SearchProjectDialog.title" >
+     </factory>        
+     <factory
+           id="org.dynaresume.project.eclipse.ui.dialogs.SearchClientDialog"
+           class="org.eclipse.springframework.util.SpringExtensionFactory:searchClientDialog"
+           title="%SearchClientDialog.title" >
+     </factory>        
+  </extension>
+  
+  <extension
+        point="fr.opensagres.xdocreport.eclipse.ui.wizardFactories">
+     <factory
+           id="org.dynaresume.project.eclipse.ui.wizards.NewProjectWizard"
+           class="org.eclipse.springframework.util.SpringExtensionFactory:newProjectWizard"
+           title="%NewProjectWizard.title" >
+     </factory>        
+     <factory
+           id="org.dynaresume.project.eclipse.ui.wizards.NewClientWizard"
+           class="org.eclipse.springframework.util.SpringExtensionFactory:newClientWizard"
+           title="%NewClientWizard.title" >
+	</factory>           
+  </extension>
+  
+  <extension
+        point="org.eclipse.ui.commands">
+     <command
+           id="org.dynaresume.project.eclipse.ui.handlers.NewProjectHandler"
+           defaultHandler="org.dynaresume.project.eclipse.ui.handlers.NewProjectHandler"
+           name="%NewProjectEntry.name">
+	</command>           
+     <command           
+           id="org.dynaresume.project.eclipse.ui.handlers.SearchProjectHandler"
+		   defaultHandler="org.dynaresume.project.eclipse.ui.handlers.SearchProjectHandler"           
+           name="%SearchProjectEntry.name">
+	</command>                      
+     <command
+           id="org.dynaresume.project.eclipse.ui.handlers.NewClientHandler"
+           defaultHandler="org.dynaresume.project.eclipse.ui.handlers.NewClientHandler"           
+           name="%NewClientEntry.name">
+	</command>           
+     <command
+           id="org.dynaresume.project.eclipse.ui.handlers.SearchClientHandler"
+           defaultHandler="org.dynaresume.project.eclipse.ui.handlers.SearchClientHandler"           
+           name="%SearchClientEntry.name">                      
+     </command>
+  </extension>
+  
+</plugin>

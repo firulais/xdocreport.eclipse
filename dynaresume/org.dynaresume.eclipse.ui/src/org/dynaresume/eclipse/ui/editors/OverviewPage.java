@@ -13,8 +13,8 @@ import org.eclipse.core.databinding.beans.PojoObservables;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.validation.jsr303.Jsr303BeansUpdateValueStrategyFactory;
 import org.eclipse.jface.databinding.swt.SWTObservables;
-import org.eclipse.nebula.widgets.photo.PhotoControl;
-import org.eclipse.nebula.widgets.photo.forms.FormPhotoControl;
+import org.eclipse.nebula.widgets.picture.PictureControl;
+import org.eclipse.nebula.widgets.picture.forms.FormPictureControl;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -52,7 +52,7 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 	private GridData gd_firstNameText;
 	private Text lastNameText;
 	private DateTimeControl birthDayDateTime;
-	private FormPhotoControl photo;
+	private FormPictureControl photo;
 	private Text emailText;
 	private Text zipCodeText;
 	private Text cityText;
@@ -257,7 +257,8 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 		GridData gd_photoLabel = new GridData();
 		gd_photoLabel.verticalAlignment = SWT.TOP;
 		photoLabel.setLayoutData(gd_photoLabel);
-		photo = new FormPhotoControl(sbody, toolkit);
+		photo = new FormPictureControl(sbody, toolkit);
+		photo.setDefaultImage(ImageResources.getImage(ImageResources.IMG_EMPTY_PHOTO));
 		GridData gd_photo = new GridData(GridData.FILL_HORIZONTAL);
 		gd_photo.widthHint = 150;
 		//photo.setLayoutData(gd_photo);
@@ -394,7 +395,7 @@ public class OverviewPage extends ReportingFormPage<Resume> implements
 
 		// bind photo
 		IObservableValue photoObserveImageObserveWidget = BeansObservables
-				.observeValue(photo, PhotoControl.IMAGE_BYTEARRAY_PROPERTY);
+				.observeValue(photo, PictureControl.IMAGE_BYTEARRAY_PROPERTY);
 		IObservableValue personPhotoObserveValue = PojoObservables
 				.observeValue(getModelObject(), Resume.PICTURE_PROPERTY);
 		bindingContext.bindValue(photoObserveImageObserveWidget,

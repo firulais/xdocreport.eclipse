@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="projectEditor" class="org.dynaresume.project.eclipse.ui.editors.project.ProjectFormEditor"
+		scope="prototype">
+		<property name="projectService" ref="projectService" />
+	</bean>
+
+	<bean id="searchProjectDialog" class="org.dynaresume.project.eclipse.ui.dialogs.SearchProjectDialog"
+		scope="prototype">
+		<property name="projectService" ref="projectService" />
+	</bean>
+
+	<bean id="newProjectWizard" class="org.dynaresume.project.eclipse.ui.wizards.NewProjectWizard"
+		scope="prototype">
+		<property name="projectService" ref="projectService" />
+	</bean>		
+	
+	<bean id="clientEditor" class="org.dynaresume.project.eclipse.ui.editors.client.ClientFormEditor"
+		scope="prototype">
+		<property name="clientService" ref="clientService" />
+	</bean>
+
+	<bean id="searchClientDialog" class="org.dynaresume.project.eclipse.ui.dialogs.SearchClientDialog"
+		scope="prototype">
+		<property name="clientService" ref="clientService" />
+	</bean>
+
+	<bean id="newClientWizard" class="org.dynaresume.project.eclipse.ui.wizards.NewClientWizard"
+		scope="prototype">
+		<property name="clientService" ref="clientService" />
+	</bean>		
+	
+</beans>

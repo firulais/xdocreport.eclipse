@@ -63,8 +63,10 @@
       <plugin id="org.dynaresume.data"/>
       <plugin id="org.dynaresume.domain.core"/>
       <plugin id="org.dynaresume.domain.hr"/>
+      <plugin id="org.dynaresume.domain.project"/>
       <plugin id="org.dynaresume.eclipse.reporting"/>
       <plugin id="org.dynaresume.eclipse.ui"/>
+      <plugin id="org.dynaresume.project.eclipse.ui"/>
       <plugin id="org.dynaresume.services"/>
       <plugin id="org.dynaresume.services.impl"/>
       <plugin id="org.eclipse.core.commands"/>
@@ -93,6 +95,7 @@
       <plugin id="org.eclipse.gemini.blueprint.extender"/>
       <plugin id="org.eclipse.gemini.blueprint.io"/>
       <plugin id="org.eclipse.help"/>
+      <plugin id="org.eclipse.nebula.widgets.picture"/>
       <plugin id="org.eclipse.nebula.widgets.pshelf.rap"/>
       <plugin id="org.eclipse.osgi"/>
       <plugin id="org.eclipse.osgi.services"/>
@@ -177,8 +180,10 @@
       <plugin id="org.dynaresume.data" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.domain.core" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.domain.hr" autoStart="true" startLevel="0" />
+      <plugin id="org.dynaresume.domain.project" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.eclipse.reporting" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.eclipse.ui" autoStart="true" startLevel="0" />
+      <plugin id="org.dynaresume.project.eclipse.ui" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.services" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.services.impl" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.core.commands" autoStart="true" startLevel="0" />
@@ -206,6 +211,7 @@
       <plugin id="org.eclipse.gemini.blueprint.extender" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.gemini.blueprint.io" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.help" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.nebula.widgets.picture" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.nebula.widgets.pshelf.rap" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.osgi" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.osgi.services" autoStart="true" startLevel="0" />

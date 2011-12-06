@@ -13,7 +13,9 @@
 		<property name="skillCategoryService" ref="skillCategoryService" />
 		<property name="skillService" ref="skillService" />
 		<property name="groupService" ref="groupService" />
-		<property name="languageService" ref="languageService" />		
+		<property name="languageService" ref="languageService" />
+		<property name="clientService" ref="clientService" />				
+		<property name="projectService" ref="projectService" />
 	</bean>
 
 </beans>

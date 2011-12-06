@@ -15,6 +15,7 @@
 	<service ref="agencyDao" interface="org.dynaresume.dao.AgencyDao" />
  	<service ref="languageDao" interface="org.dynaresume.dao.LanguageDao" />
 	<service ref="skillCategoryDao" interface="org.dynaresume.dao.SkillCategoryDao" />
-	
+	<service ref="clientDao" interface="org.dynaresume.dao.ClientDao" />
+	<service ref="projectDao" interface="org.dynaresume.dao.ProjectDao" />
 
 </beans:beans>           

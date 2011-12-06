@@ -11,11 +11,15 @@
 	<reference id="groupDao" interface="org.dynaresume.dao.GroupDao" />
 	<reference id="skillCategoryDao" interface="org.dynaresume.dao.SkillCategoryDao" />
 	<reference id="languageDao" interface="org.dynaresume.dao.LanguageDao" />
+	<reference id="clientDao" interface="org.dynaresume.dao.ClientDao" />
+	<reference id="projectDao" interface="org.dynaresume.dao.ProjectDao" />
 		
 	<service ref="resumeService" interface="org.dynaresume.services.ResumeService" />
 	<service ref="skillService" interface="org.dynaresume.services.SkillService" />
 	<service ref="groupService" interface="org.dynaresume.services.GroupService" />
 	<service ref="skillCategoryService" interface="org.dynaresume.services.SkillCategoryService" />	
 	<service ref="languageService" interface="org.dynaresume.services.LanguageService" />
+	<service ref="clientService" interface="org.dynaresume.services.ClientService" />
+	<service ref="projectService" interface="org.dynaresume.services.ProjectService" />
 	
 </beans:beans>           

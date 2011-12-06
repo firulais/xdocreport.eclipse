@@ -31,11 +31,9 @@ public class SkillDetailsPage extends AbstractSkillDetailsPage implements
 	private Hyperlink skillNameHyperlink;
 	private Label skillDescriptionLabel;
 	private Hyperlink skillURLLabel;
-	private Composite parent;
 
 	@Override
 	protected void createBodyContent(FormToolkit toolkit, Composite parent) {
-		this.parent = parent;
 		GridLayout glayout = new GridLayout();
 		glayout.numColumns = 2;
 		parent.setLayout(glayout);

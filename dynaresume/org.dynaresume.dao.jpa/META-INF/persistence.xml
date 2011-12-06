@@ -24,7 +24,9 @@
 		<class>org.dynaresume.domain.core.Person</class>
 		<class>org.dynaresume.domain.core.NaturalPerson</class>	
 		<class>org.dynaresume.domain.core.Address</class>
-		<class>org.dynaresume.domain.core.Country</class>	
+		<class>org.dynaresume.domain.core.Country</class>
+		<class>org.dynaresume.domain.project.Client</class>
+		<class>org.dynaresume.domain.project.Project</class>	
 	</persistence-unit>
 
 </persistence>

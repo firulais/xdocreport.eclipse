@@ -37,6 +37,8 @@ public class ImageResources {
 	public static final String IMG_HOBBIES_16 = "hobbies_16";
 	public static final String IMG_HOBBIES_24 = "hobbies_24";
 
+	public static final String IMG_EMPTY_PHOTO = "empty_photo";
+	
 	public static void initialize(ImageRegistry imageRegistry) {
 		registerImage(imageRegistry, IMG_NEW_RESUME_16, PATH_OBJ_16
 				+ "new_resume.gif");
@@ -68,6 +70,8 @@ public class ImageResources {
 				+ "hobbies.png");
 		registerImage(imageRegistry, IMG_HOBBIES_24, PATH_OBJ_24
 				+ "hobbies.png");
+		registerImage(imageRegistry, IMG_EMPTY_PHOTO, ICONS_PATH
+				+ "EmptyPhoto.jpg");
 	}
 
 	private static void registerImage(ImageRegistry registry, String key,
