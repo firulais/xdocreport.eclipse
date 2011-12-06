@@ -55,7 +55,6 @@ public abstract class AbstractPictureControl<T extends Control> extends
 	public static final String BUNDLE_NAME = "org.eclipse.nebula.widgets.picture.resources"; //$NON-NLS-1$
 
 	/** Resources constants */
-	private static final String PICTURE_CONTROL_MODIFY_IMAGE = "PictureControl.modifyImage";
 	private static final String PICTURE_CONTROL_DELETE = "PictureControl.delete";
 	private static final String PICTURE_CONTROL_MODIFY = "PictureControl.modify";
 	private static final String PICTURE_CONTROL_FILEDIALOG_TEXT = "PictureControl.fileDialog.text";
@@ -73,6 +72,8 @@ public abstract class AbstractPictureControl<T extends Control> extends
 	private Label pictureLabel;
 	/** "Modify" image link **/
 	private T modifyImageLink;
+	/** "Delete" image link **/
+	private T deleteImageLink;
 	/** Current picture image byte array **/
 	private byte[] imageByteArray;
 	/** Current resized picture image **/
@@ -95,6 +96,8 @@ public abstract class AbstractPictureControl<T extends Control> extends
 
 	/** The SWT GridData of the picture label **/
 	private GridData pictureLabelImageGridData;
+
+	private MenuItem deleteItem;
 
 	/**
 	 * Constructor for {@link AbstractPictureControl} with default SWT styles.
@@ -174,7 +177,7 @@ public abstract class AbstractPictureControl<T extends Control> extends
 		// Create internal composite
 		Composite parent = createComposite(this, SWT.NONE);
 		layout = new GridLayout();
-		layout.numColumns = 1;
+		layout.numColumns = 2;
 		layout.verticalSpacing = 0;
 		layout.marginWidth = 0;
 		parent.setLayout(layout);
@@ -187,6 +190,8 @@ public abstract class AbstractPictureControl<T extends Control> extends
 		this.pictureLabel = createLabelImage(parent, labelStyle);
 		// Create the link to "Modify" the image
 		this.modifyImageLink = createModifyLink(parent, linkStyle);
+		this.deleteImageLink = createDeleteLink(parent, linkStyle);
+		setDeleteLinkEnabled(false);
 		return parent;
 	}
 
@@ -208,6 +213,7 @@ public abstract class AbstractPictureControl<T extends Control> extends
 		pictureLabelImageGridData = new GridData();
 		pictureLabelImageGridData.horizontalAlignment = SWT.CENTER;
 		pictureLabelImageGridData.verticalAlignment = SWT.CENTER;
+		pictureLabelImageGridData.horizontalSpan = 2;
 		label.setLayoutData(pictureLabelImageGridData);
 		setMaxImageWidth(maxImageWidth);
 		setMaxImageHeight(maxImageHeight);
@@ -230,7 +236,7 @@ public abstract class AbstractPictureControl<T extends Control> extends
 		Menu menu = new Menu(parent);
 
 		// "Delete" menu item.
-		final MenuItem deleteItem = new MenuItem(menu, SWT.NONE);
+		deleteItem = new MenuItem(menu, SWT.NONE);
 		deleteItem.setText(resources.getString(PICTURE_CONTROL_DELETE));
 		deleteItem.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -265,10 +271,28 @@ public abstract class AbstractPictureControl<T extends Control> extends
 		GridData gridData = new GridData(GridData.CENTER, GridData.CENTER,
 				true, false);
 		modifyImageLink.setLayoutData(gridData);
-		setModifyImageLinkText(modifyImageLink,
-				resources.getString(PICTURE_CONTROL_MODIFY_IMAGE));
+		setLinkText(modifyImageLink,
+				resources.getString(PICTURE_CONTROL_MODIFY));
 		addModifyImageHandler(modifyImageLink);
 		return modifyImageLink;
+	}
+
+	/**
+	 * Create the "Delete" Link to delete the current image.
+	 * 
+	 * @param parent
+	 * @param style
+	 * @return
+	 */
+	private T createDeleteLink(Composite parent, int style) {
+		T deleteImageLink = createLink(parent, style);
+		GridData gridData = new GridData(GridData.CENTER, GridData.CENTER,
+				true, false);
+		deleteImageLink.setLayoutData(gridData);
+		setLinkText(deleteImageLink,
+				resources.getString(PICTURE_CONTROL_DELETE));
+		addDeleteImageHandler(deleteImageLink);
+		return deleteImageLink;
 	}
 
 	/**
@@ -277,7 +301,16 @@ public abstract class AbstractPictureControl<T extends Control> extends
 	 * @param text
 	 */
 	public void setModifyImageLinkText(String text) {
-		setModifyImageLinkText(getModifyImageLink(), text);
+		setLinkText(getModifyImageLink(), text);
+	}
+
+	/**
+	 * Set the text of the "Modify" Link.
+	 * 
+	 * @param text
+	 */
+	public void setDeleteImageLinkText(String text) {
+		setLinkText(getDeleteImageLink(), text);
 	}
 
 	/**
@@ -376,6 +409,16 @@ public abstract class AbstractPictureControl<T extends Control> extends
 		return modifyImageLink;
 	}
 
+	/**
+	 * Returns the "Delete" Link control used to open Explorer files to change
+	 * image.
+	 * 
+	 * @return
+	 */
+	public T getDeleteImageLink() {
+		return deleteImageLink;
+	}
+
 	public void addPropertyChangeListener(String propertyName,
 			PropertyChangeListener listener) {
 		propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
@@ -441,12 +484,12 @@ public abstract class AbstractPictureControl<T extends Control> extends
 					resizedImageData);
 			// Set the new image
 			pictureLabel.setImage(resizedPictureImage);
+			setDeleteLinkEnabled(true);
 		} else {
 			// byte array is null
-			if (defaultImage != null) {
-				// default image was defined, set as the image.
-				pictureLabel.setImage(defaultImage);
-			}
+			// default image was defined, set as the image.
+			pictureLabel.setImage(defaultImage);
+			setDeleteLinkEnabled(false);
 		}
 		propertyChangeSupport.firePropertyChange(IMAGE_BYTEARRAY_PROPERTY,
 				oldImageByteArray, imageByteArray);
@@ -565,6 +608,13 @@ public abstract class AbstractPictureControl<T extends Control> extends
 		setImageByteArray(null);
 	}
 
+	private void setDeleteLinkEnabled(boolean enabled) {
+		deleteImageLink.setEnabled(enabled);
+		if (deleteItem != null) {
+			deleteItem.setEnabled(enabled);
+		}
+	}
+
 	/**
 	 * Dispose the current image if needed.s
 	 */
@@ -623,8 +673,7 @@ public abstract class AbstractPictureControl<T extends Control> extends
 	 * @param modifyImageLink
 	 * @param text
 	 */
-	protected abstract void setModifyImageLinkText(T modifyImageLink,
-			String text);
+	protected abstract void setLinkText(T modifyImageLink, String text);
 
 	/**
 	 * Add the handler to open Explorer files to the Link control.
@@ -632,5 +681,12 @@ public abstract class AbstractPictureControl<T extends Control> extends
 	 * @param modifyImageLink
 	 */
 	protected abstract void addModifyImageHandler(T modifyImageLink);
+
+	/**
+	 * Add the handler to delete the image to the Link control.
+	 * 
+	 * @param modifyImageLink
+	 */
+	protected abstract void addDeleteImageHandler(T deleteImageLink);
 
 }

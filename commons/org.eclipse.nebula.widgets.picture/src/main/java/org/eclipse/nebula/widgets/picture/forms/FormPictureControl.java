@@ -77,7 +77,7 @@ public class FormPictureControl extends AbstractPictureControl<Hyperlink> {
 	}
 
 	@Override
-	protected void setModifyImageLinkText(Hyperlink modifyImageLink, String text) {
+	protected void setLinkText(Hyperlink modifyImageLink, String text) {
 		modifyImageLink.setText(text);
 	}
 
@@ -90,4 +90,12 @@ public class FormPictureControl extends AbstractPictureControl<Hyperlink> {
 		});
 	}
 
+	@Override
+	protected void addDeleteImageHandler(Hyperlink deleteImageLink) {
+		deleteImageLink.addHyperlinkListener(new HyperlinkAdapter() {
+			public void linkActivated(HyperlinkEvent e) {
+				handleDeleteImage();
+			}
+		});
+	}
 }

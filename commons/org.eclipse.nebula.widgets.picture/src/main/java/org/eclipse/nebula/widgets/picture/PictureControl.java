@@ -70,7 +70,8 @@ public class PictureControl extends AbstractPictureControl<Link> {
 		return new Composite(parent, style);
 	}
 
-	protected void setModifyImageLinkText(Link modifyImageLink, String text) {
+	@Override
+	protected void setLinkText(Link modifyImageLink, String text) {
 		StringBuilder href = new StringBuilder();
 		href.append(START_HREF);
 		href.append(text);
@@ -78,6 +79,7 @@ public class PictureControl extends AbstractPictureControl<Link> {
 		modifyImageLink.setText(href.toString());
 	}
 
+	@Override
 	protected void addModifyImageHandler(Link modifyImageLink) {
 		modifyImageLink.addSelectionListener(new SelectionAdapter() {
 
@@ -87,4 +89,14 @@ public class PictureControl extends AbstractPictureControl<Link> {
 		});
 	}
 
+	@Override
+	protected void addDeleteImageHandler(Link deleteImageLink) {
+		deleteImageLink.addSelectionListener(new SelectionAdapter() {
+
+			public void widgetSelected(SelectionEvent e) {
+				handleDeleteImage();
+			}
+		});
+		
+	}
 }
