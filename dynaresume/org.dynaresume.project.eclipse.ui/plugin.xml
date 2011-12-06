@@ -8,7 +8,7 @@
             id="resume"
             name="%ProjectModule.name"
             description="%ProjectModule.desc"
-            icon="icons/obj16/project.gif" >
+            icon="icons/obj16/project.png" >
             <entries>
 	            <entry name="%NewProjectEntry.name"
 	            	   commandId="org.dynaresume.project.eclipse.ui.handlers.NewProjectHandler"
@@ -70,7 +70,8 @@
      <factory
            id="org.dynaresume.project.eclipse.ui.wizards.NewProjectWizard"
            class="org.eclipse.springframework.util.SpringExtensionFactory:newProjectWizard"
-           title="%NewProjectWizard.title" >
+           title="%NewProjectWizard.title"
+           icon="icons/obj48/project.png"  >
      </factory>        
      <factory
            id="org.dynaresume.project.eclipse.ui.wizards.NewClientWizard"

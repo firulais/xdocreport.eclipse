@@ -18,11 +18,12 @@ public class NewClientWizard extends AbstractWizard {
 
 	private ClientService clientService;
 
-	public void setClientService(ClientService clientService) {
-		this.clientService = clientService;
+	public NewClientWizard() {
+		
 	}
 
-	public NewClientWizard() {
+	public void setClientService(ClientService clientService) {
+		this.clientService = clientService;
 	}
 
 	public boolean canFinish() {

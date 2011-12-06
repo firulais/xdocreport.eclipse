@@ -16,6 +16,7 @@ import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.SWTException;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -26,6 +27,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.events.IHyperlinkListener;
+import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.Section;
@@ -44,6 +46,8 @@ public class OverviewPage extends ReportingFormPage implements
 	private Text nameText;
 	private SimpleWikiText descriptionText;
 	private Text urlText;
+
+	private Hyperlink urlHyperlink;
 
 	public OverviewPage(ReportingFormEditor editor) {
 		super(editor, ID, Messages.ProjectFormEditor_OverviewPage_title);
@@ -76,7 +80,7 @@ public class OverviewPage extends ReportingFormPage implements
 		right.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
 
 		// Content section
-		// createContentSection(toolkit, right);
+		createContentSection(toolkit, right);
 
 		// createResumeInfoSection(toolkit, right);
 
@@ -107,7 +111,7 @@ public class OverviewPage extends ReportingFormPage implements
 		nameText.setLayoutData(gridData);
 
 		// URL
-		Hyperlink urlHyperlink = toolkit.createHyperlink(sbody,
+		urlHyperlink = toolkit.createHyperlink(sbody,
 				Messages.ProjectFormEditor_OverviewPage_GeneralInfo_URL_label,
 				SWT.NONE);
 		urlHyperlink.addHyperlinkListener(this);
@@ -124,8 +128,7 @@ public class OverviewPage extends ReportingFormPage implements
 		GridData gd_photoLabel = new GridData();
 		gd_photoLabel.verticalAlignment = SWT.TOP;
 		descriptionLabel.setLayoutData(gd_photoLabel);
-		descriptionText = new SimpleWikiText(sbody, SWT.NONE,
-				SWT.NONE, toolkit);
+		descriptionText = new SimpleWikiText(sbody, SWT.NONE, SWT.NONE, toolkit);
 		gridData = new GridData(GridData.FILL_HORIZONTAL);
 		gridData.widthHint = 150;
 		descriptionText.setLayoutData(gridData);
@@ -133,33 +136,40 @@ public class OverviewPage extends ReportingFormPage implements
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
 	}
 
-	// private void createContentSection(FormToolkit toolkit, Composite parent)
-	// {
-	// Section section = toolkit.createSection(parent, Section.TITLE_BAR);
-	// section.setText(Messages.ProjectFormEditor_OverviewPage_ResumeContent_title);
-	// TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
-	// section.setLayoutData(data);
-	//
-	// Composite sbody = toolkit.createComposite(section);
-	// section.setClient(sbody);
-	//
-	// Composite container = createStaticSectionClient(toolkit, section);
-	//
-	// FormText text = createClient(container,
-	// Messages.ProjectFormEditor_OverviewPage_ResumeContent_content,
-	// toolkit);
-	// text.setImage("educations_page",
-	// ImageResources.getImage(ImageResources.IMG_EDUCATION_16));
-	// text.setImage("experiences_page",
-	// ImageResources.getImage(ImageResources.IMG_EXPERIENCES_16));
-	// text.setImage("skills_page",
-	// ImageResources.getImage(ImageResources.IMG_SKILLS_16));
-	// text.setImage("hobbies_page",
-	// ImageResources.getImage(ImageResources.IMG_HOBBIES_16));
-	// section.setClient(container);
-	//
-	// SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
-	// }
+	private void createContentSection(FormToolkit toolkit, Composite parent) {
+		Section section = toolkit.createSection(parent, Section.TITLE_BAR);
+		section.setText(Messages.ProjectFormEditor_OverviewPage_ProjectContent_title);
+		TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
+		section.setLayoutData(data);
+
+		Composite sbody = toolkit.createComposite(section);
+		section.setClient(sbody);
+
+		Composite container = createStaticSectionClient(toolkit, section);
+
+		FormText text = createClient(container,
+				Messages.ProjectFormEditor_OverviewPage_ProjectContent_content,
+				toolkit);
+		text.setImage("clients_page",
+				ImageResources.getImage(ImageResources.IMG_CLIENT_16));
+		text.setImage("skills_page",
+				ImageResources.getImage(ImageResources.IMG_SKILLS_16));
+		section.setClient(container);
+
+		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
+	}
+
+	protected final FormText createClient(Composite section, String content,
+			FormToolkit toolkit) {
+		FormText text = toolkit.createFormText(section, true);
+		try {
+			text.setText(content, true, false);
+		} catch (SWTException e) {
+			text.setText(e.getMessage(), false, false);
+		}
+		text.addHyperlinkListener(this);
+		return text;
+	}
 
 	protected Composite createStaticSectionClient(FormToolkit toolkit,
 			Composite parent) {
@@ -209,17 +219,22 @@ public class OverviewPage extends ReportingFormPage implements
 	}
 
 	public void linkActivated(HyperlinkEvent ev) {
-		String url = urlText.getText();
-		try {
-			PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser()
-					.openURL(new URL(url));
-		} catch (Exception e) {
-			// TODO : log that
-			e.printStackTrace();
-			IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-					e.getMessage(), e);
-			ErrorDialog.openError(nameText.getShell(), Messages.error,
-					e.getMessage(), status);
+		if (urlHyperlink.equals(ev.getSource())) {
+			String url = urlText.getText();
+			try {
+				PlatformUI.getWorkbench().getBrowserSupport()
+						.getExternalBrowser().openURL(new URL(url));
+			} catch (Exception e) {
+				// TODO : log that
+				e.printStackTrace();
+				IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+						e.getMessage(), e);
+				ErrorDialog.openError(nameText.getShell(), Messages.error,
+						e.getMessage(), status);
+			}
+		} else {
+			String href = (String) ev.getHref();
+			getEditor().setActivePage(href);
 		}
 	}
 

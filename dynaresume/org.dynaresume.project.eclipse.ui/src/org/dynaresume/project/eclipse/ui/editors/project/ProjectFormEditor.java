@@ -8,8 +8,7 @@ import org.eclipse.ui.PartInitException;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ModelAndEntryEditorInput;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormEditor;
 
-public class ProjectFormEditor extends
-		ReportingFormEditor<Project> {
+public class ProjectFormEditor extends ReportingFormEditor<Project> {
 
 	public static final String ID = "org.dynaresume.project.eclipse.ui.editors.project.ProjectFormEditor";
 
@@ -23,27 +22,26 @@ public class ProjectFormEditor extends
 	protected void doAddPages() {
 		try {
 			super.addPage(new OverviewPage(this));
+			super.addPage(new ClientsPage(this));
+			super.addPage(new SkillsPage(this));
 		} catch (PartInitException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	protected Project onLoad(ModelAndEntryEditorInput<Project> input) {
-		return projectService.findById(
-				input.getModel().getId());
+		return projectService.findById(input.getModel().getId());
 	}
 
 	@Override
 	protected Project onSave(Project modelObject, IProgressMonitor monitor) {
 		return projectService.save(modelObject);
 	}
-	
+
 	@Override
 	protected String getEditorId() {
 		return ID;
 	}
 
-	
 }

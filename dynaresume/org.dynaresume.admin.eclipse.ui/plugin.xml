@@ -8,7 +8,7 @@
             id="resumeAdmin"
             name="%AdminModule.name"
             description="%AdminModule.desc"
-            icon="icons/obj16/admin.gif" >
+            icon="icons/obj16/admin.png" >
             <entries>
 <!--	            <entry name="%AgenciesEntry.name"
 	            	   commandId=""

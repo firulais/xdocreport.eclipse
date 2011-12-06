@@ -8,6 +8,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionDelta;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.wizard.Wizard;
 
 import fr.opensagres.eclipse.forms.registry.AbstractRegistry;
@@ -28,8 +29,8 @@ public class WizardFactory extends AbstractRegistry implements IWizardFactory {
 		return INSTANCE;
 	}
 
-	public <T extends Wizard> T createWizard(String wizardId,
-			Class<T> clazz) throws WizardInitException, CoreException {
+	public <T extends Wizard> T createWizard(String wizardId, Class<T> clazz)
+			throws WizardInitException, CoreException {
 		if (wizardId == null) {
 			throw new IllegalArgumentException();
 		}
@@ -69,11 +70,13 @@ public class WizardFactory extends AbstractRegistry implements IWizardFactory {
 		for (IConfigurationElement ce : cf) {
 			String id = null;
 			String title = null;
+			ImageDescriptor imageDescriptor = null;
 			if (FACTORY_ELT.equals(ce.getName())) {
 				id = ce.getAttribute(ID_ATTR);
 				title = ce.getAttribute(TITLE_ATTR);
-
-				WizardDescriptor descriptor = new WizardDescriptor(id, title, ce);
+				imageDescriptor = super.getIconImageDescriptor(ce);
+				WizardDescriptor descriptor = new WizardDescriptor(id, title,
+						imageDescriptor, ce);
 				descriptors.put(id, descriptor);
 			}
 		}

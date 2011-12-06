@@ -3,6 +3,7 @@ package org.dynaresume.project.eclipse.ui.wizards;
 import org.dynaresume.domain.project.Project;
 import org.dynaresume.project.eclipse.ui.editors.project.ProjectEditorInput;
 import org.dynaresume.project.eclipse.ui.editors.project.ProjectFormEditor;
+import org.dynaresume.project.eclipse.ui.internal.ImageResources;
 import org.dynaresume.services.ProjectService;
 import org.eclipse.ui.IEditorInput;
 
@@ -14,19 +15,22 @@ public class NewProjectWizard extends AbstractWizard {
 	public static final String ID = "org.dynaresume.project.eclipse.ui.wizards.NewProjectWizard";
 
 	private Project project;
-	// private final CollaborateurWizardPage collaborateurWizardPage;
 
 	private ProjectService projectService;
+
+	private CreateProjectWizardPage createProjectWizardPage;
 
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
 	}
 
 	public NewProjectWizard() {
+		createProjectWizardPage = new CreateProjectWizardPage();
+		super.addPage(createProjectWizardPage);
 	}
 
 	public boolean canFinish() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -54,7 +58,8 @@ public class NewProjectWizard extends AbstractWizard {
 		// ResumeService resumeService = (ResumeService)
 		// PlatformUI.getWorkbench()
 		// .getService(ResumeService.class);
-		// collaborateurWizardPage.updateData();
+		this.project = new Project();
+		createProjectWizardPage.updateData(project);
 		projectService.save(project);
 		super.performFinish();
 		return true;
