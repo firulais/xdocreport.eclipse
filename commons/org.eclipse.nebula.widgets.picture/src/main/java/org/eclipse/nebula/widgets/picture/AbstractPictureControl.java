@@ -668,12 +668,12 @@ public abstract class AbstractPictureControl<T extends Control> extends
 	protected abstract Composite createComposite(Composite parent, int style);
 
 	/**
-	 * Set the text of the "Modify" Link control.
+	 * Set the text of a Link control.
 	 * 
 	 * @param modifyImageLink
 	 * @param text
 	 */
-	protected abstract void setLinkText(T modifyImageLink, String text);
+	protected abstract void setLinkText(T link, String text);
 
 	/**
 	 * Add the handler to open Explorer files to the Link control.

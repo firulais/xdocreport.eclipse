@@ -71,12 +71,12 @@ public class PictureControl extends AbstractPictureControl<Link> {
 	}
 
 	@Override
-	protected void setLinkText(Link modifyImageLink, String text) {
+	protected void setLinkText(Link link, String text) {
 		StringBuilder href = new StringBuilder();
 		href.append(START_HREF);
 		href.append(text);
 		href.append(END_HREF);
-		modifyImageLink.setText(href.toString());
+		link.setText(href.toString());
 	}
 
 	@Override
@@ -97,6 +97,6 @@ public class PictureControl extends AbstractPictureControl<Link> {
 				handleDeleteImage();
 			}
 		});
-		
+
 	}
 }

@@ -77,8 +77,8 @@ public class FormPictureControl extends AbstractPictureControl<Hyperlink> {
 	}
 
 	@Override
-	protected void setLinkText(Hyperlink modifyImageLink, String text) {
-		modifyImageLink.setText(text);
+	protected void setLinkText(Hyperlink link, String text) {
+		link.setText(text);
 	}
 
 	@Override
