@@ -10,7 +10,7 @@
          				  class="org.dynaresume.project.eclipse.reporting.ProjectReportProcessor" >
          				  <!-- Resume with docx -->
          				  <reportLoader
-         				  		  id="resume.xdocreport.docx"
+         				  		  id="project.xdocreport.docx"
          				  		  name="%DocxResumeName" 
          				  		  description="%DocxResumeDesc"
          				  		  class="org.dynaresume.project.eclipse.reporting.DocxProjectReportLoader" />         				    				  		 
