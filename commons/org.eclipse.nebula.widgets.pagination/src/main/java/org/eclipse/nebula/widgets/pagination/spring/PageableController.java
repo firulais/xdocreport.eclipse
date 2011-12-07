@@ -1,9 +1,9 @@
-package fr.opensagres.eclipse.forms.widgets.pagination.spring;
+package org.eclipse.nebula.widgets.pagination.spring;
 
+import org.eclipse.nebula.widgets.pagination.PaginationController;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import fr.opensagres.eclipse.forms.widgets.pagination.PaginationController;
 
 public class PageableController extends PaginationController implements
 		Pageable {

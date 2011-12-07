@@ -1,11 +1,11 @@
-package fr.opensagres.eclipse.forms.widgets.pagination.spring;
+package org.eclipse.nebula.widgets.pagination.spring;
 
+import org.eclipse.nebula.widgets.pagination.PaginationController;
+import org.eclipse.nebula.widgets.pagination.PaginationTable;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.springframework.data.domain.Page;
 
-import fr.opensagres.eclipse.forms.widgets.pagination.PaginationController;
-import fr.opensagres.eclipse.forms.widgets.pagination.PaginationTable;
 
 public abstract class PageableTable extends PaginationTable {
 

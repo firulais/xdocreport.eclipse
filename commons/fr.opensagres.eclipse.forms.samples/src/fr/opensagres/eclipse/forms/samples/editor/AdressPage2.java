@@ -7,6 +7,11 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.nebula.widgets.pagination.PaginationBannerWidget;
+import org.eclipse.nebula.widgets.pagination.PaginationController;
+import org.eclipse.nebula.widgets.pagination.PaginationInfoWidget;
+import org.eclipse.nebula.widgets.pagination.spring.PageableController;
+import org.eclipse.nebula.widgets.pagination.spring.PageableStructuredViewerLoader;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -26,11 +31,6 @@ import fr.opensagres.eclipse.forms.editor.ModelFormEditor;
 import fr.opensagres.eclipse.forms.editor.ModelFormPage;
 import fr.opensagres.eclipse.forms.samples.model.Person;
 import fr.opensagres.eclipse.forms.samples.services.PersonService;
-import fr.opensagres.eclipse.forms.widgets.pagination.PaginationBannerWidget;
-import fr.opensagres.eclipse.forms.widgets.pagination.PaginationController;
-import fr.opensagres.eclipse.forms.widgets.pagination.PaginationInfoWidget;
-import fr.opensagres.eclipse.forms.widgets.pagination.spring.PageableController;
-import fr.opensagres.eclipse.forms.widgets.pagination.spring.PageableStructuredViewerLoader;
 
 public class AdressPage2 extends ModelFormPage<Person> {
 

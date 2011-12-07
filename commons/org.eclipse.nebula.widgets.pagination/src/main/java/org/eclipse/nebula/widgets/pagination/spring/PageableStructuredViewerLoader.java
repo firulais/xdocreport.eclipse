@@ -1,10 +1,10 @@
-package fr.opensagres.eclipse.forms.widgets.pagination.spring;
+package org.eclipse.nebula.widgets.pagination.spring;
 
 import org.eclipse.jface.viewers.StructuredViewer;
+import org.eclipse.nebula.widgets.pagination.PageControllerChangedAdapter;
+import org.eclipse.nebula.widgets.pagination.PaginationController;
 import org.springframework.data.domain.Page;
 
-import fr.opensagres.eclipse.forms.widgets.pagination.PageControllerChangedAdapter;
-import fr.opensagres.eclipse.forms.widgets.pagination.PaginationController;
 
 public abstract class PageableStructuredViewerLoader extends
 		PageControllerChangedAdapter {

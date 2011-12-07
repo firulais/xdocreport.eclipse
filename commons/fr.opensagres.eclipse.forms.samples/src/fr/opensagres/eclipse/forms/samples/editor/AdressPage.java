@@ -7,6 +7,8 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.nebula.widgets.pagination.spring.PageableController;
+import org.eclipse.nebula.widgets.pagination.spring.PageableTable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -25,8 +27,6 @@ import fr.opensagres.eclipse.forms.editor.ModelFormEditor;
 import fr.opensagres.eclipse.forms.editor.ModelFormPage;
 import fr.opensagres.eclipse.forms.samples.model.Person;
 import fr.opensagres.eclipse.forms.samples.services.PersonService;
-import fr.opensagres.eclipse.forms.widgets.pagination.spring.PageableController;
-import fr.opensagres.eclipse.forms.widgets.pagination.spring.PageableTable;
 
 public class AdressPage extends ModelFormPage<Person> {
 

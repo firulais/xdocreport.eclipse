@@ -23,9 +23,7 @@ Export-Package: fr.opensagres.eclipse.forms,
  fr.opensagres.eclipse.forms.editor,
  fr.opensagres.eclipse.forms.registry,
  fr.opensagres.eclipse.forms.validation,
- fr.opensagres.eclipse.forms.widgets,
- fr.opensagres.eclipse.forms.widgets.pagination,
- fr.opensagres.eclipse.forms.widgets.pagination.spring
+ fr.opensagres.eclipse.forms.widgets
 Bundle-SymbolicName: fr.opensagres.eclipse.forms;singleton:=true
 Import-Package: org.eclipse.jface.databinding.swt,
  org.springframework.data.domain;resolution:=optional

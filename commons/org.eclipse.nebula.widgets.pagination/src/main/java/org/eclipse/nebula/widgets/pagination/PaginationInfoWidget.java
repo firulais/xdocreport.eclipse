@@ -1,4 +1,4 @@
-package fr.opensagres.eclipse.forms.widgets.pagination;
+package org.eclipse.nebula.widgets.pagination;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.RowData;
@@ -6,8 +6,6 @@ import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-
-import fr.opensagres.eclipse.forms.widgets.BaseComposite;
 
 public class PaginationInfoWidget extends BaseComposite implements
 		PageControllerChangedListener {

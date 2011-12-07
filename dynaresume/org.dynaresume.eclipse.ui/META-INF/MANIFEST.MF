@@ -23,15 +23,14 @@ Require-Bundle: org.eclipse.ui;resolution:=optional,
  org.eclipse.rap.singlesourcing,
  fr.opensagres.xdocreport.eclipse.reporting.core,
  fr.opensagres.xdocreport.eclipse.reporting.xdocreport.core,
- org.eclipse.nebula.widgets.picture
+ org.eclipse.nebula.widgets.picture,
+ org.eclipse.nebula.widgets.pagination
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Import-Package: fr.opensagres.eclipse.forms,
  fr.opensagres.eclipse.forms.conversion,
  fr.opensagres.eclipse.forms.editor,
  fr.opensagres.eclipse.forms.widgets,
- fr.opensagres.eclipse.forms.widgets.pagination,
- fr.opensagres.eclipse.forms.widgets.pagination.spring,
  fr.opensagres.xdocreport.core.document,
  fr.opensagres.xdocreport.document.images,
  javax.inject,
@@ -40,5 +39,7 @@ Import-Package: fr.opensagres.eclipse.forms,
  org.dynaresume.domain.hr,
  org.dynaresume.services,
  org.eclipse.core.databinding.validation.jsr303,
+ org.eclipse.nebula.widgets.pagination,
+ org.eclipse.nebula.widgets.pagination.spring,
  org.eclipse.springframework.util,
  org.springframework.data.domain

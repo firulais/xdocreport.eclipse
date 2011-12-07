@@ -1,4 +1,4 @@
-package fr.opensagres.eclipse.forms.widgets.pagination;
+package org.eclipse.nebula.widgets.pagination;
 
 public class PageControllerChangedAdapter implements PageControllerChangedListener {
 

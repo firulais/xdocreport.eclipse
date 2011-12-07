@@ -12,6 +12,7 @@
 		<module>org.springframework.data.domain-only</module>
 		<module>fr.opensagres.eclipse.forms</module>
 		<module>org.eclipse.nebula.widgets.picture</module>		
+		<module>org.eclipse.nebula.widgets.pagination</module>
 		<module>fr.opensagres.eclipse.gef.tree</module>
 		<module>org.eclipse.rap.singlesourcing</module>
 		<module>fr.opensagres.xdocreport.commons.utils</module>

@@ -1,4 +1,4 @@
-package fr.opensagres.eclipse.forms.widgets.pagination;
+package org.eclipse.nebula.widgets.pagination;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -10,8 +10,6 @@ import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.events.IHyperlinkListener;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Hyperlink;
-
-import fr.opensagres.eclipse.forms.widgets.BaseComposite;
 
 public class PaginationBannerWidget extends BaseComposite implements
 		IHyperlinkListener, PageControllerChangedListener {

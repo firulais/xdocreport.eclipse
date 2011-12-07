@@ -1,15 +1,13 @@
-package fr.opensagres.eclipse.forms.widgets.pagination;
+package org.eclipse.nebula.widgets.pagination;
 
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.nebula.widgets.pagination.spring.PageableController;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-
-import fr.opensagres.eclipse.forms.widgets.BaseComposite;
-import fr.opensagres.eclipse.forms.widgets.pagination.spring.PageableController;
 
 public abstract class PaginationTable extends BaseComposite implements
 		PageControllerChangedListener {

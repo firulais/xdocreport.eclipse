@@ -7,6 +7,8 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.nebula.widgets.pagination.spring.PageableController;
+import org.eclipse.nebula.widgets.pagination.spring.PageableTable;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -24,8 +26,6 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.springframework.data.domain.Page;
 
-import fr.opensagres.eclipse.forms.widgets.pagination.spring.PageableController;
-import fr.opensagres.eclipse.forms.widgets.pagination.spring.PageableTable;
 import fr.opensagres.xdocreport.eclipse.ui.dialogs.SearchDialog;
 
 public class SearchSkillDialog extends SearchDialog {
