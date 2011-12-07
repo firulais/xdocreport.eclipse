@@ -9,7 +9,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.nebula.widgets.pagination.spring.PageableController;
-import org.eclipse.nebula.widgets.pagination.spring.PageableTable;
+import org.eclipse.nebula.widgets.pagination.spring.forms.FormPageableTable;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -38,7 +38,7 @@ public class SearchResumeDialog extends SearchDialog {
 	private String firstNameCriteria;
 	private String lastNameCriteria;
 
-	private PageableTable resumeTable;
+	private FormPageableTable resumeTable;
 
 	public void setResumeService(ResumeService resumeService) {
 		this.resumeService = resumeService;
@@ -131,7 +131,7 @@ public class SearchResumeDialog extends SearchDialog {
 		layout.marginHeight = 0;
 		container.setLayout(layout);
 
-		resumeTable = new PageableTable(container, SWT.NONE, toolkit) {
+		resumeTable = new FormPageableTable(container, SWT.NONE, toolkit) {
 
 			@Override
 			protected Page<Resume> loadPage(PageableController controller) {

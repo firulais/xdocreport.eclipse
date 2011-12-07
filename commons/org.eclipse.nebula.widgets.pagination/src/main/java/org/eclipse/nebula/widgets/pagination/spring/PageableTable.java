@@ -1,21 +1,25 @@
 package org.eclipse.nebula.widgets.pagination.spring;
 
 import org.eclipse.nebula.widgets.pagination.PaginationController;
-import org.eclipse.nebula.widgets.pagination.PaginationTable;
+import org.eclipse.nebula.widgets.pagination.PaginationTable2;
+import org.eclipse.nebula.widgets.pagination.banner.PaginationBannerFactory;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.springframework.data.domain.Page;
 
+public class PageableTable extends PaginationTable2 {
 
-public abstract class PageableTable extends PaginationTable {
+	private PageLoader pageLoader;
 
 	public PageableTable(Composite parent, int style, int size,
-			FormToolkit toolkit) {
-		super(parent, style, size, toolkit);
+			PaginationBannerFactory bannerTopFactory,
+			PaginationBannerFactory bannerBottomFactory) {
+		super(parent, style, size, bannerTopFactory, bannerBottomFactory);
 	}
 
-	public PageableTable(Composite parent, int style, FormToolkit toolkit) {
-		super(parent, style, toolkit);
+	public PageableTable(Composite parent, int style,
+			PaginationBannerFactory bannerTopFactory,
+			PaginationBannerFactory bannerBottomFactory) {
+		super(parent, style, bannerTopFactory, bannerBottomFactory);
 	}
 
 	@Override
@@ -31,6 +35,18 @@ public abstract class PageableTable extends PaginationTable {
 		viewer.setInput(page.getContent());
 	}
 
-	protected abstract Page<?> loadPage(PageableController controller);
+	public void setPageLoader(PageLoader pageLoader) {
+		this.pageLoader = pageLoader;
+	}
 
+	public PageLoader getPageLoader() {
+		return pageLoader;
+	}
+
+	protected Page<?> loadPage(PageableController controller) {
+		if (pageLoader == null) {
+			throw new RuntimeException("");
+		}
+		return pageLoader.loadPage(controller);
+	}
 }

@@ -8,7 +8,7 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.nebula.widgets.pagination.spring.PageableController;
-import org.eclipse.nebula.widgets.pagination.spring.PageableTable;
+import org.eclipse.nebula.widgets.pagination.spring.forms.FormPageableTable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -56,7 +56,7 @@ public class AdressPage extends ModelFormPage<Person> {
 		// a) Header banner : Hyperlinks First/Previous, Next/Last
 		// b) A SWT Table
 		// c) Footer banner : display total items, etc
-		PageableTable paginationTable = new PageableTable(parent, SWT.NONE,
+		FormPageableTable paginationTable = new FormPageableTable(parent, SWT.NONE,
 				toolkit) {
 			@Override
 			protected Page<?> loadPage(PageableController controller) {

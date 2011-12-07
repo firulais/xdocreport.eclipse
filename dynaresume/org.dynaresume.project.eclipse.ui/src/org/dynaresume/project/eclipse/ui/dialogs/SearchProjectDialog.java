@@ -8,7 +8,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.nebula.widgets.pagination.spring.PageableController;
-import org.eclipse.nebula.widgets.pagination.spring.PageableTable;
+import org.eclipse.nebula.widgets.pagination.spring.forms.FormPageableTable;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -36,7 +36,7 @@ public class SearchProjectDialog extends SearchDialog {
 
 	private String labelCriteria;
 
-	private PageableTable paginationTable;
+	private FormPageableTable paginationTable;
 
 	public void setProjectService(ProjectService groupService) {
 		this.projectService = groupService;
@@ -120,7 +120,7 @@ public class SearchProjectDialog extends SearchDialog {
 		layout.marginHeight = 0;
 		container.setLayout(layout);
 
-		paginationTable = new PageableTable(container, SWT.NONE, toolkit) {
+		paginationTable = new FormPageableTable(container, SWT.NONE, toolkit) {
 
 			@Override
 			protected Page<Project> loadPage(
