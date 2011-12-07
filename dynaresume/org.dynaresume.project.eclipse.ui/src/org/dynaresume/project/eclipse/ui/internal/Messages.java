@@ -12,9 +12,13 @@ public class Messages extends NLS {
 	public static String ProjectFormEditor_OverviewPage_GeneralInfo_title;
 	public static String ProjectFormEditor_OverviewPage_GeneralInfo_desc;
 	public static String ProjectFormEditor_OverviewPage_GeneralInfo_Name_label;
-	public static String ProjectFormEditor_OverviewPage_GeneralInfo_Description_label;
 	public static String ProjectFormEditor_OverviewPage_GeneralInfo_URL_label;
 	
+	public static String ProjectFormEditor_OverviewPage_Description_title;
+	public static String ProjectFormEditor_OverviewPage_Description_desc;
+	public static String ProjectFormEditor_OverviewPage_Description_Description_label;
+	
+
 	public static String ProjectFormEditor_OverviewPage_ProjectContent_title;
 	public static String ProjectFormEditor_OverviewPage_ProjectContent_content;
 	

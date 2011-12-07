@@ -82,7 +82,15 @@ public class OverviewPage extends ReportingFormPage implements
 		// Content section
 		createContentSection(toolkit, right);
 
-		// createResumeInfoSection(toolkit, right);
+		Composite bottom = toolkit.createComposite(body);
+		bottom.setLayout(FormLayoutFactory.createFormPaneTableWrapLayout(false,
+				1));
+		TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
+		data.colspan = 2;
+		bottom.setLayoutData(data);
+
+		// Description section
+		createDescriptionSection(toolkit, bottom);
 
 	}
 
@@ -119,19 +127,6 @@ public class OverviewPage extends ReportingFormPage implements
 		gridData = new GridData(GridData.FILL_HORIZONTAL);
 		gridData.widthHint = 150;
 		urlText.setLayoutData(gridData);
-
-		// Description
-		Label descriptionLabel = toolkit
-				.createLabel(
-						sbody,
-						Messages.ProjectFormEditor_OverviewPage_GeneralInfo_Description_label);
-		GridData gd_photoLabel = new GridData();
-		gd_photoLabel.verticalAlignment = SWT.TOP;
-		descriptionLabel.setLayoutData(gd_photoLabel);
-		descriptionText = new SimpleWikiText(sbody, SWT.NONE, SWT.NONE, toolkit);
-		gridData = new GridData(GridData.FILL_HORIZONTAL);
-		gridData.widthHint = 150;
-		descriptionText.setLayoutData(gridData);
 
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
 	}
@@ -185,6 +180,32 @@ public class OverviewPage extends ReportingFormPage implements
 		onBindGeneralInfo(bindingContext);
 	}
 
+	private void createDescriptionSection(FormToolkit toolkit, Composite bottom) {
+		Section section = toolkit.createSection(bottom, Section.DESCRIPTION
+				| Section.TITLE_BAR);
+		section.setDescription(Messages.ProjectFormEditor_OverviewPage_Description_desc);
+		section.setText(Messages.ProjectFormEditor_OverviewPage_Description_title);
+		TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
+		section.setLayoutData(data);
+
+		Composite sbody = toolkit.createComposite(section);
+		section.setClient(sbody);
+
+		GridLayout glayout = new GridLayout();
+		// glayout.horizontalSpacing = 10;
+		glayout.numColumns = 1;
+		sbody.setLayout(glayout);
+
+		// Description
+		descriptionText = new SimpleWikiText(sbody, SWT.NONE, SWT.NONE, toolkit);
+		GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
+		gridData.widthHint = 150;
+		descriptionText.setLayoutData(gridData);
+
+		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
+		
+	}
+	
 	private void onBindGeneralInfo(DataBindingContext bindingContext) {
 
 		// bind name skill
