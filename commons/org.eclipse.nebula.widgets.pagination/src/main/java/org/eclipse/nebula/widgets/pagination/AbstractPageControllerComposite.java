@@ -59,6 +59,10 @@ public abstract class AbstractPageControllerComposite extends Composite
 		return new Table(parent, style);
 	}
 
+	public static int getDefaultPageSize() {
+		return DEFAULT_PAGE_SIZE;
+	}
+	
 	public abstract void refreshPage();
 
 	protected abstract void createUI(Composite parent);

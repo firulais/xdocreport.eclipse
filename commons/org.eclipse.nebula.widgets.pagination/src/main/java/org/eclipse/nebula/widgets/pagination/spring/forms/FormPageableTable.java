@@ -1,37 +1,40 @@
 package org.eclipse.nebula.widgets.pagination.spring.forms;
 
-import org.eclipse.nebula.widgets.pagination.PaginationController;
-import org.eclipse.nebula.widgets.pagination.PaginationTable;
-import org.eclipse.nebula.widgets.pagination.spring.PageableController;
+import org.eclipse.nebula.widgets.pagination.banner.PaginationBannerFactory;
+import org.eclipse.nebula.widgets.pagination.spring.PageableTable;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.springframework.data.domain.Page;
 
+public class FormPageableTable extends PageableTable {
 
-public abstract class FormPageableTable extends PaginationTable {
+	private final FormToolkit toolkit;
 
-	public FormPageableTable(Composite parent, int style, int size,
+	public FormPageableTable(Composite parent, int style, int tableStyle,
+			FormToolkit toolkit, PaginationBannerFactory bannerTopFactory,
+			PaginationBannerFactory bannerBottomFactory) {
+		this(parent, style, tableStyle, toolkit, getDefaultPageSize(),
+				bannerTopFactory, bannerBottomFactory);
+	}
+
+	public FormPageableTable(Composite parent, int style, int tableStyle,
 			FormToolkit toolkit) {
-		super(parent, style, size, toolkit);
+		this(parent, style, tableStyle, toolkit, getDefaultPageSize(),
+				getDefaultBannerTopFactory(), getDefaultBannerBottomFactory());
 	}
 
-	public FormPageableTable(Composite parent, int style, FormToolkit toolkit) {
-		super(parent, style, toolkit);
+	public FormPageableTable(Composite parent, int style, int tableStyle,
+			FormToolkit toolkit, int pageSize,
+			PaginationBannerFactory bannerTopFactory,
+			PaginationBannerFactory bannerBottomFactory) {
+		super(parent, style, tableStyle, pageSize, bannerTopFactory,
+				bannerBottomFactory, false);
+		this.toolkit = toolkit;
+		super.createUI(this);
 	}
 
 	@Override
-	protected PaginationController createController(int pageIndex, int size) {
-		return new PageableController(pageIndex, size);
+	protected Table createTable(Composite parent, int style) {
+		return toolkit.createTable(parent, style);
 	}
-
-	@Override
-	public void refreshPage() {
-		PageableController controller = (PageableController) getController();
-		Page<?> page = loadPage(controller);
-		controller.setTotalElements(page.getTotalElements());
-		viewer.setInput(page.getContent());
-	}
-
-	protected abstract Page<?> loadPage(PageableController controller);
-
 }
