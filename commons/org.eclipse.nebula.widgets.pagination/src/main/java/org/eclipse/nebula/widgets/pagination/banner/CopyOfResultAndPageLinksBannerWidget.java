@@ -2,7 +2,6 @@ package org.eclipse.nebula.widgets.pagination.banner;
 
 import org.eclipse.nebula.widgets.pagination.PageControllerChangedListener;
 import org.eclipse.nebula.widgets.pagination.PaginationController;
-import org.eclipse.nebula.widgets.pagination.PaginationHelper;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -15,7 +14,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
 
-public class ResultAndPageLinksBannerWidget extends Composite implements
+public class CopyOfResultAndPageLinksBannerWidget extends Composite implements
 		SelectionListener, PageControllerChangedListener {
 
 	private static final String END_HREF = "</a>";
@@ -28,9 +27,10 @@ public class ResultAndPageLinksBannerWidget extends Composite implements
 	private Link previousLink;
 	private Link nextLink;
 	private Label resultsLabel;
+	private Composite composite;
 	private Link pageLinks;
 
-	public ResultAndPageLinksBannerWidget(PaginationController controller,
+	public CopyOfResultAndPageLinksBannerWidget(PaginationController controller,
 			Composite parent, int style) {
 		super(parent, style);
 		this.controller = controller;
@@ -50,7 +50,7 @@ public class ResultAndPageLinksBannerWidget extends Composite implements
 	}
 
 	private void addHyperlinkListener(Link link,
-			ResultAndPageLinksBannerWidget paginationBannerWidget2) {
+			CopyOfResultAndPageLinksBannerWidget paginationBannerWidget2) {
 		link.addSelectionListener(this);
 	}
 
@@ -76,7 +76,7 @@ public class ResultAndPageLinksBannerWidget extends Composite implements
 
 		RowLayout layout = new RowLayout();
 		layout.marginHeight = 0;
-		layout.wrap = false;
+		layout.wrap=false;
 		// layout.fill=true;
 		right.setLayout(layout);
 
@@ -98,10 +98,10 @@ public class ResultAndPageLinksBannerWidget extends Composite implements
 		addHyperlinkListener(previousLink, this);
 
 		pageLinks = createHyperlink(right, SWT.NONE);
-		//setLinkText(pageLinks, "");
+		setLinkText(pageLinks, "<a>1</a> <a>2</a>");
 		// pageLinks.setToolTipText("Next");
 		RowData r = new RowData();
-		// r.width=50;
+	//	r.width=50;
 		pageLinks.setLayoutData(r);
 		addHyperlinkListener(pageLinks, this);
 
@@ -160,22 +160,12 @@ public class ResultAndPageLinksBannerWidget extends Composite implements
 		int n = controller.getPageOffset() > 0 ? controller.getPageOffset() + 1
 				: 9;
 		StringBuilder s = new StringBuilder();
-		
-		//PaginationHelper.getPageIndex(nbMax)
-		
 		for (int i = 0; i < n; i++) {
-			if (i > 0) {
-				s.append(" ");
-			}
-			if (i == newPageNumber)
-				s.append("" + (i + 1) + "");
-			else
-				s.append("<a href=\"" + i + "\">" + (i + 1) + "</a>");
-
+			s.append("<a href=\"" + i + "\">" + (i+1) + "</a> ");
 		}
 		pageLinks.setText(s.toString());
-		// pageLinks.redraw();
-		// pageLinks.getParent().layout();
+		//pageLinks.redraw();
+		//pageLinks.getParent().layout();
 	}
 
 	public void totalElementsChanged(long oldTotalElements,
@@ -184,7 +174,9 @@ public class ResultAndPageLinksBannerWidget extends Composite implements
 	}
 
 	private void refreshEnabled(PaginationController controller) {
+
 		resultsLabel.setText(getResultsText(controller));
+
 		nextLink.setEnabled(controller.hasNextPage());
 		previousLink.setEnabled(controller.hasPreviousPage());
 	}
