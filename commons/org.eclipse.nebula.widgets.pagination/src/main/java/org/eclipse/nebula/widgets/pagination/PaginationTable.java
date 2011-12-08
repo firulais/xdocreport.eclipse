@@ -1,91 +1,104 @@
 package org.eclipse.nebula.widgets.pagination;
 
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.nebula.widgets.pagination.spring.PageableController;
+import org.eclipse.nebula.widgets.pagination.banner.PaginationBannerFactory;
+import org.eclipse.nebula.widgets.pagination.banner.ResultAndPageLinksBannerWidgetFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.ui.forms.widgets.FormToolkit;
 
-public abstract class PaginationTable extends BaseComposite implements
-		PageControllerChangedListener {
+public abstract class PaginationTable extends AbstractPageControllerComposite {
 
-	private static final int DEFAULT_SIZE = 5;
-	private final PaginationController controller;
-	protected final TableViewer viewer;
+	protected TableViewer viewer;
+	private PaginationBannerFactory bannerTopFactory;
+	private PaginationBannerFactory bannerBottomFactory;
+	private int tableStyle = SWT.BORDER | SWT.MULTI | SWT.H_SCROLL
+			| SWT.V_SCROLL;
 
-	public PaginationTable(Composite parent, int style, FormToolkit toolkit) {
-		this(parent, style, DEFAULT_SIZE, toolkit);
+	public PaginationTable(Composite parent, int style, int tableStyle,
+			PaginationBannerFactory bannerTopFactory,
+			PaginationBannerFactory bannerBottomFactory) {
+		this(parent, tableStyle, style, getDefaultPageSize(), bannerTopFactory,
+				bannerBottomFactory, true);
 	}
 
-	public PaginationTable(Composite parent, int style, int size,
-			FormToolkit toolkit) {
-		super(parent, style, toolkit);
+	public PaginationTable(Composite parent, int style, int tableStyle,
+			int pageSize, PaginationBannerFactory bannerTopFactory,
+			PaginationBannerFactory bannerBottomFactory) {
+		this(parent, tableStyle, style, pageSize, bannerTopFactory,
+				bannerBottomFactory, true);
+	}
+
+	protected PaginationTable(Composite parent, int style, int tableStyle,
+			int pageSize, PaginationBannerFactory bannerTopFactory,
+			PaginationBannerFactory bannerBottomFactory, boolean createUI) {
+		super(parent, style, pageSize, false);
+		this.tableStyle = tableStyle;
+		this.bannerTopFactory = bannerTopFactory;
+		this.bannerBottomFactory = bannerBottomFactory;
+		if (createUI) {
+			createUI(parent);
+		}
+	}
+
+	@Override
+	protected void createUI(Composite parent) {
 		this.setLayout(new GridLayout());
-		this.controller = createController(-1, size);
 		createBannerTop();
 		Table table = createTable();
 		viewer = new TableViewer(table);
 		createBannerBottom();
-		controller.addPageSelectionListener(this);
 	}
 
 	private void createBannerBottom() {
-		PaginationInfoWidget totalItemsWidget = new PaginationInfoWidget(
-				controller, this, SWT.NONE, getToolkit());
-		GridData data = new GridData(GridData.FILL_HORIZONTAL);
-		data.horizontalAlignment = GridData.END;
-		totalItemsWidget.setLayoutData(data);
+		PaginationBannerFactory bannerBottomFactory = getBannerBottomFactory();
+		if (bannerBottomFactory != null) {
+			bannerBottomFactory.createBanner(getController(), this, SWT.NONE);
+		}
 	}
 
 	private void createBannerTop() {
-		PaginationBannerWidget paginationHeader = new PaginationBannerWidget(
-				controller, this, SWT.NONE, getToolkit());
-		paginationHeader.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		PaginationBannerFactory bannerTopFactory = getBannerTopFactory();
+		if (bannerTopFactory != null) {
+			bannerTopFactory.createBanner(getController(), this, SWT.NONE);
+		}
 	}
 
-	private Table createTable() {
+	protected Table createTable() {
 		Table table = super.createTable(this, getTableStyle());
 		table.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		return table;
 	}
 
 	protected int getTableStyle() {
-		return SWT.BORDER | SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL;
-	}
-
-	protected PaginationController createController(int pageIndex, int size) {
-		return new PageableController(pageIndex, size);
+		return tableStyle;
 	}
 
 	public TableViewer getViewer() {
 		return viewer;
 	}
 
-	public PaginationController getController() {
-		return controller;
-	}
-
+	@Override
 	public void refresh(long totalElements, Object paginatedList) {
-		controller.setTotalElements(totalElements);
+		super.refresh(totalElements, paginatedList);
 		viewer.setInput(paginatedList);
 	}
 
-	public void pageSelected(int oldPageNumber, int newPageNumber,
-			PaginationController controller) {
-		refreshPage();
+	public PaginationBannerFactory getBannerBottomFactory() {
+		return bannerBottomFactory;
 	}
 
-	public void totalElementsChanged(long oldTotalElements,
-			long newTotalElements, PaginationController controller) {
-
+	public PaginationBannerFactory getBannerTopFactory() {
+		return bannerTopFactory;
 	}
 
-	public abstract void refreshPage();
+	public static PaginationBannerFactory getDefaultBannerTopFactory() {
+		return ResultAndPageLinksBannerWidgetFactory.getFactory();
+	}
 
-	public void setCurrentPage(int currentPage) {
-		getController().setCurrentPage(currentPage);
+	public static PaginationBannerFactory getDefaultBannerBottomFactory() {
+		return null;
 	}
 }

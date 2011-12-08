@@ -1,13 +1,12 @@
 package org.dynaresume.project.eclipse.ui.dialogs;
 
-import org.dynaresume.domain.project.Project;
 import org.dynaresume.services.ProjectService;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.nebula.widgets.pagination.spring.PageableController;
+import org.eclipse.nebula.widgets.pagination.spring.PageLoader;
 import org.eclipse.nebula.widgets.pagination.spring.forms.FormPageableTable;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
@@ -25,10 +24,11 @@ import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import fr.opensagres.xdocreport.eclipse.ui.dialogs.SearchDialog;
 
-public class SearchProjectDialog extends SearchDialog {
+public class SearchProjectDialog extends SearchDialog implements PageLoader {
 
 	public final static String ID = "org.dynaresume.project.eclipse.ui.dialogs.SearchProjectDialog";
 
@@ -120,22 +120,12 @@ public class SearchProjectDialog extends SearchDialog {
 		layout.marginHeight = 0;
 		container.setLayout(layout);
 
-		paginationTable = new FormPageableTable(container, SWT.NONE, toolkit) {
-
-			@Override
-			protected Page<Project> loadPage(
-					PageableController controller) {
-				return projectService.findByName(labelCriteria, controller);
-			}
-
-			@Override
-			protected int getTableStyle() {
-				return SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL
-						| SWT.FULL_SELECTION | SWT.BORDER;
-			}
-		};
+		paginationTable = new FormPageableTable(container, SWT.NONE,
+				SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION
+						| SWT.BORDER, toolkit);
 		paginationTable.setLayoutData(new GridData(GridData.FILL_BOTH));
-
+		paginationTable.setPageLoader(this);
+		
 		TableViewer viewer = paginationTable.getViewer();
 		createColumns(viewer);
 		final Table table = viewer.getTable();
@@ -145,6 +135,10 @@ public class SearchProjectDialog extends SearchDialog {
 
 		paginationTable.setCurrentPage(0);
 		section.setClient(container);
+	}
+
+	public Page<?> loadPage(Pageable pageable) {
+		return projectService.findByName(labelCriteria, pageable);
 	}
 
 	// private void createViewer(Composite parent) {
