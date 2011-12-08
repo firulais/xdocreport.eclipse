@@ -150,7 +150,7 @@ public class OSGiHibernateUnitTest {
 		ServiceTracker tracker = new ServiceTracker(ctx,
 				DataSource.class.getName(), null);
 		tracker.open();
-		Object dataSource = tracker.waitForService(2000);
+		Object dataSource = tracker.waitForService(60000);
 
 		tracker.close();
 		assertNotNull(dataSource);
