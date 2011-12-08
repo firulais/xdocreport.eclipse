@@ -1,15 +1,16 @@
 package org.eclipse.nebula.widgets.pagination.banner;
 
+import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.nebula.widgets.pagination.PageControllerChangedListener;
 import org.eclipse.nebula.widgets.pagination.PaginationController;
 import org.eclipse.nebula.widgets.pagination.PaginationHelper;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowData;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
@@ -70,57 +71,80 @@ public class ResultAndPageLinksBannerWidget extends Composite implements
 
 	private void createRightContainer(Composite parent) {
 		Composite right = createComposite(parent, SWT.NONE);
-		GridData data = new GridData(GridData.FILL_HORIZONTAL);
-		data.horizontalAlignment = SWT.END;
-		right.setLayoutData(data);
+		//right.setOrientation(SWT.RIGHT_TO_LEFT);
+		right.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-		RowLayout layout = new RowLayout();
+//		GridData gridData = new GridData();
+//		// Should be
+//		// gridData.horizontalAlignment = SWT.RIGHT;
+//		// But with this config layout, pageLinks is not filled (problem whern
+//		// page index grows the Links is not resized).
+//		gridData.horizontalAlignment = SWT.RIGHT;
+//		gridData.grabExcessHorizontalSpace = true;
+//		right.setLayoutData(gridData);
+
+		GridLayout layout = new GridLayout(3, false);
 		layout.marginHeight = 0;
-		layout.wrap = false;
+		// layout.wrap = false;
 		// layout.fill=true;
 		right.setLayout(layout);
 
 		// First link
-		firstLink = createHyperlink(right, SWT.WRAP);
-		setLinkText(firstLink, "[First");
-		firstLink.setLayoutData(new RowData());
-		addHyperlinkListener(firstLink, this);
-
-		Label l = new Label(right, SWT.WRAP);
-		l.setText("/");
-		l.setLayoutData(new RowData());
+		// firstLink = createHyperlink(right, SWT.NONE);
+		// setLinkText(firstLink, "[First");
+		// firstLink.setLayoutData(new GridData());
+		// addHyperlinkListener(firstLink, this);
+		//
+		// Label l = new Label(right, SWT.WRAP);
+		// l.setText("/");
+		// l.setLayoutData(new GridData());
 
 		// Previous link
-		previousLink = createHyperlink(right, SWT.WRAP);
-		setLinkText(previousLink, "Prev]");
+		previousLink = createHyperlink(right, SWT.NONE);
+		setLinkText(previousLink, "Previous");
 		previousLink.setToolTipText("Previous");
-		previousLink.setLayoutData(new RowData());
+
+		GridData gridData = new GridData();
+		gridData.horizontalAlignment = SWT.RIGHT;
+		// gridData.grabExcessHorizontalSpace = true;
+		previousLink.setLayoutData(gridData);
+
 		addHyperlinkListener(previousLink, this);
 
 		pageLinks = createHyperlink(right, SWT.NONE);
-		//setLinkText(pageLinks, "");
+		pageLinks.setForeground(getColor());
+
+		gridData = new GridData();
+		gridData.horizontalAlignment = SWT.FILL;
+		gridData.grabExcessHorizontalSpace = true;
+		pageLinks.setLayoutData(gridData);
+
+		// setLinkText(pageLinks, "");
 		// pageLinks.setToolTipText("Next");
-		RowData r = new RowData();
-		// r.width=50;
-		pageLinks.setLayoutData(r);
+		GridData r = new GridData(GridData.FILL_HORIZONTAL);
+		// pageLinks.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		addHyperlinkListener(pageLinks, this);
 
 		// Next link
-		nextLink = createHyperlink(right, SWT.WRAP);
-		setLinkText(nextLink, "[Next");
+		nextLink = createHyperlink(right, SWT.NONE);
+		setLinkText(nextLink, "Next");
 		nextLink.setToolTipText("Next");
-		nextLink.setLayoutData(new RowData());
+
+		gridData = new GridData();
+		gridData.horizontalAlignment = SWT.LEFT;
+
+		nextLink.setLayoutData(gridData);
 		addHyperlinkListener(nextLink, this);
-
-		l = new Label(right, SWT.WRAP);
-		l.setText("/");
-		l.setLayoutData(new RowData());
-
-		// Last link
-		lastLink = createHyperlink(right, SWT.WRAP);
-		setLinkText(lastLink, "Last]");
-		lastLink.setLayoutData(new RowData());
-		addHyperlinkListener(lastLink, this);
+		//
+		// l = new Label(right, SWT.WRAP);
+		// l.setText("/");
+		// l.setLayoutData(new GridData());
+		//
+		// // Last link
+		// lastLink = createHyperlink(right, SWT.NONE);
+		// setLinkText(lastLink, "Last]");
+		// lastLink.setLayoutData(new GridData());
+		// addHyperlinkListener(lastLink, this);
 
 	}
 
@@ -157,25 +181,26 @@ public class ResultAndPageLinksBannerWidget extends Composite implements
 			PaginationController controller) {
 		refreshEnabled(controller);
 
-		int n = controller.getPageOffset() > 0 ? controller.getPageOffset() + 1
-				: 9;
 		StringBuilder s = new StringBuilder();
-		
-		//PaginationHelper.getPageIndex(nbMax)
-		
-		for (int i = 0; i < n; i++) {
+
+		int[] indexes = PaginationHelper.getPageIndexes(
+				controller.getCurrentPage(), controller.getTotalPages(), 10);
+		for (int i = 0; i < indexes.length; i++) {
+			int j = indexes[i];
 			if (i > 0) {
 				s.append(" ");
 			}
-			if (i == newPageNumber)
-				s.append("" + (i + 1) + "");
+			if (j == PaginationHelper.DOT) {
+				s.append("...");
+			} else if (j == newPageNumber)
+				s.append("" + (j + 1) + "");
 			else
-				s.append("<a href=\"" + i + "\">" + (i + 1) + "</a>");
+				s.append("<a href=\"" + j + "\">" + (j + 1) + "</a>");
 
 		}
 		pageLinks.setText(s.toString());
 		// pageLinks.redraw();
-		// pageLinks.getParent().layout();
+		// pageLinks.getParent().getParent().layout();
 	}
 
 	public void totalElementsChanged(long oldTotalElements,
@@ -226,4 +251,14 @@ public class ResultAndPageLinksBannerWidget extends Composite implements
 		link.setText(href.toString());
 	}
 
+	protected Color getColor() {
+		Color color = JFaceResources.getColorRegistry().get(
+				"ResultAndPageLinksBannerWidget_red");
+		if (color == null) {
+			JFaceResources.getColorRegistry().put(
+					"ResultAndPageLinksBannerWidget_red", new RGB(255, 0, 0));
+		}
+		return JFaceResources.getColorRegistry().get(
+				"ResultAndPageLinksBannerWidget_red");
+	}
 }
