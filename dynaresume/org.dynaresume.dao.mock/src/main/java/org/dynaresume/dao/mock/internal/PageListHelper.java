@@ -1,19 +1,14 @@
-package org.eclipse.nebula.widgets.pagination.spring;
+package org.dynaresume.dao.mock.internal;
 
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.nebula.widgets.pagination.spring.internal.BeanComparator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 public class PageListHelper {
-
-	public static PageLoader createPageLoader(List<?> items) {
-		return new PageLoaderListImpl(items);
-	}
 
 	public static Page createPage(List<?> list, Pageable pageable) {
 		Sort sort = pageable.getSort();

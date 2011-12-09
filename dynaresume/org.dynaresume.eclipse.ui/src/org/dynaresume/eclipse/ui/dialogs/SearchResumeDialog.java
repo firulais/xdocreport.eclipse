@@ -216,7 +216,9 @@ public class SearchResumeDialog extends SearchDialog {
 				return p.getOwner().getLastName();
 			}
 		});
-
+		col.getColumn().addSelectionListener(
+				new SortTableColumnSelectionListener("owner.lastName"));
+		
 		// Title column is for the last name
 		col = createTableViewerColumn(viewer, titles[2], bounds[2], 2);
 		col.setLabelProvider(new ColumnLabelProvider() {
@@ -226,6 +228,9 @@ public class SearchResumeDialog extends SearchDialog {
 				return p.getTitle();
 			}
 		});
+		col.getColumn().addSelectionListener(
+				new SortTableColumnSelectionListener("title"));
+		
 		// // Now the gender
 		// col = createTableViewerColumn(titles[2], bounds[2], 2);
 		// col.setLabelProvider(new ColumnLabelProvider() {

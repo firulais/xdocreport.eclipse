@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.dynaresume.dao.ResumeDao;
+import org.dynaresume.dao.mock.internal.PageListHelper;
 import org.dynaresume.domain.core.Address;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.Education;
@@ -221,15 +222,8 @@ public class MockResumeDao extends AbstractDaoMock<Resume> implements ResumeDao 
 				filteredList.add(resume);
 			}
 		}
-		long totalSize = filteredList.size();
-		List<Resume> paginatedList = new ArrayList<Resume>();
-		for (int i = pageIndex; i < pageIndex + pageSize && i < totalSize; i++) {
-			Resume resume = filteredList.get(i);
-			paginatedList.add(resume);
-		}
-
-		return new PageImpl<Resume>(paginatedList, pageable, totalSize);
-
+		
+		return PageListHelper.createPage(filteredList, pageable);
 	}
 
 	private boolean isPersonOK(Resume resume, String firstNameCriteria,
