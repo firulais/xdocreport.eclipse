@@ -145,6 +145,7 @@ public class OSGiHibernateUnitTest {
 	
 	@Test
 	public void findDataSource(BundleContext ctx) throws InterruptedException {
+		Thread.sleep(5000);
 		assertThat(ctx, is(notNullValue()));
 		System.out.println("BundleContext of bundle injected: "
 				+ ctx.getBundle().getSymbolicName());
