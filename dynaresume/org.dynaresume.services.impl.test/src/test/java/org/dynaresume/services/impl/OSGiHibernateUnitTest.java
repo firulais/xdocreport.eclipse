@@ -39,6 +39,7 @@ import org.dynaresume.dao.ResumeDao;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ops4j.pax.exam.CoreOptions;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.TimeoutException;
 import org.ops4j.pax.exam.junit.Configuration;
@@ -66,6 +67,7 @@ public class OSGiHibernateUnitTest {
 				cleanCaches(),
 				junitBundles(),
 				felix(),
+				CoreOptions.waitForFrameworkStartup(),
 				// equinox(),
 				// ***************** Common dependencies ********************
 				mavenBundle("org.aopalliance","com.springsource.org.aopalliance").version("1.0.0"),
