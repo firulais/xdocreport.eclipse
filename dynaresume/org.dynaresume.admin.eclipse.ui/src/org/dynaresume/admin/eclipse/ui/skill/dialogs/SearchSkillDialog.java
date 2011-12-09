@@ -86,7 +86,7 @@ public class SearchSkillDialog extends SearchDialog implements PageLoader {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				labelCriteria = firstNameText.getText();
-				paginationTable.refreshPage();
+				paginationTable.refreshPage(true);
 			}
 		});
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);

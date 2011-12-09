@@ -132,7 +132,8 @@ public class PaginationController {
 	}
 
 	public void setSort(String propertyName, int sortDirection) {
-		if (this.propertyName != propertyName || this.sortDirection != sortDirection) {
+		if (this.propertyName != propertyName
+				|| this.sortDirection != sortDirection) {
 			String oldPopertyName = this.propertyName;
 			this.propertyName = propertyName;
 			int oldSortDirection = this.sortDirection;
@@ -152,4 +153,11 @@ public class PaginationController {
 		}
 	}
 
+	public void reset() {
+		int oldCurrentPage = currentPage;
+		this.currentPage = 0;
+		notifyListenersForPageSelected(oldCurrentPage, currentPage);
+		// this.propertyName = null;
+		// this.sortDirection = SWT.NONE;
+	}
 }

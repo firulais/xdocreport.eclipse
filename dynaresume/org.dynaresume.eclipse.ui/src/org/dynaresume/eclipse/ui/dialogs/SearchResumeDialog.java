@@ -97,7 +97,7 @@ public class SearchResumeDialog extends SearchDialog {
 			public void widgetSelected(SelectionEvent e) {
 				firstNameCriteria = firstNameText.getText();
 				lastNameCriteria = lastNameText.getText();
-				resumeTable.refreshPage();
+				resumeTable.refreshPage(true);
 			}
 		});
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);

@@ -1,10 +1,9 @@
 package org.eclipse.nebula.widgets.pagination;
 
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Table;
 
-public abstract class AbstractPageControllerComposite<T extends PaginationController> extends Composite
-		implements PageControllerChangedListener {
+public abstract class AbstractPageControllerComposite<T extends PaginationController>
+		extends Composite implements PageControllerChangedListener {
 
 	public static final int DEFAULT_PAGE_SIZE = 5;
 
@@ -30,11 +29,11 @@ public abstract class AbstractPageControllerComposite<T extends PaginationContro
 	}
 
 	protected T createController(int pageIndex, int pageSize) {
-		return (T)new PaginationController(pageIndex, pageSize);
+		return (T) new PaginationController(pageIndex, pageSize);
 	}
 
 	public T getController() {
-		return (T)controller;
+		return (T) controller;
 	}
 
 	public void refresh(long totalElements, Object paginatedList) {
@@ -53,9 +52,10 @@ public abstract class AbstractPageControllerComposite<T extends PaginationContro
 
 	public void sortChanged(String oldPopertyName, String propertyName,
 			int oldSortDirection, int sortDirection,
-			PaginationController paginationController) {		
-		refreshPage();		
+			PaginationController paginationController) {
+		refreshPage();
 	}
+
 	public void setCurrentPage(int currentPage) {
 		getController().setCurrentPage(currentPage);
 	}
@@ -63,7 +63,15 @@ public abstract class AbstractPageControllerComposite<T extends PaginationContro
 	public static int getDefaultPageSize() {
 		return DEFAULT_PAGE_SIZE;
 	}
-	
+
+	public void refreshPage(boolean reset) {
+		if (reset) {
+			getController().reset();
+		} else {
+			refreshPage();
+		}
+	}
+
 	public abstract void refreshPage();
 
 	protected abstract void createUI(Composite parent);
