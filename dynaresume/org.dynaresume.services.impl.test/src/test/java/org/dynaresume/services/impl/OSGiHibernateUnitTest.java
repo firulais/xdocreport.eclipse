@@ -118,6 +118,7 @@ public class OSGiHibernateUnitTest {
 				mavenBundle("org.apache.commons","com.springsource.org.apache.commons.pool","1.3.0"),		
 				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.core", "1.0.0-SNAPSHOT"),
 				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.hr", "1.0.0-SNAPSHOT"),
+				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.project", "1.0.0-SNAPSHOT"),	
 				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.datasource", "1.0.0-SNAPSHOT"),
 				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao", "1.0.0-SNAPSHOT"),
 				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa", "1.0.0-SNAPSHOT"),
