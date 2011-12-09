@@ -67,7 +67,7 @@ public class OSGiHibernateUnitTest {
 				cleanCaches(),
 				junitBundles(),
 				felix(),
-				CoreOptions.waitForFrameworkStartup(),
+				
 				// equinox(),
 				// ***************** Common dependencies ********************
 				mavenBundle("org.aopalliance","com.springsource.org.aopalliance").version("1.0.0"),
@@ -145,7 +145,7 @@ public class OSGiHibernateUnitTest {
 	
 	@Test
 	public void findDataSource(BundleContext ctx) throws InterruptedException {
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 		assertThat(ctx, is(notNullValue()));
 		System.out.println("BundleContext of bundle injected: "
 				+ ctx.getBundle().getSymbolicName());
