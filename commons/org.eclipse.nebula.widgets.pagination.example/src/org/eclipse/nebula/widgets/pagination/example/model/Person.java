@@ -7,13 +7,15 @@ public class Person {
 
 	public Person(String name, String addressName) {
 		this.name = name;
-		this.address = new Address(addressName);
+		if (addressName != null) {
+			this.address = new Address(addressName);
+		}
 	}
 
 	public String getName() {
 		return name;
 	}
-	
+
 	public Address getAddress() {
 		return address;
 	}

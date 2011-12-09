@@ -21,6 +21,7 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.nebula.widgets.pagination.SortTableColumnSelectionListener;
 import org.eclipse.nebula.widgets.pagination.banner.ResultAndPageLinksBannerWidgetFactory;
+import org.eclipse.nebula.widgets.pagination.example.model.Address;
 import org.eclipse.nebula.widgets.pagination.example.model.Person;
 import org.eclipse.nebula.widgets.pagination.spring.PageListHelper;
 import org.eclipse.nebula.widgets.pagination.spring.PageableTable;
@@ -105,7 +106,11 @@ public class SortPageableTableExample2 {
 			@Override
 			public String getText(Object element) {
 				Person p = (Person) element;
-				return p.getAddress().getName();
+				Address address= p.getAddress();
+				if (address ==null) {
+					return "";
+				}
+				return address.getName();
 			}
 		});
 		col.getColumn().addSelectionListener(
@@ -130,7 +135,8 @@ public class SortPageableTableExample2 {
 	private static List<Person> createList() {
 		List<Person> names = new ArrayList<Person>();
 		for (int i = 1; i < 2012; i++) {
-			names.add(new Person("Name " + i, "Adress " + Math.random()));
+			names.add(new Person("Name " + i, i < 100 ? "Adress "
+					+ Math.random() : null));
 		}
 		return names;
 	}

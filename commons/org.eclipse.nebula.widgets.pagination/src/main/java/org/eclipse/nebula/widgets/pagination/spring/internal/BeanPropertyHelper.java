@@ -231,6 +231,9 @@ public class BeanPropertyHelper {
 
 	public static Object getValue(Object source, String property) {
 		if (property.indexOf('.') == -1) {
+			if (source== null) {
+				return null;
+			}
 			PropertyDescriptor propertyDescriptor = getPropertyDescriptor(source.getClass(), property);
 			return readProperty(source, propertyDescriptor);
 		}

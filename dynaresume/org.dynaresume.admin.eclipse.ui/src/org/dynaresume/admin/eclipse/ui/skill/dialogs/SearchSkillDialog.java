@@ -7,6 +7,7 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.nebula.widgets.pagination.SortTableColumnSelectionListener;
 import org.eclipse.nebula.widgets.pagination.spring.PageLoader;
 import org.eclipse.nebula.widgets.pagination.spring.forms.FormPageableTable;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
@@ -187,6 +188,8 @@ public class SearchSkillDialog extends SearchDialog implements PageLoader {
 				return p.getName();
 			}
 		});
+		col.getColumn().addSelectionListener(
+				new SortTableColumnSelectionListener("name"));
 
 		// Second column is for the last name
 		col = createTableViewerColumn(viewer, titles[1], bounds[1], 1);
@@ -200,6 +203,8 @@ public class SearchSkillDialog extends SearchDialog implements PageLoader {
 				return "";
 			}
 		});
+		col.getColumn().addSelectionListener(
+				new SortTableColumnSelectionListener("parent.name"));
 
 		// // Now the gender
 		// col = createTableViewerColumn(titles[2], bounds[2], 2);

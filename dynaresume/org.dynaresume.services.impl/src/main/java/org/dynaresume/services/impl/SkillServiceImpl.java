@@ -56,34 +56,9 @@ public class SkillServiceImpl implements SkillService {
 		return new PageImpl<Skill>(paginatedList, pageable, totalSize);
 	}
 
-	public Page<Skill> findByName(String label, Pageable pageable) {
-		// TODO : manage pagination with the DAO
-		int pageSize = pageable.getPageSize();
-		int pageIndex = pageable.getOffset();
-		Iterable<Skill> allSkills = findAll();
-		List<Skill> filteredList = new ArrayList<Skill>();
-		for (Skill skill : allSkills) {
-			if (isSkillOK(skill, label)) {
-				filteredList.add(skill);
-			}
-		}
-		long totalSize = filteredList.size();
-		List<Skill> paginatedList = new ArrayList<Skill>();
-		for (int i = pageIndex; i < pageIndex + pageSize && i < totalSize; i++) {
-			Skill skill = filteredList.get(i);
-			paginatedList.add(skill);
-		}
-		return new PageImpl<Skill>(paginatedList, pageable, totalSize);
-	}
-
-	private boolean isSkillOK(Skill skill, String label) {
-		if (label == null) {
-			return true;
-		}
-		if (skill.getName() == null) {
-			return false;
-		}
-		return skill.getName().toUpperCase().startsWith(label.toUpperCase());
+	public Page<Skill> findByName(String name, Pageable pageable) {
+		name = name != null ? name + "%" : "%";
+		return skillDao.findByNameLike(name, pageable);
 	}
 
 	public Iterable<Skill> findByNames(List<String> names) {
