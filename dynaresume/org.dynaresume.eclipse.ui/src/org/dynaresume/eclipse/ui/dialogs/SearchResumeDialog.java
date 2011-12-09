@@ -8,6 +8,7 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.nebula.widgets.pagination.SortTableColumnSelectionListener;
 import org.eclipse.nebula.widgets.pagination.spring.PageLoader;
 import org.eclipse.nebula.widgets.pagination.spring.forms.FormPageableTable;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
@@ -132,17 +133,18 @@ public class SearchResumeDialog extends SearchDialog {
 		layout.marginHeight = 0;
 		container.setLayout(layout);
 
-		resumeTable = new FormPageableTable(container, SWT.NONE, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL
-				| SWT.FULL_SELECTION | SWT.BORDER, toolkit);		
+		resumeTable = new FormPageableTable(container, SWT.NONE,
+				SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION
+						| SWT.BORDER, toolkit);
 		resumeTable.setLayoutData(new GridData(GridData.FILL_BOTH));
 		resumeTable.setPageLoader(new PageLoader() {
-			
+
 			public Page<?> loadPage(Pageable pageable) {
 				return resumeService.findByFirstNameAndLastName(
 						firstNameCriteria, lastNameCriteria, pageable);
 			}
 		});
-		
+
 		TableViewer viewer = resumeTable.getViewer();
 		createColumns(viewer);
 		final Table table = viewer.getTable();
@@ -202,6 +204,8 @@ public class SearchResumeDialog extends SearchDialog {
 				return p.getOwner().getFirstName();
 			}
 		});
+		col.getColumn().addSelectionListener(
+				new SortTableColumnSelectionListener("owner.firstName"));
 
 		// Second column is for the last name
 		col = createTableViewerColumn(viewer, titles[1], bounds[1], 1);

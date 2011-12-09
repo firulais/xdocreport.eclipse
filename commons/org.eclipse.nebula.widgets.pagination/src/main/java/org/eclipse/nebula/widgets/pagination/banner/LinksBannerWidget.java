@@ -168,4 +168,11 @@ public class LinksBannerWidget extends Composite implements
 		return new Link(parent, style);
 	}
 
+	public void sortChanged(String oldPopertyName, String propertyName,
+			int oldSortDirection, int sortDirection,
+			PaginationController paginationController) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

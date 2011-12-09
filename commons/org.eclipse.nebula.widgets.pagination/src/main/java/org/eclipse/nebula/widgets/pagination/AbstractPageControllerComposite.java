@@ -3,7 +3,7 @@ package org.eclipse.nebula.widgets.pagination;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 
-public abstract class AbstractPageControllerComposite extends Composite
+public abstract class AbstractPageControllerComposite<T extends PaginationController> extends Composite
 		implements PageControllerChangedListener {
 
 	public static final int DEFAULT_PAGE_SIZE = 5;
@@ -29,12 +29,12 @@ public abstract class AbstractPageControllerComposite extends Composite
 		controller.addPageSelectionListener(this);
 	}
 
-	protected PaginationController createController(int pageIndex, int pageSize) {
-		return new PaginationController(pageIndex, pageSize);
+	protected T createController(int pageIndex, int pageSize) {
+		return (T)new PaginationController(pageIndex, pageSize);
 	}
 
-	public PaginationController getController() {
-		return controller;
+	public T getController() {
+		return (T)controller;
 	}
 
 	public void refresh(long totalElements, Object paginatedList) {
@@ -51,12 +51,13 @@ public abstract class AbstractPageControllerComposite extends Composite
 
 	}
 
+	public void sortChanged(String oldPopertyName, String propertyName,
+			int oldSortDirection, int sortDirection,
+			PaginationController paginationController) {		
+		refreshPage();		
+	}
 	public void setCurrentPage(int currentPage) {
 		getController().setCurrentPage(currentPage);
-	}
-
-	protected Table createTable(Composite parent, int style) {
-		return new Table(parent, style);
 	}
 
 	public static int getDefaultPageSize() {

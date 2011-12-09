@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 public class PageListHelper {
 
@@ -13,6 +14,13 @@ public class PageListHelper {
 	}
 	
 	public static Page createPage(List<?> list, Pageable pageable) {
+		
+		Sort sort =pageable.getSort();
+		if (sort != null) {
+			// Sort the list
+		}
+		
+		
 		int totalSize = list.size();
 		int pageSize = pageable.getPageSize();
 		int pageIndex = pageable.getOffset();

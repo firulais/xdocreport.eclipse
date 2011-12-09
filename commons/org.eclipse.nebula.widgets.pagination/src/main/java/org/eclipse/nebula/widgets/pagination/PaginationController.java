@@ -1,6 +1,7 @@
 package org.eclipse.nebula.widgets.pagination;
 
 import org.eclipse.core.runtime.ListenerList;
+import org.eclipse.swt.SWT;
 
 public class PaginationController {
 
@@ -10,6 +11,9 @@ public class PaginationController {
 	private int currentPage = DEFAULT_PAGE_INDEX;
 	private int itemsPerPage = DEFAULT_PAGE_SIZE;
 	private long totalElements = 0;
+	private String propertyName = null;
+	private int sortDirection = SWT.NONE;
+
 	private ListenerList pageSelectionListeners = new ListenerList();
 
 	public PaginationController(int currentPage, int itemsPerPage) {
@@ -126,4 +130,26 @@ public class PaginationController {
 	public int getPageOffset() {
 		return getCurrentPage() * getPageSize();
 	}
+
+	public void setSort(String propertyName, int sortDirection) {
+		if (this.propertyName != propertyName || this.sortDirection != sortDirection) {
+			String oldPopertyName = this.propertyName;
+			this.propertyName = propertyName;
+			int oldSortDirection = this.sortDirection;
+			this.sortDirection = sortDirection;
+			notifyListenersForSortChanged(oldPopertyName, propertyName,
+					oldSortDirection, sortDirection);
+		}
+	}
+
+	private void notifyListenersForSortChanged(String oldPopertyName,
+			String propertyName, int oldSortDirection, int sortDirection) {
+		final Object[] listeners = pageSelectionListeners.getListeners();
+		for (int i = 0; i < listeners.length; i++) {
+			final PageControllerChangedListener listener = (PageControllerChangedListener) listeners[i];
+			listener.sortChanged(oldPopertyName, propertyName,
+					oldSortDirection, sortDirection, this);
+		}
+	}
+
 }

@@ -1,5 +1,7 @@
 package org.eclipse.nebula.widgets.pagination;
 
+import org.eclipse.swt.widgets.Table;
+
 public class PaginationHelper {
 
 	public static final int DOT = -1;
@@ -28,10 +30,10 @@ public class PaginationHelper {
 			} else {
 
 				if (nbMax - currentPageIndex > 0) {
-					for (int i = 0 ; i  < indexes.length; i++) {
-						if (i == nbMax -1) {
-							indexes[i] = totalPages-1;
-						} else if (i == nbMax -2) {
+					for (int i = 0; i < indexes.length; i++) {
+						if (i == nbMax - 1) {
+							indexes[i] = totalPages - 1;
+						} else if (i == nbMax - 2) {
 							indexes[i] = DOT;
 						} else {
 							indexes[i] = i;
@@ -99,5 +101,14 @@ public class PaginationHelper {
 			// }
 		}
 		return indexes;
+	}
+
+	public static PaginationTable<?> getPaginationTable(Table table) {
+		return (PaginationTable<?>) table.getData("___PaginationTable");
+	}
+
+	public static void setPaginationTable(Table table,
+			PaginationTable<?> paginationTable) {
+		table.setData("___PaginationTable", paginationTable);
 	}
 }

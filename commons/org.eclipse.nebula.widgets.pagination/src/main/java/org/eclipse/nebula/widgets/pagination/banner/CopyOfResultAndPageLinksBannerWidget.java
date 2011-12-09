@@ -218,4 +218,11 @@ public class CopyOfResultAndPageLinksBannerWidget extends Composite implements
 		link.setText(href.toString());
 	}
 
+	public void sortChanged(String oldPopertyName, String propertyName,
+			int oldSortDirection, int sortDirection,
+			PaginationController paginationController) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

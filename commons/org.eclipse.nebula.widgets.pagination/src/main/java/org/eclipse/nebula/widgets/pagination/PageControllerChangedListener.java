@@ -8,4 +8,8 @@ public interface PageControllerChangedListener {
 	public void totalElementsChanged(long oldTotalElements,
 			long newTotalElements, PaginationController controller);
 
+	public void sortChanged(String oldPopertyName, String propertyName,
+			int oldSortDirection, int sortDirection,
+			PaginationController paginationController);
+
 }

@@ -1,12 +1,11 @@
 package org.eclipse.nebula.widgets.pagination.spring;
 
-import org.eclipse.nebula.widgets.pagination.PaginationController;
 import org.eclipse.nebula.widgets.pagination.PaginationTable;
 import org.eclipse.nebula.widgets.pagination.banner.PaginationBannerFactory;
 import org.eclipse.swt.widgets.Composite;
 import org.springframework.data.domain.Page;
 
-public class PageableTable extends PaginationTable {
+public class PageableTable extends PaginationTable<PageableController> {
 
 	private PageLoader pageLoader;
 
@@ -32,7 +31,7 @@ public class PageableTable extends PaginationTable {
 	}
 
 	@Override
-	protected PaginationController createController(int pageIndex, int size) {
+	protected PageableController createController(int pageIndex, int size) {
 		return new PageableController(pageIndex, size);
 	}
 

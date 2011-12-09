@@ -261,4 +261,10 @@ public class ResultAndPageLinksBannerWidget extends Composite implements
 		return JFaceResources.getColorRegistry().get(
 				"ResultAndPageLinksBannerWidget_red");
 	}
+
+	public void sortChanged(String oldPopertyName, String propertyName,
+			int oldSortDirection, int sortDirection,
+			PaginationController paginationController) {
+		
+	}
 }

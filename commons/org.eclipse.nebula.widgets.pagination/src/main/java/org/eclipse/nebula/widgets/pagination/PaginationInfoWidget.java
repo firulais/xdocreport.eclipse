@@ -48,4 +48,11 @@ public class PaginationInfoWidget extends BaseComposite implements
 		totalLabel.setText("Total: " + totalElements);
 	}
 
+	public void sortChanged(String oldPopertyName, String propertyName,
+			int oldSortDirection, int sortDirection,
+			PaginationController paginationController) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

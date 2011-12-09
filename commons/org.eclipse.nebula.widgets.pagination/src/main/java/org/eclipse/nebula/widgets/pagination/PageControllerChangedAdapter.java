@@ -12,4 +12,10 @@ public class PageControllerChangedAdapter implements PageControllerChangedListen
 		
 	}
 
+	public void sortChanged(String oldPopertyName, String propertyName,
+			int oldSortDirection, int sortDirection,
+			PaginationController paginationController) {
+
+	}
+
 }

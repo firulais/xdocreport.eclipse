@@ -9,13 +9,15 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 
-public abstract class PaginationTable extends AbstractPageControllerComposite {
+public abstract class PaginationTable<T extends PaginationController> extends
+		AbstractPageControllerComposite<T> {
 
 	protected TableViewer viewer;
 	private PaginationBannerFactory bannerTopFactory;
 	private PaginationBannerFactory bannerBottomFactory;
 	private int tableStyle = SWT.BORDER | SWT.MULTI | SWT.H_SCROLL
 			| SWT.V_SCROLL;
+	private Table table;
 
 	public PaginationTable(Composite parent, int style, int tableStyle,
 			PaginationBannerFactory bannerTopFactory,
@@ -47,8 +49,9 @@ public abstract class PaginationTable extends AbstractPageControllerComposite {
 	protected void createUI(Composite parent) {
 		this.setLayout(new GridLayout());
 		createBannerTop();
-		Table table = createTable();
-		viewer = new TableViewer(table);
+		this.table = createTable();
+		PaginationHelper.setPaginationTable(table, this);
+		this.viewer = new TableViewer(table);
 		createBannerBottom();
 	}
 
@@ -67,7 +70,7 @@ public abstract class PaginationTable extends AbstractPageControllerComposite {
 	}
 
 	protected Table createTable() {
-		Table table = super.createTable(this, getTableStyle());
+		Table table = createTable(this, getTableStyle());
 		table.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		return table;
 	}
@@ -100,5 +103,13 @@ public abstract class PaginationTable extends AbstractPageControllerComposite {
 
 	public static PaginationBannerFactory getDefaultBannerBottomFactory() {
 		return null;
+	}
+
+	public Table getTable() {
+		return table;
+	}
+
+	protected Table createTable(Composite parent, int style) {
+		return new Table(parent, style);
 	}
 }

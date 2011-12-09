@@ -137,4 +137,11 @@ public class PaginationBannerWidget extends BaseComposite implements
 		previousLink.setEnabled(controller.hasPreviousPage());
 	}
 
+	public void sortChanged(String oldPopertyName, String propertyName,
+			int oldSortDirection, int sortDirection,
+			PaginationController paginationController) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
