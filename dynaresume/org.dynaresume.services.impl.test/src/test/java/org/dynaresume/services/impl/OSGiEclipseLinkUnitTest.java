@@ -149,6 +149,7 @@ public class OSGiEclipseLinkUnitTest {
 
 	@Test
 	public void findDataSource(BundleContext ctx) throws InterruptedException {
+		Thread.sleep(2000);
 		assertThat(ctx, is(notNullValue()));
 		System.out.println("BundleContext of bundle injected: "
 				+ ctx.getBundle().getSymbolicName());
@@ -164,6 +165,7 @@ public class OSGiEclipseLinkUnitTest {
 
 	@Test
 	public void findResumeDao(BundleContext ctx) throws InterruptedException {
+		Thread.sleep(2000);
 		assertThat(ctx, is(notNullValue()));
 		System.out.println("BundleContext of bundle injected: "
 				+ ctx.getBundle().getSymbolicName());
@@ -202,6 +204,7 @@ public class OSGiEclipseLinkUnitTest {
 
 	@Test
 	public void testSkillDao(BundleContext ctx) throws InterruptedException {
+		Thread.sleep(2000);
 		assertThat(ctx, is(notNullValue()));
 
 		ServiceTracker tracker = new ServiceTracker(ctx,
@@ -222,6 +225,7 @@ public class OSGiEclipseLinkUnitTest {
 
 	@Test
 	public void testGroupDao(BundleContext ctx) throws InterruptedException {
+		Thread.sleep(2000);
 		assertThat(ctx, is(notNullValue()));
 
 		ServiceTracker groupTracker = new ServiceTracker(ctx,
@@ -259,6 +263,7 @@ public class OSGiEclipseLinkUnitTest {
 	@Test
 	public void testSkillCategoryDao(BundleContext ctx)
 			throws InterruptedException {
+		Thread.sleep(2000);
 
 		ServiceTracker skillCategoryDaoTracker = new ServiceTracker(ctx,
 				SkillCategoryDao.class.getName(), null);
@@ -279,6 +284,7 @@ public class OSGiEclipseLinkUnitTest {
 
 	@Test
 	public void testLanguageDao(BundleContext ctx) throws InterruptedException {
+		Thread.sleep(2000);
 		ServiceTracker tracker = new ServiceTracker(ctx,
 				LanguageDao.class.getName(), null);
 		tracker.open();
