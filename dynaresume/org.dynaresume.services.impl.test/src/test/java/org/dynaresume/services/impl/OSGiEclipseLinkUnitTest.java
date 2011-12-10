@@ -68,7 +68,7 @@ public class OSGiEclipseLinkUnitTest {
 				junitBundles(),
 				// knopflerfish(),
 				felix(),
-				equinox(),
+				//equinox(),
 
 				mavenBundle("org.apache.commons",
 						"com.springsource.org.apache.commons.logging", "1.1.1"),
