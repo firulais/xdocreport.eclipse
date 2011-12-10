@@ -58,9 +58,6 @@ public class OSGiEclipseLinkUnitTest {
 	private static final String STRING_DATA_VERSION = "1.0.1.RELEASE";
 	private static final String SPRING_VERSION = "3.1.0.RC2";
 
-
-	
-
 	@Configuration()
 	public Option[] config() {
 		return options(
@@ -73,28 +70,49 @@ public class OSGiEclipseLinkUnitTest {
 				felix(),
 				equinox(),
 
-						mavenBundle("org.apache.commons","com.springsource.org.apache.commons.logging", "1.1.1"),
+				mavenBundle("org.apache.commons",
+						"com.springsource.org.apache.commons.logging", "1.1.1"),
 				// ***************** Common dependencies ********************
-						// ***************** Common dependencies ********************
-						mavenBundle("org.aopalliance","com.springsource.org.aopalliance").version("1.0.0"),
-						mavenBundle("org.springframework","spring-aop").version(SPRING_VERSION),
-						mavenBundle("org.springframework","spring-beans").version(SPRING_VERSION),
-						mavenBundle("org.springframework","spring-context").version(SPRING_VERSION),
-						mavenBundle("org.springframework","spring-core").version(SPRING_VERSION),
-						mavenBundle("org.springframework","spring-tx").version(SPRING_VERSION),
-						mavenBundle("org.springframework","spring-orm").version(SPRING_VERSION),
-						mavenBundle("org.springframework","spring-jdbc").version(SPRING_VERSION),
-						mavenBundle("org.springframework","spring-asm").version(SPRING_VERSION),
-						mavenBundle("org.springframework","spring-expression").version(SPRING_VERSION),
-						
-						mavenBundle("org.springframework.data","spring-data-jpa").version(STRING_DATA_VERSION),
-						mavenBundle("org.springframework.data","spring-data-commons-core").version("1.1.0.RELEASE"),
-						mavenBundle("org.apache.derby","derby").version("10.8.2.2"),
-						mavenBundle("javax.validation","com.springsource.javax.validation").version("1.0.0.GA"),
-						
-						mavenBundle("org.eclipse.gemini.blueprint","gemini-blueprint-core").version(GEMINI_BLUEPRINT_VERSION),
-						mavenBundle("org.eclipse.gemini.blueprint","gemini-blueprint-io").version(GEMINI_BLUEPRINT_VERSION),
-						mavenBundle("org.eclipse.gemini.blueprint","gemini-blueprint-extender").version(GEMINI_BLUEPRINT_VERSION).startLevel(5),
+				// ***************** Common dependencies ********************
+				mavenBundle("org.aopalliance",
+						"com.springsource.org.aopalliance").version("1.0.0"),
+				mavenBundle("org.springframework", "spring-aop").version(
+						SPRING_VERSION),
+				mavenBundle("org.springframework", "spring-beans").version(
+						SPRING_VERSION),
+				mavenBundle("org.springframework", "spring-context").version(
+						SPRING_VERSION),
+				mavenBundle("org.springframework", "spring-core").version(
+						SPRING_VERSION),
+				mavenBundle("org.springframework", "spring-tx").version(
+						SPRING_VERSION),
+				mavenBundle("org.springframework", "spring-orm").version(
+						SPRING_VERSION),
+				mavenBundle("org.springframework", "spring-jdbc").version(
+						SPRING_VERSION),
+				mavenBundle("org.springframework", "spring-asm").version(
+						SPRING_VERSION),
+				mavenBundle("org.springframework", "spring-expression")
+						.version(SPRING_VERSION),
+
+				mavenBundle("org.springframework.data", "spring-data-jpa")
+						.version(STRING_DATA_VERSION),
+				mavenBundle("org.springframework.data",
+						"spring-data-commons-core").version("1.1.0.RELEASE"),
+				mavenBundle("org.apache.derby", "derby").version("10.8.2.2"),
+				mavenBundle("javax.validation",
+						"com.springsource.javax.validation")
+						.version("1.0.0.GA"),
+
+				mavenBundle("org.eclipse.gemini.blueprint",
+						"gemini-blueprint-core").version(
+						GEMINI_BLUEPRINT_VERSION),
+				mavenBundle("org.eclipse.gemini.blueprint",
+						"gemini-blueprint-io")
+						.version(GEMINI_BLUEPRINT_VERSION),
+				mavenBundle("org.eclipse.gemini.blueprint",
+						"gemini-blueprint-extender").version(
+						GEMINI_BLUEPRINT_VERSION).startLevel(5),
 
 				// ***************** EclipseLink dependencies
 				// ********************
@@ -119,7 +137,7 @@ public class OSGiEclipseLinkUnitTest {
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
 						"org.dynaresume.domain.core", "1.0.0-SNAPSHOT"),
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
-							"org.dynaresume.domain.project", "1.0.0-SNAPSHOT"),		
+						"org.dynaresume.domain.project", "1.0.0-SNAPSHOT"),
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
 						"org.dynaresume.domain.hr", "1.0.0-SNAPSHOT"),
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
@@ -221,6 +239,9 @@ public class OSGiEclipseLinkUnitTest {
 		skillDao.save(entity);
 		assertEquals(1, skillDao.count());
 
+		Pageable pageable = new PageRequest(10, 10);
+		Page<Skill> skills = skillDao.findAll(pageable);
+		assertNotNull(skills);
 	}
 
 	@Test
