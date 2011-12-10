@@ -9,9 +9,9 @@
 	</parent>
 	<properties>
 		<paxrunnerversion>1.7.5</paxrunnerversion>
-		<paxexamversion>2.1.0</paxexamversion>
-		<paxurlversion>1.3.3</paxurlversion>
-		<felixversion>3.2.2</felixversion>
+		<paxexamversion>2.2.0</paxexamversion>
+		<!-- <paxurlversion>1.3.3</paxurlversion> -->
+		<!-- <felixversion>3.2.2</felixversion> -->
 	</properties>
 	<build>
 		<plugins>

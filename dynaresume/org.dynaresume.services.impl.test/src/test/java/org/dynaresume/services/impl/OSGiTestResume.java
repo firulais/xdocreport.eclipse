@@ -27,8 +27,6 @@ import static org.ops4j.pax.exam.CoreOptions.options;
 import static org.ops4j.pax.exam.CoreOptions.profile;
 import static org.ops4j.pax.exam.CoreOptions.systemProperty;
 import static org.ops4j.pax.exam.OptionUtils.combine;
-import static org.ops4j.pax.exam.spi.container.PaxExamRuntime.createContainer;
-import static org.ops4j.pax.exam.spi.container.PaxExamRuntime.createTestSystem;
 
 import java.io.IOException;
 
@@ -41,6 +39,7 @@ import org.ops4j.pax.exam.TimeoutException;
 import org.ops4j.pax.exam.junit.Configuration;
 import org.ops4j.pax.exam.junit.ExamReactorStrategy;
 import org.ops4j.pax.exam.junit.JUnit4TestRunner;
+import org.ops4j.pax.exam.spi.PaxExamRuntime;
 import org.ops4j.pax.exam.spi.reactors.EagerSingleStagedReactorFactory;
 import org.osgi.framework.BundleContext;
 import org.osgi.util.tracker.ServiceTracker;
@@ -224,8 +223,8 @@ public class OSGiTestResume {
 	}
 
 	public static void main(String[] args) throws TimeoutException, IOException {
-		createContainer(
-				createTestSystem(combine(new OSGiTestResume().config(),
+		PaxExamRuntime.createContainer(
+				PaxExamRuntime.createTestSystem(combine(new OSGiTestResume().config(),
 						profile("gogo")))).start();
 	}
 

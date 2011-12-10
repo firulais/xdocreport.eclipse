@@ -14,8 +14,6 @@ import static org.ops4j.pax.exam.CoreOptions.options;
 import static org.ops4j.pax.exam.CoreOptions.profile;
 import static org.ops4j.pax.exam.CoreOptions.systemProperty;
 import static org.ops4j.pax.exam.OptionUtils.combine;
-import static org.ops4j.pax.exam.spi.container.PaxExamRuntime.createContainer;
-import static org.ops4j.pax.exam.spi.container.PaxExamRuntime.createTestSystem;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,6 +42,7 @@ import org.ops4j.pax.exam.TimeoutException;
 import org.ops4j.pax.exam.junit.Configuration;
 import org.ops4j.pax.exam.junit.ExamReactorStrategy;
 import org.ops4j.pax.exam.junit.JUnit4TestRunner;
+import org.ops4j.pax.exam.spi.PaxExamRuntime;
 import org.ops4j.pax.exam.spi.reactors.EagerSingleStagedReactorFactory;
 import org.osgi.framework.BundleContext;
 import org.osgi.util.tracker.ServiceTracker;
@@ -70,7 +69,7 @@ public class OSGiEclipseLinkUnitTest {
 				junitBundles(),
 				// knopflerfish(),
 				felix(),
-				//equinox(),
+				equinox(),
 
 				mavenBundle("org.apache.commons",
 						"com.springsource.org.apache.commons.logging", "1.1.1"),
@@ -161,15 +160,15 @@ public class OSGiEclipseLinkUnitTest {
 	}
 
 	public static void main(String[] args) throws TimeoutException, IOException {
-		createContainer(
-				createTestSystem(combine(
+		PaxExamRuntime.createContainer(
+				PaxExamRuntime.createTestSystem(combine(
 						new OSGiEclipseLinkUnitTest().config(), profile("gogo"))))
 				.start();
 	}
 
 	@Test
 	public void findDataSource(BundleContext ctx) throws InterruptedException {
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		assertThat(ctx, is(notNullValue()));
 		System.out.println("BundleContext of bundle injected: "
 				+ ctx.getBundle().getSymbolicName());
@@ -185,7 +184,7 @@ public class OSGiEclipseLinkUnitTest {
 
 	@Test
 	public void findResumeDao(BundleContext ctx) throws InterruptedException {
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		assertThat(ctx, is(notNullValue()));
 		System.out.println("BundleContext of bundle injected: "
 				+ ctx.getBundle().getSymbolicName());
@@ -224,7 +223,7 @@ public class OSGiEclipseLinkUnitTest {
 
 	@Test
 	public void testSkillDao(BundleContext ctx) throws InterruptedException {
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		assertThat(ctx, is(notNullValue()));
 
 		ServiceTracker tracker = new ServiceTracker(ctx,
@@ -257,8 +256,10 @@ public class OSGiEclipseLinkUnitTest {
 		names.add("Padawan");
 		Iterable<Skill> skilsFound=	skillDao.findByNames(names);
 		//System.out.println(skilsFound);
+		
+		
 		for (Skill skill : skilsFound) {
-			System.out.println(skill.getName());
+			assertEquals("Padawan", skill.getName());
 		}
 		
 	}

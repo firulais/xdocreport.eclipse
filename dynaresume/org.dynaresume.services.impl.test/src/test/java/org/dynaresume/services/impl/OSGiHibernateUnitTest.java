@@ -20,6 +20,7 @@ import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.ops4j.pax.exam.CoreOptions.cleanCaches;
+import static org.ops4j.pax.exam.CoreOptions.equinox;
 import static org.ops4j.pax.exam.CoreOptions.felix;
 import static org.ops4j.pax.exam.CoreOptions.junitBundles;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
@@ -28,8 +29,6 @@ import static org.ops4j.pax.exam.CoreOptions.profile;
 import static org.ops4j.pax.exam.CoreOptions.systemProperty;
 import static org.ops4j.pax.exam.CoreOptions.wrappedBundle;
 import static org.ops4j.pax.exam.OptionUtils.combine;
-import static org.ops4j.pax.exam.spi.container.PaxExamRuntime.createContainer;
-import static org.ops4j.pax.exam.spi.container.PaxExamRuntime.createTestSystem;
 
 import java.io.IOException;
 
@@ -39,12 +38,12 @@ import org.dynaresume.dao.ResumeDao;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ops4j.pax.exam.CoreOptions;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.TimeoutException;
 import org.ops4j.pax.exam.junit.Configuration;
 import org.ops4j.pax.exam.junit.ExamReactorStrategy;
 import org.ops4j.pax.exam.junit.JUnit4TestRunner;
+import org.ops4j.pax.exam.spi.PaxExamRuntime;
 import org.ops4j.pax.exam.spi.reactors.EagerSingleStagedReactorFactory;
 import org.osgi.framework.BundleContext;
 import org.osgi.util.tracker.ServiceTracker;
@@ -62,12 +61,12 @@ public class OSGiHibernateUnitTest {
 	public Option[] config() {
 		return options(
 				systemProperty("org.ops4j.pax.logging.DefaultServiceLog.level")
-						.value("INFO"),
+						.value("ERROR"),
 				// profile("spring.dm").version("2.0.O"),
 				cleanCaches(),
 				junitBundles(),
 				felix(),
-				
+				equinox(),
 				// equinox(),
 				// ***************** Common dependencies ********************
 				mavenBundle("org.aopalliance","com.springsource.org.aopalliance").version("1.0.0"),
@@ -128,8 +127,8 @@ public class OSGiHibernateUnitTest {
 	}
 
 	public static void main(String[] args) throws TimeoutException, IOException {
-		createContainer(
-				createTestSystem(combine(new OSGiHibernateUnitTest().config(),
+		PaxExamRuntime.createContainer(
+				PaxExamRuntime.createTestSystem(combine(new OSGiHibernateUnitTest().config(),
 						profile("gogo")))).start();
 	}
 
@@ -146,7 +145,7 @@ public class OSGiHibernateUnitTest {
 	
 	@Test
 	public void findDataSource(BundleContext ctx) throws InterruptedException {
-		Thread.sleep(10000);
+		Thread.sleep(1000);
 		assertThat(ctx, is(notNullValue()));
 		System.out.println("BundleContext of bundle injected: "
 				+ ctx.getBundle().getSymbolicName());
