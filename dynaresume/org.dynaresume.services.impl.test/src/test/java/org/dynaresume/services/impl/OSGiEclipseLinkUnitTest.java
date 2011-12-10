@@ -18,6 +18,8 @@ import static org.ops4j.pax.exam.spi.container.PaxExamRuntime.createContainer;
 import static org.ops4j.pax.exam.spi.container.PaxExamRuntime.createTestSystem;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -237,11 +239,28 @@ public class OSGiEclipseLinkUnitTest {
 		Skill entity = new Skill();
 		entity.setName("Jedi Master");
 		skillDao.save(entity);
-		assertEquals(1, skillDao.count());
+
+		Skill padawan = new Skill();
+		padawan.setName("Padawan");
+		skillDao.save(padawan);
+
+		assertEquals(2, skillDao.count());
 
 		Pageable pageable = new PageRequest(10, 10);
 		Page<Skill> skills = skillDao.findAll(pageable);
 		assertNotNull(skills);
+		
+		
+
+		List<String> names = new ArrayList<String>();
+		names.add("Java");
+		names.add("Padawan");
+		Iterable<Skill> skilsFound=	skillDao.findByNames(names);
+		//System.out.println(skilsFound);
+		for (Skill skill : skilsFound) {
+			System.out.println(skill.getName());
+		}
+		
 	}
 
 	@Test

@@ -41,10 +41,10 @@
 
 	<bean id="jpaDialect" class="${jpaDialect}" />
 	<tx:annotation-driven transaction-manager="transactionManager" />
-
+	<context:component-scan base-package="org.dynaresume.dao.custom"/>
 	<jpa:repositories base-package="org.dynaresume.dao">
 		<jpa:repository id="resumeDao" />
-		<jpa:repository id="skillDao" />
+		<jpa:repository id="skillDao" custom-impl-ref="skillRepositoryCustom" />
 		<jpa:repository id="groupDao" />
 		<jpa:repository id="agencyDao" />
 		<jpa:repository id="languageDao" />

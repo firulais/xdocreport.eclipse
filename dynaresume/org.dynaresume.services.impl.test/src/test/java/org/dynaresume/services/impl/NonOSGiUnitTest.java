@@ -3,12 +3,17 @@ package org.dynaresume.services.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.dynaresume.dao.ResumeDao;
+import org.dynaresume.dao.SkillDao;
 import org.dynaresume.domain.core.MaritalStatus;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.Resume;
+import org.dynaresume.domain.hr.Skill;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.data.domain.Page;
@@ -23,6 +28,8 @@ public class NonOSGiUnitTest {
 
 	@Inject
 	private ResumeDao resumeDao;
+	@Inject
+	private SkillDao skillDao;
 
 	@Test
 	public void validate() {
@@ -48,5 +55,37 @@ public class NonOSGiUnitTest {
 		System.out.println(resumes.getContent().size());
 		assertEquals(1,resumes.getContent().size());
 
+	}
+	
+	
+	@Test
+	public void customeRepo() {
+		
+		assertNotNull(skillDao);
+		assertEquals(0, skillDao.count());
+
+		Skill jedi = new Skill();
+		jedi.setName("Jedi Master");
+		skillDao.save(jedi);
+		
+		Skill padawan = new Skill();
+		padawan.setName("Padawan");
+		skillDao.save(padawan);
+
+		assertEquals(2, skillDao.count());
+
+		Pageable pageable = new PageRequest(10, 10);
+		Page<Skill> skills = skillDao.findAll(pageable);
+		assertNotNull(skills);
+		
+		
+		List<String> names = new ArrayList<String>();
+		names.add("Java");
+		names.add("Padawan");
+		Iterable<Skill> skilsFound=	skillDao.findByNames(names);
+		//System.out.println(skilsFound);
+		for (Skill skill : skilsFound) {
+			System.out.println(skill.getName());
+		}
 	}
 }

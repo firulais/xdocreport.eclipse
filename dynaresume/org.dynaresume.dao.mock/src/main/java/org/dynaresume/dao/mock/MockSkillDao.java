@@ -67,4 +67,9 @@ public class MockSkillDao extends AbstractDaoMock<Skill> implements SkillDao {
 		return new PageImpl<Skill>(paginatedList, pageable, totalSize);
 	}
 
+	public Iterable<Skill> findByNames(List<String> names) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

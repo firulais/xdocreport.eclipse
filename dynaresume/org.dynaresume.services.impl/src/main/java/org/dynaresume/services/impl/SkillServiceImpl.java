@@ -47,6 +47,8 @@ public class SkillServiceImpl implements SkillService {
 
 	public Iterable<Skill> findByNames(List<String> names) {
 		// TODO :manage that in the DAO
+		
+		
 		List<Skill> filteredSkills = new ArrayList<Skill>();
 		Iterable<Skill> allSkills = findAll();
 		for (Skill skill : allSkills) {

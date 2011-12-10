@@ -5,7 +5,8 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-SymbolicName: org.dynaresume.dao
 Bundle-Version: 1.0.0.qualifier
-Export-Package: org.dynaresume.dao
+Export-Package: org.dynaresume.dao,
+ org.dynaresume.dao.custom
 Import-Package: org.dynaresume.domain.core,
  org.dynaresume.domain.hr,
  org.dynaresume.domain.project,
