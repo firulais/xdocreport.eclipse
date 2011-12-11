@@ -1,6 +1,5 @@
 package org.dynaresume.services.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.dynaresume.dao.SkillDao;
@@ -46,19 +45,6 @@ public class SkillServiceImpl implements SkillService {
 	}
 
 	public Iterable<Skill> findByNames(List<String> names) {
-		// TODO :manage that in the DAO
-		
-		
-		List<Skill> filteredSkills = new ArrayList<Skill>();
-		Iterable<Skill> allSkills = findAll();
-		for (Skill skill : allSkills) {
-			for (String name : names) {
-				if (skill.getName().equalsIgnoreCase(name)) {
-					filteredSkills.add(skill);
-					break;
-				}
-			}
-		}
-		return filteredSkills;
+		return skillDao.findByNames(names);
 	}
 }

@@ -8,6 +8,7 @@ Bundle-Version: 1.0.0.qualifier
 Export-Package: org.dynaresume.services.impl
 Import-Package: javax.annotation,
  org.dynaresume.dao,
+ org.dynaresume.dao.custom,
  org.dynaresume.domain.core,
  org.dynaresume.domain.hr,
  org.dynaresume.domain.project,

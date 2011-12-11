@@ -68,8 +68,17 @@ public class MockSkillDao extends AbstractDaoMock<Skill> implements SkillDao {
 	}
 
 	public Iterable<Skill> findByNames(List<String> names) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Skill> filteredSkills = new ArrayList<Skill>();
+		Iterable<Skill> allSkills = findAll();
+		for (Skill skill : allSkills) {
+			for (String name : names) {
+				if (skill.getName().equalsIgnoreCase(name)) {
+					filteredSkills.add(skill);
+					break;
+				}
+			}
+		}
+		return filteredSkills;
 	}
 
 }
