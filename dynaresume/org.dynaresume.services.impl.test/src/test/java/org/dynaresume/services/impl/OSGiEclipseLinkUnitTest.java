@@ -9,6 +9,7 @@ import static org.ops4j.pax.exam.CoreOptions.cleanCaches;
 import static org.ops4j.pax.exam.CoreOptions.equinox;
 import static org.ops4j.pax.exam.CoreOptions.felix;
 import static org.ops4j.pax.exam.CoreOptions.junitBundles;
+import static org.ops4j.pax.exam.CoreOptions.knopflerfish;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 import static org.ops4j.pax.exam.CoreOptions.options;
 import static org.ops4j.pax.exam.CoreOptions.profile;
@@ -67,10 +68,10 @@ public class OSGiEclipseLinkUnitTest {
 				// profile("spring.dm").version("2.0.O"),
 				cleanCaches(),
 				junitBundles(),
-				// knopflerfish(),
+				
 				felix(),
 				equinox(),
-
+			
 				mavenBundle("org.apache.commons",
 						"com.springsource.org.apache.commons.logging", "1.1.1"),
 				// ***************** Common dependencies ********************
@@ -131,8 +132,7 @@ public class OSGiEclipseLinkUnitTest {
 				mavenBundle("org.apache.commons",
 						"com.springsource.org.apache.commons.dbcp",
 						"1.2.2.osgi"),
-				mavenBundle("org.apache.commons",
-						"com.springsource.org.apache.commons.pool", "1.3.0"),
+				
 				mavenBundle("org.apache.commons",
 						"com.springsource.org.apache.commons.pool", "1.5.3"),
 				mavenBundle("fr.opensagres.xdocreport-eclipse",
@@ -168,7 +168,7 @@ public class OSGiEclipseLinkUnitTest {
 
 	@Test
 	public void findDataSource(BundleContext ctx) throws InterruptedException {
-		Thread.sleep(1000);
+		Thread.sleep(100);
 		assertThat(ctx, is(notNullValue()));
 		System.out.println("BundleContext of bundle injected: "
 				+ ctx.getBundle().getSymbolicName());
@@ -184,7 +184,7 @@ public class OSGiEclipseLinkUnitTest {
 
 	@Test
 	public void findResumeDao(BundleContext ctx) throws InterruptedException {
-		Thread.sleep(1000);
+		Thread.sleep(100);
 		assertThat(ctx, is(notNullValue()));
 		System.out.println("BundleContext of bundle injected: "
 				+ ctx.getBundle().getSymbolicName());
@@ -223,7 +223,7 @@ public class OSGiEclipseLinkUnitTest {
 
 	@Test
 	public void testSkillDao(BundleContext ctx) throws InterruptedException {
-		Thread.sleep(1000);
+		Thread.sleep(100);
 		assertThat(ctx, is(notNullValue()));
 
 		ServiceTracker tracker = new ServiceTracker(ctx,
