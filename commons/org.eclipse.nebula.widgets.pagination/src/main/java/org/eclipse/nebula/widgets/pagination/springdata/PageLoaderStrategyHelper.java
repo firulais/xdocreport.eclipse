@@ -8,7 +8,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.collections.PageLoader;
 
-public class PageRefreshStrategyHelper {
+public class PageLoaderStrategyHelper {
 
 	public static void loadPageAndReplaceItems(
 			final PageableController controller, final TableViewer viewer,
@@ -39,7 +39,7 @@ public class PageRefreshStrategyHelper {
 			@Override
 			public void pageIndexChanged(int oldPageIndex, int newPageIndex,
 					PageableController controller) {
-				PageRefreshStrategyHelper.loadPageAndAddItems(controller,
+				PageLoaderStrategyHelper.loadPageAndAddItems(controller,
 						viewer, pageLoader);
 			}
 

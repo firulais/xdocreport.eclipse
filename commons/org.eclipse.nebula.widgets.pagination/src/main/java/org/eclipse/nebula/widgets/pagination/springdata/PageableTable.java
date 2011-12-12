@@ -37,7 +37,7 @@ public class PageableTable extends AbstractPaginationTable<PageableController> {
 
 	@Override
 	public void refreshPage() {
-		PageRefreshStrategyHelper.loadPageAndReplaceItems(getController(), viewer,
+		PageLoaderStrategyHelper.loadPageAndReplaceItems(getController(), viewer,
 				pageLoader);
 	}
 

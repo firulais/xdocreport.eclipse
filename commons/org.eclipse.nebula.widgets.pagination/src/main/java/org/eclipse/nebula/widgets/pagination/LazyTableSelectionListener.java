@@ -25,6 +25,7 @@ public class LazyTableSelectionListener extends
 			if (controller.hasNextPage()) {
 				controller.setCurrentPage(controller.getCurrentPage() + 1);
 			}
+			item.setData(LAST_ITEM_LOADED, null);
 		}
 	}
 }
