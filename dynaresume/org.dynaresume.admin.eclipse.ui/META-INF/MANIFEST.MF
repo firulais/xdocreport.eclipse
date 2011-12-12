@@ -42,7 +42,8 @@ Import-Package: fr.opensagres.eclipse.forms,
  org.eclipse.nebula.widgets.pagination.spring.forms,
  org.eclipse.springframework.util,
  org.springframework.beans.factory.annotation,
- org.springframework.data.domain
+ org.springframework.data.domain,
+ org.springframework.data.domain.collections
 Export-Package: org.dynaresume.admin.eclipse.ui.group.editors,
  org.dynaresume.admin.eclipse.ui.skill.editors
 Bundle-ClassPath: .

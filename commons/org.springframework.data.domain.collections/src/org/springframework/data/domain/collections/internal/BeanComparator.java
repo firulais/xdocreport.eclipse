@@ -1,4 +1,4 @@
-package org.eclipse.nebula.widgets.pagination.spring.internal;
+package org.springframework.data.domain.collections.internal;
 
 import java.util.Comparator;
 

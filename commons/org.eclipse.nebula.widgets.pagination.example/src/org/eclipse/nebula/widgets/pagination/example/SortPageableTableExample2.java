@@ -23,7 +23,6 @@ import org.eclipse.nebula.widgets.pagination.SortTableColumnSelectionListener;
 import org.eclipse.nebula.widgets.pagination.banner.ResultAndPageLinksBannerWidgetFactory;
 import org.eclipse.nebula.widgets.pagination.example.model.Address;
 import org.eclipse.nebula.widgets.pagination.example.model.Person;
-import org.eclipse.nebula.widgets.pagination.spring.PageListHelper;
 import org.eclipse.nebula.widgets.pagination.spring.PageableTable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -32,6 +31,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.springframework.data.domain.collections.PageListHelper;
 
 /**
  * Basic Picture control example.

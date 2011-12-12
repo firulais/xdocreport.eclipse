@@ -17,5 +17,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.rap.ui.forms;resolution:=optional,
  org.eclipse.jface;resolution:=optional,
  org.eclipse.rap.jface;resolution:=optional
-Import-Package: org.eclipse.jface.databinding.swt,
- org.springframework.data.domain;resolution:=optional
+Import-Package: org.springframework.data.domain;resolution:=optional,
+ org.springframework.data.domain.collections;resolution:=optional

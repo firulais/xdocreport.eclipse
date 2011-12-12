@@ -15,8 +15,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
-import org.eclipse.ui.forms.widgets.TableWrapData;
-import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import fr.opensagres.eclipse.forms.conversion.DateConverterRegistry;
 import fr.opensagres.eclipse.forms.conversion.DateToStringConverter;

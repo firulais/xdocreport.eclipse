@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.dynaresume.dao.ResumeDao;
-import org.dynaresume.dao.mock.internal.PageListHelper;
 import org.dynaresume.domain.core.Address;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.Education;
@@ -17,8 +16,8 @@ import org.dynaresume.domain.hr.Resume;
 import org.dynaresume.domain.hr.SkillLanguage;
 import org.dynaresume.domain.hr.SkillResume;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.collections.PageListHelper;
 import org.springframework.stereotype.Repository;
 
 @Repository("resumeDao")

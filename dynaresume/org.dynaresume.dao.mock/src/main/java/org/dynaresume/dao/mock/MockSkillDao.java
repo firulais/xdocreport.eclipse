@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dynaresume.dao.SkillDao;
-import org.dynaresume.dao.mock.internal.PageListHelper;
 import org.dynaresume.domain.hr.Skill;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.collections.PageListHelper;
 import org.springframework.stereotype.Repository;
 
 @Repository("skillDao")

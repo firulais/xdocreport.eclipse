@@ -1,4 +1,4 @@
-package org.dynaresume.dao.mock.internal;
+package org.springframework.data.domain.collections;
 
 import java.util.Collections;
 import java.util.List;
@@ -7,8 +7,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.collections.internal.BeanComparator;
 
 public class PageListHelper {
+
+	public static PageLoader createPageLoader(List<?> items) {
+		return new PageLoaderListImpl(items);
+	}
 
 	public static Page createPage(List<?> list, Pageable pageable) {
 		Sort sort = pageable.getSort();

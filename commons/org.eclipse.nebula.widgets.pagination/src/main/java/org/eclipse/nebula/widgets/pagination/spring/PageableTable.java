@@ -4,6 +4,7 @@ import org.eclipse.nebula.widgets.pagination.AbstractPaginationTable;
 import org.eclipse.nebula.widgets.pagination.banner.PaginationBannerFactory;
 import org.eclipse.swt.widgets.Composite;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.collections.PageLoader;
 
 public class PageableTable extends AbstractPaginationTable<PageableController> {
 

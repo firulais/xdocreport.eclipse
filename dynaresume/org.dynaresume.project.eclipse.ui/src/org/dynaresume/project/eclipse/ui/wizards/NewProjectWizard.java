@@ -3,7 +3,6 @@ package org.dynaresume.project.eclipse.ui.wizards;
 import org.dynaresume.domain.project.Project;
 import org.dynaresume.project.eclipse.ui.editors.project.ProjectEditorInput;
 import org.dynaresume.project.eclipse.ui.editors.project.ProjectFormEditor;
-import org.dynaresume.project.eclipse.ui.internal.ImageResources;
 import org.dynaresume.services.ProjectService;
 import org.eclipse.ui.IEditorInput;
 

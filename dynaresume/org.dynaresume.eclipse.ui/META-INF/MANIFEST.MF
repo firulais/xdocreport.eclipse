@@ -42,4 +42,5 @@ Import-Package: fr.opensagres.eclipse.forms,
  org.eclipse.nebula.widgets.pagination,
  org.eclipse.nebula.widgets.pagination.spring,
  org.eclipse.springframework.util,
- org.springframework.data.domain
+ org.springframework.data.domain,
+ org.springframework.data.domain.collections

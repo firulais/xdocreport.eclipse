@@ -18,13 +18,13 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.nebula.widgets.pagination.banner.ResultAndPageLinksBannerWidgetFactory;
-import org.eclipse.nebula.widgets.pagination.spring.PageListHelper;
 import org.eclipse.nebula.widgets.pagination.spring.PageableTable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.springframework.data.domain.collections.PageListHelper;
 
 /**
  * Basic Picture control example.
