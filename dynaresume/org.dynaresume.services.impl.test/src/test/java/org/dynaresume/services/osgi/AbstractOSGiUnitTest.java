@@ -30,18 +30,18 @@ public class AbstractOSGiUnitTest {
 			mavenBundle("org.apache.commons","com.springsource.org.apache.commons.logging", "1.1.1"),
 			// ***************** Spring dependencies ********************
 			mavenBundle("org.aopalliance", "com.springsource.org.aopalliance","1.0.0"),
-			mavenBundle("org.springframework", "spring-aop",SPRING_VERSION),
+			mavenBundle("org.springframework", "spring-aop").versionAsInProject(),
 			mavenBundle("org.springframework", "spring-beans").versionAsInProject(),
-			mavenBundle("org.springframework", "spring-context",SPRING_VERSION),
-			mavenBundle("org.springframework", "spring-core",SPRING_VERSION),
-			mavenBundle("org.springframework", "spring-tx",SPRING_VERSION),
-			mavenBundle("org.springframework", "spring-orm",SPRING_VERSION),
-			mavenBundle("org.springframework", "spring-jdbc",SPRING_VERSION),
-			mavenBundle("org.springframework", "spring-asm",SPRING_VERSION),
-			mavenBundle("org.springframework", "spring-expression",SPRING_VERSION),
+			mavenBundle("org.springframework", "spring-context").versionAsInProject(),
+			mavenBundle("org.springframework", "spring-core").versionAsInProject(),
+			mavenBundle("org.springframework", "spring-tx").versionAsInProject(),
+			mavenBundle("org.springframework", "spring-orm").versionAsInProject(),
+			mavenBundle("org.springframework", "spring-jdbc").versionAsInProject(),
+			mavenBundle("org.springframework", "spring-asm").versionAsInProject(),
+			mavenBundle("org.springframework", "spring-expression").versionAsInProject(),
 			// ***************** Spring data ********************
-			mavenBundle("org.springframework.data", "spring-data-jpa",STRING_DATA_VERSION),
-			mavenBundle("org.springframework.data", "spring-data-commons-core","1.1.0.RELEASE"),
+			mavenBundle("org.springframework.data", "spring-data-jpa").versionAsInProject(),
+			mavenBundle("org.springframework.data", "spring-data-commons-core").versionAsInProject(),
 			
 			// ***************** Required APIs ********************
 			mavenBundle("javax.validation", "com.springsource.javax.validation","1.0.0.GA"),
@@ -51,22 +51,23 @@ public class AbstractOSGiUnitTest {
 			mavenBundle("org.apache.commons","com.springsource.org.apache.commons.dbcp", "1.2.2.osgi"),
 			mavenBundle("org.apache.commons","com.springsource.org.apache.commons.pool", "1.5.3"),
 			// ***************** Gemini blueprint ********************
-			mavenBundle("org.eclipse.gemini.blueprint", "gemini-blueprint-core",GEMINI_BLUEPRINT_VERSION),
-			mavenBundle("org.eclipse.gemini.blueprint", "gemini-blueprint-io",GEMINI_BLUEPRINT_VERSION),
-			mavenBundle("org.eclipse.gemini.blueprint","gemini-blueprint-extender",GEMINI_BLUEPRINT_VERSION).startLevel(5) );
+			mavenBundle("org.eclipse.gemini.blueprint", "gemini-blueprint-core").versionAsInProject(),
+			mavenBundle("org.eclipse.gemini.blueprint", "gemini-blueprint-io").versionAsInProject(),
+			mavenBundle("org.eclipse.gemini.blueprint","gemini-blueprint-extender").versionAsInProject().startLevel(5) );
 	}
 	
 			
 			public Option[] xdocreportCommonBundles() {
 				
 			
-				return CoreOptions.options(
-			mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.core", "1.0.0-SNAPSHOT"),
-			mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.project", "1.0.0-SNAPSHOT"),
-			mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.hr", "1.0.0-SNAPSHOT"),
-			mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.datasource", "1.0.0-SNAPSHOT"),
-			mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao", "1.0.0-SNAPSHOT"),
-			mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa", "1.0.0-SNAPSHOT") );
+				return CoreOptions.options (
+						mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.core").versionAsInProject(),
+						mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.project").versionAsInProject(),
+						mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.hr").versionAsInProject(),
+						mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.datasource").versionAsInProject(),
+						mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao").versionAsInProject(),
+						mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa").versionAsInProject()
+					);
 			}
 			
 }
