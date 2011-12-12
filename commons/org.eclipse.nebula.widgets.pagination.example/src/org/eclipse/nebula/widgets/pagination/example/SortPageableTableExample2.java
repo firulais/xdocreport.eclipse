@@ -20,10 +20,10 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.nebula.widgets.pagination.SortTableColumnSelectionListener;
-import org.eclipse.nebula.widgets.pagination.banner.ResultAndPageLinksBannerWidgetFactory;
+import org.eclipse.nebula.widgets.pagination.decorators.ResultAndPageLinksDecoratorFactory;
 import org.eclipse.nebula.widgets.pagination.example.model.Address;
 import org.eclipse.nebula.widgets.pagination.example.model.Person;
-import org.eclipse.nebula.widgets.pagination.spring.PageableTable;
+import org.eclipse.nebula.widgets.pagination.springdata.PageableTable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -50,7 +50,7 @@ public class SortPageableTableExample2 {
 
 		int pageSize = 10;
 		PageableTable pageableTable = new PageableTable(shell, SWT.BORDER,
-				pageSize, ResultAndPageLinksBannerWidgetFactory.getFactory(),
+				pageSize, ResultAndPageLinksDecoratorFactory.getFactory(),
 				null);
 		pageableTable.setLayoutData(new GridData(GridData.FILL_BOTH));
 

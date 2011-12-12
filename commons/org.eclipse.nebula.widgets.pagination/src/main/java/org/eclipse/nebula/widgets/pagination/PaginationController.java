@@ -14,22 +14,34 @@ package org.eclipse.nebula.widgets.pagination;
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.swt.SWT;
 
+/**
+ * 
+ * Pagination controller.
+ * 
+ */
 public class PaginationController {
 
 	private static final int DEFAULT_PAGE_INDEX = -1;
 	private static final int DEFAULT_PAGE_SIZE = 10;
 
-	private int currentPage = DEFAULT_PAGE_INDEX;
-	private int itemsPerPage = DEFAULT_PAGE_SIZE;
-	private long totalElements = 0;
-	private String propertyName = null;
-	private int sortDirection = SWT.NONE;
+	private int currentPage;
+	private int pageSize;
+	private long totalElements;
+	private String sortPropertyName;
+	private int sortDirection;
 
 	private ListenerList pageChangedListeners = new ListenerList();
 
-	public PaginationController(int itemsPerPage) {
+	public PaginationController() {
+		this(DEFAULT_PAGE_SIZE);
+	}
+
+	public PaginationController(int pageSize) {
 		this.currentPage = DEFAULT_PAGE_INDEX;
-		this.itemsPerPage = itemsPerPage;
+		this.pageSize = pageSize;
+		this.totalElements = 0;
+		this.sortPropertyName = null;
+		this.sortDirection = SWT.NONE;
 	}
 
 	public void addPageChangedListener(PageChangedListener listener) {
@@ -40,29 +52,9 @@ public class PaginationController {
 		pageChangedListeners.add(listener);
 	}
 
-	public void removePageChangedListener(
-			PageChangedListener listener) {
+	public void removePageChangedListener(PageChangedListener listener) {
 		if (listener != null) {
 			pageChangedListeners.remove(listener);
-		}
-	}
-
-	private void notifyListenersForPageSelected(int oldPageNumber,
-			int newPageNumber) {
-		final Object[] listeners = pageChangedListeners.getListeners();
-		for (int i = 0; i < listeners.length; i++) {
-			final PageChangedListener listener = (PageChangedListener) listeners[i];
-			listener.pageChanged(oldPageNumber, newPageNumber, this);
-		}
-	}
-
-	private void notifyListenersForTotalElementsChanged(long oldTotalElements,
-			long newTotalElements) {
-		final Object[] listeners = pageChangedListeners.getListeners();
-		for (int i = 0; i < listeners.length; i++) {
-			final PageChangedListener listener = (PageChangedListener) listeners[i];
-			listener.totalElementsChanged(oldTotalElements, newTotalElements,
-					this);
 		}
 	}
 
@@ -101,16 +93,23 @@ public class PaginationController {
 		if (this.currentPage != currentPage) {
 			int oldPageNumber = this.currentPage;
 			this.currentPage = currentPage;
-			notifyListenersForPageSelected(oldPageNumber, currentPage);
+			notifyListenersForPageIndexChanged(oldPageNumber, currentPage);
 		}
 	}
 
 	public int getPageSize() {
-		return itemsPerPage;
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		if (this.pageSize != pageSize) {
+			int oldPageSize = this.pageSize;
+			this.pageSize = pageSize;
+			notifyListenersForPageSizeChanged(oldPageSize, pageSize);
+		}
 	}
 
 	public int getTotalPages() {
-
 		return getPageSize() == 0 ? 0 : (int) Math.ceil((double) totalElements
 				/ (double) getPageSize());
 	}
@@ -121,7 +120,6 @@ public class PaginationController {
 	 * @return
 	 */
 	public boolean isLastPage() {
-
 		return !hasNextPage();
 	}
 
@@ -143,14 +141,49 @@ public class PaginationController {
 	}
 
 	public void setSort(String propertyName, int sortDirection) {
-		if (this.propertyName != propertyName
+		if (this.sortPropertyName != propertyName
 				|| this.sortDirection != sortDirection) {
-			String oldPopertyName = this.propertyName;
-			this.propertyName = propertyName;
+			String oldPopertyName = this.sortPropertyName;
+			this.sortPropertyName = propertyName;
 			int oldSortDirection = this.sortDirection;
 			this.sortDirection = sortDirection;
 			notifyListenersForSortChanged(oldPopertyName, propertyName,
 					oldSortDirection, sortDirection);
+		}
+	}
+
+	public String getSortPropertyName() {
+		return sortPropertyName;
+	}
+
+	public int getSortDirection() {
+		return sortDirection;
+	}
+
+	public void reset() {
+		int oldCurrentPage = currentPage;
+		this.currentPage = 0;
+		notifyListenersForPageIndexChanged(oldCurrentPage, currentPage);
+		// this.propertyName = null;
+		// this.sortDirection = SWT.NONE;
+	}
+
+	private void notifyListenersForPageIndexChanged(int oldPageNumber,
+			int newPageNumber) {
+		final Object[] listeners = pageChangedListeners.getListeners();
+		for (int i = 0; i < listeners.length; i++) {
+			final PageChangedListener listener = (PageChangedListener) listeners[i];
+			listener.pageIndexChanged(oldPageNumber, newPageNumber, this);
+		}
+	}
+
+	private void notifyListenersForTotalElementsChanged(long oldTotalElements,
+			long newTotalElements) {
+		final Object[] listeners = pageChangedListeners.getListeners();
+		for (int i = 0; i < listeners.length; i++) {
+			final PageChangedListener listener = (PageChangedListener) listeners[i];
+			listener.totalElementsChanged(oldTotalElements, newTotalElements,
+					this);
 		}
 	}
 
@@ -164,11 +197,13 @@ public class PaginationController {
 		}
 	}
 
-	public void reset() {
-		int oldCurrentPage = currentPage;
-		this.currentPage = 0;
-		notifyListenersForPageSelected(oldCurrentPage, currentPage);
-		// this.propertyName = null;
-		// this.sortDirection = SWT.NONE;
+	private void notifyListenersForPageSizeChanged(int oldPageSize,
+			int newPageSize) {
+		final Object[] listeners = pageChangedListeners.getListeners();
+		for (int i = 0; i < listeners.length; i++) {
+			final PageChangedListener listener = (PageChangedListener) listeners[i];
+			listener.pageSizeChanged(oldPageSize, newPageSize, this);
+		}
 	}
+
 }

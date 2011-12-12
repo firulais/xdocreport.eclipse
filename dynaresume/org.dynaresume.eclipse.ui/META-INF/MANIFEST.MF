@@ -40,7 +40,7 @@ Import-Package: fr.opensagres.eclipse.forms,
  org.dynaresume.services,
  org.eclipse.core.databinding.validation.jsr303,
  org.eclipse.nebula.widgets.pagination,
- org.eclipse.nebula.widgets.pagination.spring,
+ org.eclipse.nebula.widgets.pagination.springdata,
  org.eclipse.springframework.util,
  org.springframework.data.domain,
  org.springframework.data.domain.collections

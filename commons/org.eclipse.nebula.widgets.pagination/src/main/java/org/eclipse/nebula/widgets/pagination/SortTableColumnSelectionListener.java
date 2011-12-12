@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.TableColumn;
 public class SortTableColumnSelectionListener extends SelectionAdapter {
 
 	/** property name used to sort **/
-	private final String propertyName;
+	private final String sortPropertyName;
 	/** the sort direction **/
 	private int sortDirection;
 
@@ -48,24 +48,25 @@ public class SortTableColumnSelectionListener extends SelectionAdapter {
 	 */
 	public SortTableColumnSelectionListener(String propertyName,
 			int sortDirection) {
-		this.propertyName = propertyName;
+		this.sortPropertyName = propertyName;
 		this.sortDirection = sortDirection;
 	}
 
 	@Override
 	public void widgetSelected(SelectionEvent e) {
-		// 1) Get table column which fire this venet
+		// 1) Get table column which fire this selection event
 		TableColumn tableColumn = (TableColumn) e.getSource();
 		// 2) Get the owner table
 		Table table = tableColumn.getParent();
-		// 3) Get the pagination controller attached to this table.
+		// 3) Get the pagination controller attached to this table
 		AbstractPaginationTable<?> paginationTable = PaginationHelper
 				.getPaginationTable(table);
-		// 4) Compute the (inverse) sort direction.
+		// 4) Compute the (inverse) sort direction
 		sortDirection = sortDirection == SWT.DOWN ? SWT.UP : SWT.DOWN;
-		// 5) Modify the sort of the page controller.
-		paginationTable.getController().setSort(propertyName, sortDirection);
-		// 6) Modify the SWT Table sort.
+		// 5) Modify the sort of the page controller
+		paginationTable.getController()
+				.setSort(sortPropertyName, sortDirection);
+		// 6) Modify the SWT Table sort
 		table.setSortColumn(tableColumn);
 		table.setSortDirection(sortDirection);
 	}
@@ -75,8 +76,8 @@ public class SortTableColumnSelectionListener extends SelectionAdapter {
 	 * 
 	 * @return
 	 */
-	public String getPropertyName() {
-		return propertyName;
+	public String getSortPropertyName() {
+		return sortPropertyName;
 	}
 
 	/**

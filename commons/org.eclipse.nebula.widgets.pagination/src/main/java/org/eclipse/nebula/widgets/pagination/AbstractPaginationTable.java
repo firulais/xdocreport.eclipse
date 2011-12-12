@@ -12,8 +12,8 @@
 package org.eclipse.nebula.widgets.pagination;
 
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.nebula.widgets.pagination.banner.PaginationBannerFactory;
-import org.eclipse.nebula.widgets.pagination.banner.ResultAndPageLinksBannerWidgetFactory;
+import org.eclipse.nebula.widgets.pagination.decorators.PaginationDecoratorFactory;
+import org.eclipse.nebula.widgets.pagination.decorators.ResultAndPageLinksDecoratorFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -24,65 +24,65 @@ public abstract class AbstractPaginationTable<T extends PaginationController>
 		extends AbstractPageControllerComposite<T> {
 
 	protected TableViewer viewer;
-	private PaginationBannerFactory bannerTopFactory;
-	private PaginationBannerFactory bannerBottomFactory;
+	private PaginationDecoratorFactory bannerTopFactory;
+	private PaginationDecoratorFactory bannerBottomFactory;
 	private int tableStyle = SWT.BORDER | SWT.MULTI | SWT.H_SCROLL
 			| SWT.V_SCROLL;
 	private Table table;
 
 	public AbstractPaginationTable(Composite parent, int style, int tableStyle,
-			PaginationBannerFactory bannerTopFactory,
-			PaginationBannerFactory bannerBottomFactory) {
+			PaginationDecoratorFactory bannerTopFactory,
+			PaginationDecoratorFactory bannerBottomFactory) {
 		this(parent, tableStyle, style, getDefaultPageSize(), bannerTopFactory,
 				bannerBottomFactory, true);
 	}
 
 	public AbstractPaginationTable(Composite parent, int style, int tableStyle,
-			int pageSize, PaginationBannerFactory bannerTopFactory,
-			PaginationBannerFactory bannerBottomFactory) {
+			int pageSize, PaginationDecoratorFactory bannerTopFactory,
+			PaginationDecoratorFactory bannerBottomFactory) {
 		this(parent, tableStyle, style, pageSize, bannerTopFactory,
 				bannerBottomFactory, true);
 	}
 
 	protected AbstractPaginationTable(Composite parent, int style,
 			int tableStyle, int pageSize,
-			PaginationBannerFactory bannerTopFactory,
-			PaginationBannerFactory bannerBottomFactory, boolean createUI) {
-		super(parent, style, pageSize, false);
+			PaginationDecoratorFactory bannerTopFactory,
+			PaginationDecoratorFactory bannerBottomFactory, boolean createUI) {
+		super(parent, style, pageSize, null, false);
 		this.tableStyle = tableStyle;
 		this.bannerTopFactory = bannerTopFactory;
 		this.bannerBottomFactory = bannerBottomFactory;
 		if (createUI) {
-			createUI(parent);
+			createUI(this);
 		}
 	}
 
 	@Override
 	protected void createUI(Composite parent) {
 		this.setLayout(new GridLayout());
-		createBannerTop();
-		this.table = createTable();
+		createBannerTop(parent);
+		this.table = createTable(parent);
 		PaginationHelper.setPaginationTable(table, this);
 		this.viewer = new TableViewer(table);
-		createBannerBottom();
+		createBannerBottom(parent);
 	}
 
-	private void createBannerBottom() {
-		PaginationBannerFactory bannerBottomFactory = getBannerBottomFactory();
-		if (bannerBottomFactory != null) {
-			bannerBottomFactory.createBanner(getController(), this, SWT.NONE);
-		}
-	}
-
-	private void createBannerTop() {
-		PaginationBannerFactory bannerTopFactory = getBannerTopFactory();
+	private void createBannerTop(Composite parent) {
+		PaginationDecoratorFactory bannerTopFactory = getBannerTopFactory();
 		if (bannerTopFactory != null) {
-			bannerTopFactory.createBanner(getController(), this, SWT.NONE);
+			bannerTopFactory.createDecorator(getController(), parent, SWT.NONE);
 		}
 	}
 
-	protected Table createTable() {
-		Table table = createTable(this, getTableStyle());
+	private void createBannerBottom(Composite parent) {
+		PaginationDecoratorFactory bannerBottomFactory = getBannerBottomFactory();
+		if (bannerBottomFactory != null) {
+			bannerBottomFactory.createDecorator(getController(), parent, SWT.NONE);
+		}
+	}
+
+	protected Table createTable(Composite parent) {
+		Table table = createTable(parent, getTableStyle());
 		table.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		return table;
 	}
@@ -95,25 +95,19 @@ public abstract class AbstractPaginationTable<T extends PaginationController>
 		return viewer;
 	}
 
-	@Override
-	public void refresh(long totalElements, Object paginatedList) {
-		super.refresh(totalElements, paginatedList);
-		viewer.setInput(paginatedList);
-	}
-
-	public PaginationBannerFactory getBannerBottomFactory() {
+	public PaginationDecoratorFactory getBannerBottomFactory() {
 		return bannerBottomFactory;
 	}
 
-	public PaginationBannerFactory getBannerTopFactory() {
+	public PaginationDecoratorFactory getBannerTopFactory() {
 		return bannerTopFactory;
 	}
 
-	public static PaginationBannerFactory getDefaultBannerTopFactory() {
-		return ResultAndPageLinksBannerWidgetFactory.getFactory();
+	public static PaginationDecoratorFactory getDefaultBannerTopFactory() {
+		return ResultAndPageLinksDecoratorFactory.getFactory();
 	}
 
-	public static PaginationBannerFactory getDefaultBannerBottomFactory() {
+	public static PaginationDecoratorFactory getDefaultBannerBottomFactory() {
 		return null;
 	}
 
@@ -124,4 +118,35 @@ public abstract class AbstractPaginationTable<T extends PaginationController>
 	protected Table createTable(Composite parent, int style) {
 		return new Table(parent, style);
 	}
+	
+	public void pageIndexChanged(int oldPageNumber, int newPageNumber,
+			PaginationController controller) {
+		refreshPage();
+	}
+
+	public void totalElementsChanged(long oldTotalElements,
+			long newTotalElements, PaginationController controller) {
+
+	}
+
+	public void sortChanged(String oldPopertyName, String propertyName,
+			int oldSortDirection, int sortDirection,
+			PaginationController paginationController) {
+		refreshPage();
+	}
+	
+	public void refreshPage(boolean reset) {
+		if (reset) {
+			getController().reset();
+		} else {
+			refreshPage();
+		}
+	}
+
+	public void pageSizeChanged(int oldPageSize, int newPageSize,
+			PaginationController paginationController) {
+		refreshPage(false);
+	}
+
+	public abstract void refreshPage();
 }

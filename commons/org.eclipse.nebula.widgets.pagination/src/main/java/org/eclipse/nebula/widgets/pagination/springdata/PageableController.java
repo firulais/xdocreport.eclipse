@@ -1,4 +1,4 @@
-package org.eclipse.nebula.widgets.pagination.spring;
+package org.eclipse.nebula.widgets.pagination.springdata;
 
 import java.util.HashMap;
 import java.util.Map;

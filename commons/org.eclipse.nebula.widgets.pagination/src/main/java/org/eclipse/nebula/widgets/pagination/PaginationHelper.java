@@ -83,33 +83,7 @@ public class PaginationHelper {
 					}
 				}
 			}
-			//
-			// int n = (nbMax / 2) - 1;
-			// int start = currentPageIndex - n;
-			// if (start <= 2) {
-			// start = 0;
-			// }
-			//
-			// int end = currentPageIndex + n;
-			// if (end > nbMax) {
-			// end = nbMax;
-			// } else if (end <= nbMax) {
-			// end = nbMax - 1;
-			// }
-			//
-			// for (int i = 0; i < indexes.length; i++) {
-			// if (i == 0) {
-			// indexes[i] = 0;
-			// } else if (i == 1) {
-			// indexes[i] = start != 0 ? DOT : start + 1;
-			// } else if (i == indexes.length - 2) {
-			// indexes[i] = end != totalPages - 1 ? DOT : end - 1;
-			// } else if (i == indexes.length - 1) {
-			// indexes[i] = totalPages - 1;
-			// } else {
-			// indexes[i] = start + i;
-			// }
-			// }
+
 		}
 		return indexes;
 	}

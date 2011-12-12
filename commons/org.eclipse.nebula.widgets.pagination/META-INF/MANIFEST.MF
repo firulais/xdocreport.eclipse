@@ -6,9 +6,9 @@ Bundle-Localization: plugin
 Bundle-SymbolicName: org.eclipse.nebula.widgets.pagination
 Bundle-Version: 1.0.0.qualifier
 Export-Package: org.eclipse.nebula.widgets.pagination,
- org.eclipse.nebula.widgets.pagination.banner,
- org.eclipse.nebula.widgets.pagination.spring,
- org.eclipse.nebula.widgets.pagination.spring.forms
+ org.eclipse.nebula.widgets.pagination.decorators,
+ org.eclipse.nebula.widgets.pagination.springdata,
+ org.eclipse.nebula.widgets.pagination.springdata.forms
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.swt;resolution:=optional,

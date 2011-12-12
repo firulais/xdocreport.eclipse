@@ -29,18 +29,19 @@ import org.eclipse.swt.SWT;
  */
 public interface PageChangedListener {
 
+	
 	/**
 	 * Sent when page changed in the page controller
 	 * {@link PaginationController}.
 	 * 
-	 * @param oldPageNumber
-	 *            old page number.
-	 * @param newPageNumber
-	 *            new page number.
+	 * @param oldPageIndex
+	 *            old page index.
+	 * @param newPageIndex
+	 *            new page index.
 	 * @param controller
 	 *            the page controller which have sent this event.
 	 */
-	public void pageChanged(int oldPageNumber, int newPageNumber,
+	public void pageIndexChanged(int oldPageIndex, int newPageIndex,
 			PaginationController controller);
 
 	/**
@@ -73,6 +74,20 @@ public interface PageChangedListener {
 	 */
 	public void sortChanged(String oldPopertyName, String propertyName,
 			int oldSortDirection, int sortDirection,
+			PaginationController paginationController);
+
+	/**
+	 * Sent when page size changed in the page controller
+	 * {@link PaginationController}.
+	 * 
+	 * @param oldPageSize
+	 *            old page size.
+	 * @param newPageSize
+	 *            new page size.
+	 * @param controller
+	 *            the page controller which have sent this event.
+	 */
+	public void pageSizeChanged(int oldPageSize, int newPageSize,
 			PaginationController paginationController);
 
 }

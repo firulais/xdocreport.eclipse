@@ -18,25 +18,36 @@ public abstract class AbstractPageControllerComposite<T extends PaginationContro
 
 	public static final int DEFAULT_PAGE_SIZE = 5;
 
-	private final PaginationController controller;
+	private PaginationController controller;
 
 	public AbstractPageControllerComposite(Composite parent, int style) {
-		this(parent, style, DEFAULT_PAGE_SIZE);
+		this(parent, style, null);
+	}
+
+	public AbstractPageControllerComposite(Composite parent, int style,
+			T controller) {
+		this(parent, style, DEFAULT_PAGE_SIZE, controller);
 	}
 
 	public AbstractPageControllerComposite(Composite parent, int style,
 			int pageSize) {
-		this(parent, style, pageSize, true);
+		this(parent, style, pageSize, null);
+	}
+
+	public AbstractPageControllerComposite(Composite parent, int style,
+			int pageSize, T controller) {
+		this(parent, style, pageSize, controller, true);
 	}
 
 	protected AbstractPageControllerComposite(Composite parent, int style,
-			int pageSize, boolean createUI) {
+			int pageSize, T controller, boolean createUI) {
 		super(parent, style);
-		this.controller = createController(pageSize);
+		this.controller = controller != null ? controller
+				: createController(pageSize);
 		if (createUI) {
 			createUI(this);
 		}
-		controller.addPageChangedListener(this);
+		this.controller.addPageChangedListener(this);
 	}
 
 	protected T createController(int pageSize) {
@@ -47,26 +58,7 @@ public abstract class AbstractPageControllerComposite<T extends PaginationContro
 		return (T) controller;
 	}
 
-	public void refresh(long totalElements, Object paginatedList) {
-		controller.setTotalElements(totalElements);
-	}
-
-	public void pageChanged(int oldPageNumber, int newPageNumber,
-			PaginationController controller) {
-		refreshPage();
-	}
-
-	public void totalElementsChanged(long oldTotalElements,
-			long newTotalElements, PaginationController controller) {
-
-	}
-
-	public void sortChanged(String oldPopertyName, String propertyName,
-			int oldSortDirection, int sortDirection,
-			PaginationController paginationController) {
-		refreshPage();
-	}
-
+	
 	public void setCurrentPage(int currentPage) {
 		getController().setCurrentPage(currentPage);
 	}
@@ -75,15 +67,11 @@ public abstract class AbstractPageControllerComposite<T extends PaginationContro
 		return DEFAULT_PAGE_SIZE;
 	}
 
-	public void refreshPage(boolean reset) {
-		if (reset) {
-			getController().reset();
-		} else {
-			refreshPage();
-		}
+	@Override
+	public void dispose() {
+		getController().removePageChangedListener(this);
+		super.dispose();
 	}
-
-	public abstract void refreshPage();
 
 	protected abstract void createUI(Composite parent);
 }
