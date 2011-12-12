@@ -11,11 +11,7 @@ import org.ops4j.pax.exam.CoreOptions;
 import org.ops4j.pax.exam.Option;
 
 public class AbstractOSGiUnitTest {
-	static final String GEMINI_BLUEPRINT_VERSION = "1.0.0.RELEASE";
-	static final String STRING_DATA_VERSION = "1.0.1.RELEASE";
-	static final String SPRING_VERSION = "3.1.0.RC2";
 
-	
 	public Option[] commonOptions() {
 		
 	
@@ -27,9 +23,9 @@ public class AbstractOSGiUnitTest {
 			felix(),
 			equinox(),
 
-			mavenBundle("org.apache.commons","com.springsource.org.apache.commons.logging", "1.1.1"),
+			mavenBundle("org.apache.commons","com.springsource.org.apache.commons.logging").versionAsInProject(),
 			// ***************** Spring dependencies ********************
-			mavenBundle("org.aopalliance", "com.springsource.org.aopalliance","1.0.0"),
+			mavenBundle("org.aopalliance", "com.springsource.org.aopalliance").versionAsInProject(),
 			mavenBundle("org.springframework", "spring-aop").versionAsInProject(),
 			mavenBundle("org.springframework", "spring-beans").versionAsInProject(),
 			mavenBundle("org.springframework", "spring-context").versionAsInProject(),
@@ -44,30 +40,31 @@ public class AbstractOSGiUnitTest {
 			mavenBundle("org.springframework.data", "spring-data-commons-core").versionAsInProject(),
 			
 			// ***************** Required APIs ********************
-			mavenBundle("javax.validation", "com.springsource.javax.validation","1.0.0.GA"),
-			mavenBundle("org.eclipse.persistence", "javax.persistence","2.0.3.v201010191057"),
+			mavenBundle("javax.validation", "com.springsource.javax.validation").versionAsInProject(),
+			mavenBundle("org.eclipse.persistence", "javax.persistence").versionAsInProject(),
 			// ***************** DataBase ********************
-			mavenBundle("org.apache.derby", "derby","10.8.2.2"),
-			mavenBundle("org.apache.commons","com.springsource.org.apache.commons.dbcp", "1.2.2.osgi"),
-			mavenBundle("org.apache.commons","com.springsource.org.apache.commons.pool", "1.5.3"),
+			mavenBundle("org.apache.derby", "derby").versionAsInProject(),
+			mavenBundle("org.apache.commons","com.springsource.org.apache.commons.dbcp").versionAsInProject(),
+			mavenBundle("org.apache.commons","com.springsource.org.apache.commons.pool").versionAsInProject(),
 			// ***************** Gemini blueprint ********************
 			mavenBundle("org.eclipse.gemini.blueprint", "gemini-blueprint-core").versionAsInProject(),
 			mavenBundle("org.eclipse.gemini.blueprint", "gemini-blueprint-io").versionAsInProject(),
-			mavenBundle("org.eclipse.gemini.blueprint","gemini-blueprint-extender").versionAsInProject().startLevel(5) );
+			mavenBundle("org.eclipse.gemini.blueprint","gemini-blueprint-extender").versionAsInProject().startLevel(5) 
+		);
 	}
 	
 			
-			public Option[] xdocreportCommonBundles() {
+	public Option[] xdocreportCommonBundles() {
 				
 			
-				return CoreOptions.options (
-						mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.core").versionAsInProject(),
-						mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.project").versionAsInProject(),
-						mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.hr").versionAsInProject(),
-						mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.datasource").versionAsInProject(),
-						mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao").versionAsInProject(),
-						mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa").versionAsInProject()
-					);
-			}
+		return CoreOptions.options (
+			mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.core").versionAsInProject(),
+			mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.project").versionAsInProject(),
+			mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.hr").versionAsInProject(),
+			mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.datasource").versionAsInProject(),
+			mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao").versionAsInProject(),
+			mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa").versionAsInProject()
+		);
+	}
 			
 }

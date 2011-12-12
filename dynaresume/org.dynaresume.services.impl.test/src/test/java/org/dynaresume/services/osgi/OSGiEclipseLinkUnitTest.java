@@ -5,6 +5,7 @@ import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.ops4j.pax.exam.CoreOptions.composite;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 import static org.ops4j.pax.exam.CoreOptions.profile;
 import static org.ops4j.pax.exam.OptionUtils.combine;
@@ -65,9 +66,9 @@ public class OSGiEclipseLinkUnitTest extends AbstractOSGiUnitTest {
 				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.core").versionAsInProject(),
 				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.jpa").versionAsInProject(),
 				//eclipselink fragment 
-				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa.eclipselink", "1.0.0-SNAPSHOT").noStart(),
-				CoreOptions.composite(commonOptions()),
-				CoreOptions.composite(xdocreportCommonBundles()))
+				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa.eclipselink").versionAsInProject().noStart(),
+				composite(commonOptions()),
+				composite(xdocreportCommonBundles()))
 ;
 	}
 
@@ -89,7 +90,7 @@ public class OSGiEclipseLinkUnitTest extends AbstractOSGiUnitTest {
 		ServiceTracker tracker = new ServiceTracker(ctx,
 				DataSource.class.getName(), null);
 		tracker.open();
-		Object dataSource = tracker.waitForService(timeout);
+		DataSource dataSource =(DataSource) tracker.waitForService(timeout);
 
 		tracker.close();
 		assertNotNull(dataSource);

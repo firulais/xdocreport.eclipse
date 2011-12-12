@@ -19,6 +19,7 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.ops4j.pax.exam.CoreOptions.composite;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 import static org.ops4j.pax.exam.CoreOptions.profile;
 import static org.ops4j.pax.exam.CoreOptions.wrappedBundle;
@@ -53,9 +54,7 @@ public class OSGiHibernateUnitTest extends AbstractOSGiUnitTest {
 
 		
 		return CoreOptions.options( 
-				
-				CoreOptions.composite(commonOptions()),
-				CoreOptions.composite(xdocreportCommonBundles()),
+
 				// ***************** Hibernate OSGi dependencies
 				// ********************
 				mavenBundle("javax.persistence","com.springsource.javax.persistence","2.0.0"),
@@ -71,12 +70,10 @@ public class OSGiHibernateUnitTest extends AbstractOSGiUnitTest {
 				mavenBundle("org.hibernate","com.springsource.org.hibernate","4.0.0.CR4").noStart(),
 				mavenBundle("org.antlr","com.springsource.antlr","2.7.7"),
 				mavenBundle("org.apache.log4j","com.springsource.org.apache.log4j","1.2.16"),
-				wrappedBundle(
-						mavenBundle("org.jboss.logmanager","jboss-logmanager","1.2.0.GA")).exports(
-						"org.jboss.logmanager;version=\"1.2.0.GA\""),
-				
-				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa.hibernate", "1.0.0-SNAPSHOT").noStart()
-
+				wrappedBundle(mavenBundle("org.jboss.logmanager","jboss-logmanager","1.2.0.GA")).exports("org.jboss.logmanager;version=\"1.2.0.GA\""),
+				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa.hibernate").versionAsInProject().noStart(),
+				composite(commonOptions()),
+				composite(xdocreportCommonBundles())
 		);
 	}
 
