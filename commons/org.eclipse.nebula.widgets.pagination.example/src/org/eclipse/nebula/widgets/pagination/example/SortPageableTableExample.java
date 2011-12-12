@@ -21,6 +21,7 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.nebula.widgets.pagination.SortTableColumnSelectionListener;
 import org.eclipse.nebula.widgets.pagination.decorators.ResultAndPageLinksDecoratorFactory;
+import org.eclipse.nebula.widgets.pagination.springdata.PageLoaderListImpl;
 import org.eclipse.nebula.widgets.pagination.springdata.PageableTable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -29,7 +30,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.springframework.data.domain.collections.PageListHelper;
 
 /**
  * Basic Picture control example.
@@ -64,7 +64,7 @@ public class SortPageableTableExample {
 		createColumns(viewer, pageableTable);
 
 		// 3) Set current page to 0 to refresh the table
-		pageableTable.setPageLoader(PageListHelper.createPageLoader(items));
+		pageableTable.setPageLoader(new PageLoaderListImpl(items));
 		pageableTable.setCurrentPage(0);
 
 		shell.setSize(350, 250);

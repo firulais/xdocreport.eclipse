@@ -1,4 +1,4 @@
-package org.springframework.data.domain.collections;
+package org.eclipse.nebula.widgets.pagination.springdata;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -20,6 +20,8 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.nebula.widgets.pagination.LazyTableSelectionListener;
+import org.eclipse.nebula.widgets.pagination.springdata.PageLoader;
+import org.eclipse.nebula.widgets.pagination.springdata.PageLoaderListImpl;
 import org.eclipse.nebula.widgets.pagination.springdata.PageLoaderStrategyHelper;
 import org.eclipse.nebula.widgets.pagination.springdata.PageableController;
 import org.eclipse.swt.SWT;
@@ -28,8 +30,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.springframework.data.domain.collections.PageListHelper;
-import org.springframework.data.domain.collections.PageLoader;
 
 /**
  * Basic Picture control example.
@@ -56,7 +56,7 @@ public class SortPageableTableExample3 {
 		viewer.setContentProvider(ArrayContentProvider.getInstance());
 		viewer.setLabelProvider(new LabelProvider());
 
-		final PageLoader pageLoader = PageListHelper.createPageLoader(items);
+		final PageLoader pageLoader = new PageLoaderListImpl(items);
 		final PageableController controller = new PageableController(pageSize);
 		controller.addPageChangedListener(PageLoaderStrategyHelper
 				.createloadPageAndAddItemsListener(controller, viewer, pageLoader));

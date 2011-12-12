@@ -18,6 +18,7 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.nebula.widgets.pagination.decorators.ResultAndPageLinksDecoratorFactory;
+import org.eclipse.nebula.widgets.pagination.springdata.PageLoaderListImpl;
 import org.eclipse.nebula.widgets.pagination.springdata.PageableTable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -59,7 +60,7 @@ public class PageableTableExample {
 		viewer.setLabelProvider(new LabelProvider());
 
 		// 3) Set current page to 0 to refresh the table
-		pageableTable.setPageLoader(PageListHelper.createPageLoader(items));
+		pageableTable.setPageLoader(new PageLoaderListImpl(items));
 		pageableTable.setCurrentPage(0);
 
 		shell.setSize(350, 250);

@@ -11,10 +11,6 @@ import org.springframework.data.domain.collections.internal.BeanComparator;
 
 public class PageListHelper {
 
-	public static PageLoader createPageLoader(List<?> items) {
-		return new PageLoaderListImpl(items);
-	}
-
 	public static Page createPage(List<?> list, Pageable pageable) {
 		Sort sort = pageable.getSort();
 		if (sort != null) {

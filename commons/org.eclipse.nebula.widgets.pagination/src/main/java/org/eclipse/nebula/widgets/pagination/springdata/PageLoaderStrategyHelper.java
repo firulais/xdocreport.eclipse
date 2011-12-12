@@ -6,7 +6,6 @@ import org.eclipse.nebula.widgets.pagination.PageChangedAdapter;
 import org.eclipse.nebula.widgets.pagination.PageChangedListener;
 import org.eclipse.swt.widgets.TableItem;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.collections.PageLoader;
 
 public class PageLoaderStrategyHelper {
 
