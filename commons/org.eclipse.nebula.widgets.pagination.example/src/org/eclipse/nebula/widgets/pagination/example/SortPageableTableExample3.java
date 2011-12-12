@@ -19,7 +19,7 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.nebula.widgets.pagination.PageControllerChangedListener;
+import org.eclipse.nebula.widgets.pagination.PageChangedListener;
 import org.eclipse.nebula.widgets.pagination.PaginationController;
 import org.eclipse.nebula.widgets.pagination.spring.PageableController;
 import org.eclipse.swt.SWT;
@@ -66,9 +66,9 @@ public class SortPageableTableExample3 {
 		viewer.setLabelProvider(new LabelProvider());
 
 		final PageLoader pageLoader = PageListHelper.createPageLoader(items);
-		final PageableController controller = new PageableController(-1, pageSize);
+		final PageableController controller = new PageableController(pageSize);
 		controller
-				.addPageSelectionListener(new PageControllerChangedListener() {
+				.addPageChangedListener(new PageChangedListener() {
 
 					public void totalElementsChanged(long oldTotalElements,
 							long newTotalElements,
@@ -85,7 +85,7 @@ public class SortPageableTableExample3 {
 
 					}
 
-					public void pageSelected(int oldPageNumber,
+					public void pageChanged(int oldPageNumber,
 							int newPageNumber, PaginationController controller) {
 
 						Page<?> page = pageLoader

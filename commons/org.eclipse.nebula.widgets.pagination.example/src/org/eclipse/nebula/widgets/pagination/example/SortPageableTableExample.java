@@ -89,7 +89,7 @@ public class SortPageableTableExample {
 			}
 		});
 		col.getColumn().addSelectionListener(
-				new SortTableColumnSelectionListener("name"));
+				new SortTableColumnSelectionListener(null));
 //		col.getColumn().addSelectionListener(new SelectionAdapter() {
 //
 //			private boolean b = false;

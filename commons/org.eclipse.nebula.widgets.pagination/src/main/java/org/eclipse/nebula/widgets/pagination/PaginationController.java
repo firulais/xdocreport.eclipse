@@ -1,3 +1,14 @@
+/*******************************************************************************
+ * Copyright (C) 2011 Angelo Zerr <angelo.zerr@gmail.com>, Pascal Leclercq <pascal.leclercq@gmail.com>
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Angelo ZERR - initial API and implementation
+ *     Pascal Leclercq - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.nebula.widgets.pagination;
 
 import org.eclipse.core.runtime.ListenerList;
@@ -5,7 +16,7 @@ import org.eclipse.swt.SWT;
 
 public class PaginationController {
 
-	private static final int DEFAULT_PAGE_INDEX = 0;
+	private static final int DEFAULT_PAGE_INDEX = -1;
 	private static final int DEFAULT_PAGE_SIZE = 10;
 
 	private int currentPage = DEFAULT_PAGE_INDEX;
@@ -14,42 +25,42 @@ public class PaginationController {
 	private String propertyName = null;
 	private int sortDirection = SWT.NONE;
 
-	private ListenerList pageSelectionListeners = new ListenerList();
+	private ListenerList pageChangedListeners = new ListenerList();
 
-	public PaginationController(int currentPage, int itemsPerPage) {
-		this.currentPage = currentPage;
+	public PaginationController(int itemsPerPage) {
+		this.currentPage = DEFAULT_PAGE_INDEX;
 		this.itemsPerPage = itemsPerPage;
 	}
 
-	public void addPageSelectionListener(PageControllerChangedListener listener) {
+	public void addPageChangedListener(PageChangedListener listener) {
 		if (listener == null) {
 			throw new NullPointerException(
-					"Cannot add a null page selection listener"); //$NON-NLS-1$
+					"Cannot add a null page changed listener"); //$NON-NLS-1$
 		}
-		pageSelectionListeners.add(listener);
+		pageChangedListeners.add(listener);
 	}
 
-	public void removePageSelectionListener(
-			PageControllerChangedListener listener) {
+	public void removePageChangedListener(
+			PageChangedListener listener) {
 		if (listener != null) {
-			pageSelectionListeners.remove(listener);
+			pageChangedListeners.remove(listener);
 		}
 	}
 
 	private void notifyListenersForPageSelected(int oldPageNumber,
 			int newPageNumber) {
-		final Object[] listeners = pageSelectionListeners.getListeners();
+		final Object[] listeners = pageChangedListeners.getListeners();
 		for (int i = 0; i < listeners.length; i++) {
-			final PageControllerChangedListener listener = (PageControllerChangedListener) listeners[i];
-			listener.pageSelected(oldPageNumber, newPageNumber, this);
+			final PageChangedListener listener = (PageChangedListener) listeners[i];
+			listener.pageChanged(oldPageNumber, newPageNumber, this);
 		}
 	}
 
 	private void notifyListenersForTotalElementsChanged(long oldTotalElements,
 			long newTotalElements) {
-		final Object[] listeners = pageSelectionListeners.getListeners();
+		final Object[] listeners = pageChangedListeners.getListeners();
 		for (int i = 0; i < listeners.length; i++) {
-			final PageControllerChangedListener listener = (PageControllerChangedListener) listeners[i];
+			final PageChangedListener listener = (PageChangedListener) listeners[i];
 			listener.totalElementsChanged(oldTotalElements, newTotalElements,
 					this);
 		}
@@ -145,9 +156,9 @@ public class PaginationController {
 
 	private void notifyListenersForSortChanged(String oldPopertyName,
 			String propertyName, int oldSortDirection, int sortDirection) {
-		final Object[] listeners = pageSelectionListeners.getListeners();
+		final Object[] listeners = pageChangedListeners.getListeners();
 		for (int i = 0; i < listeners.length; i++) {
-			final PageControllerChangedListener listener = (PageControllerChangedListener) listeners[i];
+			final PageChangedListener listener = (PageChangedListener) listeners[i];
 			listener.sortChanged(oldPopertyName, propertyName,
 					oldSortDirection, sortDirection, this);
 		}

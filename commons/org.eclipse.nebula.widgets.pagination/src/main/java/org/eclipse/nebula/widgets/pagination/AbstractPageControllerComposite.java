@@ -1,9 +1,20 @@
+/*******************************************************************************
+ * Copyright (C) 2011 Angelo Zerr <angelo.zerr@gmail.com>, Pascal Leclercq <pascal.leclercq@gmail.com>
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Angelo ZERR - initial API and implementation
+ *     Pascal Leclercq - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.nebula.widgets.pagination;
 
 import org.eclipse.swt.widgets.Composite;
 
 public abstract class AbstractPageControllerComposite<T extends PaginationController>
-		extends Composite implements PageControllerChangedListener {
+		extends Composite implements PageChangedListener {
 
 	public static final int DEFAULT_PAGE_SIZE = 5;
 
@@ -21,15 +32,15 @@ public abstract class AbstractPageControllerComposite<T extends PaginationContro
 	protected AbstractPageControllerComposite(Composite parent, int style,
 			int pageSize, boolean createUI) {
 		super(parent, style);
-		this.controller = createController(-1, pageSize);
+		this.controller = createController(pageSize);
 		if (createUI) {
 			createUI(this);
 		}
-		controller.addPageSelectionListener(this);
+		controller.addPageChangedListener(this);
 	}
 
-	protected T createController(int pageIndex, int pageSize) {
-		return (T) new PaginationController(pageIndex, pageSize);
+	protected T createController(int pageSize) {
+		return (T) new PaginationController(pageSize);
 	}
 
 	public T getController() {
@@ -40,7 +51,7 @@ public abstract class AbstractPageControllerComposite<T extends PaginationContro
 		controller.setTotalElements(totalElements);
 	}
 
-	public void pageSelected(int oldPageNumber, int newPageNumber,
+	public void pageChanged(int oldPageNumber, int newPageNumber,
 			PaginationController controller) {
 		refreshPage();
 	}

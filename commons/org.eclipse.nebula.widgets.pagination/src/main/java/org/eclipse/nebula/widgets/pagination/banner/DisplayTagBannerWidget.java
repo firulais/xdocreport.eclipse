@@ -1,6 +1,6 @@
 package org.eclipse.nebula.widgets.pagination.banner;
 
-import org.eclipse.nebula.widgets.pagination.PageControllerChangedListener;
+import org.eclipse.nebula.widgets.pagination.PageChangedListener;
 import org.eclipse.nebula.widgets.pagination.PaginationController;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.Link;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
 
 public class DisplayTagBannerWidget extends Composite implements
-		SelectionListener, PageControllerChangedListener {
+		SelectionListener, PageChangedListener {
 
 	private static final String END_HREF = "</a>";
 	private static final String START_HREF = "<a href=\"#\" >";
@@ -30,7 +30,7 @@ public class DisplayTagBannerWidget extends Composite implements
 		super(parent, style);
 		this.controller = controller;
 		createUI();
-		controller.addPageSelectionListener(this);
+		controller.addPageChangedListener(this);
 		refreshEnabled(controller);
 	}
 
@@ -144,7 +144,7 @@ public class DisplayTagBannerWidget extends Composite implements
 
 	}
 
-	public void pageSelected(int oldPageNumber, int newPageNumber,
+	public void pageChanged(int oldPageNumber, int newPageNumber,
 			PaginationController controller) {
 		refreshEnabled(controller);
 	}

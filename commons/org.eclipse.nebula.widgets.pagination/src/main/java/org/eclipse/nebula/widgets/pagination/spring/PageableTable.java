@@ -32,8 +32,8 @@ public class PageableTable extends AbstractPaginationTable<PageableController> {
 	}
 
 	@Override
-	protected PageableController createController(int pageIndex, int size) {
-		return new PageableController(pageIndex, size);
+	protected PageableController createController(int size) {
+		return new PageableController(size);
 	}
 
 	@Override

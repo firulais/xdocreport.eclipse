@@ -12,11 +12,13 @@ import org.springframework.data.domain.Sort.Direction;
 public class PageableController extends PaginationController implements
 		Pageable {
 
+	private static final String DUMMY = "DUMMY";
+	
 	private final Map<String, Sort> sortCache;
 	private Sort sort;
 
-	public PageableController(int currentPage, int itemsPerPage) {
-		super(currentPage, itemsPerPage);
+	public PageableController(int itemsPerPage) {
+		super(itemsPerPage);
 		this.sortCache = new HashMap<String, Sort>();
 		this.sort = null;
 	}
@@ -40,14 +42,11 @@ public class PageableController extends PaginationController implements
 	}
 
 	protected Sort getSort(String propertyName, int sortDirection) {
-		if (propertyName == null) {
-			return null;
-		}
 		String key = getKey(propertyName, sortDirection);
 		Sort sort = sortCache.get(key);
 		if (sort == null) {
 			Direction direction = getDirection(sortDirection);
-			sort = new Sort(direction, propertyName);
+			sort = new Sort(direction, propertyName != null ? propertyName : DUMMY);
 			sortCache.put(key, sort);
 		}
 		return sort;

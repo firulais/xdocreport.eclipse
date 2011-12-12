@@ -1,7 +1,7 @@
 package org.eclipse.nebula.widgets.pagination.banner;
 
 import org.eclipse.jface.resource.JFaceResources;
-import org.eclipse.nebula.widgets.pagination.PageControllerChangedListener;
+import org.eclipse.nebula.widgets.pagination.PageChangedListener;
 import org.eclipse.nebula.widgets.pagination.PaginationController;
 import org.eclipse.nebula.widgets.pagination.PaginationHelper;
 import org.eclipse.swt.SWT;
@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Link;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
 
 public class ResultAndPageLinksBannerWidget extends Composite implements
-		SelectionListener, PageControllerChangedListener {
+		SelectionListener, PageChangedListener {
 
 	private static final String END_HREF = "</a>";
 	private static final String OPEN_START_HREF = "<a href=\"";
@@ -36,7 +36,7 @@ public class ResultAndPageLinksBannerWidget extends Composite implements
 		super(parent, style);
 		this.controller = controller;
 		createUI();
-		controller.addPageSelectionListener(this);
+		controller.addPageChangedListener(this);
 		refreshEnabled(controller);
 	}
 
@@ -177,7 +177,7 @@ public class ResultAndPageLinksBannerWidget extends Composite implements
 
 	}
 
-	public void pageSelected(int oldPageNumber, int newPageNumber,
+	public void pageChanged(int oldPageNumber, int newPageNumber,
 			PaginationController controller) {
 		refreshEnabled(controller);
 
