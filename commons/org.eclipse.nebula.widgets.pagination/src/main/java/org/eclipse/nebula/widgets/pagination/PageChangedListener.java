@@ -27,7 +27,7 @@ import org.eclipse.swt.SWT;
  * 
  * @see PageChangedAdapter
  */
-public interface PageChangedListener {
+public interface PageChangedListener<T extends PaginationController> {
 
 	
 	/**
@@ -42,7 +42,7 @@ public interface PageChangedListener {
 	 *            the page controller which have sent this event.
 	 */
 	public void pageIndexChanged(int oldPageIndex, int newPageIndex,
-			PaginationController controller);
+			T controller);
 
 	/**
 	 * Sent when total elements changed in the page controller
@@ -56,7 +56,7 @@ public interface PageChangedListener {
 	 *            the page controller which have sent this event.
 	 */
 	public void totalElementsChanged(long oldTotalElements,
-			long newTotalElements, PaginationController controller);
+			long newTotalElements, T controller);
 
 	/**
 	 * Sent when sort changed in the page controller
@@ -70,11 +70,11 @@ public interface PageChangedListener {
 	 *            old sort direction : {@link SWT.UP}, {@link SWT.DOWN}.
 	 * @param sortDirection
 	 *            new sort direction : {@link SWT.UP}, {@link SWT.DOWN}.
-	 * @param paginationController
+	 * @param controller
 	 */
 	public void sortChanged(String oldPopertyName, String propertyName,
 			int oldSortDirection, int sortDirection,
-			PaginationController paginationController);
+			T controller);
 
 	/**
 	 * Sent when page size changed in the page controller
@@ -88,6 +88,6 @@ public interface PageChangedListener {
 	 *            the page controller which have sent this event.
 	 */
 	public void pageSizeChanged(int oldPageSize, int newPageSize,
-			PaginationController paginationController);
+			T controller);
 
 }

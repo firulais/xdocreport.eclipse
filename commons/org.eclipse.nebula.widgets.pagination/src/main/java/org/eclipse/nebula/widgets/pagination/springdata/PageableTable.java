@@ -3,7 +3,6 @@ package org.eclipse.nebula.widgets.pagination.springdata;
 import org.eclipse.nebula.widgets.pagination.AbstractPaginationTable;
 import org.eclipse.nebula.widgets.pagination.decorators.PaginationDecoratorFactory;
 import org.eclipse.swt.widgets.Composite;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.collections.PageLoader;
 
 public class PageableTable extends AbstractPaginationTable<PageableController> {
@@ -38,10 +37,8 @@ public class PageableTable extends AbstractPaginationTable<PageableController> {
 
 	@Override
 	public void refreshPage() {
-		PageableController controller = (PageableController) getController();
-		Page<?> page = loadPage(controller);
-		controller.setTotalElements(page.getTotalElements());
-		viewer.setInput(page.getContent());
+		PageRefreshStrategyHelper.loadPageAndReplaceItems(getController(), viewer,
+				pageLoader);
 	}
 
 	public void setPageLoader(PageLoader pageLoader) {
@@ -52,10 +49,4 @@ public class PageableTable extends AbstractPaginationTable<PageableController> {
 		return pageLoader;
 	}
 
-	protected Page<?> loadPage(PageableController controller) {
-		if (pageLoader == null) {
-			throw new RuntimeException("");
-		}
-		return pageLoader.loadPage(controller);
-	}
 }

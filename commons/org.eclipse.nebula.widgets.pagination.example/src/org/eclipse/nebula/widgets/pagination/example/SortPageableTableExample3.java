@@ -19,20 +19,15 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.nebula.widgets.pagination.PageChangedAdapter;
-import org.eclipse.nebula.widgets.pagination.PageChangedListener;
-import org.eclipse.nebula.widgets.pagination.PaginationController;
+import org.eclipse.nebula.widgets.pagination.LazyTableSelectionListener;
+import org.eclipse.nebula.widgets.pagination.springdata.PageRefreshStrategyHelper;
 import org.eclipse.nebula.widgets.pagination.springdata.PageableController;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.collections.PageListHelper;
 import org.springframework.data.domain.collections.PageLoader;
 
@@ -55,12 +50,7 @@ public class SortPageableTableExample3 {
 
 		final Table table = new Table(shell, SWT.BORDER | SWT.MULTI
 				| SWT.H_SCROLL | SWT.V_SCROLL);
-		//
-		// PageableTable pageableTable = new PageableTable(shell, SWT.BORDER,
-		// pageSize, ResultAndPageLinksBannerWidgetFactory.getFactory(),
-		// null);
-		// pageableTable.setLayoutData(new GridData(GridData.FILL_BOTH));
-
+		
 		// 2) Initialize the table viewer
 		final TableViewer viewer = new TableViewer(table);
 		viewer.setContentProvider(ArrayContentProvider.getInstance());
@@ -68,44 +58,11 @@ public class SortPageableTableExample3 {
 
 		final PageLoader pageLoader = PageListHelper.createPageLoader(items);
 		final PageableController controller = new PageableController(pageSize);
-		controller
-				.addPageChangedListener(new PageChangedAdapter() {
+		controller.addPageChangedListener(PageRefreshStrategyHelper
+				.createloadPageAndAddItemsListener(controller, viewer, pageLoader));
 
-					
-					public void pageIndexChanged(int oldPageNumber,
-							int newPageNumber, PaginationController controller) {
-
-						Page<?> page = pageLoader
-								.loadPage((PageableController) controller);
-						controller.setTotalElements(page.getTotalElements());
-						viewer.add(page.getContent().toArray());
-						int count = viewer.getTable().getItemCount();
-						if (count > 0) {
-							TableItem item = viewer.getTable().getItem(count-1);
-							item.setData("A", true);
-						}
-					}
-				});
-
-		viewer.getTable().addSelectionListener(new SelectionAdapter() {
-
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				TableItem item = (TableItem) e.item;
-				int index = table.indexOf(item);
-
-				if (item.getData("A") != null) {
-					if (controller.hasNextPage()) {
-						controller.setCurrentPage(controller.getCurrentPage() + 1);
-					}
-				}
-
-				System.err.println(index);
-				System.err.println(controller.getCurrentPage());
-				System.err.println(controller.getTotalElements());
-
-			}
-		});
+		viewer.getTable().addSelectionListener(
+				new LazyTableSelectionListener(controller));
 
 		// Table table = viewer.getTable();
 		table.setHeaderVisible(true);
@@ -114,9 +71,8 @@ public class SortPageableTableExample3 {
 		createColumns(viewer);
 
 		// 3) Set current page to 0 to refresh the table
-		// pageableTable.setPageLoader(PageListHelper.createPageLoader(items));
-		// pageableTable.setCurrentPage(0);
 		controller.setCurrentPage(0);
+		
 		shell.setSize(350, 250);
 		shell.open();
 		while (!shell.isDisposed()) {

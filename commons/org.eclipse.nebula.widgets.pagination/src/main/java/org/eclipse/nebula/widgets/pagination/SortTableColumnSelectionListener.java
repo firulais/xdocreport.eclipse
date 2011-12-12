@@ -12,7 +12,6 @@
 package org.eclipse.nebula.widgets.pagination;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Table;
@@ -24,20 +23,26 @@ import org.eclipse.swt.widgets.TableColumn;
  * attached pagination controller of the SWT {@link Table}.
  * 
  */
-public class SortTableColumnSelectionListener extends SelectionAdapter {
+public class SortTableColumnSelectionListener extends
+		AbstractPageControllerSelectionListener<PaginationController> {
 
 	/** property name used to sort **/
 	private final String sortPropertyName;
 	/** the sort direction **/
 	private int sortDirection;
 
+	public SortTableColumnSelectionListener(String propertyName) {
+		this(propertyName, SWT.NONE, null);
+	}
+
 	/**
 	 * Constructor with property name and default sort (SWT.NONE).
 	 * 
 	 * @param propertyName
 	 */
-	public SortTableColumnSelectionListener(String propertyName) {
-		this(propertyName, SWT.NONE);
+	public SortTableColumnSelectionListener(String propertyName,
+			PaginationController controller) {
+		this(propertyName, SWT.NONE, controller);
 	}
 
 	/**
@@ -48,6 +53,18 @@ public class SortTableColumnSelectionListener extends SelectionAdapter {
 	 */
 	public SortTableColumnSelectionListener(String propertyName,
 			int sortDirection) {
+		this(propertyName, sortDirection, null);
+	}
+
+	/**
+	 * Constructor with property name and sort direction.
+	 * 
+	 * @param propertyName
+	 * @param sortDirection
+	 */
+	public SortTableColumnSelectionListener(String propertyName,
+			int sortDirection, PaginationController controller) {
+		super(controller);
 		this.sortPropertyName = propertyName;
 		this.sortDirection = sortDirection;
 	}

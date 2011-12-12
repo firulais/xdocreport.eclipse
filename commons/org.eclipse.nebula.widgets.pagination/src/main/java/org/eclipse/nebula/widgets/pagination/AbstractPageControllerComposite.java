@@ -14,7 +14,7 @@ package org.eclipse.nebula.widgets.pagination;
 import org.eclipse.swt.widgets.Composite;
 
 public abstract class AbstractPageControllerComposite<T extends PaginationController>
-		extends Composite implements PageChangedListener {
+		extends Composite implements PageChangedListener<T> {
 
 	public static final int DEFAULT_PAGE_SIZE = 5;
 
@@ -58,7 +58,6 @@ public abstract class AbstractPageControllerComposite<T extends PaginationContro
 		return (T) controller;
 	}
 
-	
 	public void setCurrentPage(int currentPage) {
 		getController().setCurrentPage(currentPage);
 	}

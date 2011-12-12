@@ -17,26 +17,26 @@ package org.eclipse.nebula.widgets.pagination;
  * 
  * @see PageChangedListener
  */
-public class PageChangedAdapter implements PageChangedListener {
+public class PageChangedAdapter<T extends PaginationController> implements PageChangedListener<T> {
 
 	public void pageIndexChanged(int oldPageIndex, int newPageIndex,
-			PaginationController controller) {
+			T controller) {
 		// Do nothing
 	}
 
 	public void totalElementsChanged(long oldTotalElements,
-			long newTotalElements, PaginationController controller) {
+			long newTotalElements, T controller) {
 		// Do nothing
 	}
 
 	public void sortChanged(String oldPopertyName, String propertyName,
 			int oldSortDirection, int sortDirection,
-			PaginationController paginationController) {
+			T controller) {
 		// Do nothing
 	}
 
 	public void pageSizeChanged(int oldPageSize, int newPageSize,
-			PaginationController paginationController) {
+			T paginationController) {
 		// Do nothing
 	}
 
