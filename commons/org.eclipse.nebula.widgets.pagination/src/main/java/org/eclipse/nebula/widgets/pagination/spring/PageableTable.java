@@ -1,11 +1,11 @@
 package org.eclipse.nebula.widgets.pagination.spring;
 
-import org.eclipse.nebula.widgets.pagination.PaginationTable;
+import org.eclipse.nebula.widgets.pagination.AbstractPaginationTable;
 import org.eclipse.nebula.widgets.pagination.banner.PaginationBannerFactory;
 import org.eclipse.swt.widgets.Composite;
 import org.springframework.data.domain.Page;
 
-public class PageableTable extends PaginationTable<PageableController> {
+public class PageableTable extends AbstractPaginationTable<PageableController> {
 
 	private PageLoader pageLoader;
 

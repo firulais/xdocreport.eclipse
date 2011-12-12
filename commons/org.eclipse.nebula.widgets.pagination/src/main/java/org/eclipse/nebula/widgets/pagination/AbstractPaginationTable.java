@@ -9,7 +9,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 
-public abstract class PaginationTable<T extends PaginationController> extends
+public abstract class AbstractPaginationTable<T extends PaginationController> extends
 		AbstractPageControllerComposite<T> {
 
 	protected TableViewer viewer;
@@ -19,21 +19,21 @@ public abstract class PaginationTable<T extends PaginationController> extends
 			| SWT.V_SCROLL;
 	private Table table;
 
-	public PaginationTable(Composite parent, int style, int tableStyle,
+	public AbstractPaginationTable(Composite parent, int style, int tableStyle,
 			PaginationBannerFactory bannerTopFactory,
 			PaginationBannerFactory bannerBottomFactory) {
 		this(parent, tableStyle, style, getDefaultPageSize(), bannerTopFactory,
 				bannerBottomFactory, true);
 	}
 
-	public PaginationTable(Composite parent, int style, int tableStyle,
+	public AbstractPaginationTable(Composite parent, int style, int tableStyle,
 			int pageSize, PaginationBannerFactory bannerTopFactory,
 			PaginationBannerFactory bannerBottomFactory) {
 		this(parent, tableStyle, style, pageSize, bannerTopFactory,
 				bannerBottomFactory, true);
 	}
 
-	protected PaginationTable(Composite parent, int style, int tableStyle,
+	protected AbstractPaginationTable(Composite parent, int style, int tableStyle,
 			int pageSize, PaginationBannerFactory bannerTopFactory,
 			PaginationBannerFactory bannerBottomFactory, boolean createUI) {
 		super(parent, style, pageSize, false);

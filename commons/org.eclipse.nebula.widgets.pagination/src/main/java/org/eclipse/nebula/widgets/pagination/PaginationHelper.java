@@ -103,12 +103,12 @@ public class PaginationHelper {
 		return indexes;
 	}
 
-	public static PaginationTable<?> getPaginationTable(Table table) {
-		return (PaginationTable<?>) table.getData("___PaginationTable");
+	public static AbstractPaginationTable<?> getPaginationTable(Table table) {
+		return (AbstractPaginationTable<?>) table.getData("___PaginationTable");
 	}
 
 	public static void setPaginationTable(Table table,
-			PaginationTable<?> paginationTable) {
+			AbstractPaginationTable<?> paginationTable) {
 		table.setData("___PaginationTable", paginationTable);
 	}
 }

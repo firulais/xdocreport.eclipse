@@ -25,7 +25,7 @@ public class SortTableColumnSelectionListener extends SelectionAdapter {
 	public void widgetSelected(SelectionEvent e) {
 		TableColumn tableColumn = (TableColumn) e.getSource();
 		Table table = tableColumn.getParent();
-		PaginationTable<?> paginationTable = PaginationHelper
+		AbstractPaginationTable<?> paginationTable = PaginationHelper
 				.getPaginationTable(table);
 		sortDirection = sortDirection == SWT.DOWN ? SWT.UP : SWT.DOWN;
 		paginationTable.getController().setSort(propertyName, sortDirection);
@@ -37,5 +37,9 @@ public class SortTableColumnSelectionListener extends SelectionAdapter {
 
 	public String getPropertyName() {
 		return propertyName;
+	}
+	
+	public int getSortDirection() {
+		return sortDirection;
 	}
 }
