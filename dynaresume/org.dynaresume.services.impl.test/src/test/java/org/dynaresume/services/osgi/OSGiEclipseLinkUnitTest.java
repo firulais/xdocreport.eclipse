@@ -31,6 +31,7 @@ import org.dynaresume.domain.hr.Skill;
 import org.dynaresume.domain.hr.SkillCategory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ops4j.pax.exam.CoreOptions;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.TimeoutException;
 import org.ops4j.pax.exam.junit.Configuration;
@@ -54,17 +55,20 @@ public class OSGiEclipseLinkUnitTest extends AbstractOSGiUnitTest {
 	@Configuration()
 	public Option[] config() {
 
-		return combine(commonOptions,combine(
-				xdocreportCommonBundles, 
-				// ***************** EclipseLink dependencies
-				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.antlr", "2.3.0"),
-				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.asm", "2.3.0"),
-				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.core", "2.3.0"),
-				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.jpa", "2.3.0"),
-				//eclipselink fragment 
-				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa.eclipselink", "1.0.0-SNAPSHOT").noStart())
 		
-		);
+		return CoreOptions.options(
+				
+				//CoreOptions.composite(xdocreportCommonBundles()),
+				// ***************** EclipseLink dependencies
+				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.antlr").versionAsInProject(),
+				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.asm").versionAsInProject(),
+				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.core").versionAsInProject(),
+				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.jpa").versionAsInProject(),
+				//eclipselink fragment 
+				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa.eclipselink", "1.0.0-SNAPSHOT").noStart(),
+				CoreOptions.composite(commonOptions()),
+				CoreOptions.composite(xdocreportCommonBundles()))
+;
 	}
 
 	public static void main(String[] args) throws TimeoutException, IOException {

@@ -32,6 +32,7 @@ import org.dynaresume.dao.ResumeDao;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ops4j.pax.exam.CoreOptions;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.TimeoutException;
 import org.ops4j.pax.exam.junit.Configuration;
@@ -49,8 +50,12 @@ public class OSGiHibernateUnitTest extends AbstractOSGiUnitTest {
 
 	@Configuration()
 	public Option[] config() {
-		return combine(commonOptions,combine(
-				xdocreportCommonBundles, 
+
+		
+		return CoreOptions.options( 
+				
+				CoreOptions.composite(commonOptions()),
+				CoreOptions.composite(xdocreportCommonBundles()),
 				// ***************** Hibernate OSGi dependencies
 				// ********************
 				mavenBundle("javax.persistence","com.springsource.javax.persistence","2.0.0"),
@@ -72,7 +77,7 @@ public class OSGiHibernateUnitTest extends AbstractOSGiUnitTest {
 				
 				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa.hibernate", "1.0.0-SNAPSHOT").noStart()
 
-		));
+		);
 	}
 
 	public static void main(String[] args) throws TimeoutException, IOException {
@@ -94,7 +99,7 @@ public class OSGiHibernateUnitTest extends AbstractOSGiUnitTest {
 	
 	@Test
 	public void findDataSource(BundleContext ctx) throws InterruptedException {
-		Thread.sleep(1000);
+		Thread.sleep(10);
 		assertThat(ctx, is(notNullValue()));
 		System.out.println("BundleContext of bundle injected: "
 				+ ctx.getBundle().getSymbolicName());

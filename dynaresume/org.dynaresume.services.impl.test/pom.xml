@@ -23,6 +23,26 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.ops4j.pax.exam</groupId>
+				<artifactId>maven-paxexam-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+							<id>generate-depends-file</id>
+							<goals>
+								<goal>generate-depends-file</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>generate-config</id>
+							<goals>
+								<goal>generate-config</goal>
+							</goals>
+						</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 	<artifactId>org.dynaresume.services.impl.test</artifactId>
@@ -49,19 +69,19 @@
 			<version>3.1.0.RC2</version>
 		</dependency>
 		<dependency>
-			 <groupId>org.springframework</groupId>
-  				<artifactId>spring-aop</artifactId>
-  				<version>3.1.0.RC2</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>3.1.0.RC2</version>
 		</dependency>
 		<dependency>
-			 <groupId>org.springframework</groupId>
-  				<artifactId>spring-orm</artifactId>
-  				<version>3.1.0.RC2</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>3.1.0.RC2</version>
 		</dependency>
 		<dependency>
-			 <groupId>org.springframework</groupId>
-  				<artifactId>spring-tx</artifactId>
-  				<version>3.1.0.RC2</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>3.1.0.RC2</version>
 		</dependency>
 		<dependency>
 			<groupId>fr.opensagres.xdocreport-eclipse</groupId>
@@ -70,17 +90,18 @@
 		</dependency>
 		<dependency>
 			<groupId>fr.opensagres.xdocreport-eclipse</groupId>
-    		<version>1.0.0-SNAPSHOT</version>
-  			<artifactId>org.dynaresume.domain.project</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<artifactId>org.dynaresume.domain.project</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>fr.opensagres.xdocreport-eclipse</groupId>
-    		<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.0-SNAPSHOT</version>
 			<artifactId>org.dynaresume.domain.core</artifactId>
+			
 		</dependency>
 		<dependency>
 			<groupId>fr.opensagres.xdocreport-eclipse</groupId>
-    		<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.0-SNAPSHOT</version>
 			<artifactId>org.dynaresume.domain.hr</artifactId>
 		</dependency>
 		<dependency>
