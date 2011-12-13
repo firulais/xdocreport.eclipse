@@ -70,14 +70,18 @@ public abstract class AbstractPaginationTable<T extends PaginationController>
 	private void createBannerTop(Composite parent) {
 		PaginationDecoratorFactory bannerTopFactory = getBannerTopFactory();
 		if (bannerTopFactory != null) {
-			bannerTopFactory.createDecorator(getController(), parent, SWT.NONE);
+			Composite banner = bannerTopFactory.createDecorator(
+					getController(), parent, SWT.NONE);
+			banner.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		}
 	}
 
 	private void createBannerBottom(Composite parent) {
 		PaginationDecoratorFactory bannerBottomFactory = getBannerBottomFactory();
 		if (bannerBottomFactory != null) {
-			bannerBottomFactory.createDecorator(getController(), parent, SWT.NONE);
+			Composite banner = bannerBottomFactory.createDecorator(
+					getController(), parent, SWT.NONE);
+			banner.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		}
 	}
 
@@ -118,7 +122,7 @@ public abstract class AbstractPaginationTable<T extends PaginationController>
 	protected Table createTable(Composite parent, int style) {
 		return new Table(parent, style);
 	}
-	
+
 	public void pageIndexChanged(int oldPageNumber, int newPageNumber,
 			PaginationController controller) {
 		refreshPage();
@@ -134,7 +138,7 @@ public abstract class AbstractPaginationTable<T extends PaginationController>
 			PaginationController paginationController) {
 		refreshPage();
 	}
-	
+
 	public void refreshPage(boolean reset) {
 		if (reset) {
 			getController().reset();
