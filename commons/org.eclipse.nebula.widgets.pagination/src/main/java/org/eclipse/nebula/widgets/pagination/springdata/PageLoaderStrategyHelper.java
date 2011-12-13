@@ -56,6 +56,32 @@ public class PageLoaderStrategyHelper {
 			}
 		};
 	}
+	
+	public static PageChangedListener<PageableController> createloadPageAndReplaceItemsListener(
+			final PageableController controller, final TableViewer viewer,
+			final PageLoader pageLoader) {
+		return new PageChangedAdapter<PageableController>() {
+			@Override
+			public void pageIndexChanged(int oldPageIndex, int newPageIndex,
+					PageableController controller) {
+				PageLoaderStrategyHelper.loadPageAndReplaceItems(controller,
+						viewer, pageLoader);
+			}
+
+			@Override
+			public void pageSizeChanged(int oldPageSize, int newPageSize,
+					PageableController paginationController) {
+				controller.reset();
+			}
+
+			@Override
+			public void sortChanged(String oldPopertyName, String propertyName,
+					int oldSortDirection, int sortDirection,
+					PageableController controller) {
+				controller.reset();
+			}
+		};
+	}
 
 	public static Page<?> loadPage(PageLoader pageLoader,
 			PageableController controller) {

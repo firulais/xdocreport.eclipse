@@ -7,35 +7,29 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Scale;
 
-public class PageScaleDecorator extends
+public class PageSizeComboDecorator extends
 		AbstractPageControllerComposite<PaginationController> implements
 		SelectionListener {
 
-	private Scale pageScale;
+	private Combo pageScale;
 
-	public PageScaleDecorator(PaginationController controller,
+	public PageSizeComboDecorator(PaginationController controller,
 			Composite parent, int style) {
 		super(parent, style, controller);
 	}
 
 	public void pageIndexChanged(int oldPageIndex, int newPageIndex,
 			PaginationController controller) {
-		int totalPages = controller.getTotalPages();
-		pageScale.setMinimum(0);
-		if (totalPages > 0) {
-			pageScale.setMaximum(totalPages - 1);
-		}
-		pageScale.setPageIncrement(1);
-		pageScale.setSelection(newPageIndex);
+		
 	}
 
 	public void totalElementsChanged(long oldTotalElements,
 			long newTotalElements, PaginationController controller) {
-
-		// pageScale.setSelection(controller.getCurrentPage());
+		int totalPages = controller.getTotalPages();
 	}
 
 	public void sortChanged(String oldPopertyName, String propertyName,
@@ -56,9 +50,11 @@ public class PageScaleDecorator extends
 		layout.marginHeight = 0;
 		this.setLayout(layout);
 
-		pageScale = new Scale(parent, SWT.READ_ONLY);
+		pageScale = new Combo(parent, SWT.NONE);
 		pageScale.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
+		pageScale.setItems(new String[] {"10", "50", "100"});
+		
 		pageScale.addSelectionListener(this);
 	}
 
@@ -73,7 +69,8 @@ public class PageScaleDecorator extends
 	}
 
 	public void widgetSelected(SelectionEvent e) {
-		int newCurrentPage = pageScale.getSelection();
-		getController().setCurrentPage(newCurrentPage);
+		int pageSize = Integer.parseInt(pageScale.getItem(pageScale.getSelectionIndex()));
+		getController().setPageSize(pageSize);
 	}
+
 }

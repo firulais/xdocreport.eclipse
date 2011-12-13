@@ -20,13 +20,20 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.nebula.widgets.pagination.SortTableColumnSelectionListener;
+import org.eclipse.nebula.widgets.pagination.decorators.PageComboDecorator;
+import org.eclipse.nebula.widgets.pagination.decorators.PageScaleDecorator;
+import org.eclipse.nebula.widgets.pagination.decorators.PageSizeComboDecorator;
+import org.eclipse.nebula.widgets.pagination.decorators.ResultAndPageLinksDecorator;
 import org.eclipse.nebula.widgets.pagination.example.model.Address;
 import org.eclipse.nebula.widgets.pagination.example.model.Person;
+import org.eclipse.nebula.widgets.pagination.springdata.PageLoader;
 import org.eclipse.nebula.widgets.pagination.springdata.PageLoaderListImpl;
-import org.eclipse.nebula.widgets.pagination.springdata.PageableTable;
+import org.eclipse.nebula.widgets.pagination.springdata.PageLoaderStrategyHelper;
+import org.eclipse.nebula.widgets.pagination.springdata.PageableController;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
@@ -39,41 +46,75 @@ import org.eclipse.swt.widgets.TableColumn;
  * clicked to sort the paginated list.
  * 
  */
-public class ModelSortPageableTableExample {
+public class AllDecoratorsExample {
 
 	public static void main(String[] args) {
 
 		Display display = new Display();
 		Shell shell = new Shell(display);
-		GridLayout layout = new GridLayout(1, false);
+		GridLayout layout = new GridLayout(2, false);
 		shell.setLayout(layout);
 
 		final List<Person> items = createList();
 
-		// 1) Create pageable table with 10 items per page
-		// This SWT Component create internally a SWT Table+JFace TreeViewer
 		int pageSize = 10;
-		PageableTable pageableTable = new PageableTable(shell, SWT.BORDER,
-				SWT.BORDER | SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL, pageSize);
-		pageableTable.setLayoutData(new GridData(GridData.FILL_BOTH));
+
+		Composite left = new Composite(shell, SWT.NONE);
+		left.setLayoutData(new GridData(GridData.FILL_BOTH));
+		left.setLayout(new GridLayout());
+
+		// Left panel
+		Table table = new Table(left, SWT.BORDER | SWT.MULTI | SWT.H_SCROLL
+				| SWT.V_SCROLL);
+		table.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		// 2) Initialize the table viewer + SWT Table
-		TableViewer viewer = pageableTable.getViewer();
+		TableViewer viewer = new TableViewer(table);
 		viewer.setContentProvider(ArrayContentProvider.getInstance());
 		viewer.setLabelProvider(new LabelProvider());
 
-		Table table = viewer.getTable();
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 
 		// 3) Create Table columns with sort of paginated list.
 		createColumns(viewer);
 
-		// 3) Set current page to 0 to refresh the table
-		pageableTable.setPageLoader(new PageLoaderListImpl(items));
-		pageableTable.setCurrentPage(0);
+		// Right Panel
+		Composite right = new Composite(shell, SWT.NONE);
+		right.setLayoutData(new GridData(GridData.FILL_BOTH));
+		right.setLayout(new GridLayout());
 
-		shell.setSize(350, 250);
+		final PageableController controller = new PageableController(pageSize);
+		final PageLoader pageLoader = new PageLoaderListImpl(items);
+		controller.addPageChangedListener(PageLoaderStrategyHelper
+				.createloadPageAndReplaceItemsListener(controller, viewer,
+						pageLoader));
+
+		PageComboDecorator pageComboDecorator = new PageComboDecorator(
+				controller, right, SWT.NONE);
+		pageComboDecorator
+				.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		PageScaleDecorator pageScaleDecorator = new PageScaleDecorator(
+				controller, right, SWT.NONE);
+		pageScaleDecorator
+				.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		ResultAndPageLinksDecorator resultAndPageLinksDecorator = new ResultAndPageLinksDecorator(
+				controller, right, SWT.NONE);
+		resultAndPageLinksDecorator.setLayoutData(new GridData(
+				GridData.FILL_HORIZONTAL));
+
+		PageSizeComboDecorator pageSizeComboDecorator =  new PageSizeComboDecorator(
+				controller, right, SWT.NONE);
+		pageSizeComboDecorator.setLayoutData(new GridData(
+				GridData.FILL_HORIZONTAL));
+		
+		// 3) Set current page to 0 to refresh the table
+		
+		controller.setCurrentPage(0);
+
+		shell.setSize(700, 250);
 		shell.open();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch())
@@ -122,8 +163,8 @@ public class ModelSortPageableTableExample {
 
 	private static List<Person> createList() {
 		List<Person> names = new ArrayList<Person>();
-		for (int i = 1; i < 2012; i++) {
-			names.add(new Person("Name " + i, i < 100 ? "Adress "
+		for (int i = 1; i < 100; i++) {
+			names.add(new Person("Name " + i, i < 25 ? "Adress "
 					+ Math.random() : null));
 		}
 		return names;

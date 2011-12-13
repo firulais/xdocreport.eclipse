@@ -13,12 +13,12 @@ public class PageableController extends PaginationController implements
 		Pageable {
 
 	private static final String DUMMY = "DUMMY";
-	
+
 	private final Map<String, Sort> sortCache;
 	private Sort sort;
 
-	public PageableController(int itemsPerPage) {
-		super(itemsPerPage);
+	public PageableController(int pageSize) {
+		super(pageSize);
 		this.sortCache = new HashMap<String, Sort>();
 		this.sort = null;
 	}
@@ -46,7 +46,8 @@ public class PageableController extends PaginationController implements
 		Sort sort = sortCache.get(key);
 		if (sort == null) {
 			Direction direction = getDirection(sortDirection);
-			sort = new Sort(direction, propertyName != null ? propertyName : DUMMY);
+			sort = new Sort(direction, propertyName != null ? propertyName
+					: DUMMY);
 			sortCache.put(key, sort);
 		}
 		return sort;
