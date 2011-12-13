@@ -1,15 +1,14 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-Vendor: %providerName
-Bundle-Localization: plugin
 Bundle-SymbolicName: org.eclipse.nebula.widgets.pagination
 Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
 Export-Package: org.eclipse.nebula.widgets.pagination,
  org.eclipse.nebula.widgets.pagination.decorators,
  org.eclipse.nebula.widgets.pagination.springdata,
  org.eclipse.nebula.widgets.pagination.springdata.forms
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.swt;resolution:=optional,
  org.eclipse.ui.forms;resolution:=optional,
@@ -17,5 +16,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.rap.ui.forms;resolution:=optional,
  org.eclipse.jface;resolution:=optional,
  org.eclipse.rap.jface;resolution:=optional
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Import-Package: org.springframework.data.domain;resolution:=optional,
  org.springframework.data.domain.collections;resolution:=optional
