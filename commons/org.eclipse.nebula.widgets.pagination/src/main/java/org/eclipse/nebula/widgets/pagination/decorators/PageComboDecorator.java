@@ -23,18 +23,12 @@ public class PageComboDecorator extends
 
 	public void pageIndexChanged(int oldPageIndex, int newPageIndex,
 			PaginationController controller) {
-		int totalPages = controller.getTotalPages();
-		String[] items = new String[totalPages];
-		for (int i = 0; i < items.length; i++) {
-			items[i] = "Page " + i + "/" + (totalPages - 1);
-		}
-		pageCombo.setItems(items);
-		pageCombo.select(controller.getCurrentPage());
+		populateCombo(controller);
 	}
 
 	public void totalElementsChanged(long oldTotalElements,
 			long newTotalElements, PaginationController controller) {
-		
+
 	}
 
 	public void sortChanged(String oldPopertyName, String propertyName,
@@ -45,12 +39,19 @@ public class PageComboDecorator extends
 
 	public void pageSizeChanged(int oldPageSize, int newPageSize,
 			PaginationController controller) {
+		populateCombo(controller);
+	}
+
+	private void populateCombo(PaginationController controller) {
 		int totalPages = controller.getTotalPages();
 		String[] items = new String[totalPages];
 		for (int i = 0; i < items.length; i++) {
-			items[i] = "Page " + i + "/" + (totalPages - 1);
+			items[i] = "Page " + (i + 1) + "/" + totalPages;
 		}
 		pageCombo.setItems(items);
+		if (pageCombo.getItemCount() > 0) {
+			pageCombo.select(controller.getCurrentPage());
+		}
 	}
 
 	@Override

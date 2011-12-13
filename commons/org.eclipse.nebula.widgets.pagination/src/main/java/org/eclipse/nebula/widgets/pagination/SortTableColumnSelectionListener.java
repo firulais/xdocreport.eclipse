@@ -75,14 +75,10 @@ public class SortTableColumnSelectionListener extends
 		TableColumn tableColumn = (TableColumn) e.getSource();
 		// 2) Get the owner table
 		Table table = tableColumn.getParent();
-		// 3) Get the pagination controller attached to this table
-		AbstractPaginationTable<?> paginationTable = PaginationHelper
-				.getPaginationTable(table);
 		// 4) Compute the (inverse) sort direction
 		sortDirection = sortDirection == SWT.DOWN ? SWT.UP : SWT.DOWN;
 		// 5) Modify the sort of the page controller
-		paginationTable.getController()
-				.setSort(sortPropertyName, sortDirection);
+		super.getController(table).setSort(sortPropertyName, sortDirection);
 		// 6) Modify the SWT Table sort
 		table.setSortColumn(tableColumn);
 		table.setSortDirection(sortDirection);

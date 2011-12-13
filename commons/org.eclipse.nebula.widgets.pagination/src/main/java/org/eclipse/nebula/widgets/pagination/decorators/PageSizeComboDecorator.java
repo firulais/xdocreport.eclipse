@@ -9,6 +9,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Scale;
 
 public class PageSizeComboDecorator extends
@@ -45,11 +46,15 @@ public class PageSizeComboDecorator extends
 
 	@Override
 	protected void createUI(Composite parent) {
-		GridLayout layout = new GridLayout(1, false);
+		GridLayout layout = new GridLayout(2, false);
 		layout.marginWidth = 0;
 		layout.marginHeight = 0;
 		this.setLayout(layout);
 
+		Label label = new Label(parent, SWT.NONE);
+		label.setText("Items per page:");
+		label.setLayoutData(new GridData());
+		
 		pageScale = new Combo(parent, SWT.NONE);
 		pageScale.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 

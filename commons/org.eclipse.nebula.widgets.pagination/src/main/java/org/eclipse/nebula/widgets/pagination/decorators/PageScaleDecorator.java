@@ -45,8 +45,13 @@ public class PageScaleDecorator extends
 	}
 
 	public void pageSizeChanged(int oldPageSize, int newPageSize,
-			PaginationController paginationController) {
-
+			PaginationController controller) {
+		int totalPages = controller.getTotalPages();
+		pageScale.setMinimum(0);
+		if (totalPages > 0) {
+			pageScale.setMaximum(totalPages - 1);
+		}
+		pageScale.setPageIncrement(1);
 	}
 
 	@Override

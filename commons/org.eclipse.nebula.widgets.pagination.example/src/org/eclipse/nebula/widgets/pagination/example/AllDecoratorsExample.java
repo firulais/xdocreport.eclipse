@@ -57,7 +57,6 @@ public class AllDecoratorsExample {
 
 		final List<Person> items = createList();
 
-		int pageSize = 10;
 
 		Composite left = new Composite(shell, SWT.NONE);
 		left.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -77,19 +76,21 @@ public class AllDecoratorsExample {
 		table.setLinesVisible(true);
 
 		// 3) Create Table columns with sort of paginated list.
-		createColumns(viewer);
-
-		// Right Panel
-		Composite right = new Composite(shell, SWT.NONE);
-		right.setLayoutData(new GridData(GridData.FILL_BOTH));
-		right.setLayout(new GridLayout());
-
+		int pageSize = 10;
 		final PageableController controller = new PageableController(pageSize);
 		final PageLoader pageLoader = new PageLoaderListImpl(items);
 		controller.addPageChangedListener(PageLoaderStrategyHelper
 				.createloadPageAndReplaceItemsListener(controller, viewer,
 						pageLoader));
 
+		createColumns(viewer, controller);
+
+		// Right Panel
+		Composite right = new Composite(shell, SWT.NONE);
+		right.setLayoutData(new GridData(GridData.FILL_BOTH));
+		right.setLayout(new GridLayout());
+
+		
 		PageComboDecorator pageComboDecorator = new PageComboDecorator(
 				controller, right, SWT.NONE);
 		pageComboDecorator
@@ -105,13 +106,13 @@ public class AllDecoratorsExample {
 		resultAndPageLinksDecorator.setLayoutData(new GridData(
 				GridData.FILL_HORIZONTAL));
 
-		PageSizeComboDecorator pageSizeComboDecorator =  new PageSizeComboDecorator(
+		PageSizeComboDecorator pageSizeComboDecorator = new PageSizeComboDecorator(
 				controller, right, SWT.NONE);
 		pageSizeComboDecorator.setLayoutData(new GridData(
 				GridData.FILL_HORIZONTAL));
-		
+
 		// 3) Set current page to 0 to refresh the table
-		
+
 		controller.setCurrentPage(0);
 
 		shell.setSize(700, 250);
@@ -123,7 +124,8 @@ public class AllDecoratorsExample {
 		display.dispose();
 	}
 
-	private static void createColumns(final TableViewer viewer) {
+	private static void createColumns(final TableViewer viewer,
+			PageableController controller) {
 
 		// First column is for the first name
 		TableViewerColumn col = createTableViewerColumn(viewer, "Name", 150);
@@ -142,7 +144,7 @@ public class AllDecoratorsExample {
 			}
 		});
 		col.getColumn().addSelectionListener(
-				new SortTableColumnSelectionListener("name"));
+				new SortTableColumnSelectionListener("name", controller));
 
 		// Second column is for the adress
 		col = createTableViewerColumn(viewer, "Adress", 150);
@@ -157,8 +159,10 @@ public class AllDecoratorsExample {
 				return address.getName();
 			}
 		});
-		col.getColumn().addSelectionListener(
-				new SortTableColumnSelectionListener("address.name"));
+		col.getColumn()
+				.addSelectionListener(
+						new SortTableColumnSelectionListener("address.name",
+								controller));
 	}
 
 	private static List<Person> createList() {
