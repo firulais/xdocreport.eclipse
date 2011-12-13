@@ -11,6 +11,9 @@
  *******************************************************************************/
 package org.eclipse.nebula.widgets.pagination;
 
+import java.text.MessageFormat;
+import java.util.Locale;
+
 import org.eclipse.swt.widgets.Table;
 
 public class PaginationHelper {
@@ -96,4 +99,28 @@ public class PaginationHelper {
 			AbstractPaginationTable<?> paginationTable) {
 		table.setData("___PaginationTable", paginationTable);
 	}
+
+	public static String getResultsText(PaginationController controller,
+			Locale locale) {
+		String resultsMessage = Resources.getText(
+				"PaginationDecorator.results", locale);// "Results {0}-{1} of {2}";
+		return getResultsText(controller, resultsMessage);
+	}
+
+	public static String getResultsText(PaginationController controller,
+			String resultsMessage) {
+		int start = controller.getPageOffset() + 1;
+		int end = start + controller.getPageSize() - 1;
+		long total = controller.getTotalElements();
+		if (end > total) {
+			end = (int) total;
+		}
+		return getResultsText(start, end, total, controller, resultsMessage);
+	}
+
+	public static String getResultsText(int start, int end, long total,
+			PaginationController controller, String resultsMessage) {
+		return MessageFormat.format(resultsMessage, start, end, total);
+	}
+
 }

@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.eclipse.nebula.widgets.pagination;
 
+import java.util.Locale;
+
 import org.eclipse.swt.widgets.Composite;
 
 public abstract class AbstractPageControllerComposite<T extends PaginationController>
@@ -19,6 +21,7 @@ public abstract class AbstractPageControllerComposite<T extends PaginationContro
 	public static final int DEFAULT_PAGE_SIZE = 5;
 
 	private PaginationController controller;
+	private Locale locale;
 
 	public AbstractPageControllerComposite(Composite parent, int style) {
 		this(parent, style, null);
@@ -70,6 +73,14 @@ public abstract class AbstractPageControllerComposite<T extends PaginationContro
 	public void dispose() {
 		getController().removePageChangedListener(this);
 		super.dispose();
+	}
+
+	public void setLocale(Locale locale) {
+		this.locale = locale;
+	}
+
+	public Locale getLocale() {
+		return locale;
 	}
 
 	protected abstract void createUI(Composite parent);

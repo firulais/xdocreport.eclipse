@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.eclipse.nebula.widgets.pagination;
 
+import java.util.Locale;
+
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.nebula.widgets.pagination.decorators.PaginationDecoratorFactory;
 import org.eclipse.nebula.widgets.pagination.decorators.ResultAndPageLinksDecoratorFactory;
@@ -29,6 +31,8 @@ public abstract class AbstractPaginationTable<T extends PaginationController>
 	private int tableStyle = SWT.BORDER | SWT.MULTI | SWT.H_SCROLL
 			| SWT.V_SCROLL;
 	private Table table;
+	private Composite bannerTop;
+	private Composite bannerBottom;
 
 	public AbstractPaginationTable(Composite parent, int style, int tableStyle,
 			PaginationDecoratorFactory bannerTopFactory,
@@ -65,23 +69,24 @@ public abstract class AbstractPaginationTable<T extends PaginationController>
 		PaginationHelper.setPaginationTable(table, this);
 		this.viewer = new TableViewer(table);
 		createBannerBottom(parent);
+		super.setLocale(Locale.getDefault());
 	}
 
 	private void createBannerTop(Composite parent) {
 		PaginationDecoratorFactory bannerTopFactory = getBannerTopFactory();
 		if (bannerTopFactory != null) {
-			Composite banner = bannerTopFactory.createDecorator(
-					getController(), parent, SWT.NONE);
-			banner.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+			bannerTop = bannerTopFactory.createDecorator(getController(),
+					parent, SWT.NONE);
+			bannerTop.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		}
 	}
 
 	private void createBannerBottom(Composite parent) {
 		PaginationDecoratorFactory bannerBottomFactory = getBannerBottomFactory();
 		if (bannerBottomFactory != null) {
-			Composite banner = bannerBottomFactory.createDecorator(
-					getController(), parent, SWT.NONE);
-			banner.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+			bannerBottom = bannerBottomFactory.createDecorator(getController(),
+					parent, SWT.NONE);
+			bannerBottom.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		}
 	}
 
@@ -150,6 +155,19 @@ public abstract class AbstractPaginationTable<T extends PaginationController>
 	public void pageSizeChanged(int oldPageSize, int newPageSize,
 			PaginationController paginationController) {
 		refreshPage(false);
+	}
+
+	@Override
+	public void setLocale(Locale locale) {
+		super.setLocale(locale);
+		if (bannerTop != null
+				&& bannerTop instanceof AbstractPageControllerComposite<?>) {
+			((AbstractPageControllerComposite) bannerTop).setLocale(locale);
+		}
+		if (bannerBottom != null
+				&& bannerBottom instanceof AbstractPageControllerComposite<?>) {
+			((AbstractPageControllerComposite) bannerBottom).setLocale(locale);
+		}
 	}
 
 	public abstract void refreshPage();

@@ -1,9 +1,12 @@
 package org.eclipse.nebula.widgets.pagination.decorators;
 
+import java.util.Locale;
+
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.nebula.widgets.pagination.AbstractPageControllerComposite;
 import org.eclipse.nebula.widgets.pagination.PaginationController;
 import org.eclipse.nebula.widgets.pagination.PaginationHelper;
+import org.eclipse.nebula.widgets.pagination.Resources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -62,7 +65,6 @@ public class ResultAndPageLinksDecorator extends
 		left.setLayout(layout);
 
 		resultsLabel = new Label(left, SWT.NONE);
-		resultsLabel.setText("Results");
 		resultsLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 	}
 
@@ -99,8 +101,8 @@ public class ResultAndPageLinksDecorator extends
 
 		// Previous link
 		previousLink = createHyperlink(right, SWT.NONE);
-		setLinkText(previousLink, "Previous");
-		previousLink.setToolTipText("Previous");
+		setLinkText(previousLink, Resources.getText(
+				Resources.PaginationDecorator_previous, getLocale()));
 
 		GridData gridData = new GridData();
 		gridData.horizontalAlignment = SWT.RIGHT;
@@ -125,8 +127,8 @@ public class ResultAndPageLinksDecorator extends
 
 		// Next link
 		nextLink = createHyperlink(right, SWT.NONE);
-		setLinkText(nextLink, "Next");
-		nextLink.setToolTipText("Next");
+		setLinkText(nextLink, Resources.getText(
+				Resources.PaginationDecorator_next, getLocale()));
 
 		gridData = new GridData();
 		gridData.horizontalAlignment = SWT.LEFT;
@@ -213,28 +215,14 @@ public class ResultAndPageLinksDecorator extends
 	}
 
 	private void refreshEnabled(PaginationController controller) {
-		resultsLabel.setText(getResultsText(controller));
+		resultsLabel.setText(PaginationHelper.getResultsText(controller,
+				getLocale()));
 		nextLink.setEnabled(controller.hasNextPage());
 		previousLink.setEnabled(controller.hasPreviousPage());
 	}
 
 	protected void displayResults(PaginationController controller) {
 
-	}
-
-	protected String getResultsText(PaginationController controller) {
-		int start = controller.getPageOffset() + 1;
-		int end = start + controller.getPageSize() - 1;
-		long total = controller.getTotalElements();
-		if (end > total) {
-			end = (int) total;
-		}
-		return getResultsText(start, end, total, controller);
-	}
-
-	protected String getResultsText(int start, int end, long total,
-			PaginationController controller2) {
-		return "Results " + start + "-" + end + " of " + total;
 	}
 
 	protected Composite createComposite(Composite parent, int style) {
@@ -270,5 +258,14 @@ public class ResultAndPageLinksDecorator extends
 			int oldSortDirection, int sortDirection,
 			PaginationController paginationController) {
 
+	}
+
+	@Override
+	public void setLocale(Locale locale) {
+		super.setLocale(locale);
+		setLinkText(previousLink, Resources.getText(
+				Resources.PaginationDecorator_previous, getLocale()));
+		setLinkText(nextLink, Resources.getText(
+				Resources.PaginationDecorator_next, getLocale()));
 	}
 }
