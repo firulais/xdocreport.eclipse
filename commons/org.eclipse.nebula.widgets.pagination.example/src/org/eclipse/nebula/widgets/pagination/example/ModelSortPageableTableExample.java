@@ -20,7 +20,6 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.nebula.widgets.pagination.SortTableColumnSelectionListener;
-import org.eclipse.nebula.widgets.pagination.decorators.ResultAndPageLinksDecoratorFactory;
 import org.eclipse.nebula.widgets.pagination.example.model.Address;
 import org.eclipse.nebula.widgets.pagination.example.model.Person;
 import org.eclipse.nebula.widgets.pagination.springdata.PageLoaderListImpl;
@@ -34,10 +33,13 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
 /**
- * Basic Picture control example.
+ * This sample display a list of model {@link Person} in a SWT Table with
+ * pagination banner displayed with Page Results+Page Links on the top of the
+ * SWT Table. The 2 columns which display the list of {@link Person} can be
+ * clicked to sort the paginated list.
  * 
  */
-public class SortPageableTableExample2 {
+public class ModelSortPageableTableExample {
 
 	public static void main(String[] args) {
 
@@ -48,13 +50,14 @@ public class SortPageableTableExample2 {
 
 		final List<Person> items = createList();
 
+		// 1) Create pageable table with 10 items per page
+		// This SWT Component create internally a SWT Table+JFace TreeViewer
 		int pageSize = 10;
 		PageableTable pageableTable = new PageableTable(shell, SWT.BORDER,
-				pageSize, ResultAndPageLinksDecoratorFactory.getFactory(),
-				null);
+				SWT.BORDER | SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL, pageSize);
 		pageableTable.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-		// 2) Initialize the table viewer
+		// 2) Initialize the table viewer + SWT Table
 		TableViewer viewer = pageableTable.getViewer();
 		viewer.setContentProvider(ArrayContentProvider.getInstance());
 		viewer.setLabelProvider(new LabelProvider());
@@ -63,6 +66,7 @@ public class SortPageableTableExample2 {
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 
+		// 3) Create Table columns with sort of paginated list.
 		createColumns(viewer, pageableTable);
 
 		// 3) Set current page to 0 to refresh the table
@@ -100,14 +104,14 @@ public class SortPageableTableExample2 {
 		col.getColumn().addSelectionListener(
 				new SortTableColumnSelectionListener("name"));
 
-		// First column is for the adress
+		// Second column is for the adress
 		col = createTableViewerColumn(viewer, "Adress", 150);
 		col.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
 				Person p = (Person) element;
-				Address address= p.getAddress();
-				if (address ==null) {
+				Address address = p.getAddress();
+				if (address == null) {
 					return "";
 				}
 				return address.getName();
@@ -115,21 +119,6 @@ public class SortPageableTableExample2 {
 		});
 		col.getColumn().addSelectionListener(
 				new SortTableColumnSelectionListener("address.name"));
-		// col.getColumn().addSelectionListener(new SelectionAdapter() {
-		//
-		// private boolean b = false;
-		//
-		// @Override
-		// public void widgetSelected(SelectionEvent e) {
-		// Order order = new Order(b ? Direction.ASC : Direction.DESC,
-		// "name");
-		// Sort sort = new Sort(order);
-		// pageableTable.getController().setSort(sort);
-		// pageableTable.refreshPage();
-		// b = !b;
-		// }
-		//
-		// });
 	}
 
 	private static List<Person> createList() {

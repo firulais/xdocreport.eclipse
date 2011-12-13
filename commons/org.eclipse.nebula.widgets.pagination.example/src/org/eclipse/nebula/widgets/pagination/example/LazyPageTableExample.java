@@ -32,10 +32,11 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
 /**
- * Basic Picture control example.
+ * This sample display a SWT Table with 10 items the first time. If you click on
+ * the item 10, 10 items are loaded and added to the SWT TAble.
  * 
  */
-public class SortPageableTableExample3 {
+public class LazyPageTableExample {
 
 	public static void main(String[] args) {
 
@@ -50,7 +51,7 @@ public class SortPageableTableExample3 {
 
 		final Table table = new Table(shell, SWT.BORDER | SWT.MULTI
 				| SWT.H_SCROLL | SWT.V_SCROLL);
-		
+
 		// 2) Initialize the table viewer
 		final TableViewer viewer = new TableViewer(table);
 		viewer.setContentProvider(ArrayContentProvider.getInstance());
@@ -59,7 +60,8 @@ public class SortPageableTableExample3 {
 		final PageLoader pageLoader = new PageLoaderListImpl(items);
 		final PageableController controller = new PageableController(pageSize);
 		controller.addPageChangedListener(PageLoaderStrategyHelper
-				.createloadPageAndAddItemsListener(controller, viewer, pageLoader));
+				.createloadPageAndAddItemsListener(controller, viewer,
+						pageLoader));
 
 		viewer.getTable().addSelectionListener(
 				new LazyTableSelectionListener(controller));
@@ -72,7 +74,7 @@ public class SortPageableTableExample3 {
 
 		// 3) Set current page to 0 to refresh the table
 		controller.setCurrentPage(0);
-		
+
 		shell.setSize(350, 250);
 		shell.open();
 		while (!shell.isDisposed()) {
@@ -93,23 +95,6 @@ public class SortPageableTableExample3 {
 				return p;
 			}
 		});
-		// col.getColumn().addSelectionListener(
-		// new SortTableColumnSelectionListener("name"));
-		// // col.getColumn().addSelectionListener(new SelectionAdapter() {
-		//
-		// private boolean b = false;
-		//
-		// @Override
-		// public void widgetSelected(SelectionEvent e) {
-		// Order order = new Order(b ? Direction.ASC : Direction.DESC,
-		// "name");
-		// Sort sort = new Sort(order);
-		// pageableTable.getController().setSort(sort);
-		// pageableTable.refreshPage();
-		// b = !b;
-		// }
-		//
-		// });
 	}
 
 	private static List<String> createList() {

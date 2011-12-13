@@ -9,6 +9,13 @@ public class PageableTable extends AbstractPaginationTable<PageableController> {
 	private PageLoader pageLoader;
 
 	public PageableTable(Composite parent, int compositeStyle, int tableStyle,
+			int pageSize) {
+		this(parent, compositeStyle, tableStyle, pageSize,
+				getDefaultBannerTopFactory(), getDefaultBannerBottomFactory(),
+				true);
+	}
+
+	public PageableTable(Composite parent, int compositeStyle, int tableStyle,
 			int pageSize, PaginationDecoratorFactory bannerTopFactory,
 			PaginationDecoratorFactory bannerBottomFactory) {
 		this(parent, compositeStyle, tableStyle, pageSize, bannerTopFactory,
@@ -23,9 +30,9 @@ public class PageableTable extends AbstractPaginationTable<PageableController> {
 	}
 
 	protected PageableTable(Composite parent, int style, int tableStyle,
-			int size, PaginationDecoratorFactory bannerTopFactory,
+			int pageSize, PaginationDecoratorFactory bannerTopFactory,
 			PaginationDecoratorFactory bannerBottomFactory, boolean createUI) {
-		super(parent, style, tableStyle, size, bannerTopFactory,
+		super(parent, style, tableStyle, pageSize, bannerTopFactory,
 				bannerBottomFactory, createUI);
 	}
 
@@ -36,8 +43,8 @@ public class PageableTable extends AbstractPaginationTable<PageableController> {
 
 	@Override
 	public void refreshPage() {
-		PageLoaderStrategyHelper.loadPageAndReplaceItems(getController(), viewer,
-				pageLoader);
+		PageLoaderStrategyHelper.loadPageAndReplaceItems(getController(),
+				viewer, pageLoader);
 	}
 
 	public void setPageLoader(PageLoader pageLoader) {
