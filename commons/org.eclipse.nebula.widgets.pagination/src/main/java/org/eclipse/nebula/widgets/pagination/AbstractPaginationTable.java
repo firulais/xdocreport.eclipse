@@ -14,8 +14,8 @@ package org.eclipse.nebula.widgets.pagination;
 import java.util.Locale;
 
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.nebula.widgets.pagination.decorators.PaginationDecoratorFactory;
-import org.eclipse.nebula.widgets.pagination.decorators.ResultAndPageLinksDecoratorFactory;
+import org.eclipse.nebula.widgets.pagination.renderers.PageRendererFactory;
+import org.eclipse.nebula.widgets.pagination.renderers.ResultAndPageLinksRendererFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -26,8 +26,8 @@ public abstract class AbstractPaginationTable<T extends PaginationController>
 		extends AbstractPageControllerComposite<T> {
 
 	protected TableViewer viewer;
-	private PaginationDecoratorFactory bannerTopFactory;
-	private PaginationDecoratorFactory bannerBottomFactory;
+	private PageRendererFactory bannerTopFactory;
+	private PageRendererFactory bannerBottomFactory;
 	private int tableStyle = SWT.BORDER | SWT.MULTI | SWT.H_SCROLL
 			| SWT.V_SCROLL;
 	private Table table;
@@ -35,23 +35,23 @@ public abstract class AbstractPaginationTable<T extends PaginationController>
 	private Composite bannerBottom;
 
 	public AbstractPaginationTable(Composite parent, int style, int tableStyle,
-			PaginationDecoratorFactory bannerTopFactory,
-			PaginationDecoratorFactory bannerBottomFactory) {
+			PageRendererFactory bannerTopFactory,
+			PageRendererFactory bannerBottomFactory) {
 		this(parent, tableStyle, style, getDefaultPageSize(), bannerTopFactory,
 				bannerBottomFactory, true);
 	}
 
 	public AbstractPaginationTable(Composite parent, int style, int tableStyle,
-			int pageSize, PaginationDecoratorFactory bannerTopFactory,
-			PaginationDecoratorFactory bannerBottomFactory) {
+			int pageSize, PageRendererFactory bannerTopFactory,
+			PageRendererFactory bannerBottomFactory) {
 		this(parent, tableStyle, style, pageSize, bannerTopFactory,
 				bannerBottomFactory, true);
 	}
 
 	protected AbstractPaginationTable(Composite parent, int style,
 			int tableStyle, int pageSize,
-			PaginationDecoratorFactory bannerTopFactory,
-			PaginationDecoratorFactory bannerBottomFactory, boolean createUI) {
+			PageRendererFactory bannerTopFactory,
+			PageRendererFactory bannerBottomFactory, boolean createUI) {
 		super(parent, style, pageSize, null, false);
 		this.tableStyle = tableStyle;
 		this.bannerTopFactory = bannerTopFactory;
@@ -73,18 +73,18 @@ public abstract class AbstractPaginationTable<T extends PaginationController>
 	}
 
 	private void createBannerTop(Composite parent) {
-		PaginationDecoratorFactory bannerTopFactory = getBannerTopFactory();
+		PageRendererFactory bannerTopFactory = getBannerTopFactory();
 		if (bannerTopFactory != null) {
-			bannerTop = bannerTopFactory.createDecorator(getController(),
+			bannerTop = bannerTopFactory.createRenderer(getController(),
 					parent, SWT.NONE);
 			bannerTop.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		}
 	}
 
 	private void createBannerBottom(Composite parent) {
-		PaginationDecoratorFactory bannerBottomFactory = getBannerBottomFactory();
+		PageRendererFactory bannerBottomFactory = getBannerBottomFactory();
 		if (bannerBottomFactory != null) {
-			bannerBottom = bannerBottomFactory.createDecorator(getController(),
+			bannerBottom = bannerBottomFactory.createRenderer(getController(),
 					parent, SWT.NONE);
 			bannerBottom.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		}
@@ -104,19 +104,19 @@ public abstract class AbstractPaginationTable<T extends PaginationController>
 		return viewer;
 	}
 
-	public PaginationDecoratorFactory getBannerBottomFactory() {
+	public PageRendererFactory getBannerBottomFactory() {
 		return bannerBottomFactory;
 	}
 
-	public PaginationDecoratorFactory getBannerTopFactory() {
+	public PageRendererFactory getBannerTopFactory() {
 		return bannerTopFactory;
 	}
 
-	public static PaginationDecoratorFactory getDefaultBannerTopFactory() {
-		return ResultAndPageLinksDecoratorFactory.getFactory();
+	public static PageRendererFactory getDefaultBannerTopFactory() {
+		return ResultAndPageLinksRendererFactory.getFactory();
 	}
 
-	public static PaginationDecoratorFactory getDefaultBannerBottomFactory() {
+	public static PageRendererFactory getDefaultBannerBottomFactory() {
 		return null;
 	}
 

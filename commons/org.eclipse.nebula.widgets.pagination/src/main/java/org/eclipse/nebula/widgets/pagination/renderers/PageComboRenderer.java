@@ -1,4 +1,4 @@
-package org.eclipse.nebula.widgets.pagination.decorators;
+package org.eclipse.nebula.widgets.pagination.renderers;
 
 import org.eclipse.nebula.widgets.pagination.AbstractPageControllerComposite;
 import org.eclipse.nebula.widgets.pagination.PaginationController;
@@ -10,13 +10,13 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 
-public class PageComboDecorator extends
+public class PageComboRenderer extends
 		AbstractPageControllerComposite<PaginationController> implements
 		SelectionListener {
 
 	private Combo pageCombo;
 
-	public PageComboDecorator(PaginationController controller,
+	public PageComboRenderer(PaginationController controller,
 			Composite parent, int style) {
 		super(parent, style, controller);
 	}

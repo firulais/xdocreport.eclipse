@@ -1,4 +1,4 @@
-package org.eclipse.nebula.widgets.pagination.decorators;
+package org.eclipse.nebula.widgets.pagination.renderers;
 
 import java.util.Locale;
 
@@ -7,8 +7,10 @@ import org.eclipse.nebula.widgets.pagination.AbstractPageControllerComposite;
 import org.eclipse.nebula.widgets.pagination.PaginationController;
 import org.eclipse.nebula.widgets.pagination.PaginationHelper;
 import org.eclipse.nebula.widgets.pagination.Resources;
-import org.eclipse.nebula.widgets.pagination.decorators.draw.PageItem;
-import org.eclipse.nebula.widgets.pagination.decorators.draw.PageItems;
+import org.eclipse.nebula.widgets.pagination.renderers.graphics.BlueGraphicsPageConfigurator;
+import org.eclipse.nebula.widgets.pagination.renderers.graphics.GraphicsPage;
+import org.eclipse.nebula.widgets.pagination.renderers.graphics.GraphicsPageConfigurator;
+import org.eclipse.nebula.widgets.pagination.renderers.graphics.GraphicsPageItem;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -21,7 +23,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
 
-public class ResultAndPageButtonsDecorator extends
+public class ResultAndPageButtonsRenderer extends
 		AbstractPageControllerComposite<PaginationController> implements
 		SelectionListener {
 
@@ -33,11 +35,20 @@ public class ResultAndPageButtonsDecorator extends
 	private Link nextLink;
 	private Label resultsLabel;
 	private int maxLinks = 10;
-	private PageItems pageItems;
+	private GraphicsPage pageItems;
+	private final GraphicsPageConfigurator configurator;
 
-	public ResultAndPageButtonsDecorator(PaginationController controller,
+	public ResultAndPageButtonsRenderer(PaginationController controller,
 			Composite parent, int style) {
-		super(parent, style, controller);
+		this(controller, parent, style, BlueGraphicsPageConfigurator
+				.getInstance());
+	}
+
+	public ResultAndPageButtonsRenderer(PaginationController controller,
+			Composite parent, int style, GraphicsPageConfigurator configurator) {
+		super(parent, style, DEFAULT_PAGE_SIZE, controller, false);
+		this.configurator = configurator;
+		createUI(this);
 		refreshEnabled(controller);
 	}
 
@@ -52,7 +63,7 @@ public class ResultAndPageButtonsDecorator extends
 	}
 
 	private void addHyperlinkListener(Link link,
-			ResultAndPageButtonsDecorator paginationBannerWidget2) {
+			ResultAndPageButtonsRenderer paginationBannerWidget2) {
 		link.addSelectionListener(this);
 	}
 
@@ -91,10 +102,9 @@ public class ResultAndPageButtonsDecorator extends
 
 		addHyperlinkListener(previousLink, this);
 
-
-		pageItems = new PageItems(right, SWT.NONE) {
+		pageItems = new GraphicsPage(right, SWT.NONE, configurator) {
 			@Override
-			protected void handleSelection(PageItem pageItem) {
+			protected void handleSelection(GraphicsPageItem pageItem) {
 				if (!pageItem.isDot()) {
 					getController().setCurrentPage(pageItem.getIndex());
 				}
@@ -105,9 +115,9 @@ public class ResultAndPageButtonsDecorator extends
 		// pageLinks = createHyperlink(right, SWT.NONE);
 		// pageLinks.setForeground(getColor());
 
-		//gridData = new GridData();
-//		gridData.horizontalAlignment = SWT.FILL;
-		//gridData.grabExcessHorizontalSpace = true;
+		// gridData = new GridData();
+		// gridData.horizontalAlignment = SWT.FILL;
+		// gridData.grabExcessHorizontalSpace = true;
 		// pageLinks.setLayoutData(gridData);
 
 		// setLinkText(pageLinks, "");
@@ -173,24 +183,23 @@ public class ResultAndPageButtonsDecorator extends
 
 		int[] indexes = PaginationHelper.getPageIndexes(
 				controller.getCurrentPage(), controller.getTotalPages(), 10);
-		
-		
+
 		pageItems.setIndexes(indexes);
 		pageItems.setPageIndexSelected(newPageNumber);
-//		
-//		for (int i = 0; i < indexes.length; i++) {
-//			int j = indexes[i];
-//			if (i > 0) {
-//				s.append(" ");
-//			}
-//			if (j == PaginationHelper.DOT) {
-//				s.append("...");
-//			} else if (j == newPageNumber)
-//				s.append("" + (j + 1) + "");
-//			else
-//				s.append("<a href=\"" + j + "\">" + (j + 1) + "</a>");
-//
-//		}
+		//
+		// for (int i = 0; i < indexes.length; i++) {
+		// int j = indexes[i];
+		// if (i > 0) {
+		// s.append(" ");
+		// }
+		// if (j == PaginationHelper.DOT) {
+		// s.append("...");
+		// } else if (j == newPageNumber)
+		// s.append("" + (j + 1) + "");
+		// else
+		// s.append("<a href=\"" + j + "\">" + (j + 1) + "</a>");
+		//
+		// }
 		// pageLinks.setText(s.toString());
 		// pageLinks.redraw();
 		// pageLinks.getParent().getParent().layout();

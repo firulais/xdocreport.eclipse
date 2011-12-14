@@ -1,4 +1,4 @@
-package org.eclipse.nebula.widgets.pagination.decorators;
+package org.eclipse.nebula.widgets.pagination.renderers;
 
 import org.eclipse.nebula.widgets.pagination.AbstractPageControllerComposite;
 import org.eclipse.nebula.widgets.pagination.PaginationController;
@@ -10,13 +10,13 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Scale;
 
-public class PageScaleDecorator extends
+public class PageScaleRenderer extends
 		AbstractPageControllerComposite<PaginationController> implements
 		SelectionListener {
 
 	private Scale pageScale;
 
-	public PageScaleDecorator(PaginationController controller,
+	public PageScaleRenderer(PaginationController controller,
 			Composite parent, int style) {
 		super(parent, style, controller);
 	}

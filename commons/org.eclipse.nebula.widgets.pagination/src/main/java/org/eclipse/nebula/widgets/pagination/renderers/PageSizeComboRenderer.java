@@ -1,4 +1,4 @@
-package org.eclipse.nebula.widgets.pagination.decorators;
+package org.eclipse.nebula.widgets.pagination.renderers;
 
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
@@ -16,7 +16,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
-public class PageSizeComboDecorator extends
+public class PageSizeComboRenderer extends
 		AbstractPageControllerComposite<PaginationController> implements
 		SelectionListener {
 
@@ -30,7 +30,7 @@ public class PageSizeComboDecorator extends
 
 	private ComboViewer comboViewer;
 
-	public PageSizeComboDecorator(PaginationController controller,
+	public PageSizeComboRenderer(PaginationController controller,
 			Composite parent, int style, Integer[] pageSizeList) {
 		super(parent, style, controller);
 		comboViewer.setInput(pageSizeList);

@@ -1,4 +1,4 @@
-package org.eclipse.nebula.widgets.pagination.decorators.draw;
+package org.eclipse.nebula.widgets.pagination.renderers.graphics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,22 +17,32 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
-public class PageItems extends Canvas {
+public class GraphicsPage extends Canvas {
 
 	private int pageIndexSelected;
 	// private int[] pageIndexes;
 
-	private List<PageItem> pageItems;
-	private PageItem selectedItem;
+	private List<GraphicsPageItem> pageItems;
+	private GraphicsPageItem selectedItem;
 	private boolean round = false;
 
 	private Color selectedItemForeground;
 	private Color selectedItemBackground;
+	private Color selectedItemBorderColor;
+
+	private Color itemForeground;
+	private Color itemBackground;
+	private Color itemBorderColor;
+
 	private Integer totalWidth;
 
-	public PageItems(Composite parent, int style) {
+	public GraphicsPage(Composite parent, int style) {
+		this(parent, style, BlueGraphicsPageConfigurator.getInstance());
+	}
+
+	public GraphicsPage(Composite parent, int style,
+			GraphicsPageConfigurator configurator) {
 		super(parent, style);
-		// super.setBackground(getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		this.addPaintListener(new PaintListener() {
 			public void paintControl(PaintEvent e) {
 				onPaint(e.gc);
@@ -45,7 +55,7 @@ public class PageItems extends Canvas {
 		});
 		this.addMouseListener(new MouseListener() {
 			public void mouseUp(MouseEvent e) {
-				PageItem s = getItem(e.x, e.y);
+				GraphicsPageItem s = getItem(e.x, e.y);
 				if (s != null) {
 					select(s);
 				}
@@ -65,57 +75,47 @@ public class PageItems extends Canvas {
 			}
 		});
 
+		if (configurator != null) {
+			configurator.configure(this);
+		}
 	}
 
 	private void onPaint(GC gc) {
 		gc.setAdvanced(true);
 		if (gc.getAdvanced())
 			gc.setTextAntialias(SWT.ON);
-
-		int x = 0;
-		int y = 0;
-		int width = 12;
-		int height = 12;
+		if (pageItems == null) {
+			return;
+		}
+		computeBoundsIfneeded(gc);
 
 		Color fg = gc.getForeground();
 		Color bg = gc.getBackground();
 
 		boolean dot = false;
-		String text = null;
-		if (pageItems == null) {
-			return;
-		}
-		for (PageItem pageItem : pageItems) {
+		int x, y, width, height=0;
+		boolean selected = false;
+		for (GraphicsPageItem pageItem : pageItems) {
+			selected = pageItem.equals(selectedItem);
 			dot = pageItem.isDot();
-			text = pageItem.getText();
-			Point size = gc.stringExtent(text);
-
-			width = size.x + 4;
-			height = size.y;
-			// Draw rectangle or fill the rectangle.
-			if (pageItem.equals(selectedItem)) {
+			
+			x=pageItem.getBounds().x;
+			y=pageItem.getBounds().y;
+			width=pageItem.getBounds().width;
+			height=pageItem.getBounds().height;
+			
+			if (selected) {
 				// Background
-				if (selectedItemBackground != null) {
-					gc.setBackground(selectedItemBackground);
-				} else {
-					gc.setBackground(new Color(getDisplay(), 74, 74, 255));// gc.getDevice().getSystemColor(SWT.COLOR_GREEN));
-				}
+				gc.setBackground(selectedItemBackground != null ? selectedItemBackground
+						: bg);
 				// Foreground
-				if (selectedItemForeground != null) {
-					gc.setForeground(selectedItemForeground);
-
-				} else {
-					gc.setForeground(gc.getDevice().getSystemColor(
-							SWT.COLOR_WHITE));
-				}
 				if (round) {
 					gc.fillRoundRectangle(x, y, width, height, 10, 10);
 				} else {
 					gc.fillRectangle(x, y, width, height);
 				}
 			} else {
-				gc.setBackground(bg);
-				gc.setForeground(fg);
+				gc.setForeground(itemBorderColor != null ? itemBorderColor : bg);
 				if (!dot) {
 					if (round) {
 						gc.drawRoundRectangle(x, y, width, height, 10, 10);
@@ -126,14 +126,18 @@ public class PageItems extends Canvas {
 			}
 
 			if (dot) {
-				gc.drawString("...", x + 2, y, true);
+				gc.setForeground(itemForeground != null ? itemForeground: fg);
+				gc.drawString(pageItem.getText(), x + 3, y, true);
 			} else {
+				if (selected) {
+					gc.setForeground(selectedItemForeground != null ? selectedItemForeground
+							: fg);
+				} else {
+					gc.setForeground(itemForeground != null ? itemForeground: fg);
+				}
 				gc.drawString(pageItem.getText(), x + 3, y, true);
 			}
 			pageItem.setBounds(new Rectangle(x, y, width, height));
-
-			x += width + 3;
-
 		}
 	}
 
@@ -143,14 +147,14 @@ public class PageItems extends Canvas {
 	}
 
 	public void setIndexes(int[] indexes) {
-		this.pageItems = new ArrayList<PageItem>(indexes.length);
+		this.pageItems = new ArrayList<GraphicsPageItem>(indexes.length);
 		int index = -1;
 		for (int i = 0; i < indexes.length; i++) {
 			index = indexes[i];
-			pageItems.add(new PageItem(this, index));
+			pageItems.add(new GraphicsPageItem(this, index));
 		}
 		this.totalWidth = null;
-		//getParent().layout(true);
+		// getParent().layout(true);
 	}
 
 	@Override
@@ -164,10 +168,7 @@ public class PageItems extends Canvas {
 			}
 			return new Point(wHint, 15);
 		}
-
 		return super.computeSize(wHint, hHint, changed);
-
-		// return super.computeSize(wHint, 15, changed);
 	}
 
 	private void computeBoundsIfneeded(GC gc) {
@@ -185,7 +186,7 @@ public class PageItems extends Canvas {
 		int width = 0;
 		int height = 0;
 		String text = null;
-		for (PageItem pageItem : pageItems) {
+		for (GraphicsPageItem pageItem : pageItems) {
 			text = pageItem.getText();
 			Point size = gc.stringExtent(text);
 
@@ -195,7 +196,7 @@ public class PageItems extends Canvas {
 			pageItem.setBounds(new Rectangle(x, y, width, height));
 			x += width + 3;
 		}
-		totalWidth = x+ width -3;
+		totalWidth = x + width - 3;
 		if (tempGC != null) {
 			tempGC.dispose();
 		}
@@ -208,11 +209,11 @@ public class PageItems extends Canvas {
 		redraw();
 	}
 
-	PageItem getItem(int index) {
+	GraphicsPageItem getItem(int index) {
 		if (pageItems == null) {
 			return null;
 		}
-		for (PageItem pageItem : pageItems) {
+		for (GraphicsPageItem pageItem : pageItems) {
 			if (pageItem.getIndex() == index) {
 				return pageItem;
 			}
@@ -220,7 +221,7 @@ public class PageItems extends Canvas {
 		return null;
 	}
 
-	public PageItem getItem(int x, int y) {
+	public GraphicsPageItem getItem(int x, int y) {
 		checkWidget();
 
 		if (pageItems == null) {
@@ -233,8 +234,8 @@ public class PageItems extends Canvas {
 		// if (point == null)
 		// SWT.error(SWT.ERROR_NULL_ARGUMENT);
 
-		for (PageItem pageItem : pageItems) {
-			if (pageItem.isContains(x, y)) {
+		for (GraphicsPageItem pageItem : pageItems) {
+			if (pageItem.contains(x, y)) {
 				return pageItem;
 			}
 		}
@@ -246,7 +247,7 @@ public class PageItems extends Canvas {
 		return null;
 	}
 
-	public void select(PageItem pageItem) {
+	public void select(GraphicsPageItem pageItem) {
 		if (!pageItem.isDot()) {
 			selectedItem = pageItem;
 			redraw();
@@ -256,7 +257,7 @@ public class PageItems extends Canvas {
 		this.handleSelection(pageItem);
 	}
 
-	protected void handleSelection(PageItem pageItem) {
+	protected void handleSelection(GraphicsPageItem pageItem) {
 
 	}
 
@@ -264,8 +265,48 @@ public class PageItems extends Canvas {
 		this.selectedItemBackground = selectedItemBackground;
 	}
 
+	public Color getSelectedItemBackground() {
+		return selectedItemBackground;
+	}
+
 	public void setSelectedItemForeground(Color selectedItemForeground) {
 		this.selectedItemForeground = selectedItemForeground;
+	}
+
+	public Color getSelectedItemForeground() {
+		return selectedItemForeground;
+	}
+
+	public Color getItemForeground() {
+		return itemForeground;
+	}
+
+	public void setItemForeground(Color itemForeground) {
+		this.itemForeground = itemForeground;
+	}
+
+	public Color getItemBackground() {
+		return itemBackground;
+	}
+
+	public void setItemBackground(Color itemBackground) {
+		this.itemBackground = itemBackground;
+	}
+
+	public Color getItemBorderColor() {
+		return itemBorderColor;
+	}
+
+	public void setItemBorderColor(Color itemBorderColor) {
+		this.itemBorderColor = itemBorderColor;
+	}
+
+	public Color getSelectedItemBorderColor() {
+		return selectedItemBorderColor;
+	}
+
+	public void setSelectedItemBorderColor(Color selectedItemBorderColor) {
+		this.selectedItemBorderColor = selectedItemBorderColor;
 	}
 
 	// /**

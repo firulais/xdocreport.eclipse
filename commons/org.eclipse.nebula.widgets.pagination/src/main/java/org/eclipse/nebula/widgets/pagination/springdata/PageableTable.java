@@ -1,7 +1,7 @@
 package org.eclipse.nebula.widgets.pagination.springdata;
 
 import org.eclipse.nebula.widgets.pagination.AbstractPaginationTable;
-import org.eclipse.nebula.widgets.pagination.decorators.PaginationDecoratorFactory;
+import org.eclipse.nebula.widgets.pagination.renderers.PageRendererFactory;
 import org.eclipse.swt.widgets.Composite;
 
 public class PageableTable extends AbstractPaginationTable<PageableController> {
@@ -16,22 +16,22 @@ public class PageableTable extends AbstractPaginationTable<PageableController> {
 	}
 
 	public PageableTable(Composite parent, int compositeStyle, int tableStyle,
-			int pageSize, PaginationDecoratorFactory bannerTopFactory,
-			PaginationDecoratorFactory bannerBottomFactory) {
+			int pageSize, PageRendererFactory bannerTopFactory,
+			PageRendererFactory bannerBottomFactory) {
 		this(parent, compositeStyle, tableStyle, pageSize, bannerTopFactory,
 				bannerBottomFactory, true);
 	}
 
 	public PageableTable(Composite parent, int compositeStyle, int tableStyle,
-			PaginationDecoratorFactory bannerTopFactory,
-			PaginationDecoratorFactory bannerBottomFactory) {
+			PageRendererFactory bannerTopFactory,
+			PageRendererFactory bannerBottomFactory) {
 		this(parent, compositeStyle, tableStyle, getDefaultPageSize(),
 				bannerTopFactory, bannerBottomFactory, true);
 	}
 
 	protected PageableTable(Composite parent, int style, int tableStyle,
-			int pageSize, PaginationDecoratorFactory bannerTopFactory,
-			PaginationDecoratorFactory bannerBottomFactory, boolean createUI) {
+			int pageSize, PageRendererFactory bannerTopFactory,
+			PageRendererFactory bannerBottomFactory, boolean createUI) {
 		super(parent, style, tableStyle, pageSize, bannerTopFactory,
 				bannerBottomFactory, createUI);
 	}

@@ -1,17 +1,17 @@
-package org.eclipse.nebula.widgets.pagination.decorators.draw;
+package org.eclipse.nebula.widgets.pagination.renderers.graphics;
 
 import org.eclipse.nebula.widgets.pagination.PaginationHelper;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Item;
 
-public class PageItem extends Item {
+public class GraphicsPageItem extends Item {
 
 	private final int index;
 
 	private Rectangle bounds;
 
-	public PageItem(PageItems parent, int index) {
+	public GraphicsPageItem(GraphicsPage parent, int index) {
 		super(parent, SWT.NONE);
 		this.index = index;
 		if (isDot()) {
@@ -33,8 +33,11 @@ public class PageItem extends Item {
 		this.bounds = bounds;
 	}
 
-	public boolean isContains(int x, int y) {
-		// TODO Auto-generated method stub
+	public boolean contains(int x, int y) {
 		return bounds.contains(x, y);
+	}
+	
+	public Rectangle getBounds() {
+		return bounds;
 	}
 }

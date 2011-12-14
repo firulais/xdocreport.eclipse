@@ -1,4 +1,4 @@
-package org.eclipse.nebula.widgets.pagination.decorators;
+package org.eclipse.nebula.widgets.pagination.renderers;
 
 import java.util.Locale;
 
@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
 
-public class ResultAndPageLinksDecorator extends
+public class ResultAndPageLinksRenderer extends
 		AbstractPageControllerComposite<PaginationController> implements
 		SelectionListener {
 
@@ -34,7 +34,7 @@ public class ResultAndPageLinksDecorator extends
 	private Label resultsLabel;
 	private Link pageLinks;
 
-	public ResultAndPageLinksDecorator(PaginationController controller,
+	public ResultAndPageLinksRenderer(PaginationController controller,
 			Composite parent, int style) {
 		super(parent, style, controller);
 		refreshEnabled(controller);
@@ -51,7 +51,7 @@ public class ResultAndPageLinksDecorator extends
 	}
 
 	private void addHyperlinkListener(Link link,
-			ResultAndPageLinksDecorator paginationBannerWidget2) {
+			ResultAndPageLinksRenderer paginationBannerWidget2) {
 		link.addSelectionListener(this);
 	}
 
