@@ -23,6 +23,7 @@ import org.eclipse.nebula.widgets.pagination.SortTableColumnSelectionListener;
 import org.eclipse.nebula.widgets.pagination.decorators.PageComboDecorator;
 import org.eclipse.nebula.widgets.pagination.decorators.PageScaleDecorator;
 import org.eclipse.nebula.widgets.pagination.decorators.PageSizeComboDecorator;
+import org.eclipse.nebula.widgets.pagination.decorators.ResultAndPageButtonsDecorator;
 import org.eclipse.nebula.widgets.pagination.decorators.ResultAndPageLinksDecorator;
 import org.eclipse.nebula.widgets.pagination.example.model.Address;
 import org.eclipse.nebula.widgets.pagination.example.model.Person;
@@ -57,7 +58,6 @@ public class AllDecoratorsExample {
 
 		final List<Person> items = createList();
 
-
 		Composite left = new Composite(shell, SWT.NONE);
 		left.setLayoutData(new GridData(GridData.FILL_BOTH));
 		left.setLayout(new GridLayout());
@@ -76,7 +76,7 @@ public class AllDecoratorsExample {
 		table.setLinesVisible(true);
 
 		// 3) Create Table columns with sort of paginated list.
-		int pageSize = 10;
+		int pageSize = 100;
 		final PageableController controller = new PageableController(pageSize);
 		final PageLoader pageLoader = new PageLoaderListImpl(items);
 		controller.addPageChangedListener(PageLoaderStrategyHelper
@@ -90,7 +90,6 @@ public class AllDecoratorsExample {
 		right.setLayoutData(new GridData(GridData.FILL_BOTH));
 		right.setLayout(new GridLayout());
 
-		
 		PageComboDecorator pageComboDecorator = new PageComboDecorator(
 				controller, right, SWT.NONE);
 		pageComboDecorator
@@ -107,15 +106,21 @@ public class AllDecoratorsExample {
 				GridData.FILL_HORIZONTAL));
 
 		PageSizeComboDecorator pageSizeComboDecorator = new PageSizeComboDecorator(
-				controller, right, SWT.NONE);
+				controller, right, SWT.NONE, new Integer[] { 5, 10, 50, 100,
+						200 });
 		pageSizeComboDecorator.setLayoutData(new GridData(
+				GridData.FILL_HORIZONTAL));
+
+		ResultAndPageButtonsDecorator resultAndPageButtonsDecorator = new ResultAndPageButtonsDecorator(
+				controller, right, SWT.NONE);
+		resultAndPageButtonsDecorator.setLayoutData(new GridData(
 				GridData.FILL_HORIZONTAL));
 
 		// 3) Set current page to 0 to refresh the table
 
 		controller.setCurrentPage(0);
 
-		shell.setSize(700, 250);
+		shell.setSize(800, 250);
 		shell.open();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch())

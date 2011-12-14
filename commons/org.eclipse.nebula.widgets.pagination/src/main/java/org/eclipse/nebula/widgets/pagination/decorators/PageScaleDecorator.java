@@ -25,8 +25,11 @@ public class PageScaleDecorator extends
 			PaginationController controller) {
 		int totalPages = controller.getTotalPages();
 		pageScale.setMinimum(0);
-		if (totalPages > 0) {
+		if (totalPages > 1) {
 			pageScale.setMaximum(totalPages - 1);
+		}		
+		else {
+			pageScale.setMaximum(1);
 		}
 		pageScale.setPageIncrement(1);
 		pageScale.setSelection(newPageIndex);
@@ -48,8 +51,11 @@ public class PageScaleDecorator extends
 			PaginationController controller) {
 		int totalPages = controller.getTotalPages();
 		pageScale.setMinimum(0);
-		if (totalPages > 0) {
+		if (totalPages > 1) {
 			pageScale.setMaximum(totalPages - 1);
+		}		
+		else {
+			pageScale.setMaximum(1);
 		}
 		pageScale.setPageIncrement(1);
 	}

@@ -7,6 +7,7 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.eclipse.nebula.widgets.pagination,
  org.eclipse.nebula.widgets.pagination.decorators,
+ org.eclipse.nebula.widgets.pagination.decorators.draw,
  org.eclipse.nebula.widgets.pagination.springdata,
  org.eclipse.nebula.widgets.pagination.springdata.forms
 Require-Bundle: org.eclipse.core.runtime,
