@@ -17,12 +17,15 @@ public class GreenGraphicsPageConfigurator implements GraphicsPageConfigurator {
 		// Selected item styles
 		page.setSelectedItemBackground(Resources.getColor(GREEN));
 		page.setSelectedItemForeground(Resources.getColor(WHITE));
-		
+
 		// Item styles
-		//page.setItemBorderColor(Resources.getColor(GRAY));
-		//page.setItemBackground(Resources.getColor(WHITE));
+		// page.setItemBorderColor(Resources.getColor(GRAY));
+		// page.setItemBackground(Resources.getColor(WHITE));
 		page.setItemForeground(Resources.getColor(GREEN));
 
+		// Disabled
+		page.setDisabledItemForeground(Resources.getColor(WHITE));
+		page.setDisabledItemBorderColor(Resources.getColor(WHITE));
 	}
 
 }

@@ -2,39 +2,25 @@ package org.eclipse.nebula.widgets.pagination.renderers;
 
 import java.util.Locale;
 
-import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.nebula.widgets.pagination.AbstractPageControllerComposite;
 import org.eclipse.nebula.widgets.pagination.PaginationController;
 import org.eclipse.nebula.widgets.pagination.PaginationHelper;
-import org.eclipse.nebula.widgets.pagination.Resources;
 import org.eclipse.nebula.widgets.pagination.renderers.graphics.BlueGraphicsPageConfigurator;
 import org.eclipse.nebula.widgets.pagination.renderers.graphics.GraphicsPage;
 import org.eclipse.nebula.widgets.pagination.renderers.graphics.GraphicsPageConfigurator;
 import org.eclipse.nebula.widgets.pagination.renderers.graphics.GraphicsPageItem;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Link;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
 
 public class ResultAndPageButtonsRenderer extends
-		AbstractPageControllerComposite<PaginationController> implements
-		SelectionListener {
+		AbstractPageControllerComposite<PaginationController> {
 
-	private static final String END_HREF = "</a>";
-	private static final String OPEN_START_HREF = "<a href=\"";
-	private static final String OPEN_END_HREF = "\" >";
-
-	private Link previousLink;
-	private Link nextLink;
 	private Label resultsLabel;
-	private int maxLinks = 10;
 	private GraphicsPage pageItems;
 	private final GraphicsPageConfigurator configurator;
 
@@ -62,11 +48,6 @@ public class ResultAndPageButtonsRenderer extends
 		createRightContainer(parent);
 	}
 
-	private void addHyperlinkListener(Link link,
-			ResultAndPageButtonsRenderer paginationBannerWidget2) {
-		link.addSelectionListener(this);
-	}
-
 	private void createLeftContainer(Composite parent) {
 		Composite left = createComposite(parent, SWT.NONE);
 		GridData data = new GridData(GridData.FILL_HORIZONTAL);
@@ -84,87 +65,35 @@ public class ResultAndPageButtonsRenderer extends
 		Composite right = createComposite(parent, SWT.NONE);
 		right.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-		GridLayout layout = new GridLayout(3, false);
+		GridLayout layout = new GridLayout();
 		layout.marginHeight = 0;
-		// layout.wrap = false;
-		// layout.fill=true;
 		right.setLayout(layout);
-
-		// Previous link
-		previousLink = createHyperlink(right, SWT.NONE);
-		setLinkText(previousLink, Resources.getText(
-				Resources.PaginationDecorator_previous, getLocale()));
-
-		GridData gridData = new GridData();
-		gridData.horizontalAlignment = SWT.RIGHT;
-		gridData.grabExcessHorizontalSpace = false;
-		previousLink.setLayoutData(new GridData());
-
-		addHyperlinkListener(previousLink, this);
 
 		pageItems = new GraphicsPage(right, SWT.NONE, configurator) {
 			@Override
 			protected void handleSelection(GraphicsPageItem pageItem) {
-				if (!pageItem.isDot()) {
-					getController().setCurrentPage(pageItem.getIndex());
+				Integer newCurrentPage = null;
+				if (!pageItem.isEnabled()) {
+					return;
+				}
+				if (pageItem.isNext()) {
+					newCurrentPage = getController().getCurrentPage() + 1;
+				} else if (pageItem.isPrevious()) {
+					newCurrentPage = getController().getCurrentPage() - 1;
+				} else {
+					newCurrentPage = pageItem.getIndex();
+				}
+				if (newCurrentPage != null) {
+					getController().setCurrentPage(newCurrentPage);
 				}
 			}
 		};
 		pageItems.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-		// pageLinks = createHyperlink(right, SWT.NONE);
-		// pageLinks.setForeground(getColor());
-
-		// gridData = new GridData();
-		// gridData.horizontalAlignment = SWT.FILL;
-		// gridData.grabExcessHorizontalSpace = true;
-		// pageLinks.setLayoutData(gridData);
-
-		// setLinkText(pageLinks, "");
-		// pageLinks.setToolTipText("Next");
-		GridData r = new GridData(GridData.FILL_HORIZONTAL);
-		// pageLinks.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		// addHyperlinkListener(pageLinks, this);
-
-		// Next link
-		nextLink = createHyperlink(right, SWT.NONE);
-		setLinkText(nextLink, Resources.getText(
-				Resources.PaginationDecorator_next, getLocale()));
-
-		gridData = new GridData();
-		gridData.horizontalAlignment = SWT.RIGHT;
-
-		nextLink.setLayoutData(gridData);
-		addHyperlinkListener(nextLink, this);
-		//
-		// l = new Label(right, SWT.WRAP);
-		// l.setText("/");
-		// l.setLayoutData(new GridData());
-		//
-		// // Last link
-		// lastLink = createHyperlink(right, SWT.NONE);
-		// setLinkText(lastLink, "Last]");
-		// lastLink.setLayoutData(new GridData());
-		// addHyperlinkListener(lastLink, this);
-
 	}
 
 	public void widgetDefaultSelected(SelectionEvent e) {
 
-	}
-
-	public void widgetSelected(SelectionEvent e) {
-		Link hyperlink = (Link) e.getSource();
-		int newCurrentPage = 0;
-		if (hyperlink == previousLink) {
-			newCurrentPage = getController().getCurrentPage() - 1;
-		} else if (hyperlink == nextLink) {
-			newCurrentPage = getController().getCurrentPage() + 1;
-		}
-		// else if (hyperlink == pageLinks) {
-		// newCurrentPage = Integer.parseInt(e.text);
-		// }
-		getController().setCurrentPage(newCurrentPage);
 	}
 
 	public void linkEntered(HyperlinkEvent e) {
@@ -177,7 +106,6 @@ public class ResultAndPageButtonsRenderer extends
 
 	public void pageIndexChanged(int oldPageNumber, int newPageNumber,
 			PaginationController controller) {
-		refreshEnabled(controller);
 
 		StringBuilder s = new StringBuilder();
 
@@ -186,23 +114,7 @@ public class ResultAndPageButtonsRenderer extends
 
 		pageItems.setIndexes(indexes);
 		pageItems.setPageIndexSelected(newPageNumber);
-		//
-		// for (int i = 0; i < indexes.length; i++) {
-		// int j = indexes[i];
-		// if (i > 0) {
-		// s.append(" ");
-		// }
-		// if (j == PaginationHelper.DOT) {
-		// s.append("...");
-		// } else if (j == newPageNumber)
-		// s.append("" + (j + 1) + "");
-		// else
-		// s.append("<a href=\"" + j + "\">" + (j + 1) + "</a>");
-		//
-		// }
-		// pageLinks.setText(s.toString());
-		// pageLinks.redraw();
-		// pageLinks.getParent().getParent().layout();
+		refreshEnabled(controller);
 	}
 
 	public void pageSizeChanged(int oldPageSize, int newPageSize,
@@ -219,8 +131,8 @@ public class ResultAndPageButtonsRenderer extends
 	private void refreshEnabled(PaginationController controller) {
 		resultsLabel.setText(PaginationHelper.getResultsText(controller,
 				getLocale()));
-		nextLink.setEnabled(controller.hasNextPage());
-		previousLink.setEnabled(controller.hasPreviousPage());
+		pageItems.setNextEnabled(controller.hasNextPage());
+		pageItems.setPreviousEnabled(controller.hasPreviousPage());
 	}
 
 	protected void displayResults(PaginationController controller) {
@@ -229,31 +141,6 @@ public class ResultAndPageButtonsRenderer extends
 
 	protected Composite createComposite(Composite parent, int style) {
 		return new Composite(parent, style);
-	}
-
-	protected Link createHyperlink(Composite parent, int style) {
-		return new Link(parent, style);
-	}
-
-	protected void setLinkText(Link link, String text) {
-		StringBuilder href = new StringBuilder();
-		href.append(OPEN_START_HREF);
-		href.append(text);
-		href.append(OPEN_END_HREF);
-		href.append(text);
-		href.append(END_HREF);
-		link.setText(href.toString());
-	}
-
-	protected Color getColor() {
-		Color color = JFaceResources.getColorRegistry().get(
-				"ResultAndPageLinksBannerWidget_red");
-		if (color == null) {
-			JFaceResources.getColorRegistry().put(
-					"ResultAndPageLinksBannerWidget_red", new RGB(255, 0, 0));
-		}
-		return JFaceResources.getColorRegistry().get(
-				"ResultAndPageLinksBannerWidget_red");
 	}
 
 	public void sortChanged(String oldPopertyName, String propertyName,
@@ -265,9 +152,14 @@ public class ResultAndPageButtonsRenderer extends
 	@Override
 	public void setLocale(Locale locale) {
 		super.setLocale(locale);
-		setLinkText(previousLink, Resources.getText(
-				Resources.PaginationDecorator_previous, getLocale()));
-		setLinkText(nextLink, Resources.getText(
-				Resources.PaginationDecorator_next, getLocale()));
+
+		// setLinkText(previousLink, Resources.getText(
+		// Resources.PaginationDecorator_previous, getLocale()));
+		// setLinkText(nextLink, Resources.getText(
+		// Resources.PaginationDecorator_next, getLocale()));
+	}
+
+	public GraphicsPage getGraphicsPage() {
+		return pageItems;
 	}
 }

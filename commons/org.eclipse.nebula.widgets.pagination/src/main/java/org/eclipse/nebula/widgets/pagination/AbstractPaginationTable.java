@@ -170,5 +170,12 @@ public abstract class AbstractPaginationTable<T extends PaginationController>
 		}
 	}
 
+	public Composite getBannerBottom() {
+		return bannerBottom;
+	}
+	
+	public Composite getBannerTop() {
+		return bannerTop;
+	}
 	public abstract void refreshPage();
 }

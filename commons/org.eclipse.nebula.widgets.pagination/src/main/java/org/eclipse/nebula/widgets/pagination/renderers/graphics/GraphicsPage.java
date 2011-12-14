@@ -34,6 +34,9 @@ public class GraphicsPage extends Canvas {
 	private Color itemBackground;
 	private Color itemBorderColor;
 
+	private Color disabledItemForeground;
+	private Color disabledItemBorderColor;
+
 	private Integer totalWidth;
 
 	public GraphicsPage(Composite parent, int style) {
@@ -93,17 +96,20 @@ public class GraphicsPage extends Canvas {
 		Color bg = gc.getBackground();
 
 		boolean dot = false;
-		int x, y, width, height=0;
+		int x, y, width, height = 0;
 		boolean selected = false;
+		boolean enabled = false;
+
 		for (GraphicsPageItem pageItem : pageItems) {
 			selected = pageItem.equals(selectedItem);
+			enabled = pageItem.isEnabled();
 			dot = pageItem.isDot();
-			
-			x=pageItem.getBounds().x;
-			y=pageItem.getBounds().y;
-			width=pageItem.getBounds().width;
-			height=pageItem.getBounds().height;
-			
+
+			x = pageItem.getBounds().x;
+			y = pageItem.getBounds().y;
+			width = pageItem.getBounds().width;
+			height = pageItem.getBounds().height;
+
 			if (selected) {
 				// Background
 				gc.setBackground(selectedItemBackground != null ? selectedItemBackground
@@ -115,7 +121,13 @@ public class GraphicsPage extends Canvas {
 					gc.fillRectangle(x, y, width, height);
 				}
 			} else {
-				gc.setForeground(itemBorderColor != null ? itemBorderColor : bg);
+				if (!enabled) {
+					gc.setForeground(disabledItemBorderColor != null ? disabledItemBorderColor
+							: fg);
+				} else {
+					gc.setForeground(itemBorderColor != null ? itemBorderColor
+							: fg);
+				}
 				if (!dot) {
 					if (round) {
 						gc.drawRoundRectangle(x, y, width, height, 10, 10);
@@ -126,14 +138,20 @@ public class GraphicsPage extends Canvas {
 			}
 
 			if (dot) {
-				gc.setForeground(itemForeground != null ? itemForeground: fg);
+				gc.setForeground(itemForeground != null ? itemForeground : fg);
 				gc.drawString(pageItem.getText(), x + 3, y, true);
 			} else {
 				if (selected) {
 					gc.setForeground(selectedItemForeground != null ? selectedItemForeground
 							: fg);
 				} else {
-					gc.setForeground(itemForeground != null ? itemForeground: fg);
+					if (!enabled) {
+						gc.setForeground(disabledItemForeground != null ? disabledItemForeground
+								: fg);
+					} else {
+						gc.setForeground(itemForeground != null ? itemForeground
+								: fg);
+					}
 				}
 				gc.drawString(pageItem.getText(), x + 3, y, true);
 			}
@@ -147,12 +165,14 @@ public class GraphicsPage extends Canvas {
 	}
 
 	public void setIndexes(int[] indexes) {
-		this.pageItems = new ArrayList<GraphicsPageItem>(indexes.length);
+		this.pageItems = new ArrayList<GraphicsPageItem>(indexes.length + 2);
 		int index = -1;
+		pageItems.add(new GraphicsPageItem(this, GraphicsPageItem.PREVIOUS));
 		for (int i = 0; i < indexes.length; i++) {
 			index = indexes[i];
 			pageItems.add(new GraphicsPageItem(this, index));
 		}
+		pageItems.add(new GraphicsPageItem(this, GraphicsPageItem.NEXT));
 		this.totalWidth = null;
 		// getParent().layout(true);
 	}
@@ -236,6 +256,9 @@ public class GraphicsPage extends Canvas {
 
 		for (GraphicsPageItem pageItem : pageItems) {
 			if (pageItem.contains(x, y)) {
+				if (!pageItem.isEnabled()) {
+					return null;
+				}
 				return pageItem;
 			}
 		}
@@ -307,6 +330,44 @@ public class GraphicsPage extends Canvas {
 
 	public void setSelectedItemBorderColor(Color selectedItemBorderColor) {
 		this.selectedItemBorderColor = selectedItemBorderColor;
+	}
+
+	public Color getDisabledItemForeground() {
+		return disabledItemForeground;
+	}
+
+	public void setDisabledItemForeground(Color disabledItemForeground) {
+		this.disabledItemForeground = disabledItemForeground;
+	}
+
+	public Color getDisabledItemBorderColor() {
+		return disabledItemBorderColor;
+	}
+
+	public void setDisabledItemBorderColor(Color disabledItemBorderColor) {
+		this.disabledItemBorderColor = disabledItemBorderColor;
+	}
+
+	public void setNextEnabled(boolean enabled) {
+		if (pageItems == null) {
+			return;
+		}
+		pageItems.get(pageItems.size() - 1).setEnabled(enabled);
+		redraw();
+	}
+
+	public void setPreviousEnabled(boolean enabled) {
+		if (pageItems == null) {
+			return;
+		}
+		pageItems.get(0).setEnabled(enabled);
+		redraw();
+	}
+
+	public void setConfigurator(GraphicsPageConfigurator configurator) {
+		configurator.configure(this);
+		redraw();
+		
 	}
 
 	// /**
