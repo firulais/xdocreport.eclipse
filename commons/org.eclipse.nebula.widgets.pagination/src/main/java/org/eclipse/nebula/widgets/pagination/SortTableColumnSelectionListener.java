@@ -31,6 +31,13 @@ public class SortTableColumnSelectionListener extends
 	/** the sort direction **/
 	private int sortDirection;
 
+	/**
+	 * Constructor with property name and default sort (SWT.NONE).
+	 * 
+	 * @param propertyName
+	 *            the sort property name.
+	 */
+
 	public SortTableColumnSelectionListener(String propertyName) {
 		this(propertyName, SWT.NONE, null);
 	}
@@ -39,6 +46,9 @@ public class SortTableColumnSelectionListener extends
 	 * Constructor with property name and default sort (SWT.NONE).
 	 * 
 	 * @param propertyName
+	 *            the sort property name.
+	 * @param controller
+	 *            the controller to update when sort is applied.
 	 */
 	public SortTableColumnSelectionListener(String propertyName,
 			PaginationController controller) {
@@ -49,7 +59,9 @@ public class SortTableColumnSelectionListener extends
 	 * Constructor with property name and sort direction.
 	 * 
 	 * @param propertyName
+	 *            the sort property name.
 	 * @param sortDirection
+	 *            the sort direction {@link SWT.UP}, {@link SWT.DOWN}.
 	 */
 	public SortTableColumnSelectionListener(String propertyName,
 			int sortDirection) {
@@ -60,7 +72,11 @@ public class SortTableColumnSelectionListener extends
 	 * Constructor with property name and sort direction.
 	 * 
 	 * @param propertyName
+	 *            the sort property name.
 	 * @param sortDirection
+	 *            the sort direction {@link SWT.UP}, {@link SWT.DOWN}.
+	 * @param controller
+	 *            the controller to update when sort is applied.
 	 */
 	public SortTableColumnSelectionListener(String propertyName,
 			int sortDirection, PaginationController controller) {
@@ -87,7 +103,7 @@ public class SortTableColumnSelectionListener extends
 	/**
 	 * Returns the property name used to sort.
 	 * 
-	 * @return
+	 * @return the sort property name.
 	 */
 	public String getSortPropertyName() {
 		return sortPropertyName;

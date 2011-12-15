@@ -140,6 +140,14 @@ public class PaginationController {
 		return getCurrentPage() * getPageSize();
 	}
 
+	/**
+	 * Update the sort.
+	 * 
+	 * @param propertyName
+	 *            the sort property name.
+	 * @param controller
+	 *            the controller to update when sort is applied.
+	 */
 	public void setSort(String propertyName, int sortDirection) {
 		if (this.sortPropertyName != propertyName
 				|| this.sortDirection != sortDirection) {
