@@ -8,12 +8,16 @@
          				  name="Resume with XDocReport"
          				  reportEngineId="fr.opensagres.xdocreport.eclipse.reporting.xdocreport"
          				  class="org.dynaresume.project.eclipse.reporting.ProjectReportProcessor" >
-         				  <!-- Resume with docx -->
          				  <reportLoader
          				  		  id="project.xdocreport.docx"
-         				  		  name="%DocxResumeName" 
-         				  		  description="%DocxResumeDesc"
-         				  		  class="org.dynaresume.project.eclipse.reporting.DocxProjectReportLoader" />         				    				  		 
+         				  		  name="%DocxProjectName" 
+         				  		  description="%DocxProjectDesc"
+         				  		  class="org.dynaresume.project.eclipse.reporting.DocxProjectReportLoader" />
+         				  <reportLoader
+         				  		  id="project.xdocreport.sodifrance"
+         				  		  name="%SodifranceProjectName" 
+         				  		  description="%SodifranceProjectDesc"
+         				  		  class="org.dynaresume.project.eclipse.reporting.SodifranceProjectReportLoader" />         				    				  		          				  		           				    				  		 
          </reportProcessor>				         				  
 	</extension>
   
