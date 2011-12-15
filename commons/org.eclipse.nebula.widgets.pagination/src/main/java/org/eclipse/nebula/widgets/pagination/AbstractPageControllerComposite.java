@@ -15,6 +15,16 @@ import java.util.Locale;
 
 import org.eclipse.swt.widgets.Composite;
 
+/**
+ * 
+ * Classes which implement this interface are SWT {@link Composite} which must
+ * observe changed of a pagination controller to react to update the UI
+ * according the change of the pagination controller. Ex:control to display page
+ * navigation, paginated data in a table, etc...
+ * 
+ * @param <T>
+ *            pagination controller.
+ */
 public abstract class AbstractPageControllerComposite<T extends PaginationController>
 		extends Composite implements PageChangedListener<T> {
 
@@ -51,6 +61,7 @@ public abstract class AbstractPageControllerComposite<T extends PaginationContro
 		if (createUI) {
 			createUI(this);
 		}
+		// add listener from the pagination controller.
 		this.controller.addPageChangedListener(this);
 	}
 
@@ -66,23 +77,35 @@ public abstract class AbstractPageControllerComposite<T extends PaginationContro
 		getController().setCurrentPage(currentPage);
 	}
 
-	public static int getDefaultPageSize() {
-		return DEFAULT_PAGE_SIZE;
-	}
-
 	@Override
 	public void dispose() {
+		// remove listener from the pagination controller.
 		getController().removePageChangedListener(this);
 		super.dispose();
 	}
 
+	/**
+	 * Set the locale to use for resources.
+	 * 
+	 * @param locale
+	 */
 	public void setLocale(Locale locale) {
 		this.locale = locale;
 	}
 
+	/**
+	 * returns the locale to use for resources.
+	 * 
+	 * @return
+	 */
 	public Locale getLocale() {
 		return locale;
 	}
 
+	/**
+	 * Create the UI content.
+	 * 
+	 * @param parent
+	 */
 	protected abstract void createUI(Composite parent);
 }

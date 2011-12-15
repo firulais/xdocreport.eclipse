@@ -37,7 +37,7 @@ public abstract class AbstractPaginationTable<T extends PaginationController>
 	public AbstractPaginationTable(Composite parent, int style, int tableStyle,
 			PageRendererFactory bannerTopFactory,
 			PageRendererFactory bannerBottomFactory) {
-		this(parent, tableStyle, style, getDefaultPageSize(), bannerTopFactory,
+		this(parent, tableStyle, style, DEFAULT_PAGE_SIZE, bannerTopFactory,
 				bannerBottomFactory, true);
 	}
 

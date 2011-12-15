@@ -44,7 +44,7 @@ public class PageableTable extends AbstractPaginationTable<PageableController> {
 	public PageableTable(Composite parent, int compositeStyle, int tableStyle,
 			PageRendererFactory bannerTopFactory,
 			PageRendererFactory bannerBottomFactory) {
-		this(parent, compositeStyle, tableStyle, getDefaultPageSize(),
+		this(parent, compositeStyle, tableStyle, DEFAULT_PAGE_SIZE,
 				bannerTopFactory, bannerBottomFactory, true);
 	}
 

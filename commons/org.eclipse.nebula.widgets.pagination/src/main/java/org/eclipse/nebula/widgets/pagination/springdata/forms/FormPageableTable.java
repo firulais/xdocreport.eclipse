@@ -28,13 +28,13 @@ public class FormPageableTable extends PageableTable {
 	public FormPageableTable(Composite parent, int style, int tableStyle,
 			FormToolkit toolkit, PageRendererFactory bannerTopFactory,
 			PageRendererFactory bannerBottomFactory) {
-		this(parent, style, tableStyle, toolkit, getDefaultPageSize(),
+		this(parent, style, tableStyle, toolkit, DEFAULT_PAGE_SIZE,
 				bannerTopFactory, bannerBottomFactory);
 	}
 
 	public FormPageableTable(Composite parent, int style, int tableStyle,
 			FormToolkit toolkit) {
-		this(parent, style, tableStyle, toolkit, getDefaultPageSize(),
+		this(parent, style, tableStyle, toolkit, DEFAULT_PAGE_SIZE,
 				getDefaultBannerTopFactory(), getDefaultBannerBottomFactory());
 	}
 
