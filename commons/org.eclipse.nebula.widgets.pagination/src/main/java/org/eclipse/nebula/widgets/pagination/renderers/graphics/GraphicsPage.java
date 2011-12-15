@@ -63,16 +63,9 @@ public class GraphicsPage extends Canvas {
 				if (s != null) {
 					select(s);
 				}
-				// PShelfItem item = getItem(new Point(1,e.y));
-				// if ((item) == null)
-				// return;
-				// if (item == mouseDownItem && item != openItem){
-				// openItem(item,true);
-				// }
 			}
 
 			public void mouseDown(MouseEvent e) {
-				// mouseDownItem = getItem(new Point(1,e.y));
 			}
 
 			public void mouseDoubleClick(MouseEvent arg0) {
@@ -137,61 +130,15 @@ public class GraphicsPage extends Canvas {
 				}
 			}
 
-			// if (selected) {
-			// // Background
-			// gc.setBackground(selectedItemBackground != null ?
-			// selectedItemBackground
-			// : bg);
-			// // Foreground
-			// if (round) {
-			// gc.fillRoundRectangle(x, y, width, height, 10, 10);
-			// } else {
-			// gc.fillRectangle(x, y, width, height);
-			// }
-			// } else {
-			// if (!enabled) {
-			// gc.setForeground(disabledItemBorderColor != null ?
-			// disabledItemBorderColor
-			// : fg);
-			// } else {
-			// gc.setForeground(itemBorderColor != null ? itemBorderColor
-			// : fg);
-			// }
-			// if (!dot) {
-			//
-			// if (itemBackground != null) {
-			// gc.setBackground(itemBackground);
-			// gc.fillRectangle(x, y, width, height);
-			// }
-			//
-			// if (round) {
-			// gc.drawRoundRectangle(x, y, width, height, 10, 10);
-			// } else {
-			// gc.drawRectangle(x, y, width, height);
-			// }
-			//
-			// }
-			// }
-
-			if (dot) {
-				gc.setForeground(itemForeground != null ? itemForeground : fg);
-				gc.drawString(pageItem.getText(), x + 3, y, true);
-			} else {
-				if (selected) {
-					gc.setForeground(selectedItemForeground != null ? selectedItemForeground
-							: fg);
-				} else {
-					if (!enabled) {
-						gc.setForeground(disabledItemForeground != null ? disabledItemForeground
-								: fg);
-					} else {
-						gc.setForeground(itemForeground != null ? itemForeground
-								: fg);
-					}
-				}
-				gc.drawString(pageItem.getText(), x + 3, y, true);
+			// Foreground text
+			Color textColor = getTextColor(selected, enabled);
+			if (textColor != null) {
+				gc.setForeground(textColor);
 			}
-			pageItem.setBounds(new Rectangle(x, y, width, height));
+			else {
+				gc.setForeground(fg);
+			}
+			gc.drawString(pageItem.getText(), x + 3, y, true);
 		}
 	}
 
@@ -215,6 +162,16 @@ public class GraphicsPage extends Canvas {
 			return disabledItemBorderColor;
 		}
 		return itemBorderColor;
+	}
+	
+	private Color getTextColor(boolean selected, boolean enabled) {
+		if (selected) {
+			return selectedItemForeground;
+		}
+		if (!enabled) {
+			return disabledItemForeground;
+		}
+		return itemForeground;
 	}
 
 	private void onResize() {

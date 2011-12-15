@@ -26,7 +26,7 @@ public class PaginationHelperTestCase extends TestCase {
 		int[] indexes = PaginationHelper.getPageIndexes(402, 403, 10);
 		System.err.println(display(indexes));
 
-		int[] expected = { 0, -1, 396, 397, 398, 399, 400, 401, 402, 403 };
+		int[] expected = { 0, -1, 395, 396, 397, 398, 399, 400, 401, 402 };
 		assertEquals(display(expected), display(indexes));
 	}
 
@@ -75,6 +75,22 @@ public class PaginationHelperTestCase extends TestCase {
 		System.err.println(display(indexes));
 
 		int[] expected = { 0, 1, 2, 3 };
+		assertEquals(display(expected), display(indexes));
+	}
+
+	public void test7name() throws Exception {
+		int[] indexes = PaginationHelper.getPageIndexes(7, 20, 10);
+		System.err.println(display(indexes));
+
+		int[] expected = { 0, 1, 2, 3, 4, 5, 6, 7, -1, 19 };
+		assertEquals(display(expected), display(indexes));
+	}
+
+	public void test8name() throws Exception {
+		int[] indexes = PaginationHelper.getPageIndexes(8, 20, 10);
+		System.err.println(display(indexes));
+
+		int[] expected = { 0,-1,5,6,7,8,9,10,-1,19 };
 		assertEquals(display(expected), display(indexes));
 	}
 

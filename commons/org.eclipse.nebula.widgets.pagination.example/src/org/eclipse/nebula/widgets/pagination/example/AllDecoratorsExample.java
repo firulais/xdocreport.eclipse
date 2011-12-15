@@ -78,7 +78,7 @@ public class AllDecoratorsExample {
 		table.setLinesVisible(true);
 
 		// 3) Create Table columns with sort of paginated list.
-		int pageSize = 100;
+		int pageSize = 10;
 		final PageableController controller = new PageableController(pageSize);
 		final PageLoader pageLoader = new PageLoaderListImpl(items);
 		controller.addPageChangedListener(PageLoaderStrategyHelper

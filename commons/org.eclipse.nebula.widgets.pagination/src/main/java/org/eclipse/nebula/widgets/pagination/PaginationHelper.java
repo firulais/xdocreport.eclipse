@@ -43,7 +43,7 @@ public class PaginationHelper {
 				}
 			} else {
 
-				if (nbMax - currentPageIndex > 0) {
+				if (nbMax - currentPageIndex > 2) {
 					for (int i = 0; i < indexes.length; i++) {
 						if (i == nbMax - 1) {
 							indexes[i] = totalPages - 1;
