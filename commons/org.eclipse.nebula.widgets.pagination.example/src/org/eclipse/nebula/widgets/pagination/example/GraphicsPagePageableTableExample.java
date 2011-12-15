@@ -19,6 +19,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.nebula.widgets.pagination.renderers.GraphicsPageRendererFactory;
 import org.eclipse.nebula.widgets.pagination.renderers.ResultAndPageButtonsRenderer;
+import org.eclipse.nebula.widgets.pagination.renderers.graphics.BlackGraphicsPageConfigurator;
 import org.eclipse.nebula.widgets.pagination.renderers.graphics.BlueGraphicsPageConfigurator;
 import org.eclipse.nebula.widgets.pagination.renderers.graphics.GreenGraphicsPageConfigurator;
 import org.eclipse.nebula.widgets.pagination.springdata.PageLoaderListImpl;
@@ -69,7 +70,7 @@ public class GraphicsPagePageableTableExample {
 		pageableTable.setCurrentPage(0);
 
 		final Combo styleCombo = new Combo(shell, SWT.READ_ONLY);
-		styleCombo.setItems(new String[] { "Blue", "Green" });
+		styleCombo.setItems(new String[] { "Blue", "Green", "Black" });
 		styleCombo.select(0);
 		styleCombo.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -78,10 +79,14 @@ public class GraphicsPagePageableTableExample {
 					((ResultAndPageButtonsRenderer) pageableTable
 							.getBannerTop()).getGraphicsPage().setConfigurator(
 							BlueGraphicsPageConfigurator.getInstance());
-				} else {
+				} else if (styleCombo.getText().equals("Green")) {
 					((ResultAndPageButtonsRenderer) pageableTable
 							.getBannerTop()).getGraphicsPage().setConfigurator(
 							GreenGraphicsPageConfigurator.getInstance());
+				} else {
+					((ResultAndPageButtonsRenderer) pageableTable
+							.getBannerTop()).getGraphicsPage().setConfigurator(
+							BlackGraphicsPageConfigurator.getInstance());
 				}
 
 			}

@@ -92,8 +92,8 @@ public class GraphicsPage extends Canvas {
 		}
 		computeBoundsIfneeded(gc);
 
-		Color fg = gc.getForeground();
-		Color bg = gc.getBackground();
+		Color fg = getDisplay().getSystemColor(SWT.COLOR_WIDGET_FOREGROUND);
+		Color bg = getDisplay().getSystemColor(SWT.COLOR_WIDGET_BACKGROUND);
 
 		boolean dot = false;
 		int x, y, width, height = 0;
@@ -134,6 +134,12 @@ public class GraphicsPage extends Canvas {
 					} else {
 						gc.drawRectangle(x, y, width, height);
 					}
+					
+					if (itemBackground != null) {
+						gc.setBackground(itemBackground);
+						gc.fillRectangle(x, y, width, height);
+					}
+					
 				}
 			}
 

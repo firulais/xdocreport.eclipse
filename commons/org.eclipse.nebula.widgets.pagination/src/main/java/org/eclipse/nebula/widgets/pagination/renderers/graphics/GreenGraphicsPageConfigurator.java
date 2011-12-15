@@ -1,6 +1,7 @@
 package org.eclipse.nebula.widgets.pagination.renderers.graphics;
 
 import org.eclipse.nebula.widgets.pagination.Resources;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
 
 public class GreenGraphicsPageConfigurator implements GraphicsPageConfigurator {
@@ -14,6 +15,8 @@ public class GreenGraphicsPageConfigurator implements GraphicsPageConfigurator {
 	}
 
 	public void configure(GraphicsPage page) {
+		page.setBackground(page.getDisplay().getSystemColor(SWT.COLOR_WIDGET_BACKGROUND));
+		
 		// Selected item styles
 		page.setSelectedItemBackground(Resources.getColor(GREEN));
 		page.setSelectedItemForeground(Resources.getColor(WHITE));
