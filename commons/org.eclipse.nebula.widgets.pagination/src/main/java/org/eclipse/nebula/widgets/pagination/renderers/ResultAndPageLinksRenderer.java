@@ -113,7 +113,7 @@ public class ResultAndPageLinksRenderer extends
 		// Previous link
 		previousLink = createHyperlink(right, SWT.NONE);
 		setLinkText(previousLink, Resources.getText(
-				Resources.PaginationDecorator_previous, getLocale()));
+				Resources.PaginationRenderer_previous, getLocale()));
 
 		GridData gridData = new GridData();
 		gridData.horizontalAlignment = SWT.RIGHT;
@@ -139,7 +139,7 @@ public class ResultAndPageLinksRenderer extends
 		// Next link
 		nextLink = createHyperlink(right, SWT.NONE);
 		setLinkText(nextLink, Resources.getText(
-				Resources.PaginationDecorator_next, getLocale()));
+				Resources.PaginationRenderer_next, getLocale()));
 
 		gridData = new GridData();
 		gridData.horizontalAlignment = SWT.LEFT;
@@ -268,8 +268,8 @@ public class ResultAndPageLinksRenderer extends
 	public void setLocale(Locale locale) {
 		super.setLocale(locale);
 		setLinkText(previousLink, Resources.getText(
-				Resources.PaginationDecorator_previous, getLocale()));
+				Resources.PaginationRenderer_previous, getLocale()));
 		setLinkText(nextLink, Resources.getText(
-				Resources.PaginationDecorator_next, getLocale()));
+				Resources.PaginationRenderer_next, getLocale()));
 	}
 }

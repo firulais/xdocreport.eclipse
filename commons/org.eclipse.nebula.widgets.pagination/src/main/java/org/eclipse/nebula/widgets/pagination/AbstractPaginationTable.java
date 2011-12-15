@@ -49,8 +49,7 @@ public abstract class AbstractPaginationTable<T extends PaginationController>
 	}
 
 	protected AbstractPaginationTable(Composite parent, int style,
-			int tableStyle, int pageSize,
-			PageRendererFactory bannerTopFactory,
+			int tableStyle, int pageSize, PageRendererFactory bannerTopFactory,
 			PageRendererFactory bannerBottomFactory, boolean createUI) {
 		super(parent, style, pageSize, null, false);
 		this.tableStyle = tableStyle;
@@ -66,7 +65,7 @@ public abstract class AbstractPaginationTable<T extends PaginationController>
 		this.setLayout(new GridLayout());
 		createBannerTop(parent);
 		this.table = createTable(parent);
-		PaginationHelper.setPaginationTable(table, this);
+		PaginationHelper.setController(table, getController());
 		this.viewer = new TableViewer(table);
 		createBannerBottom(parent);
 		super.setLocale(Locale.getDefault());
@@ -173,9 +172,10 @@ public abstract class AbstractPaginationTable<T extends PaginationController>
 	public Composite getBannerBottom() {
 		return bannerBottom;
 	}
-	
+
 	public Composite getBannerTop() {
 		return bannerTop;
 	}
+
 	public abstract void refreshPage();
 }

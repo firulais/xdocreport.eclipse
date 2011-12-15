@@ -22,13 +22,13 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.nebula.widgets.pagination.SortTableColumnSelectionListener;
 import org.eclipse.nebula.widgets.pagination.example.model.Address;
 import org.eclipse.nebula.widgets.pagination.example.model.Person;
-import org.eclipse.nebula.widgets.pagination.renderers.PageComboRenderer;
-import org.eclipse.nebula.widgets.pagination.renderers.PageScaleRenderer;
+import org.eclipse.nebula.widgets.pagination.renderers.PageNavigationComboRenderer;
+import org.eclipse.nebula.widgets.pagination.renderers.PageNavigationScaleRenderer;
 import org.eclipse.nebula.widgets.pagination.renderers.PageSizeComboRenderer;
-import org.eclipse.nebula.widgets.pagination.renderers.ResultAndPageButtonsRenderer;
+import org.eclipse.nebula.widgets.pagination.renderers.ResultAndPageGraphicsRenderer;
 import org.eclipse.nebula.widgets.pagination.renderers.ResultAndPageLinksRenderer;
-import org.eclipse.nebula.widgets.pagination.renderers.graphics.BlackGraphicsPageConfigurator;
-import org.eclipse.nebula.widgets.pagination.renderers.graphics.GreenGraphicsPageConfigurator;
+import org.eclipse.nebula.widgets.pagination.renderers.graphics.BlackGraphicsPageNavigationConfigurator;
+import org.eclipse.nebula.widgets.pagination.renderers.graphics.GreenGraphicsPageNavigationConfigurator;
 import org.eclipse.nebula.widgets.pagination.springdata.PageLoader;
 import org.eclipse.nebula.widgets.pagination.springdata.PageLoaderListImpl;
 import org.eclipse.nebula.widgets.pagination.springdata.PageLoaderStrategyHelper;
@@ -92,12 +92,12 @@ public class AllDecoratorsExample {
 		right.setLayoutData(new GridData(GridData.FILL_BOTH));
 		right.setLayout(new GridLayout());
 
-		PageComboRenderer pageComboDecorator = new PageComboRenderer(
+		PageNavigationComboRenderer pageComboDecorator = new PageNavigationComboRenderer(
 				controller, right, SWT.NONE);
 		pageComboDecorator
 				.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-		PageScaleRenderer pageScaleDecorator = new PageScaleRenderer(
+		PageNavigationScaleRenderer pageScaleDecorator = new PageNavigationScaleRenderer(
 				controller, right, SWT.NONE);
 		pageScaleDecorator
 				.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -113,19 +113,19 @@ public class AllDecoratorsExample {
 		pageSizeComboDecorator.setLayoutData(new GridData(
 				GridData.FILL_HORIZONTAL));
 
-		ResultAndPageButtonsRenderer resultAndPageButtonsDecorator = new ResultAndPageButtonsRenderer(
+		ResultAndPageGraphicsRenderer resultAndPageButtonsDecorator = new ResultAndPageGraphicsRenderer(
 				controller, right, SWT.NONE);
 		resultAndPageButtonsDecorator.setLayoutData(new GridData(
 				GridData.FILL_HORIZONTAL));
 
-		ResultAndPageButtonsRenderer black = new ResultAndPageButtonsRenderer(
+		ResultAndPageGraphicsRenderer black = new ResultAndPageGraphicsRenderer(
 				controller, right, SWT.NONE,
-				BlackGraphicsPageConfigurator.getInstance());
+				BlackGraphicsPageNavigationConfigurator.getInstance());
 		black.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-		ResultAndPageButtonsRenderer green = new ResultAndPageButtonsRenderer(
+		ResultAndPageGraphicsRenderer green = new ResultAndPageGraphicsRenderer(
 				controller, right, SWT.NONE,
-				GreenGraphicsPageConfigurator.getInstance());
+				GreenGraphicsPageNavigationConfigurator.getInstance());
 		green.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		// 3) Set current page to 0 to refresh the table

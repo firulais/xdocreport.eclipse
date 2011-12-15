@@ -13,18 +13,21 @@ package org.eclipse.nebula.widgets.pagination;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.Widget;
 
 /**
  * 
- * {@link SelectionListener} implementation to sort a table column by using the
- * attached pagination controller of the SWT {@link Table}.
+ * Abstract class to sort a widget (table tree etc...) column by using the
+ * attached pagination controller of the SWT parent (table tree...).
  * 
  */
-public class SortTableColumnSelectionListener extends
-		AbstractSortColumnSelectionListener {
+public abstract class AbstractSortColumnSelectionListener extends
+		AbstractPageControllerSelectionListener<PaginationController> {
+
+	/** property name used to sort **/
+	private final String sortPropertyName;
+	/** the sort direction **/
+	private int sortDirection;
 
 	/**
 	 * Constructor with property name and default sort (SWT.NONE).
@@ -33,7 +36,7 @@ public class SortTableColumnSelectionListener extends
 	 *            the sort property name.
 	 */
 
-	public SortTableColumnSelectionListener(String propertyName) {
+	public AbstractSortColumnSelectionListener(String propertyName) {
 		this(propertyName, SWT.NONE, null);
 	}
 
@@ -45,7 +48,7 @@ public class SortTableColumnSelectionListener extends
 	 * @param controller
 	 *            the controller to update when sort is applied.
 	 */
-	public SortTableColumnSelectionListener(String propertyName,
+	public AbstractSortColumnSelectionListener(String propertyName,
 			PaginationController controller) {
 		this(propertyName, SWT.NONE, controller);
 	}
@@ -58,7 +61,7 @@ public class SortTableColumnSelectionListener extends
 	 * @param sortDirection
 	 *            the sort direction {@link SWT.UP}, {@link SWT.DOWN}.
 	 */
-	public SortTableColumnSelectionListener(String propertyName,
+	public AbstractSortColumnSelectionListener(String propertyName,
 			int sortDirection) {
 		this(propertyName, sortDirection, null);
 	}
@@ -73,27 +76,57 @@ public class SortTableColumnSelectionListener extends
 	 * @param controller
 	 *            the controller to update when sort is applied.
 	 */
-	public SortTableColumnSelectionListener(String propertyName,
+	public AbstractSortColumnSelectionListener(String propertyName,
 			int sortDirection, PaginationController controller) {
-		super(propertyName, sortDirection, controller);
+		super(controller);
+		this.sortPropertyName = propertyName;
+		this.sortDirection = sortDirection;
 	}
 
 	@Override
-	protected Table getParent(SelectionEvent e) {
-		// 1) Get table column which fire this selection event
-		TableColumn tableColumn = (TableColumn) e.getSource();
-		// 2) Get the owner table
-		return tableColumn.getParent();
+	public void widgetSelected(SelectionEvent e) {
+		Widget parent = getParent(e);
+		// 4) Compute the (inverse) sort direction
+		sortDirection = sortDirection == SWT.DOWN ? SWT.UP : SWT.DOWN;
+		// 5) Modify the sort of the page controller
+		super.getController(parent).setSort(sortPropertyName, sortDirection);
+		// 6) Modify the SWT Table sort
+		sort(e);
 	}
 
-	@Override
-	protected void sort(SelectionEvent e) {
-		// 1) Get table column which fire this selection event
-		TableColumn tableColumn = (TableColumn) e.getSource();
-		// 2) Get the owner table
-		Table table = tableColumn.getParent();
-		// 3) Modify the SWT Table sort
-		table.setSortColumn(tableColumn);
-		table.setSortDirection(getSortDirection());
+	/**
+	 * Returns the property name used to sort.
+	 * 
+	 * @return the sort property name.
+	 */
+	public String getSortPropertyName() {
+		return sortPropertyName;
 	}
+
+	/**
+	 * Returns the sort direction {@link SWT.UP}, {@link SWT.DOWN}.
+	 * 
+	 * @return
+	 */
+	public int getSortDirection() {
+		return sortDirection;
+	}
+
+	/**
+	 * Returns the parent of the sorted column (ex Table for TableColumn, Tree
+	 * for TreeColumn).
+	 * 
+	 * @param e
+	 * @return
+	 */
+	protected abstract Widget getParent(SelectionEvent e);
+
+	/**
+	 * Sort the column od the parent of the sorted column (ex Table for
+	 * TableColumn, Tree for TreeColumn).
+	 * 
+	 * @param e
+	 */
+	protected abstract void sort(SelectionEvent e);
+
 }

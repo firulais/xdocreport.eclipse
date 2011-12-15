@@ -16,7 +16,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Item;
 
-public class GraphicsPageItem extends Item {
+public class GraphicsPageNavigationItem extends Item {
 
 	public static final int PREVIOUS = PaginationHelper.DOT - 1;
 	public static final int NEXT = PaginationHelper.DOT - 2;
@@ -25,7 +25,7 @@ public class GraphicsPageItem extends Item {
 	private Rectangle bounds;
 	private boolean enabled;
 
-	public GraphicsPageItem(GraphicsPage parent, int index) {
+	public GraphicsPageNavigationItem(GraphicsPageNavigation parent, int index) {
 		super(parent, SWT.NONE);
 		this.index = index;
 		boolean enabled = true;

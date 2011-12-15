@@ -17,11 +17,11 @@ import java.util.List;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.nebula.widgets.pagination.renderers.GraphicsPageRendererFactory;
-import org.eclipse.nebula.widgets.pagination.renderers.ResultAndPageButtonsRenderer;
-import org.eclipse.nebula.widgets.pagination.renderers.graphics.BlackGraphicsPageConfigurator;
-import org.eclipse.nebula.widgets.pagination.renderers.graphics.BlueGraphicsPageConfigurator;
-import org.eclipse.nebula.widgets.pagination.renderers.graphics.GreenGraphicsPageConfigurator;
+import org.eclipse.nebula.widgets.pagination.renderers.ResultAndPageGraphicsRendererFactory;
+import org.eclipse.nebula.widgets.pagination.renderers.ResultAndPageGraphicsRenderer;
+import org.eclipse.nebula.widgets.pagination.renderers.graphics.BlackGraphicsPageNavigationConfigurator;
+import org.eclipse.nebula.widgets.pagination.renderers.graphics.BlueGraphicsPageNavigationConfigurator;
+import org.eclipse.nebula.widgets.pagination.renderers.graphics.GreenGraphicsPageNavigationConfigurator;
 import org.eclipse.nebula.widgets.pagination.springdata.PageLoaderListImpl;
 import org.eclipse.nebula.widgets.pagination.springdata.PageableTable;
 import org.eclipse.swt.SWT;
@@ -54,7 +54,7 @@ public class GraphicsPagePageableTableExample {
 		final PageableTable pageableTable = new PageableTable(shell,
 				SWT.BORDER, SWT.BORDER | SWT.MULTI | SWT.H_SCROLL
 						| SWT.V_SCROLL, pageSize,
-				GraphicsPageRendererFactory.getBlueFactory(), null);
+				ResultAndPageGraphicsRendererFactory.getBlueFactory(), null);
 		pageableTable.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		// 2) Initialize the table viewer
@@ -76,17 +76,17 @@ public class GraphicsPagePageableTableExample {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (styleCombo.getText().equals("Blue")) {
-					((ResultAndPageButtonsRenderer) pageableTable
+					((ResultAndPageGraphicsRenderer) pageableTable
 							.getBannerTop()).getGraphicsPage().setConfigurator(
-							BlueGraphicsPageConfigurator.getInstance());
+							BlueGraphicsPageNavigationConfigurator.getInstance());
 				} else if (styleCombo.getText().equals("Green")) {
-					((ResultAndPageButtonsRenderer) pageableTable
+					((ResultAndPageGraphicsRenderer) pageableTable
 							.getBannerTop()).getGraphicsPage().setConfigurator(
-							GreenGraphicsPageConfigurator.getInstance());
+							GreenGraphicsPageNavigationConfigurator.getInstance());
 				} else {
-					((ResultAndPageButtonsRenderer) pageableTable
+					((ResultAndPageGraphicsRenderer) pageableTable
 							.getBannerTop()).getGraphicsPage().setConfigurator(
-							BlackGraphicsPageConfigurator.getInstance());
+							BlackGraphicsPageNavigationConfigurator.getInstance());
 				}
 
 			}

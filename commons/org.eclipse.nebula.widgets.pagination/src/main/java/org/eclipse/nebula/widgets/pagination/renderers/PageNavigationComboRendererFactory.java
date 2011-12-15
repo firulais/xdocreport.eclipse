@@ -15,9 +15,9 @@ import org.eclipse.nebula.widgets.pagination.PaginationController;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
-public class PageScaleRendererFactory implements PageRendererFactory {
+public class PageNavigationComboRendererFactory implements PageRendererFactory {
 
-	private static final PageRendererFactory FACTORY = new PageScaleRendererFactory();
+	private static final PageRendererFactory FACTORY = new PageNavigationComboRendererFactory();
 
 	public static PageRendererFactory getFactory() {
 		return FACTORY;
@@ -25,6 +25,6 @@ public class PageScaleRendererFactory implements PageRendererFactory {
 
 	public Composite createRenderer(PaginationController controller,
 			Composite parent, int style) {
-		return new PageScaleRenderer(controller, parent, SWT.NONE);
+		return new PageNavigationComboRenderer(controller, parent, SWT.NONE);
 	}
 }

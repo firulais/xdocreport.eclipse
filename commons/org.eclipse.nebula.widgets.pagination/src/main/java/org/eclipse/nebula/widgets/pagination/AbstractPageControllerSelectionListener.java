@@ -12,25 +12,53 @@
 package org.eclipse.nebula.widgets.pagination;
 
 import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.widgets.Widget;
 
+/**
+ * 
+ * Abstract class {@link SelectionListener} implementation for {@link Widget}
+ * which needs update pagination controller.
+ * 
+ * @param <T>
+ *            pagination controller.
+ */
 public class AbstractPageControllerSelectionListener<T extends PaginationController>
 		extends SelectionAdapter {
 
 	private final T controller;
 
+	/**
+	 * Constructor with none pagination controller.
+	 * 
+	 * @param controller
+	 */
+	public AbstractPageControllerSelectionListener() {
+		this(null);
+	}
+
+	/**
+	 * Constructor with pagination controller.
+	 * 
+	 * @param controller
+	 */
 	public AbstractPageControllerSelectionListener(T controller) {
 		this.controller = controller;
 	}
 
-	public T getController(Table table) {
+	/**
+	 * Returns the attached pagination controller of teh given widgget.
+	 * 
+	 * @param widget
+	 * @return
+	 */
+	public T getController(Widget widget) {
 		if (controller != null) {
+			// Controller is defined, return it.
 			return controller;
 		}
-		// 3) Get the pagination controller attached to this table
-		AbstractPaginationTable<?> paginationTable = PaginationHelper
-				.getPaginationTable(table);
-		return (T) paginationTable.getController();
+		// Get the pagination controller attached to this widget
+		return (T) PaginationHelper.getController(widget);
 	}
 
 }

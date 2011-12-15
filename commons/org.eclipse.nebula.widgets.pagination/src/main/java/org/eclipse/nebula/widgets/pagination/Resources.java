@@ -18,15 +18,28 @@ import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 
+/**
+ * Resources helper used to messages resources from bundle and SWT {@link Color}
+ * .
+ */
 public class Resources {
 
 	/** Bundle name constant */
 	public static final String BUNDLE_NAME = "org.eclipse.nebula.widgets.pagination.resources"; //$NON-NLS-1$
 
-	public static final String PaginationDecorator_results = "PaginationDecorator.results";
-	public static final String PaginationDecorator_previous = "PaginationDecorator.previous";
-	public static final String PaginationDecorator_next = "PaginationDecorator.next";
+	public static final String PaginationRenderer_results = "PaginationRenderer.results";
+	public static final String PaginationRenderer_previous = "PaginationRenderer.previous";
+	public static final String PaginationRenderer_next = "PaginationRenderer.next";
 
+	/**
+	 * Returns the text of the given messageKey according the given locale.
+	 * 
+	 * @param messageKey
+	 *            the message key.
+	 * @param locale
+	 *            the locale.
+	 * @return
+	 */
 	public static String getText(String messageKey, Locale locale) {
 		if (locale == null) {
 			return ResourceBundle.getBundle(BUNDLE_NAME).getString(messageKey);
@@ -35,6 +48,12 @@ public class Resources {
 				messageKey);
 	}
 
+	/**
+	 * Create or get instance of SWT {@link Color} from the given {@link RGB}.
+	 * 
+	 * @param rgb
+	 * @return
+	 */
 	public static Color getColor(RGB rgb) {
 		String key = rgb.toString();
 		Color color = JFaceResources.getColorRegistry().get(key);

@@ -11,8 +11,8 @@
  *******************************************************************************/
 package org.eclipse.nebula.widgets.pagination.renderers.graphics;
 
-public interface GraphicsPageConfigurator {
+public interface GraphicsPageNavigationConfigurator {
 
-	void configure(GraphicsPage page);
+	void configure(GraphicsPageNavigation page);
 	
 }

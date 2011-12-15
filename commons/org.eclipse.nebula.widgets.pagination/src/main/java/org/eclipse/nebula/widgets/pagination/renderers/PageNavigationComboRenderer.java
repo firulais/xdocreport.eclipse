@@ -21,13 +21,13 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 
-public class PageComboRenderer extends
+public class PageNavigationComboRenderer extends
 		AbstractPageControllerComposite<PaginationController> implements
 		SelectionListener {
 
 	private Combo pageCombo;
 
-	public PageComboRenderer(PaginationController controller,
+	public PageNavigationComboRenderer(PaginationController controller,
 			Composite parent, int style) {
 		super(parent, style, controller);
 	}

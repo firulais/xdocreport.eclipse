@@ -16,26 +16,55 @@ import org.eclipse.swt.SWT;
 
 /**
  * 
- * Pagination controller.
+ * The pagination controller is used to store information about pagination :
+ * 
+ * <ul>
+ * <li>the current page index: index of the selected page.</li>
+ * <li>the page size: number items to display per page.</li>
+ * <li>the total elements: the total elements of the paginated list.</li>
+ * <li>the current sort information: the property name and direction of the
+ * sort.</li>
+ * </ul>
+ * 
+ * <p>
+ * The controller fire events as soon as pagination information change
+ * (ex:selected page change). Those information can be observed by adding
+ * {@link PageChangedListener} to the controller.
+ * </p>
  * 
  */
 public class PaginationController {
 
-	private static final int DEFAULT_PAGE_INDEX = -1;
-	private static final int DEFAULT_PAGE_SIZE = 10;
+	public static final int DEFAULT_PAGE_INDEX = -1;
+	public static final int DEFAULT_PAGE_SIZE = 10;
 
+	// the current page index: index of the selected page
 	private int currentPage;
+	// the page size: number items to display per page
 	private int pageSize;
+	// the total elements: the total elements of the paginated list
 	private long totalElements;
+	// the current sort information: the property name and direction of the
+	// sort.
 	private String sortPropertyName;
 	private int sortDirection;
 
 	private ListenerList pageChangedListeners = new ListenerList();
 
+	/**
+	 * Constructor with default page size.
+	 * 
+	 */
 	public PaginationController() {
 		this(DEFAULT_PAGE_SIZE);
 	}
 
+	/**
+	 * Constructor with page size.
+	 * 
+	 * @param pageSize
+	 *            size of the page (number items displayed per page).
+	 */
 	public PaginationController(int pageSize) {
 		this.currentPage = DEFAULT_PAGE_INDEX;
 		this.pageSize = pageSize;
@@ -44,7 +73,22 @@ public class PaginationController {
 		this.sortDirection = SWT.NONE;
 	}
 
-	public void addPageChangedListener(PageChangedListener listener) {
+	/**
+	 * Adds the listener to the collection of listeners who will be notified
+	 * when the page controller changed ( the current page page size, total
+	 * elements or sort change.
+	 * 
+	 * @param listener
+	 *            the listener which should be notified when the controller
+	 *            change.
+	 * @param listener
+	 * 
+	 * @see PageChangedListener
+	 * @see #removePageChangedListener(PageChangedListener)
+	 * 
+	 */
+	public void addPageChangedListener(
+			@SuppressWarnings("rawtypes") PageChangedListener listener) {
 		if (listener == null) {
 			throw new NullPointerException(
 					"Cannot add a null page changed listener"); //$NON-NLS-1$
@@ -52,16 +96,28 @@ public class PaginationController {
 		pageChangedListeners.add(listener);
 	}
 
-	public void removePageChangedListener(PageChangedListener listener) {
+	/**
+	 * Removes the listener from the collection of listeners who will be
+	 * notified when page controller changed ( the current page page size, total
+	 * elements or sort change.
+	 * 
+	 * @param listener
+	 *            the listener which should no longer be notified
+	 * 
+	 * @see PageChangedListener
+	 * @see #addPageChangedListener(PageChangedListener)
+	 */
+	public void removePageChangedListener(
+			@SuppressWarnings("rawtypes") PageChangedListener listener) {
 		if (listener != null) {
 			pageChangedListeners.remove(listener);
 		}
 	}
 
 	/**
-	 * Returns if there is a previous page.
+	 * Returns true if there is a previous page and false otherwise.
 	 * 
-	 * @return if there is a previous page
+	 * @return true if there is a previous page and false otherwise.
 	 */
 	public boolean hasPreviousPage() {
 		return getCurrentPage() > 0;
@@ -77,18 +133,30 @@ public class PaginationController {
 	}
 
 	/**
-	 * Returns if there is a next page.
+	 * Returns true if there is a next page and false otherwise.
 	 * 
-	 * @return if there is a next page
+	 * @return true if there is a next page and false otherwise.
 	 */
 	public boolean hasNextPage() {
 		return ((getCurrentPage() + 1) * getPageSize()) < totalElements;
 	}
 
+	/**
+	 * Returns the current page index.
+	 * 
+	 * @return
+	 */
 	public int getCurrentPage() {
 		return currentPage;
 	}
 
+	/**
+	 * Set the current page index and fire events if the given page index is
+	 * different from the current page index.
+	 * 
+	 * @param currentPage
+	 *            new current page index.
+	 */
 	public void setCurrentPage(int currentPage) {
 		if (this.currentPage != currentPage) {
 			int oldPageNumber = this.currentPage;
@@ -97,10 +165,22 @@ public class PaginationController {
 		}
 	}
 
+	/**
+	 * Returns the page size: number items to display per page.
+	 * 
+	 * @return
+	 */
 	public int getPageSize() {
 		return pageSize;
 	}
 
+	/**
+	 * Set the page size and fire events if the given page size is different
+	 * from the current page size.
+	 * 
+	 * @param pageSize
+	 *            page size: number items to display per page.
+	 */
 	public void setPageSize(int pageSize) {
 		if (this.pageSize != pageSize) {
 			int oldPageSize = this.pageSize;
@@ -109,6 +189,11 @@ public class PaginationController {
 		}
 	}
 
+	/**
+	 * Returns the total pages.
+	 * 
+	 * @return
+	 */
 	public int getTotalPages() {
 		return getPageSize() == 0 ? 0 : (int) Math.ceil((double) totalElements
 				/ (double) getPageSize());
@@ -132,21 +217,32 @@ public class PaginationController {
 		}
 	}
 
+	/**
+	 * Returns the total elements.
+	 * 
+	 * @return
+	 */
 	public long getTotalElements() {
 		return totalElements;
 	}
 
+	/**
+	 * Returns the current page offset.
+	 * 
+	 * @return
+	 */
 	public int getPageOffset() {
 		return getCurrentPage() * getPageSize();
 	}
 
 	/**
-	 * Update the sort.
+	 * Set the sort and fire events if the given sort is different from the
+	 * current sort.
 	 * 
 	 * @param propertyName
 	 *            the sort property name.
-	 * @param controller
-	 *            the controller to update when sort is applied.
+	 * @param sortDirection
+	 *            the sort direction {@link SWT.UP}, {@link SWT.DOWN}.
 	 */
 	public void setSort(String propertyName, int sortDirection) {
 		if (this.sortPropertyName != propertyName
@@ -160,14 +256,28 @@ public class PaginationController {
 		}
 	}
 
+	/**
+	 * Returns the property name used to sort.
+	 * 
+	 * @return the sort property name.
+	 */
 	public String getSortPropertyName() {
 		return sortPropertyName;
 	}
 
+	/**
+	 * Returns the sort direction {@link SWT.UP}, {@link SWT.DOWN}.
+	 * 
+	 * @return
+	 */
 	public int getSortDirection() {
 		return sortDirection;
 	}
 
+	/**
+	 * Reset the current page index and force the fire events of page index
+	 * changed.
+	 */
 	public void reset() {
 		int oldCurrentPage = currentPage;
 		this.currentPage = 0;
@@ -176,6 +286,7 @@ public class PaginationController {
 		// this.sortDirection = SWT.NONE;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void notifyListenersForPageIndexChanged(int oldPageNumber,
 			int newPageNumber) {
 		final Object[] listeners = pageChangedListeners.getListeners();
@@ -185,6 +296,7 @@ public class PaginationController {
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void notifyListenersForTotalElementsChanged(long oldTotalElements,
 			long newTotalElements) {
 		final Object[] listeners = pageChangedListeners.getListeners();
@@ -195,6 +307,7 @@ public class PaginationController {
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void notifyListenersForSortChanged(String oldPopertyName,
 			String propertyName, int oldSortDirection, int sortDirection) {
 		final Object[] listeners = pageChangedListeners.getListeners();
@@ -205,6 +318,7 @@ public class PaginationController {
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void notifyListenersForPageSizeChanged(int oldPageSize,
 			int newPageSize) {
 		final Object[] listeners = pageChangedListeners.getListeners();

@@ -28,13 +28,13 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
-public class GraphicsPage extends Canvas {
+public class GraphicsPageNavigation extends Canvas {
 
 	private int pageIndexSelected;
 	// private int[] pageIndexes;
 
-	private List<GraphicsPageItem> pageItems;
-	private GraphicsPageItem selectedItem;
+	private List<GraphicsPageNavigationItem> pageItems;
+	private GraphicsPageNavigationItem selectedItem;
 	private Integer round = null;
 
 	private Color selectedItemForeground;
@@ -51,12 +51,12 @@ public class GraphicsPage extends Canvas {
 
 	private Integer totalWidth;
 
-	public GraphicsPage(Composite parent, int style) {
-		this(parent, style, BlueGraphicsPageConfigurator.getInstance());
+	public GraphicsPageNavigation(Composite parent, int style) {
+		this(parent, style, BlueGraphicsPageNavigationConfigurator.getInstance());
 	}
 
-	public GraphicsPage(Composite parent, int style,
-			GraphicsPageConfigurator configurator) {
+	public GraphicsPageNavigation(Composite parent, int style,
+			GraphicsPageNavigationConfigurator configurator) {
 		super(parent, style);
 		this.addPaintListener(new PaintListener() {
 			public void paintControl(PaintEvent e) {
@@ -70,7 +70,7 @@ public class GraphicsPage extends Canvas {
 		});
 		this.addMouseListener(new MouseListener() {
 			public void mouseUp(MouseEvent e) {
-				GraphicsPageItem s = getItem(e.x, e.y);
+				GraphicsPageNavigationItem s = getItem(e.x, e.y);
 				if (s != null) {
 					select(s);
 				}
@@ -105,7 +105,7 @@ public class GraphicsPage extends Canvas {
 		boolean selected = false;
 		boolean enabled = false;
 
-		for (GraphicsPageItem pageItem : pageItems) {
+		for (GraphicsPageNavigationItem pageItem : pageItems) {
 			selected = pageItem.equals(selectedItem);
 			enabled = pageItem.isEnabled();
 			dot = pageItem.isDot();
@@ -191,14 +191,14 @@ public class GraphicsPage extends Canvas {
 	}
 
 	public void setIndexes(int[] indexes) {
-		this.pageItems = new ArrayList<GraphicsPageItem>(indexes.length + 2);
+		this.pageItems = new ArrayList<GraphicsPageNavigationItem>(indexes.length + 2);
 		int index = -1;
-		pageItems.add(new GraphicsPageItem(this, GraphicsPageItem.PREVIOUS));
+		pageItems.add(new GraphicsPageNavigationItem(this, GraphicsPageNavigationItem.PREVIOUS));
 		for (int i = 0; i < indexes.length; i++) {
 			index = indexes[i];
-			pageItems.add(new GraphicsPageItem(this, index));
+			pageItems.add(new GraphicsPageNavigationItem(this, index));
 		}
-		pageItems.add(new GraphicsPageItem(this, GraphicsPageItem.NEXT));
+		pageItems.add(new GraphicsPageNavigationItem(this, GraphicsPageNavigationItem.NEXT));
 		this.totalWidth = null;
 		// getParent().layout(true);
 	}
@@ -232,7 +232,7 @@ public class GraphicsPage extends Canvas {
 		int width = 0;
 		int height = 0;
 		String text = null;
-		for (GraphicsPageItem pageItem : pageItems) {
+		for (GraphicsPageNavigationItem pageItem : pageItems) {
 			text = pageItem.getText();
 			Point size = gc.stringExtent(text);
 
@@ -255,11 +255,11 @@ public class GraphicsPage extends Canvas {
 		redraw();
 	}
 
-	GraphicsPageItem getItem(int index) {
+	GraphicsPageNavigationItem getItem(int index) {
 		if (pageItems == null) {
 			return null;
 		}
-		for (GraphicsPageItem pageItem : pageItems) {
+		for (GraphicsPageNavigationItem pageItem : pageItems) {
 			if (pageItem.getIndex() == index) {
 				return pageItem;
 			}
@@ -267,7 +267,7 @@ public class GraphicsPage extends Canvas {
 		return null;
 	}
 
-	public GraphicsPageItem getItem(int x, int y) {
+	public GraphicsPageNavigationItem getItem(int x, int y) {
 		checkWidget();
 
 		if (pageItems == null) {
@@ -280,7 +280,7 @@ public class GraphicsPage extends Canvas {
 		// if (point == null)
 		// SWT.error(SWT.ERROR_NULL_ARGUMENT);
 
-		for (GraphicsPageItem pageItem : pageItems) {
+		for (GraphicsPageNavigationItem pageItem : pageItems) {
 			if (pageItem.contains(x, y)) {
 				if (!pageItem.isEnabled()) {
 					return null;
@@ -296,7 +296,7 @@ public class GraphicsPage extends Canvas {
 		return null;
 	}
 
-	public void select(GraphicsPageItem pageItem) {
+	public void select(GraphicsPageNavigationItem pageItem) {
 		if (!pageItem.isDot()) {
 			selectedItem = pageItem;
 			redraw();
@@ -306,7 +306,7 @@ public class GraphicsPage extends Canvas {
 		this.handleSelection(pageItem);
 	}
 
-	protected void handleSelection(GraphicsPageItem pageItem) {
+	protected void handleSelection(GraphicsPageNavigationItem pageItem) {
 
 	}
 
@@ -398,7 +398,7 @@ public class GraphicsPage extends Canvas {
 		redraw();
 	}
 
-	public void setConfigurator(GraphicsPageConfigurator configurator) {
+	public void setConfigurator(GraphicsPageNavigationConfigurator configurator) {
 		this.round = null;
 		configurator.configure(this);
 		redraw();

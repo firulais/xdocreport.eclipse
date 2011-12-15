@@ -12,30 +12,52 @@
 package org.eclipse.nebula.widgets.pagination;
 
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.widgets.Widget;
 
-public class LazyTableSelectionListener extends
+/**
+ * 
+ * {@link SelectionListener} implementation used to load data with lazy mode :
+ * when an item (TableItem, TreeItem, etc) is selected and must load next page.
+ * 
+ */
+public class LazyItemsSelectionListener extends
 		AbstractPageControllerSelectionListener<PaginationController> {
 
 	public static final String LAST_ITEM_LOADED = "___LAST_ITEM_LOADED";
 
-	public LazyTableSelectionListener() {
-		super(null);
+	/**
+	 * Constructor with none pagination controller.
+	 * 
+	 * @param controller
+	 */
+	public LazyItemsSelectionListener() {
+		super();
 	}
 
-	public LazyTableSelectionListener(PaginationController controller) {
+	/**
+	 * Constructor with pagination controller.
+	 * 
+	 * @param controller
+	 */
+	public LazyItemsSelectionListener(PaginationController controller) {
 		super(controller);
 	}
 
 	@Override
 	public void widgetSelected(SelectionEvent e) {
-		TableItem item = (TableItem) e.item;
+		// An item is selected
+		Widget item = e.item;
 		if (item.getData(LAST_ITEM_LOADED) != null) {
-			PaginationController controller = super.getController(item
-					.getParent());
+			// The selected item must load another page.
+			PaginationController controller = super.getController(e.widget);
 			if (controller.hasNextPage()) {
+				// There is next page, increment the current page of the
+				// controller
 				controller.setCurrentPage(controller.getCurrentPage() + 1);
 			}
+			// Set as null the LAST_ITEM_LOADED flag to avoid loading data when
+			// the item is selected (data is already loaded).
 			item.setData(LAST_ITEM_LOADED, null);
 		}
 	}

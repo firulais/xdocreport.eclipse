@@ -12,42 +12,41 @@
 package org.eclipse.nebula.widgets.pagination.renderers.graphics;
 
 import org.eclipse.nebula.widgets.pagination.Resources;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
 
-public class GreenGraphicsPageConfigurator implements GraphicsPageConfigurator {
+public class BlackGraphicsPageNavigationConfigurator implements GraphicsPageNavigationConfigurator {
 
-	private final static GraphicsPageConfigurator INSTANCE = new GreenGraphicsPageConfigurator();
-	
-	private static final RGB DARK_GREEN = new RGB(100, 126, 51);
-	private static final RGB LIGHT_GREEN = new RGB(134, 167, 54);
-	private static final RGB GREEN = new RGB(121, 152, 55);
+	private final static GraphicsPageNavigationConfigurator INSTANCE = new BlackGraphicsPageNavigationConfigurator();
+
+	private static final RGB ORANGE = new RGB(236, 82, 16);
 	private static final RGB WHITE = new RGB(255, 255, 255);
-	private static final RGB ORANGE = new RGB(228,158,22);
-	
-	
-	
-	public static GraphicsPageConfigurator getInstance() {
+	private static final RGB BIG_DARK_GRAY = new RGB(49, 49, 49);
+	private static final RGB DARK_GRAY = new RGB(62, 62, 62);
+	private static final RGB LIGHT_GRAY = new RGB(134, 134, 134);
+
+	public static GraphicsPageNavigationConfigurator getInstance() {
 		return INSTANCE;
 	}
 
-	public void configure(GraphicsPage page) {
-		page.setBackground(Resources.getColor(DARK_GREEN));
-		
+	public void configure(GraphicsPageNavigation page) {
+
+		page.setBackground(Resources.getColor(BIG_DARK_GRAY));
+
 		// Selected item styles
-		page.setSelectedItemBorderColor(Resources.getColor(GREEN));
+		page.setSelectedItemBorderColor(Resources.getColor(BIG_DARK_GRAY));
 		page.setSelectedItemBackground(Resources.getColor(ORANGE));
 		page.setSelectedItemForeground(Resources.getColor(WHITE));
 
 		// Item styles
-		page.setItemBorderColor(Resources.getColor(LIGHT_GREEN));
-		page.setItemBackground(Resources.getColor(LIGHT_GREEN));
+		page.setItemBorderColor(Resources.getColor(DARK_GRAY));
+		page.setItemBackground(Resources.getColor(DARK_GRAY));
 		page.setItemForeground(Resources.getColor(WHITE));
 
 		// Disabled
-		page.setDisabledItemForeground(Resources.getColor(GREEN));
-		page.setDisabledItemBorderColor(Resources.getColor(GREEN));
-		page.setDisabledItemBackground(Resources.getColor(LIGHT_GREEN));
+		page.setDisabledItemForeground(Resources.getColor(LIGHT_GRAY));
+		page.setDisabledItemBorderColor(Resources.getColor(DARK_GRAY));
+		page.setDisabledItemBackground(Resources.getColor(DARK_GRAY));
+
 	}
 
 }

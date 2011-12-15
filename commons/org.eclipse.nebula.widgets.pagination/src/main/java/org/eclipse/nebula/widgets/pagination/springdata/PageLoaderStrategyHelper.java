@@ -14,7 +14,7 @@ package org.eclipse.nebula.widgets.pagination.springdata;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.nebula.widgets.pagination.LazyTableSelectionListener;
+import org.eclipse.nebula.widgets.pagination.LazyItemsSelectionListener;
 import org.eclipse.nebula.widgets.pagination.PageChangedAdapter;
 import org.eclipse.nebula.widgets.pagination.PageChangedListener;
 import org.eclipse.swt.widgets.TableItem;
@@ -147,7 +147,7 @@ public class PageLoaderStrategyHelper {
 			int count = viewer.getTable().getItemCount();
 			if (count > 0) {
 				TableItem item = viewer.getTable().getItem(count - 1);
-				item.setData(LazyTableSelectionListener.LAST_ITEM_LOADED, true);
+				item.setData(LazyItemsSelectionListener.LAST_ITEM_LOADED, true);
 			}
 		}
 	}

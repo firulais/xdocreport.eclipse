@@ -16,10 +16,10 @@ import java.util.Locale;
 import org.eclipse.nebula.widgets.pagination.AbstractPageControllerComposite;
 import org.eclipse.nebula.widgets.pagination.PaginationController;
 import org.eclipse.nebula.widgets.pagination.PaginationHelper;
-import org.eclipse.nebula.widgets.pagination.renderers.graphics.BlueGraphicsPageConfigurator;
-import org.eclipse.nebula.widgets.pagination.renderers.graphics.GraphicsPage;
-import org.eclipse.nebula.widgets.pagination.renderers.graphics.GraphicsPageConfigurator;
-import org.eclipse.nebula.widgets.pagination.renderers.graphics.GraphicsPageItem;
+import org.eclipse.nebula.widgets.pagination.renderers.graphics.BlueGraphicsPageNavigationConfigurator;
+import org.eclipse.nebula.widgets.pagination.renderers.graphics.GraphicsPageNavigation;
+import org.eclipse.nebula.widgets.pagination.renderers.graphics.GraphicsPageNavigationConfigurator;
+import org.eclipse.nebula.widgets.pagination.renderers.graphics.GraphicsPageNavigationItem;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -28,21 +28,21 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
 
-public class ResultAndPageButtonsRenderer extends
+public class ResultAndPageGraphicsRenderer extends
 		AbstractPageControllerComposite<PaginationController> {
 
 	private Label resultsLabel;
-	private GraphicsPage pageItems;
-	private final GraphicsPageConfigurator configurator;
+	private GraphicsPageNavigation pageItems;
+	private final GraphicsPageNavigationConfigurator configurator;
 
-	public ResultAndPageButtonsRenderer(PaginationController controller,
+	public ResultAndPageGraphicsRenderer(PaginationController controller,
 			Composite parent, int style) {
-		this(controller, parent, style, BlueGraphicsPageConfigurator
+		this(controller, parent, style, BlueGraphicsPageNavigationConfigurator
 				.getInstance());
 	}
 
-	public ResultAndPageButtonsRenderer(PaginationController controller,
-			Composite parent, int style, GraphicsPageConfigurator configurator) {
+	public ResultAndPageGraphicsRenderer(PaginationController controller,
+			Composite parent, int style, GraphicsPageNavigationConfigurator configurator) {
 		super(parent, style, DEFAULT_PAGE_SIZE, controller, false);
 		this.configurator = configurator;
 		createUI(this);
@@ -80,9 +80,9 @@ public class ResultAndPageButtonsRenderer extends
 		layout.marginHeight = 0;
 		right.setLayout(layout);
 
-		pageItems = new GraphicsPage(right, SWT.NONE, configurator) {
+		pageItems = new GraphicsPageNavigation(right, SWT.NONE, configurator) {
 			@Override
-			protected void handleSelection(GraphicsPageItem pageItem) {
+			protected void handleSelection(GraphicsPageNavigationItem pageItem) {
 				Integer newCurrentPage = null;
 				if (!pageItem.isEnabled()) {
 					return;
@@ -170,7 +170,7 @@ public class ResultAndPageButtonsRenderer extends
 		// Resources.PaginationDecorator_next, getLocale()));
 	}
 
-	public GraphicsPage getGraphicsPage() {
+	public GraphicsPageNavigation getGraphicsPage() {
 		return pageItems;
 	}
 }

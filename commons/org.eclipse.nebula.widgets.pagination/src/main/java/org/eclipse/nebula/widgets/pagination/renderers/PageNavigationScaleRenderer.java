@@ -21,13 +21,13 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Scale;
 
-public class PageScaleRenderer extends
+public class PageNavigationScaleRenderer extends
 		AbstractPageControllerComposite<PaginationController> implements
 		SelectionListener {
 
 	private Scale pageScale;
 
-	public PageScaleRenderer(PaginationController controller,
+	public PageNavigationScaleRenderer(PaginationController controller,
 			Composite parent, int style) {
 		super(parent, style, controller);
 	}

@@ -15,9 +15,9 @@ import org.eclipse.nebula.widgets.pagination.Resources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
 
-public class BlueGraphicsPageConfigurator implements GraphicsPageConfigurator {
+public class BlueGraphicsPageNavigationConfigurator implements GraphicsPageNavigationConfigurator {
 
-	private final static GraphicsPageConfigurator INSTANCE = new BlueGraphicsPageConfigurator();
+	private final static GraphicsPageNavigationConfigurator INSTANCE = new BlueGraphicsPageNavigationConfigurator();
 
 	private static final RGB DARK_BLUE = new RGB(0,49,82);
 	private static final RGB BLUE = new RGB(148, 148, 231);	
@@ -27,11 +27,11 @@ public class BlueGraphicsPageConfigurator implements GraphicsPageConfigurator {
 	private static final RGB GRAY = new RGB(239,237,247);	
 	private static final RGB LIGHT_GRAY = new RGB(134, 134, 134);
 	
-	public static GraphicsPageConfigurator getInstance() {
+	public static GraphicsPageNavigationConfigurator getInstance() {
 		return INSTANCE;
 	}
 
-	public void configure(GraphicsPage page) {
+	public void configure(GraphicsPageNavigation page) {
 
 		page.setBackground(page.getDisplay().getSystemColor(
 				SWT.COLOR_WIDGET_BACKGROUND));

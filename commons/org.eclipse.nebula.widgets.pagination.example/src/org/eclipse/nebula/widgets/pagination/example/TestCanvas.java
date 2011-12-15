@@ -1,8 +1,8 @@
 package org.eclipse.nebula.widgets.pagination.example;
 
 import org.eclipse.nebula.widgets.pagination.PaginationHelper;
-import org.eclipse.nebula.widgets.pagination.renderers.graphics.GraphicsPage;
-import org.eclipse.nebula.widgets.pagination.renderers.graphics.GraphicsPageItem;
+import org.eclipse.nebula.widgets.pagination.renderers.graphics.GraphicsPageNavigation;
+import org.eclipse.nebula.widgets.pagination.renderers.graphics.GraphicsPageNavigationItem;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -16,9 +16,9 @@ public class TestCanvas {
 
 		int[] indexes = PaginationHelper.getPageIndexes(1, 20, 10);
 
-		GraphicsPage canvas = new GraphicsPage(shell, SWT.BORDER) {
+		GraphicsPageNavigation canvas = new GraphicsPageNavigation(shell, SWT.BORDER) {
 			@Override
-			protected void handleSelection(GraphicsPageItem pageItem) {
+			protected void handleSelection(GraphicsPageNavigationItem pageItem) {
 				System.err.println(pageItem);
 			}
 		};

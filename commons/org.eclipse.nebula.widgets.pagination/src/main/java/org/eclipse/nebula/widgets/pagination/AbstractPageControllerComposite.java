@@ -47,6 +47,7 @@ public abstract class AbstractPageControllerComposite<T extends PaginationContro
 		super(parent, style);
 		this.controller = controller != null ? controller
 				: createController(pageSize);
+		PaginationHelper.setController(this, controller);
 		if (createUI) {
 			createUI(this);
 		}

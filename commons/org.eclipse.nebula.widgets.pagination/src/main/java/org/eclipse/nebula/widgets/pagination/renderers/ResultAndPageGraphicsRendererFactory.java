@@ -12,22 +12,22 @@
 package org.eclipse.nebula.widgets.pagination.renderers;
 
 import org.eclipse.nebula.widgets.pagination.PaginationController;
-import org.eclipse.nebula.widgets.pagination.renderers.graphics.BlackGraphicsPageConfigurator;
-import org.eclipse.nebula.widgets.pagination.renderers.graphics.BlueGraphicsPageConfigurator;
-import org.eclipse.nebula.widgets.pagination.renderers.graphics.GraphicsPageConfigurator;
-import org.eclipse.nebula.widgets.pagination.renderers.graphics.GreenGraphicsPageConfigurator;
+import org.eclipse.nebula.widgets.pagination.renderers.graphics.BlackGraphicsPageNavigationConfigurator;
+import org.eclipse.nebula.widgets.pagination.renderers.graphics.BlueGraphicsPageNavigationConfigurator;
+import org.eclipse.nebula.widgets.pagination.renderers.graphics.GraphicsPageNavigationConfigurator;
+import org.eclipse.nebula.widgets.pagination.renderers.graphics.GreenGraphicsPageNavigationConfigurator;
 import org.eclipse.swt.widgets.Composite;
 
-public class GraphicsPageRendererFactory implements PageRendererFactory {
+public class ResultAndPageGraphicsRendererFactory implements PageRendererFactory {
 
-	private static final PageRendererFactory BLUE_FACTORY = new GraphicsPageRendererFactory(
-			BlueGraphicsPageConfigurator.getInstance());
+	private static final PageRendererFactory BLUE_FACTORY = new ResultAndPageGraphicsRendererFactory(
+			BlueGraphicsPageNavigationConfigurator.getInstance());
 
-	private static final PageRendererFactory GREEN_FACTORY = new GraphicsPageRendererFactory(
-			GreenGraphicsPageConfigurator.getInstance());
+	private static final PageRendererFactory GREEN_FACTORY = new ResultAndPageGraphicsRendererFactory(
+			GreenGraphicsPageNavigationConfigurator.getInstance());
 
-	private static final PageRendererFactory BLACK_FACTORY = new GraphicsPageRendererFactory(
-			BlackGraphicsPageConfigurator.getInstance());
+	private static final PageRendererFactory BLACK_FACTORY = new ResultAndPageGraphicsRendererFactory(
+			BlackGraphicsPageNavigationConfigurator.getInstance());
 
 	public static PageRendererFactory getBlueFactory() {
 		return BLUE_FACTORY;
@@ -41,15 +41,15 @@ public class GraphicsPageRendererFactory implements PageRendererFactory {
 		return BLACK_FACTORY;
 	}
 
-	private final GraphicsPageConfigurator configurator;
+	private final GraphicsPageNavigationConfigurator configurator;
 
-	public GraphicsPageRendererFactory(GraphicsPageConfigurator configurator) {
+	public ResultAndPageGraphicsRendererFactory(GraphicsPageNavigationConfigurator configurator) {
 		this.configurator = configurator;
 	}
 
 	public Composite createRenderer(PaginationController controller,
 			Composite parent, int style) {
-		return new ResultAndPageButtonsRenderer(controller, parent, style,
+		return new ResultAndPageGraphicsRenderer(controller, parent, style,
 				configurator);
 	}
 }
