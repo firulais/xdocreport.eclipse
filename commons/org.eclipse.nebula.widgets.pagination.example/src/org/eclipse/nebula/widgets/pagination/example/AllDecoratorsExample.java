@@ -27,6 +27,7 @@ import org.eclipse.nebula.widgets.pagination.renderers.PageScaleRenderer;
 import org.eclipse.nebula.widgets.pagination.renderers.PageSizeComboRenderer;
 import org.eclipse.nebula.widgets.pagination.renderers.ResultAndPageButtonsRenderer;
 import org.eclipse.nebula.widgets.pagination.renderers.ResultAndPageLinksRenderer;
+import org.eclipse.nebula.widgets.pagination.renderers.graphics.BlackGraphicsPageConfigurator;
 import org.eclipse.nebula.widgets.pagination.renderers.graphics.GreenGraphicsPageConfigurator;
 import org.eclipse.nebula.widgets.pagination.springdata.PageLoader;
 import org.eclipse.nebula.widgets.pagination.springdata.PageLoaderListImpl;
@@ -116,6 +117,16 @@ public class AllDecoratorsExample {
 				controller, right, SWT.NONE);
 		resultAndPageButtonsDecorator.setLayoutData(new GridData(
 				GridData.FILL_HORIZONTAL));
+
+		ResultAndPageButtonsRenderer black = new ResultAndPageButtonsRenderer(
+				controller, right, SWT.NONE,
+				BlackGraphicsPageConfigurator.getInstance());
+		black.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		ResultAndPageButtonsRenderer green = new ResultAndPageButtonsRenderer(
+				controller, right, SWT.NONE,
+				GreenGraphicsPageConfigurator.getInstance());
+		green.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		// 3) Set current page to 0 to refresh the table
 
