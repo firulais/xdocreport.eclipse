@@ -7,28 +7,34 @@ import org.eclipse.swt.graphics.RGB;
 public class GreenGraphicsPageConfigurator implements GraphicsPageConfigurator {
 
 	private final static GraphicsPageConfigurator INSTANCE = new GreenGraphicsPageConfigurator();
-	private static final RGB GREEN = new RGB(183, 225, 89);
+	
+	private static final RGB DARK_GREEN = new RGB(100, 126, 51);
+	private static final RGB LIGHT_GREEN = new RGB(134, 167, 54);
+	private static final RGB GREEN = new RGB(121, 152, 55);
 	private static final RGB WHITE = new RGB(255, 255, 255);
-
+	private static final RGB ORANGE = new RGB(228,158,22);
+	
+	
+	
 	public static GraphicsPageConfigurator getInstance() {
 		return INSTANCE;
 	}
 
 	public void configure(GraphicsPage page) {
-		page.setBackground(page.getDisplay().getSystemColor(SWT.COLOR_WIDGET_BACKGROUND));
+		page.setBackground(Resources.getColor(DARK_GREEN));
 		
 		// Selected item styles
-		page.setSelectedItemBackground(Resources.getColor(GREEN));
+		page.setSelectedItemBackground(Resources.getColor(ORANGE));
 		page.setSelectedItemForeground(Resources.getColor(WHITE));
 
 		// Item styles
-		// page.setItemBorderColor(Resources.getColor(GRAY));
-		// page.setItemBackground(Resources.getColor(WHITE));
-		page.setItemForeground(Resources.getColor(GREEN));
+		page.setItemBorderColor(Resources.getColor(LIGHT_GREEN));
+		page.setItemBackground(Resources.getColor(LIGHT_GREEN));
+		page.setItemForeground(Resources.getColor(WHITE));
 
 		// Disabled
-		page.setDisabledItemForeground(Resources.getColor(WHITE));
-		page.setDisabledItemBorderColor(Resources.getColor(WHITE));
+		page.setDisabledItemForeground(Resources.getColor(GREEN));
+		page.setDisabledItemBorderColor(Resources.getColor(GREEN));
 	}
 
 }

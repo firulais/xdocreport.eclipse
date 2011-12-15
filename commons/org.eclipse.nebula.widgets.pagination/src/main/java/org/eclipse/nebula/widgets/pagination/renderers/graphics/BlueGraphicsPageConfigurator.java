@@ -25,13 +25,13 @@ public class BlueGraphicsPageConfigurator implements GraphicsPageConfigurator {
 		page.setSelectedItemForeground(Resources.getColor(WHITE));
 		
 		// Item styles
-		page.setItemBorderColor(Resources.getColor(GRAY));
-		//page.setItemBackground(Resources.getColor(WHITE));
+		page.setItemBorderColor(Resources.getColor(BLUE));
+		page.setItemBackground(Resources.getColor(WHITE));
 		page.setItemForeground(Resources.getColor(BLUE));
 		
 		// Disabled
 		page.setDisabledItemForeground(Resources.getColor(GRAY));
-		page.setDisabledItemBorderColor(Resources.getColor(GRAY));
+		page.setDisabledItemBorderColor(Resources.getColor(BLUE));
 		//page.setBackground(Resources.getColor(WHITE));
 	}
 
