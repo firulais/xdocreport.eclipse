@@ -24,7 +24,7 @@ public class GraphicsPage extends Canvas {
 
 	private List<GraphicsPageItem> pageItems;
 	private GraphicsPageItem selectedItem;
-	private boolean round = false;
+	private Integer round = null;
 
 	private Color selectedItemForeground;
 	private Color selectedItemBackground;
@@ -35,6 +35,7 @@ public class GraphicsPage extends Canvas {
 	private Color itemBorderColor;
 
 	private Color disabledItemForeground;
+	private Color disabledItemBackground;
 	private Color disabledItemBorderColor;
 
 	private Integer totalWidth;
@@ -110,38 +111,67 @@ public class GraphicsPage extends Canvas {
 			width = pageItem.getBounds().width;
 			height = pageItem.getBounds().height;
 
-			if (selected) {
-				// Background
-				gc.setBackground(selectedItemBackground != null ? selectedItemBackground
-						: bg);
-				// Foreground
-				if (round) {
-					gc.fillRoundRectangle(x, y, width, height, 10, 10);
+			// Fill rectangle
+			Color filledRectangleColor = getFilledRectangleColor(selected,
+					!dot ? enabled : true, bg);
+			if (filledRectangleColor != null) {
+				gc.setBackground(filledRectangleColor);
+				if (round != null) {
+					gc.fillRoundRectangle(x, y, width, height, round, round);
 				} else {
 					gc.fillRectangle(x, y, width, height);
 				}
-			} else {
-				if (!enabled) {
-					gc.setForeground(disabledItemBorderColor != null ? disabledItemBorderColor
-							: fg);
-				} else {
-					gc.setForeground(itemBorderColor != null ? itemBorderColor
-							: fg);
-				}
-				if (!dot) {
-					if (round) {
-						gc.drawRoundRectangle(x, y, width, height, 10, 10);
+			}
+
+			// Border rectangle
+			if (!dot) {
+				Color borderRectangleColor = getBorderRectangleColor(selected,
+						enabled, bg);
+				if (borderRectangleColor != null) {
+					gc.setForeground(borderRectangleColor);
+					if (round != null) {
+						gc.drawRoundRectangle(x, y, width, height, round, round);
 					} else {
 						gc.drawRectangle(x, y, width, height);
 					}
-					
-					if (itemBackground != null) {
-						gc.setBackground(itemBackground);
-						gc.fillRectangle(x, y, width, height);
-					}
-					
 				}
 			}
+
+			// if (selected) {
+			// // Background
+			// gc.setBackground(selectedItemBackground != null ?
+			// selectedItemBackground
+			// : bg);
+			// // Foreground
+			// if (round) {
+			// gc.fillRoundRectangle(x, y, width, height, 10, 10);
+			// } else {
+			// gc.fillRectangle(x, y, width, height);
+			// }
+			// } else {
+			// if (!enabled) {
+			// gc.setForeground(disabledItemBorderColor != null ?
+			// disabledItemBorderColor
+			// : fg);
+			// } else {
+			// gc.setForeground(itemBorderColor != null ? itemBorderColor
+			// : fg);
+			// }
+			// if (!dot) {
+			//
+			// if (itemBackground != null) {
+			// gc.setBackground(itemBackground);
+			// gc.fillRectangle(x, y, width, height);
+			// }
+			//
+			// if (round) {
+			// gc.drawRoundRectangle(x, y, width, height, 10, 10);
+			// } else {
+			// gc.drawRectangle(x, y, width, height);
+			// }
+			//
+			// }
+			// }
 
 			if (dot) {
 				gc.setForeground(itemForeground != null ? itemForeground : fg);
@@ -163,6 +193,28 @@ public class GraphicsPage extends Canvas {
 			}
 			pageItem.setBounds(new Rectangle(x, y, width, height));
 		}
+	}
+
+	private Color getFilledRectangleColor(boolean selected, boolean enabled,
+			Color bg) {
+		if (selected) {
+			return selectedItemBackground;
+		}
+		if (!enabled) {
+			return disabledItemBackground;
+		}
+		return itemBackground;
+	}
+
+	private Color getBorderRectangleColor(boolean selected, boolean enabled,
+			Color bg) {
+		if (selected) {
+			return selectedItemBorderColor;
+		}
+		if (!enabled) {
+			return disabledItemBorderColor;
+		}
+		return itemBorderColor;
 	}
 
 	private void onResize() {
@@ -354,6 +406,14 @@ public class GraphicsPage extends Canvas {
 		this.disabledItemBorderColor = disabledItemBorderColor;
 	}
 
+	public void setDisabledItemBackground(Color disabledItemBackground) {
+		this.disabledItemBackground = disabledItemBackground;
+	}
+
+	public Color getDisabledItemBackground() {
+		return disabledItemBackground;
+	}
+
 	public void setNextEnabled(boolean enabled) {
 		if (pageItems == null) {
 			return;
@@ -371,9 +431,14 @@ public class GraphicsPage extends Canvas {
 	}
 
 	public void setConfigurator(GraphicsPageConfigurator configurator) {
+		this.round = null;
 		configurator.configure(this);
 		redraw();
-		
+
+	}
+
+	public void setRound(int round) {
+		this.round = round;
 	}
 
 	// /**

@@ -9,9 +9,9 @@ public class BlackGraphicsPageConfigurator implements GraphicsPageConfigurator {
 
 	private static final RGB ORANGE = new RGB(236, 82, 16);
 	private static final RGB WHITE = new RGB(255, 255, 255);
-	private static final RGB BIG_DARK_GRAY = new RGB(49,49,49);
-	private static final RGB DARK_GRAY = new RGB(62,62,62);
-	private static final RGB LIGHT_GRAY = new RGB(134,134,134);
+	private static final RGB BIG_DARK_GRAY = new RGB(49, 49, 49);
+	private static final RGB DARK_GRAY = new RGB(62, 62, 62);
+	private static final RGB LIGHT_GRAY = new RGB(134, 134, 134);
 
 	public static GraphicsPageConfigurator getInstance() {
 		return INSTANCE;
@@ -19,7 +19,10 @@ public class BlackGraphicsPageConfigurator implements GraphicsPageConfigurator {
 
 	public void configure(GraphicsPage page) {
 
+		page.setBackground(Resources.getColor(BIG_DARK_GRAY));
+
 		// Selected item styles
+		page.setSelectedItemBorderColor(Resources.getColor(BIG_DARK_GRAY));
 		page.setSelectedItemBackground(Resources.getColor(ORANGE));
 		page.setSelectedItemForeground(Resources.getColor(WHITE));
 
@@ -27,16 +30,12 @@ public class BlackGraphicsPageConfigurator implements GraphicsPageConfigurator {
 		page.setItemBorderColor(Resources.getColor(DARK_GRAY));
 		page.setItemBackground(Resources.getColor(DARK_GRAY));
 		page.setItemForeground(Resources.getColor(WHITE));
-		// page.setItemBackground(Resources.getColor(WHITE));
-		// page.setItemForeground(Resources.getColor(BLUE));
 
 		// Disabled
 		page.setDisabledItemForeground(Resources.getColor(LIGHT_GRAY));
-		page.setDisabledItemBorderColor(Resources.getColor(LIGHT_GRAY));
-		//page.setDisabledItemBorderColor(Resources.getColor(GRAY));
-		// page.setBackground(Resources.getColor(WHITE));
-		
-		page.setBackground(Resources.getColor(BIG_DARK_GRAY));
+		page.setDisabledItemBorderColor(Resources.getColor(DARK_GRAY));
+		page.setDisabledItemBackground(Resources.getColor(DARK_GRAY));
+
 	}
 
 }

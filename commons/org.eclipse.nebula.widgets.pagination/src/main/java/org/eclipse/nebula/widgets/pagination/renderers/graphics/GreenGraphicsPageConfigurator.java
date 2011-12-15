@@ -24,6 +24,7 @@ public class GreenGraphicsPageConfigurator implements GraphicsPageConfigurator {
 		page.setBackground(Resources.getColor(DARK_GREEN));
 		
 		// Selected item styles
+		page.setSelectedItemBorderColor(Resources.getColor(GREEN));
 		page.setSelectedItemBackground(Resources.getColor(ORANGE));
 		page.setSelectedItemForeground(Resources.getColor(WHITE));
 
@@ -35,6 +36,7 @@ public class GreenGraphicsPageConfigurator implements GraphicsPageConfigurator {
 		// Disabled
 		page.setDisabledItemForeground(Resources.getColor(GREEN));
 		page.setDisabledItemBorderColor(Resources.getColor(GREEN));
+		page.setDisabledItemBackground(Resources.getColor(LIGHT_GREEN));
 	}
 
 }
