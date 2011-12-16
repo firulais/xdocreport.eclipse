@@ -19,6 +19,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.nebula.widgets.pagination.LazyItemsSelectionListener;
 import org.eclipse.nebula.widgets.pagination.PageChangedAdapter;
 import org.eclipse.nebula.widgets.pagination.PageChangedListener;
+import org.eclipse.nebula.widgets.pagination.PageLoaderHandler;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.TreeItem;
 import org.springframework.data.domain.Page;
@@ -69,13 +70,20 @@ public class PageLoaderStrategyHelper {
 	 *            the viewer to refresh with new paginated list.
 	 * @param pageLoader
 	 *            the page loader used to load paginated list.
+	 * @param handler
+	 *            the page loader handler to observe before/after page loading
+	 *            process. If null no observation is done.
 	 */
 	public static void loadPageAndReplaceItems(
 			final PageableController controller, final Viewer viewer,
-			final PageLoader pageLoader) {
-		Page<?> page = loadPageAndUpdateTotalElements(controller, pageLoader);
-		// Refresh the viewer with the paginated list.
-		viewer.setInput(page.getContent());
+			final PageLoader pageLoader,
+			final PageLoaderHandler<PageableController> handler) {
+		Page<?> page = loadPageAndUpdateTotalElements(controller, pageLoader,
+				handler);
+		if (page != null) {
+			// Refresh the viewer with the paginated list.
+			viewer.setInput(page.getContent());
+		}
 	}
 
 	/**
@@ -91,17 +99,21 @@ public class PageLoaderStrategyHelper {
 	 *            the viewer to refresh with new paginated list.
 	 * @param pageLoader
 	 *            the page loader used to load paginated list.
+	 * @param handler
+	 *            the page loader handler to observe before/after page loading
+	 *            process. If null no observation is done.
 	 * @return
 	 */
 	public static PageChangedListener<PageableController> createloadPageAndReplaceItemsListener(
 			final PageableController controller, final StructuredViewer viewer,
-			final PageLoader pageLoader) {
+			final PageLoader pageLoader,
+			final PageLoaderHandler<PageableController> handler) {
 		return new PageChangedAdapter<PageableController>() {
 			@Override
 			public void pageIndexChanged(int oldPageIndex, int newPageIndex,
 					PageableController controller) {
 				PageLoaderStrategyHelper.loadPageAndReplaceItems(controller,
-						viewer, pageLoader);
+						viewer, pageLoader, handler);
 			}
 
 			@Override
@@ -143,10 +155,15 @@ public class PageLoaderStrategyHelper {
 	 *            the viewer to refresh with new paginated list.
 	 * @param pageLoader
 	 *            the page loader used to load paginated list.
+	 * @param handler
+	 *            the page loader handler to observe before/after page loading
+	 *            process. If null no observation is done.
 	 */
 	public static void loadPageAndAddItems(final PageableController controller,
-			final TableViewer viewer, final PageLoader pageLoader) {
-		Page<?> page = loadPageAndUpdateTotalElements(controller, pageLoader);
+			final TableViewer viewer, final PageLoader pageLoader,
+			final PageLoaderHandler<PageableController> handler) {
+		Page<?> page = loadPageAndUpdateTotalElements(controller, pageLoader,
+				handler);
 		if (!page.getContent().isEmpty()) {
 			viewer.add(page.getContent().toArray());
 			int count = viewer.getTable().getItemCount();
@@ -169,17 +186,22 @@ public class PageLoaderStrategyHelper {
 	 *            the viewer to refresh with new paginated list.
 	 * @param pageLoader
 	 *            the page loader used to load paginated list.
+	 * @param handler
+	 *            the page loader handler to observe before/after page loading
+	 *            process. If null no observation is done.
+	 * 
 	 * @return
 	 */
 	public static PageChangedListener<PageableController> createloadPageAndAddItemsListener(
 			final PageableController controller, final TableViewer viewer,
-			final PageLoader pageLoader) {
+			final PageLoader pageLoader,
+			final PageLoaderHandler<PageableController> handler) {
 		return new PageChangedAdapter<PageableController>() {
 			@Override
 			public void pageIndexChanged(int oldPageIndex, int newPageIndex,
 					PageableController controller) {
 				PageLoaderStrategyHelper.loadPageAndAddItems(controller,
-						viewer, pageLoader);
+						viewer, pageLoader, handler);
 			}
 
 			@Override
@@ -219,11 +241,16 @@ public class PageLoaderStrategyHelper {
 	 *            the viewer to refresh with new paginated list.
 	 * @param pageLoader
 	 *            the page loader used to load paginated list.
+	 * @param handler
+	 *            the page loader handler to observe before/after page loading
+	 *            process. If null no observation is done.
 	 */
 	public static void loadPageAndAddItems(final PageableController controller,
 			final Object parentElementOrTreePath, final TreeViewer viewer,
-			final PageLoader pageLoader) {
-		Page<?> page = loadPageAndUpdateTotalElements(controller, pageLoader);
+			final PageLoader pageLoader,
+			final PageLoaderHandler<PageableController> handler) {
+		Page<?> page = loadPageAndUpdateTotalElements(controller, pageLoader,
+				handler);
 		if (!page.getContent().isEmpty()) {
 			viewer.add(parentElementOrTreePath, page.getContent().toArray());
 			int count = viewer.getTree().getItemCount();
@@ -246,18 +273,23 @@ public class PageLoaderStrategyHelper {
 	 *            the viewer to refresh with new paginated list.
 	 * @param pageLoader
 	 *            the page loader used to load paginated list.
+	 * @param handler
+	 *            the page loader handler to observe before/after page loading
+	 *            process. If null no observation is done.
+	 * 
 	 * @return
 	 */
 	public static PageChangedListener<PageableController> createloadPageAndAddItemsListener(
 			final PageableController controller,
 			final Object parentElementOrTreePath, final TreeViewer viewer,
-			final PageLoader pageLoader) {
+			final PageLoader pageLoader,
+			final PageLoaderHandler<PageableController> handler) {
 		return new PageChangedAdapter<PageableController>() {
 			@Override
 			public void pageIndexChanged(int oldPageIndex, int newPageIndex,
 					PageableController controller) {
 				PageLoaderStrategyHelper.loadPageAndAddItems(controller,
-						parentElementOrTreePath, viewer, pageLoader);
+						parentElementOrTreePath, viewer, pageLoader, handler);
 			}
 
 			@Override
@@ -275,7 +307,7 @@ public class PageLoaderStrategyHelper {
 		};
 	}
 
-	// ---------------- For table
+	// ---------------- For list view
 
 	/**
 	 * This method loads the paginated list by using the given page loader
@@ -297,10 +329,15 @@ public class PageLoaderStrategyHelper {
 	 *            the viewer to refresh with new paginated list.
 	 * @param pageLoader
 	 *            the page loader used to load paginated list.
+	 * @param handler
+	 *            the page loader handler to observe before/after page loading
+	 *            process. If null no observation is done.
 	 */
 	public static void loadPageAndAddItems(final PageableController controller,
-			final AbstractListViewer viewer, final PageLoader pageLoader) {
-		Page<?> page = loadPageAndUpdateTotalElements(controller, pageLoader);
+			final AbstractListViewer viewer, final PageLoader pageLoader,
+			final PageLoaderHandler<PageableController> handler) {
+		Page<?> page = loadPageAndUpdateTotalElements(controller, pageLoader,
+				handler);
 		if (!page.getContent().isEmpty()) {
 			viewer.add(page.getContent().toArray());
 			// int count = viewer.getTable().getItemCount();
@@ -324,17 +361,21 @@ public class PageLoaderStrategyHelper {
 	 *            the viewer to refresh with new paginated list.
 	 * @param pageLoader
 	 *            the page loader used to load paginated list.
+	 * @param handler
+	 *            the page loader handler to observe before/after page loading
+	 *            process. If null no observation is done.
 	 * @return
 	 */
 	public static PageChangedListener<PageableController> createloadPageAndAddItemsListener(
 			final PageableController controller,
-			final AbstractListViewer viewer, final PageLoader pageLoader) {
+			final AbstractListViewer viewer, final PageLoader pageLoader,
+			final PageLoaderHandler<PageableController> handler) {
 		return new PageChangedAdapter<PageableController>() {
 			@Override
 			public void pageIndexChanged(int oldPageIndex, int newPageIndex,
 					PageableController controller) {
 				PageLoaderStrategyHelper.loadPageAndAddItems(controller,
-						viewer, pageLoader);
+						viewer, pageLoader, handler);
 			}
 
 			@Override
@@ -363,12 +404,35 @@ public class PageLoaderStrategyHelper {
 	 *            total elements.
 	 * @param pageLoader
 	 *            the page loader used to load paginated list.
-	 * @return
+	 * @param handler
+	 *            the page loader handler to observe before/after page loading
+	 *            process. If null no observation is done.
+	 * 
+	 * @return the Spring Data {@link Page}.
 	 */
 	public static Page<?> loadPageAndUpdateTotalElements(
-			final PageableController controller, final PageLoader pageLoader) {
+			final PageableController controller, final PageLoader pageLoader,
+			final PageLoaderHandler<PageableController> handler) {
 		// Load the paginated list.
-		Page<?> page = loadPage(pageLoader, controller);
+		Page<?> page = null;
+		if (handler == null) {
+			page = loadPage(pageLoader, controller);
+		} else {
+			handler.onBeforePageLoad(controller);
+			try {
+				page = loadPage(pageLoader, controller);
+				handler.onAfterPageLoad(controller, null);
+			} catch (Throwable e) {
+				boolean stop = handler.onAfterPageLoad(controller, e);
+				if (stop) {
+					return null;
+				}
+				if (e instanceof RuntimeException) {
+					throw (RuntimeException) e;
+				}
+				throw new RuntimeException(e);
+			}
+		}
 		// Update the total elements of the controller.
 		controller.setTotalElements(page.getTotalElements());
 		return page;
@@ -378,8 +442,10 @@ public class PageLoaderStrategyHelper {
 	 * Load the paginated list.
 	 * 
 	 * @param pageLoader
+	 *            the page loader used to load paginated list.
 	 * @param pageable
-	 * @return
+	 *            the Spring Data {@link Pageable}.
+	 * @return the Spring Data {@link Page}.
 	 */
 	public static Page<?> loadPage(PageLoader pageLoader, Pageable pageable) {
 		if (pageLoader == null) {

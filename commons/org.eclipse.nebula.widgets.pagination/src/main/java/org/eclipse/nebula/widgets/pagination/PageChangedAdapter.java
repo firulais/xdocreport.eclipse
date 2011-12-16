@@ -11,13 +11,16 @@
  *******************************************************************************/
 package org.eclipse.nebula.widgets.pagination;
 
+import java.util.Locale;
+
 /**
  * This adapter class provides default implementations for the methods described
  * by the {@link PageChangedListener} interface.
  * 
  * @see PageChangedListener
  */
-public class PageChangedAdapter<T extends PaginationController> implements PageChangedListener<T> {
+public class PageChangedAdapter<T extends PaginationController> implements
+		PageChangedListener<T> {
 
 	public void pageIndexChanged(int oldPageIndex, int newPageIndex,
 			T controller) {
@@ -30,13 +33,17 @@ public class PageChangedAdapter<T extends PaginationController> implements PageC
 	}
 
 	public void sortChanged(String oldPopertyName, String propertyName,
-			int oldSortDirection, int sortDirection,
-			T controller) {
+			int oldSortDirection, int sortDirection, T controller) {
 		// Do nothing
 	}
 
 	public void pageSizeChanged(int oldPageSize, int newPageSize,
 			T paginationController) {
+		// Do nothing
+	}
+
+	public void localeChanged(Locale oldLocale, Locale newLocale,
+			PaginationController paginationController) {
 		// Do nothing
 	}
 

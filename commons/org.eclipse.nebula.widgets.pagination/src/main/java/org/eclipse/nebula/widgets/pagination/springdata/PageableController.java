@@ -12,6 +12,7 @@
 package org.eclipse.nebula.widgets.pagination.springdata;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import org.eclipse.nebula.widgets.pagination.PaginationController;
@@ -143,4 +144,5 @@ public class PageableController extends PaginationController implements
 		key.append(sortDirection);
 		return key.toString();
 	}
+
 }

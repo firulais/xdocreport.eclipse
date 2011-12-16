@@ -8,7 +8,7 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.nebula.widgets.pagination.springdata.PageableController;
-import org.eclipse.nebula.widgets.pagination.springdata.forms.FormPageableTable;
+import org.eclipse.nebula.widgets.pagination.springdata.forms.table.FormPageableTable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;

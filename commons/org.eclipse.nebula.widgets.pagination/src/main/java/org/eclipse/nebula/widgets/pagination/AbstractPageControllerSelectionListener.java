@@ -47,11 +47,12 @@ public class AbstractPageControllerSelectionListener<T extends PaginationControl
 	}
 
 	/**
-	 * Returns the attached pagination controller of teh given widgget.
+	 * Returns the attached pagination controller of the given widget.
 	 * 
 	 * @param widget
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public T getController(Widget widget) {
 		if (controller != null) {
 			// Controller is defined, return it.

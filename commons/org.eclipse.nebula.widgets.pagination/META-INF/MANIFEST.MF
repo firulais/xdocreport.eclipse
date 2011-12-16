@@ -7,9 +7,14 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.eclipse.nebula.widgets.pagination,
  org.eclipse.nebula.widgets.pagination.renderers,
- org.eclipse.nebula.widgets.pagination.renderers.graphics,
+ org.eclipse.nebula.widgets.pagination.renderers.navigation,
+ org.eclipse.nebula.widgets.pagination.renderers.navigation.graphics,
+ org.eclipse.nebula.widgets.pagination.renderers.pagesize,
  org.eclipse.nebula.widgets.pagination.springdata,
- org.eclipse.nebula.widgets.pagination.springdata.forms
+ org.eclipse.nebula.widgets.pagination.springdata.forms.table,
+ org.eclipse.nebula.widgets.pagination.springdata.table,
+ org.eclipse.nebula.widgets.pagination.table,
+ org.eclipse.nebula.widgets.pagination.tree
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.swt;resolution:=optional,
  org.eclipse.ui.forms;resolution:=optional,

@@ -30,6 +30,10 @@ public class Resources {
 	public static final String PaginationRenderer_results = "PaginationRenderer.results";
 	public static final String PaginationRenderer_previous = "PaginationRenderer.previous";
 	public static final String PaginationRenderer_next = "PaginationRenderer.next";
+	public static final String PaginationRenderer_itemsPerPage = "PaginationRenderer.itemsPerPage";
+	public static final String PaginationRenderer_page = "PaginationRenderer.page";
+
+	public static final String THREE_DOT = "...";
 
 	/**
 	 * Returns the text of the given messageKey according the given locale.

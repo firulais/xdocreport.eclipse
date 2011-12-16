@@ -8,9 +8,10 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.nebula.widgets.pagination.SortTableColumnSelectionListener;
+import org.eclipse.nebula.widgets.pagination.renderers.navigation.ResultAndNavigationPageGraphicsRendererFactory;
 import org.eclipse.nebula.widgets.pagination.springdata.PageLoader;
-import org.eclipse.nebula.widgets.pagination.springdata.forms.FormPageableTable;
+import org.eclipse.nebula.widgets.pagination.springdata.forms.table.FormPageableTable;
+import org.eclipse.nebula.widgets.pagination.table.SortTableColumnSelectionListener;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -218,7 +219,7 @@ public class SearchResumeDialog extends SearchDialog {
 		});
 		col.getColumn().addSelectionListener(
 				new SortTableColumnSelectionListener("owner.lastName"));
-		
+
 		// Title column is for the last name
 		col = createTableViewerColumn(viewer, titles[2], bounds[2], 2);
 		col.setLabelProvider(new ColumnLabelProvider() {
@@ -230,7 +231,7 @@ public class SearchResumeDialog extends SearchDialog {
 		});
 		col.getColumn().addSelectionListener(
 				new SortTableColumnSelectionListener("title"));
-		
+
 		// // Now the gender
 		// col = createTableViewerColumn(titles[2], bounds[2], 2);
 		// col.setLabelProvider(new ColumnLabelProvider() {

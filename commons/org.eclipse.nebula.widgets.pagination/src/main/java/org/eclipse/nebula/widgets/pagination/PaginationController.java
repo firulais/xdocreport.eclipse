@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.eclipse.nebula.widgets.pagination;
 
+import java.util.Locale;
+
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.swt.SWT;
 
@@ -48,6 +50,9 @@ public class PaginationController {
 	// sort.
 	private String sortPropertyName;
 	private int sortDirection;
+
+	// The current locale used for the resources
+	private Locale locale = Locale.getDefault();
 
 	private ListenerList pageChangedListeners = new ListenerList();
 
@@ -286,6 +291,19 @@ public class PaginationController {
 		// this.sortDirection = SWT.NONE;
 	}
 
+	/**
+	 * Set the local for the resources.
+	 * 
+	 * @param locale
+	 */
+	public void setLocale(Locale locale) {
+		Locale oldLocale = this.locale;
+		this.locale = locale;
+		if (!oldLocale.equals(locale)) {
+			notifyListenersForLocaleChanged(oldLocale, locale);
+		}
+	}
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void notifyListenersForPageIndexChanged(int oldPageNumber,
 			int newPageNumber) {
@@ -328,4 +346,13 @@ public class PaginationController {
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private void notifyListenersForLocaleChanged(Locale oldLocale,
+			Locale newLocale) {
+		final Object[] listeners = pageChangedListeners.getListeners();
+		for (int i = 0; i < listeners.length; i++) {
+			final PageChangedListener listener = (PageChangedListener) listeners[i];
+			listener.localeChanged(oldLocale, newLocale, this);
+		}
+	}
 }

@@ -18,9 +18,9 @@ import org.eclipse.swt.widgets.Composite;
 /**
  * 
  * Classes which implement this interface are SWT {@link Composite} which must
- * observe changed of a pagination controller to react to update the UI
- * according the change of the pagination controller. Ex:control to display page
- * navigation, paginated data in a table, etc...
+ * observe changed of a pagination controller to react and update the UI
+ * according the change of the pagination controller. Ex: control to display
+ * page navigation, paginated data in a table, etc...
  * 
  * @param <T>
  *            pagination controller.
@@ -30,49 +30,115 @@ public abstract class AbstractPageControllerComposite<T extends PaginationContro
 
 	public static final int DEFAULT_PAGE_SIZE = 5;
 
+	/** the controller to observe and update according the UI state **/
 	private PaginationController controller;
-	private Locale locale;
+	/** local used for the resources bundle **/
+	private Locale locale = Locale.getDefault();
 
+	/**
+	 * Constructs a new instance of this class given its parent and a style
+	 * value describing its behavior and appearance. Here the pagination
+	 * controller is created in this class with default page size.
+	 * 
+	 * @param parent
+	 *            a widget which will be the parent of the new instance (cannot
+	 *            be null)
+	 * @param style
+	 *            the style of widget to construct
+	 * 
+	 */
 	public AbstractPageControllerComposite(Composite parent, int style) {
 		this(parent, style, null);
 	}
 
+	/**
+	 * Constructs a new instance of this class given its parent and a style
+	 * value describing its behavior and appearance. Here the pagination
+	 * controller is filled.
+	 * 
+	 * @param parent
+	 *            a widget which will be the parent of the new instance (cannot
+	 *            be null)
+	 * @param style
+	 *            the style of widget to construct
+	 * @param controller
+	 *            the pagination controller to observe and update.
+	 * 
+	 */
 	public AbstractPageControllerComposite(Composite parent, int style,
 			T controller) {
-		this(parent, style, DEFAULT_PAGE_SIZE, controller);
+		this(parent, style, controller, DEFAULT_PAGE_SIZE, true);
 	}
 
+	/**
+	 * Constructs a new instance of this class given its parent and a style
+	 * value describing its behavior and appearance. Here the pagination
+	 * controller is created in this class with the given page size.
+	 * 
+	 * @param parent
+	 *            a widget which will be the parent of the new instance (cannot
+	 *            be null)
+	 * @param style
+	 *            the style of widget to construct
+	 * @param pageSize
+	 *            size of the page (number items displayed per page).
+	 */
 	public AbstractPageControllerComposite(Composite parent, int style,
 			int pageSize) {
-		this(parent, style, pageSize, null);
+		this(parent, style, null, pageSize, true);
 	}
 
-	public AbstractPageControllerComposite(Composite parent, int style,
-			int pageSize, T controller) {
-		this(parent, style, pageSize, controller, true);
-	}
-
+	/**
+	 * Constructs a new instance of this class given its parent and a style
+	 * value describing its behavior and appearance. The pagination controller
+	 * is created in this class or filled.
+	 * 
+	 * @param parent
+	 *            a widget which will be the parent of the new instance (cannot
+	 *            be null)
+	 * @param style
+	 *            the style of widget to construct
+	 * @param controller
+	 *            the pagination controller to observe and update. If this
+	 *            controller is null, this Composite create the pagination
+	 *            controller with the given pageSize.
+	 * @param pageSize
+	 *            size of the page (number items displayed per page).
+	 * @param createUI
+	 *            true if the UI must be created and false otherwise.
+	 * 
+	 */
 	protected AbstractPageControllerComposite(Composite parent, int style,
-			int pageSize, T controller, boolean createUI) {
+			T controller, int pageSize, boolean createUI) {
 		super(parent, style);
+		// Get or create controller
 		this.controller = controller != null ? controller
 				: createController(pageSize);
 		PaginationHelper.setController(this, controller);
 		if (createUI) {
+			// Create the UI
 			createUI(this);
 		}
 		// add listener from the pagination controller.
 		this.controller.addPageChangedListener(this);
 	}
 
+	@SuppressWarnings("unchecked")
 	protected T createController(int pageSize) {
 		return (T) new PaginationController(pageSize);
 	}
 
+	@SuppressWarnings("unchecked")
 	public T getController() {
 		return (T) controller;
 	}
 
+	/**
+	 * Set the current page index to teh pagination controller.
+	 * 
+	 * @param currentPage
+	 *            new current page index.
+	 */
 	public void setCurrentPage(int currentPage) {
 		getController().setCurrentPage(currentPage);
 	}
@@ -100,6 +166,11 @@ public abstract class AbstractPageControllerComposite<T extends PaginationContro
 	 */
 	public Locale getLocale() {
 		return locale;
+	}
+
+	public void localeChanged(Locale oldLocale, Locale newLocale,
+			PaginationController paginationController) {
+		setLocale(newLocale);
 	}
 
 	/**

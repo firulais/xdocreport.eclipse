@@ -186,4 +186,20 @@ public class PaginationHelper {
 		return MessageFormat.format(resultsMessage, start, end, total);
 	}
 
+	/**
+	 * urns the page text (ex : Page 1/2).
+	 * 
+	 * @param pageIndex
+	 *            the page index.
+	 * @param totalPage
+	 *            the total page.
+	 * @param locale
+	 *            the locale.
+	 * @return
+	 */
+	public static String getPageText(int pageIndex, int totalPage, Locale locale) {
+		String message = Resources.getText(Resources.PaginationRenderer_page,
+				locale);
+		return MessageFormat.format(message, pageIndex, totalPage);
+	}
 }

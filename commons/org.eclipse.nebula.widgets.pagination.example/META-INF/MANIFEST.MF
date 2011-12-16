@@ -1,8 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Example
-Bundle-SymbolicName: org.eclipse.nebula.widgets.picture.example
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.eclipse.nebula.widgets.example
 Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
 Require-Bundle: org.eclipse.swt,
  org.eclipse.nebula.widgets.pagination;bundle-version="1.0.0",
  org.eclipse.jface

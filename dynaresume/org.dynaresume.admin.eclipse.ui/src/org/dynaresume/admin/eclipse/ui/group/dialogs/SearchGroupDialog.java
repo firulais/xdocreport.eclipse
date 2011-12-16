@@ -7,7 +7,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.nebula.widgets.pagination.springdata.PageLoader;
-import org.eclipse.nebula.widgets.pagination.springdata.forms.FormPageableTable;
+import org.eclipse.nebula.widgets.pagination.springdata.forms.table.FormPageableTable;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;

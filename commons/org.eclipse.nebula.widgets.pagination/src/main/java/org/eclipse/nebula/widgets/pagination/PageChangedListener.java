@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.eclipse.nebula.widgets.pagination;
 
+import java.util.Locale;
+
 import org.eclipse.swt.SWT;
 
 /**
@@ -29,7 +31,6 @@ import org.eclipse.swt.SWT;
  */
 public interface PageChangedListener<T extends PaginationController> {
 
-	
 	/**
 	 * Sent when page changed in the page controller
 	 * {@link PaginationController}.
@@ -73,8 +74,7 @@ public interface PageChangedListener<T extends PaginationController> {
 	 * @param controller
 	 */
 	public void sortChanged(String oldPopertyName, String propertyName,
-			int oldSortDirection, int sortDirection,
-			T controller);
+			int oldSortDirection, int sortDirection, T controller);
 
 	/**
 	 * Sent when page size changed in the page controller
@@ -87,7 +87,19 @@ public interface PageChangedListener<T extends PaginationController> {
 	 * @param controller
 	 *            the page controller which have sent this event.
 	 */
-	public void pageSizeChanged(int oldPageSize, int newPageSize,
-			T controller);
+	public void pageSizeChanged(int oldPageSize, int newPageSize, T controller);
+
+	/**
+	 * Sent when locale changed in the page controller
+	 * {@link PaginationController}.
+	 * 
+	 * @param oldLocale
+	 *            old locale.
+	 * @param newLocale
+	 *            new locale.
+	 * @param paginationController
+	 */
+	public void localeChanged(Locale oldLocale, Locale newLocale,
+			T paginationController);
 
 }
