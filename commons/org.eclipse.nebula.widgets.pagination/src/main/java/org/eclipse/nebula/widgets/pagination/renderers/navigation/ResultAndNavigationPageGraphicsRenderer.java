@@ -155,7 +155,7 @@ public class ResultAndNavigationPageGraphicsRenderer extends
 		int[] indexes = PaginationHelper.getPageIndexes(
 				controller.getCurrentPage(), controller.getTotalPages(), 10);
 		// Update the GC navigation page with page indexes and selected page.
-		navigationPage.update(indexes, newPageNumber);
+		navigationPage.update(indexes, newPageNumber, getLocale());
 		refreshEnabled(controller);
 	}
 

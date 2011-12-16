@@ -198,8 +198,8 @@ public class ResultAndNavigationPageLinksRenderer extends
 			if (i > 0) {
 				s.append(' ');
 			}
-			if (j == PaginationHelper.DOT) {
-				s.append(Resources.THREE_DOT);
+			if (j == PaginationHelper.SEPARATOR) {
+				s.append(Resources.getText(Resources.PaginationRenderer_separator, getLocale()));
 			} else if (j == newPageNumber)
 				s.append(String.valueOf((j + 1)));
 			else {

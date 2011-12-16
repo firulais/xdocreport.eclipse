@@ -23,8 +23,8 @@ import org.eclipse.swt.widgets.Item;
  */
 public class NavigationPageGraphicsItem extends Item {
 
-	public static final int PREVIOUS = PaginationHelper.DOT - 1;
-	public static final int NEXT = PaginationHelper.DOT - 2;
+	public static final int PREVIOUS = PaginationHelper.SEPARATOR - 1;
+	public static final int NEXT = PaginationHelper.SEPARATOR - 2;
 	private final int index;
 
 	private Rectangle bounds;
@@ -34,10 +34,8 @@ public class NavigationPageGraphicsItem extends Item {
 		super(parent, SWT.NONE);
 		this.index = index;
 		boolean enabled = true;
-		if (isDot()) {
+		if (isSeparator()) {
 			enabled = false;
-			super.setText(Resources.THREE_DOT);
-
 		} else {
 			super.setText((index + 1) + "");
 		}
@@ -96,8 +94,8 @@ public class NavigationPageGraphicsItem extends Item {
 	 * 
 	 * @return
 	 */
-	public boolean isDot() {
-		return index == PaginationHelper.DOT;
+	public boolean isSeparator() {
+		return index == PaginationHelper.SEPARATOR;
 	}
 
 	/**

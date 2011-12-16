@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.eclipse.nebula.widgets.pagination.PaginationHelper;
 import org.eclipse.nebula.widgets.pagination.Resources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
@@ -116,7 +117,7 @@ public class NavigationPageGraphics extends Canvas {
 		Color fg = getDisplay().getSystemColor(SWT.COLOR_WIDGET_FOREGROUND);
 		Color bg = getDisplay().getSystemColor(SWT.COLOR_WIDGET_BACKGROUND);
 
-		boolean dot = false;
+		boolean separator = false;
 		int x, y, width, height = 0;
 		boolean selected = false;
 		boolean enabled = false;
@@ -124,7 +125,7 @@ public class NavigationPageGraphics extends Canvas {
 		for (NavigationPageGraphicsItem pageItem : items) {
 			selected = pageItem.equals(selectedItem);
 			enabled = pageItem.isEnabled();
-			dot = pageItem.isDot();
+			separator = pageItem.isSeparator();
 
 			x = pageItem.getBounds().x;
 			y = pageItem.getBounds().y;
@@ -133,7 +134,7 @@ public class NavigationPageGraphics extends Canvas {
 
 			// Fill rectangle
 			Color filledRectangleColor = getFilledRectangleColor(selected,
-					!dot ? enabled : true, bg);
+					!separator ? enabled : true, bg);
 			if (filledRectangleColor != null) {
 				gc.setBackground(filledRectangleColor);
 				if (round != null) {
@@ -144,7 +145,7 @@ public class NavigationPageGraphics extends Canvas {
 			}
 
 			// Border rectangle
-			if (!dot) {
+			if (!separator) {
 				Color borderRectangleColor = getBorderRectangleColor(selected,
 						enabled, bg);
 				if (borderRectangleColor != null) {
@@ -201,6 +202,10 @@ public class NavigationPageGraphics extends Canvas {
 	}
 
 	public void update(int[] pageIndexes, int currentPage) {
+		update(pageIndexes, currentPage, Locale.getDefault());
+	}
+	
+	public void update(int[] pageIndexes, int currentPage, Locale locale) {
 		// Compute navigation item and updat ethe selected item.
 		this.items = new ArrayList<NavigationPageGraphicsItem>(
 				pageIndexes.length + 2);
@@ -210,6 +215,9 @@ public class NavigationPageGraphics extends Canvas {
 		for (int i = 0; i < pageIndexes.length; i++) {
 			index = pageIndexes[i];
 			item = new NavigationPageGraphicsItem(this, index);
+			if (index==PaginationHelper.SEPARATOR) {
+				item.setText(Resources.getText(Resources.PaginationRenderer_separator, locale));
+			}
 			items.add(item);
 			if (currentPage == index) {
 				selectedItem = item;
@@ -317,7 +325,7 @@ public class NavigationPageGraphics extends Canvas {
 	}
 
 	public void select(NavigationPageGraphicsItem pageItem) {
-		if (!pageItem.isDot()) {
+		if (!pageItem.isSeparator()) {
 			// item selected is not the item '...'
 			selectedItem = pageItem;
 			redraw();

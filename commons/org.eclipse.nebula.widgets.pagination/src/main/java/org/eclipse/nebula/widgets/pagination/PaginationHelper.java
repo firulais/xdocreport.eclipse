@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Widget;
 public class PaginationHelper {
 
 	private static final String PAGINATION_CONTROLLER_KEY = "___PaginationController";
-	public static final int DOT = -1;
+	public static final int SEPARATOR = -1;
 
 	/**
 	 * Returns an array of int with the page indexes for the given
@@ -50,7 +50,7 @@ public class PaginationHelper {
 					if (i == 0) {
 						indexes[i] = i;
 					} else if (i == 1) {
-						indexes[i] = DOT;
+						indexes[i] = SEPARATOR;
 					} else {
 						indexes[i] = index--;
 					}
@@ -62,7 +62,7 @@ public class PaginationHelper {
 						if (i == nbMax - 1) {
 							indexes[i] = totalPages - 1;
 						} else if (i == nbMax - 2) {
-							indexes[i] = DOT;
+							indexes[i] = SEPARATOR;
 						} else {
 							indexes[i] = i;
 						}
@@ -79,7 +79,7 @@ public class PaginationHelper {
 					for (int i = middle; i > 0 && index > 0; i--) {
 						if (i == 1) {
 							// before last item, check if it's 2 item
-							indexes[i] = index == 2 ? index : DOT;
+							indexes[i] = index == 2 ? index : SEPARATOR;
 						} else if (i == 0) {
 							indexes[i] = 0;
 						} else if (index > 0) {
@@ -91,7 +91,7 @@ public class PaginationHelper {
 					index = currentPageIndex;
 					for (int i = nbItems; i < nbMax; i++) {
 						if (i == nbMax - 2) {
-							indexes[i] = index == totalPages ? index : DOT;
+							indexes[i] = index == totalPages ? index : SEPARATOR;
 						} else if (i == nbMax - 1) {
 							indexes[i] = totalPages - 1;
 						} else {
