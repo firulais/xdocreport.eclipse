@@ -22,7 +22,8 @@ Require-Bundle: org.eclipse.ui;resolution:=optional,
  org.eclipse.rap.jface.databinding;bundle-version="1.4.0";resolution:=optional,
  org.eclipse.rap.singlesourcing,
  fr.opensagres.xdocreport.eclipse.reporting.core,
- fr.opensagres.xdocreport.eclipse.reporting.xdocreport.core
+ fr.opensagres.xdocreport.eclipse.reporting.xdocreport.core,
+ org.eclipse.nebula.widgets.pagination;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Import-Package: fr.opensagres.eclipse.forms,
@@ -37,9 +38,6 @@ Import-Package: fr.opensagres.eclipse.forms,
  org.dynaresume.domain.hr,
  org.dynaresume.services,
  org.eclipse.core.databinding.validation.jsr303,
- org.eclipse.nebula.widgets.pagination,
- org.eclipse.nebula.widgets.pagination.springdata,
- org.eclipse.nebula.widgets.pagination.springdata.forms.table,
  org.eclipse.springframework.util,
  org.springframework.beans.factory.annotation,
  org.springframework.data.domain
