@@ -29,8 +29,7 @@ import org.eclipse.swt.widgets.Composite;
  * 
  */
 public class NavigationPageComboRenderer extends
-		AbstractPageControllerComposite<PageableController> implements
-		SelectionListener {
+		AbstractPageControllerComposite implements SelectionListener {
 
 	private Combo pageCombo;
 

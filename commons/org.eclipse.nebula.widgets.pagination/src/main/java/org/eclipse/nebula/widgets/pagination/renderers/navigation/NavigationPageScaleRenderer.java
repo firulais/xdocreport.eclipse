@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Scale;
  * 
  */
 public class NavigationPageScaleRenderer extends
-		AbstractPageControllerComposite<PageableController> implements
+		AbstractPageControllerComposite implements
 		SelectionListener {
 
 	private Scale pageScale;

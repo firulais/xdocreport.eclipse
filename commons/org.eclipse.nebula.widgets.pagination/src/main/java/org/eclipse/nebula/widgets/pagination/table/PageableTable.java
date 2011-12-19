@@ -16,7 +16,6 @@ import org.eclipse.nebula.widgets.pagination.AbstractPaginationWidget;
 import org.eclipse.nebula.widgets.pagination.IPageContentProvider;
 import org.eclipse.nebula.widgets.pagination.PageContentProvider;
 import org.eclipse.nebula.widgets.pagination.PageLoaderStrategyHelper;
-import org.eclipse.nebula.widgets.pagination.PageableController;
 import org.eclipse.nebula.widgets.pagination.renderers.ICompositeRendererFactory;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.ResultAndNavigationPageLinksRendererFactory;
 import org.eclipse.swt.SWT;
@@ -37,8 +36,7 @@ import org.eclipse.swt.widgets.Table;
  * @param <T>
  *            the pagination controller.
  */
-public class PageableTable<T extends PageableController> extends
-		AbstractPaginationWidget<Table, T> {
+public class PageableTable extends AbstractPaginationWidget<Table> {
 
 	/** the table viewer **/
 	protected TableViewer viewer;

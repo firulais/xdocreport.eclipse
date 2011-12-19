@@ -47,8 +47,7 @@ import org.eclipse.swt.widgets.Link;
  * 
  */
 public class ResultAndNavigationPageLinksRenderer extends
-		AbstractPageControllerComposite<PageableController> implements
-		SelectionListener {
+		AbstractPageControllerComposite implements SelectionListener {
 
 	private static final RGB RED_COLOR = new RGB(255, 0, 0);
 
@@ -199,7 +198,8 @@ public class ResultAndNavigationPageLinksRenderer extends
 				s.append(' ');
 			}
 			if (j == PaginationHelper.SEPARATOR) {
-				s.append(Resources.getText(Resources.PaginationRenderer_separator, getLocale()));
+				s.append(Resources.getText(
+						Resources.PaginationRenderer_separator, getLocale()));
 			} else if (j == newPageNumber)
 				s.append(String.valueOf((j + 1)));
 			else {

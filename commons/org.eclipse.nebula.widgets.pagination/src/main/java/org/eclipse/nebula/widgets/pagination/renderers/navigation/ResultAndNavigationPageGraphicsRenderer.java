@@ -47,7 +47,7 @@ import org.eclipse.swt.widgets.Label;
  * 
  */
 public class ResultAndNavigationPageGraphicsRenderer extends
-		AbstractPageControllerComposite<PageableController> {
+		AbstractPageControllerComposite {
 
 	/** the result label **/
 	private Label resultLabel;

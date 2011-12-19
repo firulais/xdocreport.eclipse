@@ -25,8 +25,8 @@ import org.eclipse.swt.widgets.Composite;
  * @param <T>
  *            pagination controller.
  */
-public abstract class AbstractPageControllerComposite<T extends PageableController>
-		extends Composite implements IPageChangedListener<T> {
+public abstract class AbstractPageControllerComposite extends Composite
+		implements IPageChangedListener {
 
 	public static final int DEFAULT_PAGE_SIZE = 5;
 
@@ -35,7 +35,7 @@ public abstract class AbstractPageControllerComposite<T extends PageableControll
 	/** local used for the resources bundle **/
 	private Locale locale = Locale.getDefault();
 
-	private IPageContentProvider<T, ?> pageContentProvider;
+	private IPageContentProvider pageContentProvider;
 
 	/**
 	 * Constructs a new instance of this class given its parent and a style
@@ -68,7 +68,7 @@ public abstract class AbstractPageControllerComposite<T extends PageableControll
 	 * 
 	 */
 	public AbstractPageControllerComposite(Composite parent, int style,
-			T controller) {
+			PageableController controller) {
 		this(parent, style, controller, DEFAULT_PAGE_SIZE, null, true);
 	}
 
@@ -111,7 +111,7 @@ public abstract class AbstractPageControllerComposite<T extends PageableControll
 	 * 
 	 */
 	protected AbstractPageControllerComposite(Composite parent, int style,
-			T controller, int pageSize,
+			PageableController controller, int pageSize,
 			IPageContentProvider pageContentProvider, boolean createUI) {
 		super(parent, style);
 		this.pageContentProvider = pageContentProvider;
@@ -128,16 +128,15 @@ public abstract class AbstractPageControllerComposite<T extends PageableControll
 	}
 
 	@SuppressWarnings("unchecked")
-	protected T createController(int pageSize) {
+	protected PageableController createController(int pageSize) {
 		if (pageContentProvider != null) {
 			return pageContentProvider.createController(pageSize);
 		}
-		return (T) new PageableController(pageSize);
+		return (PageableController) new PageableController(pageSize);
 	}
 
-	@SuppressWarnings("unchecked")
-	public T getController() {
-		return (T) controller;
+	public PageableController getController() {
+		return controller;
 	}
 
 	/**
@@ -180,7 +179,7 @@ public abstract class AbstractPageControllerComposite<T extends PageableControll
 		setLocale(newLocale);
 	}
 
-	public IPageContentProvider<T, ?> getPageContentProvider() {
+	public IPageContentProvider getPageContentProvider() {
 		return pageContentProvider;
 	}
 

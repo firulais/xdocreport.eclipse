@@ -35,8 +35,8 @@ import org.eclipse.swt.widgets.Widget;
  *            the pagination controller to observe to refresh paginated data in
  *            the widget and update it with total elements.
  */
-public abstract class AbstractPaginationWidget<W extends Widget, T extends PageableController>
-		extends AbstractPageControllerComposite<T> {
+public abstract class AbstractPaginationWidget<W extends Widget> extends
+		AbstractPageControllerComposite {
 
 	/** the widget hosted by the composite (ex: table) **/
 	private W widget;
@@ -62,12 +62,12 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagea
 	private Composite compositeBottom;
 
 	/** the page loader used to load paginated data list */
-	private IPageLoader<T, ?> pageLoader;
+	private IPageLoader pageLoader;
 
 	/**
 	 * The page loader handler to observe before/after page loading process
 	 **/
-	private IPageLoaderHandler<T> pageLoaderHandler;
+	private IPageLoaderHandler pageLoaderHandler;
 
 	/**
 	 * Constructs a new instance of this class given its parent and a style
@@ -327,11 +327,11 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagea
 	public void setLocale(Locale locale) {
 		super.setLocale(locale);
 		if (compositeTop != null
-				&& compositeTop instanceof AbstractPageControllerComposite<?>) {
+				&& compositeTop instanceof AbstractPageControllerComposite) {
 			((AbstractPageControllerComposite) compositeTop).setLocale(locale);
 		}
 		if (compositeBottom != null
-				&& compositeBottom instanceof AbstractPageControllerComposite<?>) {
+				&& compositeBottom instanceof AbstractPageControllerComposite) {
 			((AbstractPageControllerComposite) compositeBottom)
 					.setLocale(locale);
 		}
@@ -346,7 +346,7 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagea
 		if (pageLoaderHandler == null) {
 			refreshPage();
 		} else {
-			T controller = getController();
+			PageableController controller = getController();
 			pageLoaderHandler.onBeforePageLoad(controller);
 			try {
 				refreshPage();
@@ -362,7 +362,7 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagea
 	 * 
 	 * @param pageLoaderHandler
 	 */
-	public void setPageLoaderHandler(IPageLoaderHandler<T> pageLoaderHandler) {
+	public void setPageLoaderHandler(IPageLoaderHandler pageLoaderHandler) {
 		this.pageLoaderHandler = pageLoaderHandler;
 	}
 
@@ -372,7 +372,7 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagea
 	 * 
 	 * @return
 	 */
-	public IPageLoaderHandler<T> getPageLoaderHandler() {
+	public IPageLoaderHandler getPageLoaderHandler() {
 		return pageLoaderHandler;
 	}
 
@@ -381,7 +381,7 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagea
 	 * 
 	 * @param pageLoader
 	 */
-	public void setPageLoader(IPageLoader<T, ?> pageLoader) {
+	public void setPageLoader(IPageLoader pageLoader) {
 		this.pageLoader = pageLoader;
 	}
 
@@ -390,7 +390,7 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagea
 	 * 
 	 * @return
 	 */
-	public IPageLoader<T, ?> getPageLoader() {
+	public IPageLoader getPageLoader() {
 		return pageLoader;
 	}
 

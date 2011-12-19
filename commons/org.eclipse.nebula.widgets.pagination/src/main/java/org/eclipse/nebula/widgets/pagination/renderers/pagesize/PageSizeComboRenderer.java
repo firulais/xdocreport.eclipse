@@ -38,7 +38,7 @@ import org.eclipse.swt.widgets.Label;
  * 
  */
 public class PageSizeComboRenderer extends
-		AbstractPageControllerComposite<PageableController> implements
+		AbstractPageControllerComposite implements
 		SelectionListener {
 
 	private static class InternalLabelProvider extends LabelProvider {
