@@ -65,7 +65,7 @@ public class NavigationPageGraphics extends Canvas {
 	}
 
 	public NavigationPageGraphics(Composite parent, int style,
-			NavigationPageGraphicsConfigurator configurator) {
+			INavigationPageGraphicsConfigurator configurator) {
 		super(parent, style);
 		// Create previous+next item.
 		this.previousItem = new NavigationPageGraphicsItem(this,
@@ -416,7 +416,7 @@ public class NavigationPageGraphics extends Canvas {
 		return disabledItemBackground;
 	}
 
-	public void setConfigurator(NavigationPageGraphicsConfigurator configurator) {
+	public void setConfigurator(INavigationPageGraphicsConfigurator configurator) {
 		this.round = null;
 		configurator.configure(this);
 		redraw();

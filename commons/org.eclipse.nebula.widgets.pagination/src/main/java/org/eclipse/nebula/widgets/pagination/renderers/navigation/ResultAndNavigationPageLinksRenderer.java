@@ -14,7 +14,7 @@ package org.eclipse.nebula.widgets.pagination.renderers.navigation;
 import java.util.Locale;
 
 import org.eclipse.nebula.widgets.pagination.AbstractPageControllerComposite;
-import org.eclipse.nebula.widgets.pagination.PaginationController;
+import org.eclipse.nebula.widgets.pagination.PageableController;
 import org.eclipse.nebula.widgets.pagination.PaginationHelper;
 import org.eclipse.nebula.widgets.pagination.Resources;
 import org.eclipse.swt.SWT;
@@ -47,7 +47,7 @@ import org.eclipse.swt.widgets.Link;
  * 
  */
 public class ResultAndNavigationPageLinksRenderer extends
-		AbstractPageControllerComposite<PaginationController> implements
+		AbstractPageControllerComposite<PageableController> implements
 		SelectionListener {
 
 	private static final RGB RED_COLOR = new RGB(255, 0, 0);
@@ -80,7 +80,7 @@ public class ResultAndNavigationPageLinksRenderer extends
 	 * 
 	 */
 	public ResultAndNavigationPageLinksRenderer(Composite parent, int style,
-			PaginationController controller) {
+			PageableController controller) {
 		super(parent, style, controller);
 		refreshEnabled(controller);
 	}
@@ -188,7 +188,7 @@ public class ResultAndNavigationPageLinksRenderer extends
 	 * (int, int, org.eclipse.nebula.widgets.pagination.PaginationController)
 	 */
 	public void pageIndexChanged(int oldPageNumber, int newPageNumber,
-			PaginationController controller) {
+			PageableController controller) {
 		// Generate string of links
 		StringBuilder s = new StringBuilder();
 		int[] indexes = PaginationHelper.getPageIndexes(
@@ -220,7 +220,7 @@ public class ResultAndNavigationPageLinksRenderer extends
 	 * (int, int, org.eclipse.nebula.widgets.pagination.PaginationController)
 	 */
 	public void pageSizeChanged(int oldPageSize, int newPageSize,
-			PaginationController paginationController) {
+			PageableController paginationController) {
 		// Do nothing
 	}
 
@@ -232,7 +232,7 @@ public class ResultAndNavigationPageLinksRenderer extends
 	 * org.eclipse.nebula.widgets.pagination.PaginationController)
 	 */
 	public void totalElementsChanged(long oldTotalElements,
-			long newTotalElements, PaginationController controller) {
+			long newTotalElements, PageableController controller) {
 		refreshEnabled(controller);
 	}
 
@@ -246,7 +246,7 @@ public class ResultAndNavigationPageLinksRenderer extends
 	 */
 	public void sortChanged(String oldPopertyName, String propertyName,
 			int oldSortDirection, int sortDirection,
-			PaginationController paginationController) {
+			PageableController paginationController) {
 		// Do nothing
 	}
 
@@ -255,7 +255,7 @@ public class ResultAndNavigationPageLinksRenderer extends
 	 * 
 	 * @param controller
 	 */
-	private void refreshEnabled(PaginationController controller) {
+	private void refreshEnabled(PageableController controller) {
 		resultLabel.setText(PaginationHelper.getResultsText(controller,
 				getLocale()));
 		nextLink.setEnabled(controller.hasNextPage());

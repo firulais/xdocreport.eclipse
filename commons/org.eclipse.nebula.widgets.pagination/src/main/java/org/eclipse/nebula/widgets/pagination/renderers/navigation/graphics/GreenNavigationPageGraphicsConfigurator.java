@@ -19,9 +19,9 @@ import org.eclipse.swt.graphics.RGB;
  * 
  */
 public class GreenNavigationPageGraphicsConfigurator implements
-		NavigationPageGraphicsConfigurator {
+		INavigationPageGraphicsConfigurator {
 
-	private final static NavigationPageGraphicsConfigurator INSTANCE = new GreenNavigationPageGraphicsConfigurator();
+	private final static INavigationPageGraphicsConfigurator INSTANCE = new GreenNavigationPageGraphicsConfigurator();
 
 	private static final RGB DARK_GREEN = new RGB(100, 126, 51);
 	private static final RGB LIGHT_GREEN = new RGB(134, 167, 54);
@@ -29,7 +29,7 @@ public class GreenNavigationPageGraphicsConfigurator implements
 	private static final RGB WHITE = new RGB(255, 255, 255);
 	private static final RGB ORANGE = new RGB(228, 158, 22);
 
-	public static NavigationPageGraphicsConfigurator getInstance() {
+	public static INavigationPageGraphicsConfigurator getInstance() {
 		return INSTANCE;
 	}
 

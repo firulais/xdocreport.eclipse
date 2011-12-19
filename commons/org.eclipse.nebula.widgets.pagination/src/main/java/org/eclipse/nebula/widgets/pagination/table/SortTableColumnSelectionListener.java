@@ -12,7 +12,7 @@
 package org.eclipse.nebula.widgets.pagination.table;
 
 import org.eclipse.nebula.widgets.pagination.AbstractSortColumnSelectionListener;
-import org.eclipse.nebula.widgets.pagination.PaginationController;
+import org.eclipse.nebula.widgets.pagination.PageableController;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -48,7 +48,7 @@ public class SortTableColumnSelectionListener extends
 	 *            the controller to update when sort is applied.
 	 */
 	public SortTableColumnSelectionListener(String propertyName,
-			PaginationController controller) {
+			PageableController controller) {
 		this(propertyName, SWT.NONE, controller);
 	}
 
@@ -76,7 +76,7 @@ public class SortTableColumnSelectionListener extends
 	 *            the controller to update when sort is applied.
 	 */
 	public SortTableColumnSelectionListener(String propertyName,
-			int sortDirection, PaginationController controller) {
+			int sortDirection, PageableController controller) {
 		super(propertyName, sortDirection, controller);
 	}
 

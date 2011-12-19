@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Widget;
  * @param <T>
  *            pagination controller.
  */
-public class AbstractPageControllerSelectionListener<T extends PaginationController>
+public class AbstractPageControllerSelectionListener<T extends PageableController>
 		extends SelectionAdapter {
 
 	private final T controller;

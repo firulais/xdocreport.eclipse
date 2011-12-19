@@ -96,6 +96,7 @@
       <plugin id="org.eclipse.gemini.blueprint.io"/>
       <plugin id="org.eclipse.help"/>
       <plugin id="org.eclipse.nebula.widgets.pagination"/>
+      <plugin id="org.eclipse.nebula.widgets.pagination.springdata"/>
       <plugin id="org.eclipse.nebula.widgets.picture"/>
       <plugin id="org.eclipse.nebula.widgets.pshelf.rap"/>
       <plugin id="org.eclipse.osgi"/>
@@ -123,6 +124,7 @@
       <plugin id="org.springframework.core"/>
       <plugin id="org.springframework.data.commons"/>
       <plugin id="org.springframework.data.domain-only"/>
+      <plugin id="org.springframework.data.domain.collections"/>      
       <plugin id="org.springframework.expression"/>
       <plugin id="org.springframework.jdbc"/>
       <plugin id="org.springframework.orm"/>
@@ -213,6 +215,7 @@
       <plugin id="org.eclipse.gemini.blueprint.io" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.help" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.nebula.widgets.pagination" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.nebula.widgets.pagination.springdata" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.nebula.widgets.picture" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.nebula.widgets.pshelf.rap" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.osgi" autoStart="true" startLevel="0" />
@@ -240,6 +243,7 @@
       <plugin id="org.springframework.core" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.data.commons" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.data.domain-only" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.data.domain.collections" autoStart="true" startLevel="0" />      
       <plugin id="org.springframework.expression" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.jdbc" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.orm" autoStart="true" startLevel="0" />
@@ -254,3 +258,4 @@
    </libraries>
    </warConfiguration>
 </product>
+

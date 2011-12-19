@@ -106,23 +106,23 @@ public class PaginationHelper {
 	}
 
 	/**
-	 * Returns the attached {@link PaginationController} to the given widget.
+	 * Returns the attached {@link PageableController} to the given widget.
 	 * 
 	 * @param widget
 	 * @return
 	 */
-	public static PaginationController getController(Widget widget) {
-		return (PaginationController) widget.getData(PAGINATION_CONTROLLER_KEY);
+	public static PageableController getController(Widget widget) {
+		return (PageableController) widget.getData(PAGINATION_CONTROLLER_KEY);
 	}
 
 	/**
-	 * Attach the given {@link PaginationController} to the given widget.
+	 * Attach the given {@link PageableController} to the given widget.
 	 * 
 	 * @param widget
 	 * @param controller
 	 */
 	public static void setController(Widget widget,
-			PaginationController controller) {
+			PageableController controller) {
 		widget.setData(PAGINATION_CONTROLLER_KEY, controller);
 	}
 
@@ -137,7 +137,7 @@ public class PaginationHelper {
 	 *            the locale.
 	 * @return
 	 */
-	public static String getResultsText(PaginationController controller,
+	public static String getResultsText(PageableController controller,
 			Locale locale) {
 		String resultsMessage = Resources.getText(
 				Resources.PaginationRenderer_results, locale);// "Results {0}-{1} of {2}";
@@ -155,7 +155,7 @@ public class PaginationHelper {
 	 *            the results message.
 	 * @return
 	 */
-	public static String getResultsText(PaginationController controller,
+	public static String getResultsText(PageableController controller,
 			String resultsMessage) {
 		int start = controller.getPageOffset() + 1;
 		int end = start + controller.getPageSize() - 1;
@@ -182,7 +182,7 @@ public class PaginationHelper {
 	 * @return
 	 */
 	public static String getResultsText(int start, int end, long total,
-			PaginationController controller, String resultsMessage) {
+			PageableController controller, String resultsMessage) {
 		return MessageFormat.format(resultsMessage, start, end, total);
 	}
 

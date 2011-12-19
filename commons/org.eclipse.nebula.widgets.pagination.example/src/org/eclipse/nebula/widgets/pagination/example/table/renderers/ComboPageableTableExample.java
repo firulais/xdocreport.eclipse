@@ -17,9 +17,10 @@ import java.util.List;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.nebula.widgets.pagination.PageContentProvider;
+import org.eclipse.nebula.widgets.pagination.collections.PageLoaderList;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.NavigationPageComboRendererFactory;
-import org.eclipse.nebula.widgets.pagination.springdata.PageLoaderListImpl;
-import org.eclipse.nebula.widgets.pagination.springdata.table.PageableTable;
+import org.eclipse.nebula.widgets.pagination.table.PageableTable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -47,6 +48,7 @@ public class ComboPageableTableExample {
 		int pageSize = 10;
 		PageableTable pageableTable = new PageableTable(shell, SWT.BORDER,
 				SWT.BORDER | SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL, pageSize,
+				PageContentProvider.getInstance(),
 				NavigationPageComboRendererFactory.getFactory(), null);
 		pageableTable.setLayoutData(new GridData(GridData.FILL_BOTH));
 
@@ -57,7 +59,7 @@ public class ComboPageableTableExample {
 
 		// 3) Set the page loader used to load a page (sublist of String)
 		// according the page index selected, the page size etc.
-		pageableTable.setPageLoader(new PageLoaderListImpl(items));
+		pageableTable.setPageLoader(new PageLoaderList(items));
 
 		// 4) Set current page to 0 to display the first page
 		pageableTable.setCurrentPage(0);

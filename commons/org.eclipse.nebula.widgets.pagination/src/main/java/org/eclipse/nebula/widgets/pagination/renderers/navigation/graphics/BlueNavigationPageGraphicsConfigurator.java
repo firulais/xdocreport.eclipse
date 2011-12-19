@@ -19,9 +19,9 @@ import org.eclipse.swt.graphics.RGB;
  * Navigation page configurator to configure navigation page with blue theme.
  * 
  */
-public class BlueNavigationPageGraphicsConfigurator implements NavigationPageGraphicsConfigurator {
+public class BlueNavigationPageGraphicsConfigurator implements INavigationPageGraphicsConfigurator {
 
-	private final static NavigationPageGraphicsConfigurator INSTANCE = new BlueNavigationPageGraphicsConfigurator();
+	private final static INavigationPageGraphicsConfigurator INSTANCE = new BlueNavigationPageGraphicsConfigurator();
 
 	private static final RGB DARK_BLUE = new RGB(0,49,82);
 	private static final RGB BLUE = new RGB(148, 148, 231);	
@@ -31,7 +31,7 @@ public class BlueNavigationPageGraphicsConfigurator implements NavigationPageGra
 	private static final RGB GRAY = new RGB(239,237,247);	
 	private static final RGB LIGHT_GRAY = new RGB(134, 134, 134);
 	
-	public static NavigationPageGraphicsConfigurator getInstance() {
+	public static INavigationPageGraphicsConfigurator getInstance() {
 		return INSTANCE;
 	}
 

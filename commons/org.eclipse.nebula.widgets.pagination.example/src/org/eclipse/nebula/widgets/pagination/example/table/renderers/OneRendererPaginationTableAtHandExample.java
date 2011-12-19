@@ -19,13 +19,14 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.nebula.widgets.pagination.IPageLoader;
+import org.eclipse.nebula.widgets.pagination.PageContentProvider;
+import org.eclipse.nebula.widgets.pagination.PageLoaderStrategyHelper;
+import org.eclipse.nebula.widgets.pagination.PageableController;
+import org.eclipse.nebula.widgets.pagination.collections.PageLoaderList;
 import org.eclipse.nebula.widgets.pagination.example.model.Address;
 import org.eclipse.nebula.widgets.pagination.example.model.Person;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.ResultAndNavigationPageLinksRenderer;
-import org.eclipse.nebula.widgets.pagination.springdata.PageLoader;
-import org.eclipse.nebula.widgets.pagination.springdata.PageLoaderListImpl;
-import org.eclipse.nebula.widgets.pagination.springdata.PageLoaderStrategyHelper;
-import org.eclipse.nebula.widgets.pagination.springdata.PageableController;
 import org.eclipse.nebula.widgets.pagination.table.SortTableColumnSelectionListener;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -74,10 +75,10 @@ public class OneRendererPaginationTableAtHandExample {
 		// 3) Create Table columns with sort of paginated list.
 		int pageSize = 10;
 		final PageableController controller = new PageableController(pageSize);
-		final PageLoader pageLoader = new PageLoaderListImpl(items);
+		final IPageLoader pageLoader = new PageLoaderList(items);
 		controller.addPageChangedListener(PageLoaderStrategyHelper
 				.createloadPageAndReplaceItemsListener(controller, viewer,
-						pageLoader, null));
+						pageLoader, PageContentProvider.getInstance(), null));
 
 		// Create navigation page links
 		ResultAndNavigationPageLinksRenderer resultAndPageLinksDecorator = new ResultAndNavigationPageLinksRenderer(

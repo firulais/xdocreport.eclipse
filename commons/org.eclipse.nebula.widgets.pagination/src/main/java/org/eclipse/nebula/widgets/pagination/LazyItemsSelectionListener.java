@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Widget;
  * 
  */
 public class LazyItemsSelectionListener extends
-		AbstractPageControllerSelectionListener<PaginationController> {
+		AbstractPageControllerSelectionListener<PageableController> {
 
 	public static final String LAST_ITEM_LOADED = "___LAST_ITEM_LOADED";
 
@@ -40,7 +40,7 @@ public class LazyItemsSelectionListener extends
 	 * 
 	 * @param controller
 	 */
-	public LazyItemsSelectionListener(PaginationController controller) {
+	public LazyItemsSelectionListener(PageableController controller) {
 		super(controller);
 	}
 
@@ -50,7 +50,7 @@ public class LazyItemsSelectionListener extends
 		Widget item = e.item;
 		if (item.getData(LAST_ITEM_LOADED) != null) {
 			// The selected item must load another page.
-			PaginationController controller = super.getController(e.widget);
+			PageableController controller = super.getController(e.widget);
 			if (controller.hasNextPage()) {
 				// There is next page, increment the current page of the
 				// controller

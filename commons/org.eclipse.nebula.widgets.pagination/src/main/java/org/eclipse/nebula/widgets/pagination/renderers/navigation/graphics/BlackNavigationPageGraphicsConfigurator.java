@@ -18,9 +18,9 @@ import org.eclipse.swt.graphics.RGB;
  * Navigation page configurator to configure navigation page with black theme.
  * 
  */
-public class BlackNavigationPageGraphicsConfigurator implements NavigationPageGraphicsConfigurator {
+public class BlackNavigationPageGraphicsConfigurator implements INavigationPageGraphicsConfigurator {
 
-	private final static NavigationPageGraphicsConfigurator INSTANCE = new BlackNavigationPageGraphicsConfigurator();
+	private final static INavigationPageGraphicsConfigurator INSTANCE = new BlackNavigationPageGraphicsConfigurator();
 
 	private static final RGB ORANGE = new RGB(236, 82, 16);
 	private static final RGB WHITE = new RGB(255, 255, 255);
@@ -28,7 +28,7 @@ public class BlackNavigationPageGraphicsConfigurator implements NavigationPageGr
 	private static final RGB DARK_GRAY = new RGB(62, 62, 62);
 	private static final RGB LIGHT_GRAY = new RGB(134, 134, 134);
 
-	public static NavigationPageGraphicsConfigurator getInstance() {
+	public static INavigationPageGraphicsConfigurator getInstance() {
 		return INSTANCE;
 	}
 

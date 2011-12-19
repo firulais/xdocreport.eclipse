@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.eclipse.nebula.widgets.pagination.example.table;
 
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +20,13 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.nebula.widgets.pagination.PageLoaderHandler;
+import org.eclipse.nebula.widgets.pagination.IPageLoaderHandler;
+import org.eclipse.nebula.widgets.pagination.PageableController;
+import org.eclipse.nebula.widgets.pagination.collections.Page;
+import org.eclipse.nebula.widgets.pagination.collections.PageLoaderList;
 import org.eclipse.nebula.widgets.pagination.example.model.Address;
 import org.eclipse.nebula.widgets.pagination.example.model.Person;
-import org.eclipse.nebula.widgets.pagination.springdata.PageLoaderListImpl;
-import org.eclipse.nebula.widgets.pagination.springdata.PageableController;
-import org.eclipse.nebula.widgets.pagination.springdata.table.PageableTable;
+import org.eclipse.nebula.widgets.pagination.table.PageableTable;
 import org.eclipse.nebula.widgets.pagination.table.SortTableColumnSelectionListener;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -35,12 +37,10 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 /**
  * This sample is the same than {@link ModelSortPageableTableExample} and use
- * {@link PageLoaderHandler} to display a message while paginated list is
+ * {@link IPageLoaderHandler} to display a message while paginated list is
  * loaded. The load of the paginated list take a long time (1000ms) (emulate
  * that with Thread.sleep). On bottom of the table, a "Loading..." message is
  * displayed.
@@ -75,7 +75,7 @@ public class ModelSortPageableTableWorkInProcessExample {
 		pageableTable.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		pageableTable
-				.setPageLoaderHandler(new PageLoaderHandler<PageableController>() {
+				.setPageLoaderHandler(new IPageLoaderHandler<PageableController>() {
 
 					long time = 0;
 
@@ -109,9 +109,9 @@ public class ModelSortPageableTableWorkInProcessExample {
 		createColumns(viewer);
 
 		// 3) Set current page to 0 to refresh the table
-		pageableTable.setPageLoader(new PageLoaderListImpl(items) {
+		pageableTable.setPageLoader(new PageLoaderList(items) {			
 			@Override
-			public Page<?> loadPage(Pageable pageable) {
+			public Page<?> loadPage(PageableController pageable) {
 				if (pageableTable.isVisible()) {
 					try {
 						Thread.sleep(1000);

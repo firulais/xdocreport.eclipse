@@ -7,8 +7,10 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.nebula.widgets.pagination.springdata.PageLoader;
-import org.eclipse.nebula.widgets.pagination.springdata.forms.table.FormPageableTable;
+import org.eclipse.nebula.widgets.pagination.springdata.ISpringDataPageLoader;
+import org.eclipse.nebula.widgets.pagination.springdata.SpringDataPageContentProvider;
+import org.eclipse.nebula.widgets.pagination.springdata.SpringDataPageableController;
+import org.eclipse.nebula.widgets.pagination.table.forms.FormPageableTable;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -29,7 +31,8 @@ import org.springframework.data.domain.Pageable;
 
 import fr.opensagres.xdocreport.eclipse.ui.dialogs.SearchDialog;
 
-public class SearchClientDialog extends SearchDialog implements PageLoader {
+public class SearchClientDialog extends SearchDialog implements
+		ISpringDataPageLoader<Client> {
 
 	public final static String ID = "org.dynaresume.project.eclipse.ui.dialogs.SearchClientDialog";
 
@@ -123,7 +126,8 @@ public class SearchClientDialog extends SearchDialog implements PageLoader {
 
 		paginationTable = new FormPageableTable(container, SWT.NONE,
 				SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION
-						| SWT.BORDER, toolkit);
+						| SWT.BORDER, toolkit,
+				SpringDataPageContentProvider.getInstance());
 
 		// {
 		//
@@ -152,8 +156,8 @@ public class SearchClientDialog extends SearchDialog implements PageLoader {
 		section.setClient(container);
 	}
 	
-	public Page<?> loadPage(Pageable pageable) {
-		return clientService.findByName(labelCriteria, pageable);
+	public Page<Client> loadPage(SpringDataPageableController controller) {
+		return clientService.findByName(labelCriteria, controller);
 	}
 
 	// private void createViewer(Composite parent) {

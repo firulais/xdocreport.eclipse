@@ -15,12 +15,12 @@ import java.util.Locale;
 
 /**
  * This adapter class provides default implementations for the methods described
- * by the {@link PageChangedListener} interface.
+ * by the {@link IPageChangedListener} interface.
  * 
- * @see PageChangedListener
+ * @see IPageChangedListener
  */
-public class PageChangedAdapter<T extends PaginationController> implements
-		PageChangedListener<T> {
+public class PageChangedAdapter<T extends PageableController> implements
+		IPageChangedListener<T> {
 
 	public void pageIndexChanged(int oldPageIndex, int newPageIndex,
 			T controller) {
@@ -43,7 +43,7 @@ public class PageChangedAdapter<T extends PaginationController> implements
 	}
 
 	public void localeChanged(Locale oldLocale, Locale newLocale,
-			PaginationController paginationController) {
+			PageableController paginationController) {
 		// Do nothing
 	}
 

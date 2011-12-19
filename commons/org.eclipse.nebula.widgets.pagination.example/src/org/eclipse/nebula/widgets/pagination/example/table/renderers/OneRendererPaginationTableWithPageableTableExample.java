@@ -19,12 +19,13 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.nebula.widgets.pagination.PageContentProvider;
+import org.eclipse.nebula.widgets.pagination.PageableController;
+import org.eclipse.nebula.widgets.pagination.collections.PageLoaderList;
 import org.eclipse.nebula.widgets.pagination.example.model.Address;
 import org.eclipse.nebula.widgets.pagination.example.model.Person;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.ResultAndNavigationPageLinksRendererFactory;
-import org.eclipse.nebula.widgets.pagination.springdata.PageLoaderListImpl;
-import org.eclipse.nebula.widgets.pagination.springdata.PageableController;
-import org.eclipse.nebula.widgets.pagination.springdata.table.PageableTable;
+import org.eclipse.nebula.widgets.pagination.table.PageableTable;
 import org.eclipse.nebula.widgets.pagination.table.SortTableColumnSelectionListener;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -55,12 +56,12 @@ public class OneRendererPaginationTableWithPageableTableExample {
 		int pageSize = 10;
 		final PageableTable pageableTable = new PageableTable(shell,
 				SWT.BORDER, SWT.BORDER | SWT.MULTI | SWT.H_SCROLL
-						| SWT.V_SCROLL, pageSize, null,
+						| SWT.V_SCROLL, pageSize,
+				PageContentProvider.getInstance(), null,
 				ResultAndNavigationPageLinksRendererFactory.getFactory());
 		pageableTable.setLayoutData(new GridData(GridData.FILL_BOTH));
+		pageableTable.setPageLoader(new PageLoaderList(items));
 
-		pageableTable.setPageLoader(new PageLoaderListImpl(items));
-		
 		// 2) Initialize the table viewer + SWT Table
 		TableViewer viewer = pageableTable.getViewer();
 		viewer.setContentProvider(ArrayContentProvider.getInstance());
@@ -74,7 +75,6 @@ public class OneRendererPaginationTableWithPageableTableExample {
 		createColumns(viewer, controller);
 		// 3) Set current page to 0 to refresh the table
 
-		
 		controller.setCurrentPage(0);
 
 		shell.setSize(350, 250);

@@ -11,12 +11,12 @@
  *******************************************************************************/
 package org.eclipse.nebula.widgets.pagination.renderers.navigation;
 
-import org.eclipse.nebula.widgets.pagination.PaginationController;
-import org.eclipse.nebula.widgets.pagination.renderers.CompositeRendererFactory;
+import org.eclipse.nebula.widgets.pagination.PageableController;
+import org.eclipse.nebula.widgets.pagination.renderers.ICompositeRendererFactory;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.graphics.BlackNavigationPageGraphicsConfigurator;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.graphics.BlueNavigationPageGraphicsConfigurator;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.graphics.GreenNavigationPageGraphicsConfigurator;
-import org.eclipse.nebula.widgets.pagination.renderers.navigation.graphics.NavigationPageGraphicsConfigurator;
+import org.eclipse.nebula.widgets.pagination.renderers.navigation.graphics.INavigationPageGraphicsConfigurator;
 import org.eclipse.swt.widgets.Composite;
 
 /**
@@ -25,38 +25,38 @@ import org.eclipse.swt.widgets.Composite;
  * 
  */
 public class ResultAndNavigationPageGraphicsRendererFactory implements
-		CompositeRendererFactory {
+		ICompositeRendererFactory {
 
-	private static final CompositeRendererFactory BLUE_FACTORY = new ResultAndNavigationPageGraphicsRendererFactory(
+	private static final ICompositeRendererFactory BLUE_FACTORY = new ResultAndNavigationPageGraphicsRendererFactory(
 			BlueNavigationPageGraphicsConfigurator.getInstance());
 
-	private static final CompositeRendererFactory GREEN_FACTORY = new ResultAndNavigationPageGraphicsRendererFactory(
+	private static final ICompositeRendererFactory GREEN_FACTORY = new ResultAndNavigationPageGraphicsRendererFactory(
 			GreenNavigationPageGraphicsConfigurator.getInstance());
 
-	private static final CompositeRendererFactory BLACK_FACTORY = new ResultAndNavigationPageGraphicsRendererFactory(
+	private static final ICompositeRendererFactory BLACK_FACTORY = new ResultAndNavigationPageGraphicsRendererFactory(
 			BlackNavigationPageGraphicsConfigurator.getInstance());
 
-	public static CompositeRendererFactory getBlueFactory() {
+	public static ICompositeRendererFactory getBlueFactory() {
 		return BLUE_FACTORY;
 	}
 
-	public static CompositeRendererFactory getGreenFactory() {
+	public static ICompositeRendererFactory getGreenFactory() {
 		return GREEN_FACTORY;
 	}
 
-	public static CompositeRendererFactory getBlackFactory() {
+	public static ICompositeRendererFactory getBlackFactory() {
 		return BLACK_FACTORY;
 	}
 
-	private final NavigationPageGraphicsConfigurator configurator;
+	private final INavigationPageGraphicsConfigurator configurator;
 
 	public ResultAndNavigationPageGraphicsRendererFactory(
-			NavigationPageGraphicsConfigurator configurator) {
+			INavigationPageGraphicsConfigurator configurator) {
 		this.configurator = configurator;
 	}
 
 	public Composite createComposite(Composite parent, int style,
-			PaginationController controller) {
+			PageableController controller) {
 		return new ResultAndNavigationPageGraphicsRenderer(parent, style,
 				controller, configurator);
 	}

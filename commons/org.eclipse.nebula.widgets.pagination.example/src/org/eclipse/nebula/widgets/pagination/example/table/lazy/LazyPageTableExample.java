@@ -19,11 +19,11 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.nebula.widgets.pagination.IPageLoader;
 import org.eclipse.nebula.widgets.pagination.LazyItemsSelectionListener;
-import org.eclipse.nebula.widgets.pagination.springdata.PageLoader;
-import org.eclipse.nebula.widgets.pagination.springdata.PageLoaderListImpl;
-import org.eclipse.nebula.widgets.pagination.springdata.PageLoaderStrategyHelper;
-import org.eclipse.nebula.widgets.pagination.springdata.PageableController;
+import org.eclipse.nebula.widgets.pagination.PageLoaderStrategyHelper;
+import org.eclipse.nebula.widgets.pagination.PageableController;
+import org.eclipse.nebula.widgets.pagination.collections.PageLoaderList;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -57,13 +57,13 @@ public class LazyPageTableExample {
 		// Create page loader (to load paginated list) and pageable controller.
 		int pageSize = 10;
 		final List<String> items = createList();
-		final PageLoader pageLoader = new PageLoaderListImpl(items);
+		final IPageLoader pageLoader = new PageLoaderList(items);
 		final PageableController controller = new PageableController(pageSize);
 
 		// Add listener to the controller to call page loader when controller
 		// change the current page (when last item of teh table is selected).
 		controller.addPageChangedListener(PageLoaderStrategyHelper
-				.createloadPageAndAddItemsListener(controller, viewer,
+				.createLoadPageAndAddItemsListener(controller, viewer,
 						pageLoader, null));
 
 		// Add lazy selection listener to call the page loader when teh last

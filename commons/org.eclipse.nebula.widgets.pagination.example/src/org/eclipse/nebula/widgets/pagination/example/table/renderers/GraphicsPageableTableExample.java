@@ -17,13 +17,14 @@ import java.util.List;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.nebula.widgets.pagination.PageContentProvider;
+import org.eclipse.nebula.widgets.pagination.collections.PageLoaderList;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.ResultAndNavigationPageGraphicsRenderer;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.ResultAndNavigationPageGraphicsRendererFactory;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.graphics.BlackNavigationPageGraphicsConfigurator;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.graphics.BlueNavigationPageGraphicsConfigurator;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.graphics.GreenNavigationPageGraphicsConfigurator;
-import org.eclipse.nebula.widgets.pagination.springdata.PageLoaderListImpl;
-import org.eclipse.nebula.widgets.pagination.springdata.table.PageableTable;
+import org.eclipse.nebula.widgets.pagination.table.PageableTable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -60,6 +61,7 @@ public class GraphicsPageableTableExample {
 				SWT.BORDER,
 				SWT.BORDER | SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL,
 				pageSize,
+				PageContentProvider.getInstance(),
 				ResultAndNavigationPageGraphicsRendererFactory.getBlueFactory(),
 				null);
 		pageableTable.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -71,7 +73,7 @@ public class GraphicsPageableTableExample {
 
 		// 3) Set the page loader used to load a page (sublist of String)
 		// according the page index selected, the page size etc.
-		pageableTable.setPageLoader(new PageLoaderListImpl(items));
+		pageableTable.setPageLoader(new PageLoaderList(items));
 
 		// 4) Set current page to 0 to display the first page
 		pageableTable.setCurrentPage(0);
@@ -103,7 +105,7 @@ public class GraphicsPageableTableExample {
 			}
 		});
 
-		shell.setSize(350, 250);
+		shell.setSize(450, 300);
 		shell.open();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch())

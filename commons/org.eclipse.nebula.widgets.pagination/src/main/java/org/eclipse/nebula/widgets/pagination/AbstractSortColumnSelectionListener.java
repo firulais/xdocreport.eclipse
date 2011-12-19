@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Widget;
  * 
  */
 public abstract class AbstractSortColumnSelectionListener extends
-		AbstractPageControllerSelectionListener<PaginationController> {
+		AbstractPageControllerSelectionListener<PageableController> {
 
 	/** property name used to sort **/
 	private final String sortPropertyName;
@@ -49,7 +49,7 @@ public abstract class AbstractSortColumnSelectionListener extends
 	 *            the controller to update when sort is applied.
 	 */
 	public AbstractSortColumnSelectionListener(String propertyName,
-			PaginationController controller) {
+			PageableController controller) {
 		this(propertyName, SWT.NONE, controller);
 	}
 
@@ -77,7 +77,7 @@ public abstract class AbstractSortColumnSelectionListener extends
 	 *            the controller to update when sort is applied.
 	 */
 	public AbstractSortColumnSelectionListener(String propertyName,
-			int sortDirection, PaginationController controller) {
+			int sortDirection, PageableController controller) {
 		super(controller);
 		this.sortPropertyName = propertyName;
 		this.sortDirection = sortDirection;

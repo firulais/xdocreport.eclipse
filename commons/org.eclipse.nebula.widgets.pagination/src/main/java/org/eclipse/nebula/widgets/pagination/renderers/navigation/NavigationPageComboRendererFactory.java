@@ -11,21 +11,21 @@
  *******************************************************************************/
 package org.eclipse.nebula.widgets.pagination.renderers.navigation;
 
-import org.eclipse.nebula.widgets.pagination.PaginationController;
-import org.eclipse.nebula.widgets.pagination.renderers.CompositeRendererFactory;
+import org.eclipse.nebula.widgets.pagination.PageableController;
+import org.eclipse.nebula.widgets.pagination.renderers.ICompositeRendererFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
-public class NavigationPageComboRendererFactory implements CompositeRendererFactory {
+public class NavigationPageComboRendererFactory implements ICompositeRendererFactory {
 
-	private static final CompositeRendererFactory FACTORY = new NavigationPageComboRendererFactory();
+	private static final ICompositeRendererFactory FACTORY = new NavigationPageComboRendererFactory();
 
-	public static CompositeRendererFactory getFactory() {
+	public static ICompositeRendererFactory getFactory() {
 		return FACTORY;
 	}
 
 	public Composite createComposite(Composite parent, int style,
-			PaginationController controller) {
+			PageableController controller) {
 		return new NavigationPageComboRenderer(parent, SWT.NONE, controller);
 	}
 }

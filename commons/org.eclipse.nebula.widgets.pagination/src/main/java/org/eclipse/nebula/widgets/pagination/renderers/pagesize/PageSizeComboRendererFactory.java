@@ -11,8 +11,8 @@
  *******************************************************************************/
 package org.eclipse.nebula.widgets.pagination.renderers.pagesize;
 
-import org.eclipse.nebula.widgets.pagination.PaginationController;
-import org.eclipse.nebula.widgets.pagination.renderers.CompositeRendererFactory;
+import org.eclipse.nebula.widgets.pagination.PageableController;
+import org.eclipse.nebula.widgets.pagination.renderers.ICompositeRendererFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
@@ -20,12 +20,12 @@ import org.eclipse.swt.widgets.Composite;
  * Renderer factory to create instance of {@link PageSizeComboRenderer}.
  * 
  */
-public class PageSizeComboRendererFactory implements CompositeRendererFactory {
+public class PageSizeComboRendererFactory implements ICompositeRendererFactory {
 
-	private static final CompositeRendererFactory FACTORY = new PageSizeComboRendererFactory(
+	private static final ICompositeRendererFactory FACTORY = new PageSizeComboRendererFactory(
 			new Integer[] { 5, 10, 100 });
 
-	public static CompositeRendererFactory getFactory() {
+	public static ICompositeRendererFactory getFactory() {
 		return FACTORY;
 	}
 
@@ -36,7 +36,7 @@ public class PageSizeComboRendererFactory implements CompositeRendererFactory {
 	}
 
 	public Composite createComposite(Composite parent, int style,
-			PaginationController controller) {
+			PageableController controller) {
 		return new PageSizeComboRenderer(parent, SWT.NONE, controller,
 				pageSizeList);
 	}

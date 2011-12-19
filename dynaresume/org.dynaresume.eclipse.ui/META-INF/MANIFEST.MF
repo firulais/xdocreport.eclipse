@@ -24,7 +24,8 @@ Require-Bundle: org.eclipse.ui;resolution:=optional,
  fr.opensagres.xdocreport.eclipse.reporting.core,
  fr.opensagres.xdocreport.eclipse.reporting.xdocreport.core,
  org.eclipse.nebula.widgets.picture,
- org.eclipse.nebula.widgets.pagination
+ org.eclipse.nebula.widgets.pagination,
+ org.eclipse.nebula.widgets.pagination.springdata
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Import-Package: fr.opensagres.eclipse.forms,

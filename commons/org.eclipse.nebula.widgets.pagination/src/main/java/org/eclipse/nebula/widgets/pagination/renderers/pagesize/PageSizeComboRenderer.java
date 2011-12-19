@@ -20,7 +20,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.nebula.widgets.pagination.AbstractPageControllerComposite;
-import org.eclipse.nebula.widgets.pagination.PaginationController;
+import org.eclipse.nebula.widgets.pagination.PageableController;
 import org.eclipse.nebula.widgets.pagination.Resources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -38,7 +38,7 @@ import org.eclipse.swt.widgets.Label;
  * 
  */
 public class PageSizeComboRenderer extends
-		AbstractPageControllerComposite<PaginationController> implements
+		AbstractPageControllerComposite<PageableController> implements
 		SelectionListener {
 
 	private static class InternalLabelProvider extends LabelProvider {
@@ -53,7 +53,7 @@ public class PageSizeComboRenderer extends
 	private Label itemsPerPageLabel;
 
 	public PageSizeComboRenderer(Composite parent, int style,
-			PaginationController controller, Integer[] pageSizeList) {
+			PageableController controller, Integer[] pageSizeList) {
 		super(parent, style, controller);
 		comboViewer.setInput(pageSizeList);
 	}
@@ -66,7 +66,7 @@ public class PageSizeComboRenderer extends
 	 * (int, int, org.eclipse.nebula.widgets.pagination.PaginationController)
 	 */
 	public void pageIndexChanged(int oldPageIndex, int newPageIndex,
-			PaginationController controller) {
+			PageableController controller) {
 		Integer selected = getSelectedPageSize();
 		if (selected == null) {
 			selectPageSize(controller.getPageSize());
@@ -81,7 +81,7 @@ public class PageSizeComboRenderer extends
 	 * org.eclipse.nebula.widgets.pagination.PaginationController)
 	 */
 	public void totalElementsChanged(long oldTotalElements,
-			long newTotalElements, PaginationController controller) {
+			long newTotalElements, PageableController controller) {
 		// Do nothing.
 	}
 
@@ -95,7 +95,7 @@ public class PageSizeComboRenderer extends
 	 */
 	public void sortChanged(String oldPopertyName, String propertyName,
 			int oldSortDirection, int sortDirection,
-			PaginationController paginationController) {
+			PageableController paginationController) {
 		// Do nothing.
 	}
 
@@ -107,7 +107,7 @@ public class PageSizeComboRenderer extends
 	 * (int, int, org.eclipse.nebula.widgets.pagination.PaginationController)
 	 */
 	public void pageSizeChanged(int oldPageSize, int newPageSize,
-			PaginationController paginationController) {
+			PageableController paginationController) {
 		selectPageSize(newPageSize);
 	}
 

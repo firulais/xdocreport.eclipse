@@ -12,7 +12,7 @@
 package org.eclipse.nebula.widgets.pagination.renderers.navigation;
 
 import org.eclipse.nebula.widgets.pagination.AbstractPageControllerComposite;
-import org.eclipse.nebula.widgets.pagination.PaginationController;
+import org.eclipse.nebula.widgets.pagination.PageableController;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -28,18 +28,18 @@ import org.eclipse.swt.widgets.Scale;
  * 
  */
 public class NavigationPageScaleRenderer extends
-		AbstractPageControllerComposite<PaginationController> implements
+		AbstractPageControllerComposite<PageableController> implements
 		SelectionListener {
 
 	private Scale pageScale;
 
 	public NavigationPageScaleRenderer(Composite parent, int style,
-			PaginationController controller) {
+			PageableController controller) {
 		super(parent, style, controller);
 	}
 
 	public void pageIndexChanged(int oldPageIndex, int newPageIndex,
-			PaginationController controller) {
+			PageableController controller) {
 		// Page index change, update the scale ranges.
 		updateScaleRange(controller);
 		// Update the scale selection with the new page index of the controller.
@@ -47,23 +47,23 @@ public class NavigationPageScaleRenderer extends
 	}
 
 	public void totalElementsChanged(long oldTotalElements,
-			long newTotalElements, PaginationController controller) {
+			long newTotalElements, PageableController controller) {
 		// Do nothing
 	}
 
 	public void sortChanged(String oldPopertyName, String propertyName,
 			int oldSortDirection, int sortDirection,
-			PaginationController paginationController) {
+			PageableController paginationController) {
 		// Do nothing
 	}
 
 	public void pageSizeChanged(int oldPageSize, int newPageSize,
-			PaginationController controller) {
+			PageableController controller) {
 		// Page size change, update the scale ranges.
 		updateScaleRange(controller);
 	}
 
-	private void updateScaleRange(PaginationController controller) {
+	private void updateScaleRange(PageableController controller) {
 		int totalPages = controller.getTotalPages();
 		pageScale.setMinimum(0);
 		if (totalPages > 1) {

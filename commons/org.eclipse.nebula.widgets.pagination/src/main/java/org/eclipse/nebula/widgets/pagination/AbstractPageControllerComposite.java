@@ -25,15 +25,17 @@ import org.eclipse.swt.widgets.Composite;
  * @param <T>
  *            pagination controller.
  */
-public abstract class AbstractPageControllerComposite<T extends PaginationController>
-		extends Composite implements PageChangedListener<T> {
+public abstract class AbstractPageControllerComposite<T extends PageableController>
+		extends Composite implements IPageChangedListener<T> {
 
 	public static final int DEFAULT_PAGE_SIZE = 5;
 
 	/** the controller to observe and update according the UI state **/
-	private PaginationController controller;
+	private PageableController controller;
 	/** local used for the resources bundle **/
 	private Locale locale = Locale.getDefault();
+
+	private IPageContentProvider<T, ?> pageContentProvider;
 
 	/**
 	 * Constructs a new instance of this class given its parent and a style
@@ -67,7 +69,7 @@ public abstract class AbstractPageControllerComposite<T extends PaginationContro
 	 */
 	public AbstractPageControllerComposite(Composite parent, int style,
 			T controller) {
-		this(parent, style, controller, DEFAULT_PAGE_SIZE, true);
+		this(parent, style, controller, DEFAULT_PAGE_SIZE, null, true);
 	}
 
 	/**
@@ -84,8 +86,8 @@ public abstract class AbstractPageControllerComposite<T extends PaginationContro
 	 *            size of the page (number items displayed per page).
 	 */
 	public AbstractPageControllerComposite(Composite parent, int style,
-			int pageSize) {
-		this(parent, style, null, pageSize, true);
+			int pageSize, IPageContentProvider pageContentProvider) {
+		this(parent, style, null, pageSize, pageContentProvider, true);
 	}
 
 	/**
@@ -109,8 +111,10 @@ public abstract class AbstractPageControllerComposite<T extends PaginationContro
 	 * 
 	 */
 	protected AbstractPageControllerComposite(Composite parent, int style,
-			T controller, int pageSize, boolean createUI) {
+			T controller, int pageSize,
+			IPageContentProvider pageContentProvider, boolean createUI) {
 		super(parent, style);
+		this.pageContentProvider = pageContentProvider;
 		// Get or create controller
 		this.controller = controller != null ? controller
 				: createController(pageSize);
@@ -125,7 +129,10 @@ public abstract class AbstractPageControllerComposite<T extends PaginationContro
 
 	@SuppressWarnings("unchecked")
 	protected T createController(int pageSize) {
-		return (T) new PaginationController(pageSize);
+		if (pageContentProvider != null) {
+			return pageContentProvider.createController(pageSize);
+		}
+		return (T) new PageableController(pageSize);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -169,8 +176,12 @@ public abstract class AbstractPageControllerComposite<T extends PaginationContro
 	}
 
 	public void localeChanged(Locale oldLocale, Locale newLocale,
-			PaginationController paginationController) {
+			PageableController paginationController) {
 		setLocale(newLocale);
+	}
+
+	public IPageContentProvider<T, ?> getPageContentProvider() {
+		return pageContentProvider;
 	}
 
 	/**

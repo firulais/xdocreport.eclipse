@@ -8,7 +8,7 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.nebula.widgets.pagination.PaginationBannerWidget;
-import org.eclipse.nebula.widgets.pagination.PaginationController;
+import org.eclipse.nebula.widgets.pagination.PageableController;
 import org.eclipse.nebula.widgets.pagination.PaginationInfoWidget;
 import org.eclipse.nebula.widgets.pagination.springdata.PageableController;
 import org.eclipse.nebula.widgets.pagination.springdata.PageableStructuredViewerLoader;
@@ -59,7 +59,7 @@ public class AdressPage2 extends ModelFormPage<Person> {
 		final int pageIndex = -1;
 		final int size = 3;
 
-		PaginationController controller = new PageableController(pageIndex,
+		PageableController controller = new PageableController(pageIndex,
 				size);
 
 		PaginationBannerWidget paginationHeader = new PaginationBannerWidget(

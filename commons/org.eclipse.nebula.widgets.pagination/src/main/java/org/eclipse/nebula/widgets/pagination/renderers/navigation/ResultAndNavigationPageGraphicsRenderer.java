@@ -14,12 +14,12 @@ package org.eclipse.nebula.widgets.pagination.renderers.navigation;
 import java.util.Locale;
 
 import org.eclipse.nebula.widgets.pagination.AbstractPageControllerComposite;
-import org.eclipse.nebula.widgets.pagination.PaginationController;
+import org.eclipse.nebula.widgets.pagination.PageableController;
 import org.eclipse.nebula.widgets.pagination.PaginationHelper;
 import org.eclipse.nebula.widgets.pagination.Resources;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.graphics.BlueNavigationPageGraphicsConfigurator;
+import org.eclipse.nebula.widgets.pagination.renderers.navigation.graphics.INavigationPageGraphicsConfigurator;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.graphics.NavigationPageGraphics;
-import org.eclipse.nebula.widgets.pagination.renderers.navigation.graphics.NavigationPageGraphicsConfigurator;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.graphics.NavigationPageGraphicsItem;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
@@ -47,24 +47,24 @@ import org.eclipse.swt.widgets.Label;
  * 
  */
 public class ResultAndNavigationPageGraphicsRenderer extends
-		AbstractPageControllerComposite<PaginationController> {
+		AbstractPageControllerComposite<PageableController> {
 
 	/** the result label **/
 	private Label resultLabel;
 	/** the navigation page graphics **/
 	private NavigationPageGraphics navigationPage;
-	private final NavigationPageGraphicsConfigurator configurator;
+	private final INavigationPageGraphicsConfigurator configurator;
 
 	public ResultAndNavigationPageGraphicsRenderer(Composite parent, int style,
-			PaginationController controller) {
+			PageableController controller) {
 		this(parent, style, controller, BlueNavigationPageGraphicsConfigurator
 				.getInstance());
 	}
 
 	public ResultAndNavigationPageGraphicsRenderer(Composite parent, int style,
-			PaginationController controller,
-			NavigationPageGraphicsConfigurator configurator) {
-		super(parent, style, controller, DEFAULT_PAGE_SIZE, false);
+			PageableController controller,
+			INavigationPageGraphicsConfigurator configurator) {
+		super(parent, style, controller, DEFAULT_PAGE_SIZE, null, false);
 		this.configurator = configurator;
 		createUI(this);
 		refreshEnabled(controller);
@@ -150,7 +150,7 @@ public class ResultAndNavigationPageGraphicsRenderer extends
 	}
 
 	public void pageIndexChanged(int oldPageNumber, int newPageNumber,
-			PaginationController controller) {
+			PageableController controller) {
 		// 1) Compute page indexes
 		int[] indexes = PaginationHelper.getPageIndexes(
 				controller.getCurrentPage(), controller.getTotalPages(), 10);
@@ -160,29 +160,29 @@ public class ResultAndNavigationPageGraphicsRenderer extends
 	}
 
 	public void pageSizeChanged(int oldPageSize, int newPageSize,
-			PaginationController paginationController) {
+			PageableController paginationController) {
 		// Do nothing
 	}
 
 	public void totalElementsChanged(long oldTotalElements,
-			long newTotalElements, PaginationController controller) {
+			long newTotalElements, PageableController controller) {
 		refreshEnabled(controller);
 	}
 
 	public void sortChanged(String oldPopertyName, String propertyName,
 			int oldSortDirection, int sortDirection,
-			PaginationController paginationController) {
+			PageableController paginationController) {
 		// Do nothing
 	}
 
-	private void refreshEnabled(PaginationController controller) {
+	private void refreshEnabled(PageableController controller) {
 		resultLabel.setText(PaginationHelper.getResultsText(controller,
 				getLocale()));
 		navigationPage.setEnabled(controller.hasPreviousPage(),
 				controller.hasNextPage());
 	}
 
-	protected void displayResults(PaginationController controller) {
+	protected void displayResults(PageableController controller) {
 
 	}
 
@@ -215,7 +215,7 @@ public class ResultAndNavigationPageGraphicsRenderer extends
 	 * 
 	 * @param configurator
 	 */
-	public void setConfigurator(NavigationPageGraphicsConfigurator configurator) {
+	public void setConfigurator(INavigationPageGraphicsConfigurator configurator) {
 		getNavigationPage().setConfigurator(configurator);
 	}
 }

@@ -13,7 +13,7 @@ package org.eclipse.nebula.widgets.pagination;
 
 import java.util.Locale;
 
-import org.eclipse.nebula.widgets.pagination.renderers.CompositeRendererFactory;
+import org.eclipse.nebula.widgets.pagination.renderers.ICompositeRendererFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -35,7 +35,7 @@ import org.eclipse.swt.widgets.Widget;
  *            the pagination controller to observe to refresh paginated data in
  *            the widget and update it with total elements.
  */
-public abstract class AbstractPaginationWidget<W extends Widget, T extends PaginationController>
+public abstract class AbstractPaginationWidget<W extends Widget, T extends PageableController>
 		extends AbstractPageControllerComposite<T> {
 
 	/** the widget hosted by the composite (ex: table) **/
@@ -44,12 +44,12 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagin
 	 * the page renderer factory to use to create a Composite on the top of the
 	 * widget.
 	 **/
-	private CompositeRendererFactory pageRendererTopFactory;
+	private ICompositeRendererFactory pageRendererTopFactory;
 	/**
 	 * the page renderer factory to use to create a Composite on the bottom of
 	 * the widget.
 	 **/
-	private CompositeRendererFactory pageRendererBottomFactory;
+	private ICompositeRendererFactory pageRendererBottomFactory;
 	/**
 	 * The composite created by the pageRendererTopFactory on the top of the
 	 * widget (null if none Composite must be added)
@@ -61,10 +61,13 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagin
 	 **/
 	private Composite compositeBottom;
 
+	/** the page loader used to load paginated data list */
+	private IPageLoader<T, ?> pageLoader;
+
 	/**
 	 * The page loader handler to observe before/after page loading process
 	 **/
-	private PageLoaderHandler<T> pageLoaderHandler;
+	private IPageLoaderHandler<T> pageLoaderHandler;
 
 	/**
 	 * Constructs a new instance of this class given its parent and a style
@@ -87,10 +90,11 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagin
 	 * 
 	 */
 	public AbstractPaginationWidget(Composite parent, int style,
-			CompositeRendererFactory pageRendererTopFactory,
-			CompositeRendererFactory pageRendererBottomFactory) {
-		this(parent, style, DEFAULT_PAGE_SIZE, pageRendererTopFactory,
-				pageRendererBottomFactory, true);
+			IPageContentProvider pageContentProvider,
+			ICompositeRendererFactory pageRendererTopFactory,
+			ICompositeRendererFactory pageRendererBottomFactory) {
+		this(parent, style, DEFAULT_PAGE_SIZE, pageContentProvider,
+				pageRendererTopFactory, pageRendererBottomFactory, true);
 	}
 
 	/**
@@ -115,10 +119,11 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagin
 	 * 
 	 */
 	public AbstractPaginationWidget(Composite parent, int style, int pageSize,
-			CompositeRendererFactory pageRendererTopFactory,
-			CompositeRendererFactory pageRendererBottomFactory) {
-		this(parent, style, pageSize, pageRendererTopFactory,
-				pageRendererBottomFactory, true);
+			IPageContentProvider pageContentProvider,
+			ICompositeRendererFactory pageRendererTopFactory,
+			ICompositeRendererFactory pageRendererBottomFactory) {
+		this(parent, style, pageSize, pageContentProvider,
+				pageRendererTopFactory, pageRendererBottomFactory, true);
 	}
 
 	/**
@@ -146,9 +151,11 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagin
 	 * 
 	 */
 	protected AbstractPaginationWidget(Composite parent, int style,
-			int pageSize, CompositeRendererFactory pageRendererTopFactory,
-			CompositeRendererFactory pageRendererBottomFactory, boolean createUI) {
-		super(parent, style, null, pageSize, false);
+			int pageSize, IPageContentProvider pageContentProvider,
+			ICompositeRendererFactory pageRendererTopFactory,
+			ICompositeRendererFactory pageRendererBottomFactory,
+			boolean createUI) {
+		super(parent, style, null, pageSize, pageContentProvider, false);
 		this.pageRendererTopFactory = pageRendererTopFactory;
 		this.pageRendererBottomFactory = pageRendererBottomFactory;
 		if (createUI) {
@@ -176,7 +183,7 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagin
 	 * @param parent
 	 */
 	protected Composite createCompositeTop(Composite parent) {
-		CompositeRendererFactory pageRendererTopFactory = getPageRendererTopFactory();
+		ICompositeRendererFactory pageRendererTopFactory = getPageRendererTopFactory();
 		if (pageRendererTopFactory != null) {
 			Composite compositeTop = pageRendererTopFactory.createComposite(
 					parent, SWT.NONE, getController());
@@ -196,7 +203,7 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagin
 	 */
 
 	protected Composite createCompositeBottom(Composite parent) {
-		CompositeRendererFactory pageRendererBottomFactory = getPageRendererBottomFactory();
+		ICompositeRendererFactory pageRendererBottomFactory = getPageRendererBottomFactory();
 		if (pageRendererBottomFactory != null) {
 			Composite compositeBottom = pageRendererBottomFactory
 					.createComposite(parent, SWT.NONE, getController());
@@ -215,7 +222,7 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagin
 	 * 
 	 * @return
 	 */
-	public CompositeRendererFactory getPageRendererTopFactory() {
+	public ICompositeRendererFactory getPageRendererTopFactory() {
 		return pageRendererTopFactory;
 	}
 
@@ -225,7 +232,7 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagin
 	 * 
 	 * @return
 	 */
-	public CompositeRendererFactory getPageRendererBottomFactory() {
+	public ICompositeRendererFactory getPageRendererBottomFactory() {
 		return pageRendererBottomFactory;
 	}
 
@@ -257,7 +264,7 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagin
 	 * (int, int, org.eclipse.nebula.widgets.pagination.PaginationController)
 	 */
 	public void pageIndexChanged(int oldPageNumber, int newPageNumber,
-			PaginationController controller) {
+			PageableController controller) {
 		// when selected page changed, refresh the page
 		internalRefreshPage();
 	}
@@ -270,7 +277,7 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagin
 	 * org.eclipse.nebula.widgets.pagination.PaginationController)
 	 */
 	public void totalElementsChanged(long oldTotalElements,
-			long newTotalElements, PaginationController controller) {
+			long newTotalElements, PageableController controller) {
 
 	}
 
@@ -284,7 +291,7 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagin
 	 */
 	public void sortChanged(String oldPopertyName, String propertyName,
 			int oldSortDirection, int sortDirection,
-			PaginationController paginationController) {
+			PageableController paginationController) {
 		refreshPage(true);
 	}
 
@@ -296,7 +303,7 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagin
 	 * (int, int, org.eclipse.nebula.widgets.pagination.PaginationController)
 	 */
 	public void pageSizeChanged(int oldPageSize, int newPageSize,
-			PaginationController paginationController) {
+			PageableController paginationController) {
 		refreshPage(false);
 	}
 
@@ -355,7 +362,7 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagin
 	 * 
 	 * @param pageLoaderHandler
 	 */
-	public void setPageLoaderHandler(PageLoaderHandler<T> pageLoaderHandler) {
+	public void setPageLoaderHandler(IPageLoaderHandler<T> pageLoaderHandler) {
 		this.pageLoaderHandler = pageLoaderHandler;
 	}
 
@@ -365,8 +372,26 @@ public abstract class AbstractPaginationWidget<W extends Widget, T extends Pagin
 	 * 
 	 * @return
 	 */
-	public PageLoaderHandler<T> getPageLoaderHandler() {
+	public IPageLoaderHandler<T> getPageLoaderHandler() {
 		return pageLoaderHandler;
+	}
+
+	/**
+	 * Set the page loader to use to load paginated list.
+	 * 
+	 * @param pageLoader
+	 */
+	public void setPageLoader(IPageLoader<T, ?> pageLoader) {
+		this.pageLoader = pageLoader;
+	}
+
+	/**
+	 * Returns the page loader to use to load paginated list.
+	 * 
+	 * @return
+	 */
+	public IPageLoader<T, ?> getPageLoader() {
+		return pageLoader;
 	}
 
 	/**

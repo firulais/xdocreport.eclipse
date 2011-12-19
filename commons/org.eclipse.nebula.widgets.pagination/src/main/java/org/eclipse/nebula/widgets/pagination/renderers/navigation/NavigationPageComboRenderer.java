@@ -12,7 +12,7 @@
 package org.eclipse.nebula.widgets.pagination.renderers.navigation;
 
 import org.eclipse.nebula.widgets.pagination.AbstractPageControllerComposite;
-import org.eclipse.nebula.widgets.pagination.PaginationController;
+import org.eclipse.nebula.widgets.pagination.PageableController;
 import org.eclipse.nebula.widgets.pagination.PaginationHelper;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -29,34 +29,34 @@ import org.eclipse.swt.widgets.Composite;
  * 
  */
 public class NavigationPageComboRenderer extends
-		AbstractPageControllerComposite<PaginationController> implements
+		AbstractPageControllerComposite<PageableController> implements
 		SelectionListener {
 
 	private Combo pageCombo;
 
 	public NavigationPageComboRenderer(Composite parent, int style,
-			PaginationController controller) {
+			PageableController controller) {
 		super(parent, style, controller);
 	}
 
 	public void pageIndexChanged(int oldPageIndex, int newPageIndex,
-			PaginationController controller) {
+			PageableController controller) {
 		populateCombo(controller);
 	}
 
 	public void totalElementsChanged(long oldTotalElements,
-			long newTotalElements, PaginationController controller) {
+			long newTotalElements, PageableController controller) {
 
 	}
 
 	public void sortChanged(String oldPopertyName, String propertyName,
 			int oldSortDirection, int sortDirection,
-			PaginationController paginationController) {
+			PageableController paginationController) {
 
 	}
 
 	public void pageSizeChanged(int oldPageSize, int newPageSize,
-			PaginationController controller) {
+			PageableController controller) {
 		populateCombo(controller);
 	}
 
@@ -65,7 +65,7 @@ public class NavigationPageComboRenderer extends
 	 * 
 	 * @param controller
 	 */
-	private void populateCombo(PaginationController controller) {
+	private void populateCombo(PageableController controller) {
 		int totalPages = controller.getTotalPages();
 		String[] items = new String[totalPages];
 		for (int i = 0; i < items.length; i++) {
