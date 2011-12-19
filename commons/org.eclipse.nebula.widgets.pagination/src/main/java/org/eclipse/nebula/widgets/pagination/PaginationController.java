@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.eclipse.nebula.widgets.pagination;
 
+import java.io.Serializable;
 import java.util.Locale;
 
 import org.eclipse.core.runtime.ListenerList;
@@ -35,8 +36,10 @@ import org.eclipse.swt.SWT;
  * </p>
  * 
  */
-public class PaginationController {
+public class PaginationController implements Serializable {
 
+	private static final long serialVersionUID = 8456710060857724013L;
+	
 	public static final int DEFAULT_PAGE_INDEX = -1;
 	public static final int DEFAULT_PAGE_SIZE = 10;
 

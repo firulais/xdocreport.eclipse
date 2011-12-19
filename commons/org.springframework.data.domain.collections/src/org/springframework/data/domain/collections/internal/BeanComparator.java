@@ -1,3 +1,14 @@
+/*******************************************************************************
+ * Copyright (C) 2011 Angelo Zerr <angelo.zerr@gmail.com>, Pascal Leclercq <pascal.leclercq@gmail.com>
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Angelo ZERR - initial API and implementation
+ *     Pascal Leclercq - initial API and implementation
+ *******************************************************************************/
 package org.springframework.data.domain.collections.internal;
 
 import java.util.Comparator;
@@ -5,6 +16,12 @@ import java.util.Comparator;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 
+/**
+ * Implementation of {@link Comparator} to compare POJO by using Spring Data
+ * {@link Sort}.
+ * 
+ */
+@SuppressWarnings("rawtypes")
 public class BeanComparator implements Comparator {
 
 	private final Sort sort;
@@ -21,8 +38,8 @@ public class BeanComparator implements Comparator {
 			return compare(c1, c2);
 		}
 		for (Order order : sort) {
-			o1 = BeanPropertyHelper.getValue(o1, order.getProperty());
-			o2 = BeanPropertyHelper.getValue(o2, order.getProperty());
+			o1 = BeanUtils.getValue(o1, order.getProperty());
+			o2 = BeanUtils.getValue(o2, order.getProperty());
 			if ((o1 instanceof Comparable) && (o2 instanceof Comparable)) {
 				// Compare simple type like String, Integer etc
 				Comparable c1 = ((Comparable) o1);
