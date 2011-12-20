@@ -87,7 +87,7 @@ public class AllRenderersPaginationTableAtHandExample {
 
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
-
+ 
 		// 3) Create Table columns with sort of paginated list.
 		int pageSize = 10;
 		final PageableController controller = new PageableController(pageSize);
