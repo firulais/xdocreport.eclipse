@@ -29,11 +29,10 @@ import org.eclipse.swt.SWT;
  * 
  * @see PageChangedAdapter
  */
-public interface IPageChangedListener<T extends PageableController> {
+public interface IPageChangedListener {
 
 	/**
-	 * Sent when page changed in the page controller
-	 * {@link PageableController}.
+	 * Sent when page changed in the page controller {@link PageableController}.
 	 * 
 	 * @param oldPageIndex
 	 *            old page index.
@@ -43,7 +42,7 @@ public interface IPageChangedListener<T extends PageableController> {
 	 *            the page controller which have sent this event.
 	 */
 	public void pageIndexChanged(int oldPageIndex, int newPageIndex,
-			T controller);
+			PageableController controller);
 
 	/**
 	 * Sent when total elements changed in the page controller
@@ -57,11 +56,10 @@ public interface IPageChangedListener<T extends PageableController> {
 	 *            the page controller which have sent this event.
 	 */
 	public void totalElementsChanged(long oldTotalElements,
-			long newTotalElements, T controller);
+			long newTotalElements, PageableController controller);
 
 	/**
-	 * Sent when sort changed in the page controller
-	 * {@link PageableController}.
+	 * Sent when sort changed in the page controller {@link PageableController}.
 	 * 
 	 * @param oldPopertyName
 	 *            old property name.
@@ -74,7 +72,8 @@ public interface IPageChangedListener<T extends PageableController> {
 	 * @param controller
 	 */
 	public void sortChanged(String oldPopertyName, String propertyName,
-			int oldSortDirection, int sortDirection, T controller);
+			int oldSortDirection, int sortDirection,
+			PageableController controller);
 
 	/**
 	 * Sent when page size changed in the page controller
@@ -87,7 +86,8 @@ public interface IPageChangedListener<T extends PageableController> {
 	 * @param controller
 	 *            the page controller which have sent this event.
 	 */
-	public void pageSizeChanged(int oldPageSize, int newPageSize, T controller);
+	public void pageSizeChanged(int oldPageSize, int newPageSize,
+			PageableController controller);
 
 	/**
 	 * Sent when locale changed in the page controller
@@ -100,6 +100,6 @@ public interface IPageChangedListener<T extends PageableController> {
 	 * @param paginationController
 	 */
 	public void localeChanged(Locale oldLocale, Locale newLocale,
-			T paginationController);
+			PageableController paginationController);
 
 }

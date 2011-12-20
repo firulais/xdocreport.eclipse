@@ -7,9 +7,9 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.nebula.widgets.pagination.PageableController;
 import org.eclipse.nebula.widgets.pagination.springdata.ISpringDataPageLoader;
 import org.eclipse.nebula.widgets.pagination.springdata.SpringDataPageContentProvider;
-import org.eclipse.nebula.widgets.pagination.springdata.SpringDataPageableController;
 import org.eclipse.nebula.widgets.pagination.table.SortTableColumnSelectionListener;
 import org.eclipse.nebula.widgets.pagination.table.forms.FormPageableTable;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
@@ -28,6 +28,7 @@ import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import fr.opensagres.xdocreport.eclipse.ui.dialogs.SearchDialog;
 
@@ -142,8 +143,8 @@ public class SearchSkillDialog extends SearchDialog implements
 		section.setClient(container);
 	}
 
-	public Page<Skill> loadPage(SpringDataPageableController controller) {
-		return skillService.findByName(labelCriteria, controller);
+	public Page<Skill> loadPage(PageableController controller) {
+		return skillService.findByName(labelCriteria, (Pageable)controller);
 	}
 
 	// private void createViewer(Composite parent) {

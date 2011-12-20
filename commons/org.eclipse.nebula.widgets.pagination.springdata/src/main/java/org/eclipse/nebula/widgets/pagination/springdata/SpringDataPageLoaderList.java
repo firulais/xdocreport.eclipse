@@ -13,7 +13,9 @@ package org.eclipse.nebula.widgets.pagination.springdata;
 
 import java.util.List;
 
+import org.eclipse.nebula.widgets.pagination.PageableController;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.collections.PageListHelper;
 
 /**
@@ -38,8 +40,8 @@ public class SpringDataPageLoaderList<T> implements ISpringDataPageLoader<T> {
 		return items;
 	}
 
-	public Page<T> loadPage(SpringDataPageableController pageable) {
-		return PageListHelper.createPage(items, pageable);
+	public Page<T> loadPage(PageableController pageable) {
+		return PageListHelper.createPage(items, (Pageable) pageable);
 	}
 
 }

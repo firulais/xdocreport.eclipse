@@ -19,26 +19,26 @@ import java.util.Locale;
  * 
  * @see IPageChangedListener
  */
-public class PageChangedAdapter<T extends PageableController> implements
-		IPageChangedListener<T> {
+public class PageChangedAdapter implements IPageChangedListener {
 
 	public void pageIndexChanged(int oldPageIndex, int newPageIndex,
-			T controller) {
+			PageableController controller) {
 		// Do nothing
 	}
 
 	public void totalElementsChanged(long oldTotalElements,
-			long newTotalElements, T controller) {
+			long newTotalElements, PageableController controller) {
 		// Do nothing
 	}
 
 	public void sortChanged(String oldPopertyName, String propertyName,
-			int oldSortDirection, int sortDirection, T controller) {
+			int oldSortDirection, int sortDirection,
+			PageableController controller) {
 		// Do nothing
 	}
 
 	public void pageSizeChanged(int oldPageSize, int newPageSize,
-			T paginationController) {
+			PageableController paginationController) {
 		// Do nothing
 	}
 
