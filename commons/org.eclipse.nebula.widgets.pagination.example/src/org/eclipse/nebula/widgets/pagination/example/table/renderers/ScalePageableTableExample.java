@@ -18,7 +18,7 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.nebula.widgets.pagination.collections.PageResultContentProvider;
-import org.eclipse.nebula.widgets.pagination.collections.PageLoaderList;
+import org.eclipse.nebula.widgets.pagination.collections.PageResultLoaderList;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.NavigationPageScaleRendererFactory;
 import org.eclipse.nebula.widgets.pagination.table.PageableTable;
 import org.eclipse.swt.SWT;
@@ -59,7 +59,7 @@ public class ScalePageableTableExample {
 
 		// 3) Set the page loader used to load a page (sublist of String)
 		// according the page index selected, the page size etc.
-		pageableTable.setPageLoader(new PageLoaderList(items));
+		pageableTable.setPageLoader(new PageResultLoaderList<String>(items));
 
 		// 4) Set current page to 0 to display the first page
 		pageableTable.setCurrentPage(0);

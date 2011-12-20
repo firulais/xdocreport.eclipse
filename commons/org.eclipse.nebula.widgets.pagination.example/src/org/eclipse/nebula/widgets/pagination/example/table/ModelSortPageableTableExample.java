@@ -19,7 +19,7 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.nebula.widgets.pagination.collections.PageLoaderList;
+import org.eclipse.nebula.widgets.pagination.collections.PageResultLoaderList;
 import org.eclipse.nebula.widgets.pagination.example.model.Address;
 import org.eclipse.nebula.widgets.pagination.example.model.Person;
 import org.eclipse.nebula.widgets.pagination.table.PageableTable;
@@ -70,7 +70,7 @@ public class ModelSortPageableTableExample {
 		createColumns(viewer);
 
 		// 3) Set current page to 0 to refresh the table
-		pageableTable.setPageLoader(new PageLoaderList(items));
+		pageableTable.setPageLoader(new PageResultLoaderList<Person>(items));
 		pageableTable.setCurrentPage(0);
 
 		shell.setSize(400, 250);

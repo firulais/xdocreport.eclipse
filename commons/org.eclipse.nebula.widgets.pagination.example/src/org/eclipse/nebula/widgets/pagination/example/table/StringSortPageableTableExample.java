@@ -19,7 +19,7 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.nebula.widgets.pagination.collections.PageLoaderList;
+import org.eclipse.nebula.widgets.pagination.collections.PageResultLoaderList;
 import org.eclipse.nebula.widgets.pagination.table.PageableTable;
 import org.eclipse.nebula.widgets.pagination.table.SortTableColumnSelectionListener;
 import org.eclipse.swt.SWT;
@@ -50,9 +50,8 @@ public class StringSortPageableTableExample {
 		// 1) Create pageable table with 10 items per page
 		// This SWT Component create internally a SWT Table+JFace TreeViewer
 		int pageSize = 10;
-		PageableTable paginationTable = new PageableTable(shell,
-				SWT.BORDER, SWT.BORDER | SWT.MULTI | SWT.H_SCROLL
-						| SWT.V_SCROLL, pageSize);
+		PageableTable paginationTable = new PageableTable(shell, SWT.BORDER,
+				SWT.BORDER | SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL, pageSize);
 		paginationTable.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		// 2) Initialize the table viewer + SWT Table
@@ -82,7 +81,7 @@ public class StringSortPageableTableExample {
 
 		// 4) Set the page loader used to load a page (sublist of String)
 		// according the page index selected, the page size etc.
-		paginationTable.setPageLoader(new PageLoaderList(items));
+		paginationTable.setPageLoader(new PageResultLoaderList<String>(items));
 
 		// 5) Set current page to 0 to display the first page
 		paginationTable.setCurrentPage(0);

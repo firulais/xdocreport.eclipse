@@ -23,13 +23,12 @@ import org.eclipse.swt.SWT;
  */
 public class PageListHelper {
 
-	public static PageResult<?> createPage(List<?> list,
+	public static <T> PageResult<T> createPage(List<T> list,
 			PageableController controller) {
 		return createPage(list, controller, DefaultSortProcessor.getInstance());
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static PageResult<?> createPage(List<?> list,
+	public static <T> PageResult<T> createPage(List<T> list,
 			PageableController controller, SortProcessor processor) {
 		int sortDirection = controller.getSortDirection();
 		if (sortDirection != SWT.NONE) {

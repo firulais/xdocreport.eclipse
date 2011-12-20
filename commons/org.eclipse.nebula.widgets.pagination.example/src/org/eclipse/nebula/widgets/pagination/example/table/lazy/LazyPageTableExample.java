@@ -23,7 +23,7 @@ import org.eclipse.nebula.widgets.pagination.IPageLoader;
 import org.eclipse.nebula.widgets.pagination.LazyItemsSelectionListener;
 import org.eclipse.nebula.widgets.pagination.PageLoaderStrategyHelper;
 import org.eclipse.nebula.widgets.pagination.PageableController;
-import org.eclipse.nebula.widgets.pagination.collections.PageLoaderList;
+import org.eclipse.nebula.widgets.pagination.collections.PageResultLoaderList;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -57,7 +57,7 @@ public class LazyPageTableExample {
 		// Create page loader (to load paginated list) and pageable controller.
 		int pageSize = 10;
 		final List<String> items = createList();
-		final IPageLoader pageLoader = new PageLoaderList(items);
+		final IPageLoader pageLoader = new PageResultLoaderList(items);
 		final PageableController controller = new PageableController(pageSize);
 
 		// Add listener to the controller to call page loader when controller

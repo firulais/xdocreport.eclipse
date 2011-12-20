@@ -13,7 +13,8 @@ package org.eclipse.nebula.widgets.pagination;
 
 import java.util.List;
 
-import org.eclipse.nebula.widgets.pagination.collections.PageLoaderList;
+import org.eclipse.nebula.widgets.pagination.collections.PageResultLoaderList;
+import org.eclipse.nebula.widgets.pagination.collections.PageResult;
 
 /**
  * Classes which implement this interface provide methods which load paginated
@@ -22,7 +23,7 @@ import org.eclipse.nebula.widgets.pagination.collections.PageLoaderList;
  * 
  * <p>
  * If you wish to manage pagination with Java {@link List} in memory you can use
- * {@link PageLoaderList}.
+ * {@link PageResultLoaderList}.
  * 
  * </p>
  * <p>
@@ -37,13 +38,14 @@ public interface IPageLoader<T> {
 
 	/**
 	 * Load the paginated list by using the {@link PageableController}
-	 * information about pagination (sort, page index etc) and returns the
-	 * paginated list in the Spring Data structure.
+	 * information about pagination (sort, page index etc) and returns a page
+	 * result which contains the paginated list and the total elements (ex:
+	 * {@link PageResult}, Spring Data Page, etc).
 	 * 
 	 * @param controller
 	 *            information about pagination.
 	 * @return a pagination structure which contains the paginated list and the
-	 *         total elements
+	 *         total elements.
 	 */
 	T loadPage(PageableController controller);
 }

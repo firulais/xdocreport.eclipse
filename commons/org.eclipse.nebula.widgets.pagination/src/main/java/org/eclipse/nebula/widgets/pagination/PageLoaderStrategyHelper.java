@@ -67,6 +67,9 @@ public class PageLoaderStrategyHelper {
 	 *            the viewer to refresh with new paginated list.
 	 * @param pageLoader
 	 *            the page loader used to load paginated list.
+	 * @pageContentProvider the page content provider to retrieves total
+	 *                      elements+paginated list from the page result
+	 *                      structure returned by the pageLoader.
 	 * @param handler
 	 *            the page loader handler to observe before/after page loading
 	 *            process. If null no observation is done.
@@ -100,6 +103,9 @@ public class PageLoaderStrategyHelper {
 	 *            the viewer to refresh with new paginated list.
 	 * @param pageLoader
 	 *            the page loader used to load paginated list.
+	 * @pageContentProvider the page content provider to retrieves total
+	 *                      elements+paginated list from the page result
+	 *                      structure returned by the pageLoader.
 	 * @param handler
 	 *            the page loader handler to observe before/after page loading
 	 *            process. If null no observation is done.
@@ -157,6 +163,9 @@ public class PageLoaderStrategyHelper {
 	 *            the viewer to refresh with new paginated list.
 	 * @param pageLoader
 	 *            the page loader used to load paginated list.
+	 * @pageContentProvider the page content provider to retrieves total
+	 *                      elements+paginated list from the page result
+	 *                      structure returned by the pageLoader.
 	 * @param handler
 	 *            the page loader handler to observe before/after page loading
 	 *            process. If null no observation is done.
@@ -193,6 +202,9 @@ public class PageLoaderStrategyHelper {
 	 *            the viewer to refresh with new paginated list.
 	 * @param pageLoader
 	 *            the page loader used to load paginated list.
+	 * @pageContentProvider the page content provider to retrieves total
+	 *                      elements+paginated list from the page result
+	 *                      structure returned by the pageLoader.
 	 * @param handler
 	 *            the page loader handler to observe before/after page loading
 	 *            process. If null no observation is done.
@@ -219,6 +231,9 @@ public class PageLoaderStrategyHelper {
 	 *            the viewer to refresh with new paginated list.
 	 * @param pageLoader
 	 *            the page loader used to load paginated list.
+	 * @pageContentProvider the page content provider to retrieves total
+	 *                      elements+paginated list from the page result
+	 *                      structure returned by the pageLoader.
 	 * @param handler
 	 *            the page loader handler to observe before/after page loading
 	 *            process. If null no observation is done.
@@ -275,6 +290,9 @@ public class PageLoaderStrategyHelper {
 	 *            the viewer to refresh with new paginated list.
 	 * @param pageLoader
 	 *            the page loader used to load paginated list.
+	 * @pageContentProvider the page content provider to retrieves total
+	 *                      elements+paginated list from the page result
+	 *                      structure returned by the pageLoader.
 	 * @param handler
 	 *            the page loader handler to observe before/after page loading
 	 *            process. If null no observation is done.
@@ -312,6 +330,9 @@ public class PageLoaderStrategyHelper {
 	 *            the viewer to refresh with new paginated list.
 	 * @param pageLoader
 	 *            the page loader used to load paginated list.
+	 * @pageContentProvider the page content provider to retrieves total
+	 *                      elements+paginated list from the page result
+	 *                      structure returned by the pageLoader.
 	 * @param handler
 	 *            the page loader handler to observe before/after page loading
 	 *            process. If null no observation is done.
@@ -370,6 +391,9 @@ public class PageLoaderStrategyHelper {
 	 *            the viewer to refresh with new paginated list.
 	 * @param pageLoader
 	 *            the page loader used to load paginated list.
+	 * @pageContentProvider the page content provider to retrieves total
+	 *                      elements+paginated list from the page result
+	 *                      structure returned by the pageLoader.
 	 * @param handler
 	 *            the page loader handler to observe before/after page loading
 	 *            process. If null no observation is done.
@@ -398,6 +422,9 @@ public class PageLoaderStrategyHelper {
 	 *            the viewer to refresh with new paginated list.
 	 * @param pageLoader
 	 *            the page loader used to load paginated list.
+	 * @pageContentProvider the page content provider to retrieves total
+	 *                      elements+paginated list from the page result
+	 *                      structure returned by the pageLoader.
 	 * @param handler
 	 *            the page loader handler to observe before/after page loading
 	 *            process. If null no observation is done.
@@ -442,6 +469,9 @@ public class PageLoaderStrategyHelper {
 	 *            total elements.
 	 * @param pageLoader
 	 *            the page loader used to load paginated list.
+	 * @pageContentProvider the page content provider to retrieves total
+	 *                      elements+paginated list from the page result
+	 *                      structure returned by the pageLoader.
 	 * @param handler
 	 *            the page loader handler to observe before/after page loading
 	 *            process. If null no observation is done.
@@ -449,7 +479,8 @@ public class PageLoaderStrategyHelper {
 	 * @return the pagination {@link PageResult}.
 	 */
 	public static Object loadPageAndUpdateTotalElements(
-			final PageableController controller, final IPageLoader<?> pageLoader,
+			final PageableController controller,
+			final IPageLoader<?> pageLoader,
 			final IPageContentProvider pageContentProvider,
 			final IPageLoaderHandler<PageableController> handler) {
 		// Load the paginated list.

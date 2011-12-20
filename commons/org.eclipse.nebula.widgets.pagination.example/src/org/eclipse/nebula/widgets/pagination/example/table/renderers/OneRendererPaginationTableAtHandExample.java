@@ -22,8 +22,9 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.nebula.widgets.pagination.IPageLoader;
 import org.eclipse.nebula.widgets.pagination.PageLoaderStrategyHelper;
 import org.eclipse.nebula.widgets.pagination.PageableController;
+import org.eclipse.nebula.widgets.pagination.collections.PageResult;
 import org.eclipse.nebula.widgets.pagination.collections.PageResultContentProvider;
-import org.eclipse.nebula.widgets.pagination.collections.PageLoaderList;
+import org.eclipse.nebula.widgets.pagination.collections.PageResultLoaderList;
 import org.eclipse.nebula.widgets.pagination.example.model.Address;
 import org.eclipse.nebula.widgets.pagination.example.model.Person;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.ResultAndNavigationPageLinksRenderer;
@@ -75,10 +76,12 @@ public class OneRendererPaginationTableAtHandExample {
 		// 3) Create Table columns with sort of paginated list.
 		int pageSize = 10;
 		final PageableController controller = new PageableController(pageSize);
-		final IPageLoader pageLoader = new PageLoaderList(items);
+		final IPageLoader<PageResult<Person>> pageLoader = new PageResultLoaderList<Person>(
+				items);
 		controller.addPageChangedListener(PageLoaderStrategyHelper
 				.createloadPageAndReplaceItemsListener(controller, viewer,
-						pageLoader, PageResultContentProvider.getInstance(), null));
+						pageLoader, PageResultContentProvider.getInstance(),
+						null));
 
 		// Create navigation page links
 		ResultAndNavigationPageLinksRenderer resultAndPageLinksDecorator = new ResultAndNavigationPageLinksRenderer(

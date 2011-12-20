@@ -39,7 +39,7 @@ import org.eclipse.swt.SWT;
 public class PageableController implements Serializable {
 
 	private static final long serialVersionUID = 8456710060857724013L;
-	
+
 	public static final int DEFAULT_PAGE_INDEX = -1;
 	public static final int DEFAULT_PAGE_SIZE = 10;
 
@@ -95,8 +95,7 @@ public class PageableController implements Serializable {
 	 * @see #removePageChangedListener(IPageChangedListener)
 	 * 
 	 */
-	public void addPageChangedListener(
-			@SuppressWarnings("rawtypes") IPageChangedListener listener) {
+	public void addPageChangedListener(IPageChangedListener listener) {
 		if (listener == null) {
 			throw new NullPointerException(
 					"Cannot add a null page changed listener"); //$NON-NLS-1$
@@ -115,8 +114,7 @@ public class PageableController implements Serializable {
 	 * @see IPageChangedListener
 	 * @see #addPageChangedListener(IPageChangedListener)
 	 */
-	public void removePageChangedListener(
-			@SuppressWarnings("rawtypes") IPageChangedListener listener) {
+	public void removePageChangedListener(IPageChangedListener listener) {
 		if (listener != null) {
 			pageChangedListeners.remove(listener);
 		}
@@ -307,7 +305,6 @@ public class PageableController implements Serializable {
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void notifyListenersForPageIndexChanged(int oldPageNumber,
 			int newPageNumber) {
 		final Object[] listeners = pageChangedListeners.getListeners();
@@ -317,7 +314,6 @@ public class PageableController implements Serializable {
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void notifyListenersForTotalElementsChanged(long oldTotalElements,
 			long newTotalElements) {
 		final Object[] listeners = pageChangedListeners.getListeners();
@@ -328,7 +324,6 @@ public class PageableController implements Serializable {
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void notifyListenersForSortChanged(String oldPopertyName,
 			String propertyName, int oldSortDirection, int sortDirection) {
 		final Object[] listeners = pageChangedListeners.getListeners();
@@ -339,7 +334,6 @@ public class PageableController implements Serializable {
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void notifyListenersForPageSizeChanged(int oldPageSize,
 			int newPageSize) {
 		final Object[] listeners = pageChangedListeners.getListeners();
@@ -349,7 +343,6 @@ public class PageableController implements Serializable {
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void notifyListenersForLocaleChanged(Locale oldLocale,
 			Locale newLocale) {
 		final Object[] listeners = pageChangedListeners.getListeners();
