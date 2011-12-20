@@ -1,7 +1,7 @@
 package org.dynaresume.eclipse.ui.handlers;
 
 import org.dynaresume.domain.hr.Resume;
-import org.dynaresume.eclipse.ui.dialogs.SearchResumeDialog;
+import org.dynaresume.eclipse.search.ui.dialogs.SearchResumeDialog;
 import org.dynaresume.eclipse.ui.editors.ResumeEditorInput;
 import org.dynaresume.eclipse.ui.editors.ResumeFormEditor;
 import org.eclipse.core.runtime.CoreException;

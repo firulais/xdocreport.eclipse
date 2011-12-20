@@ -1,6 +1,7 @@
-package org.dynaresume.admin.eclipse.ui.group.dialogs;
+package org.dynaresume.eclipse.search.ui.dialogs;
 
-import org.dynaresume.services.GroupService;
+import org.dynaresume.domain.project.Client;
+import org.dynaresume.services.ClientService;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -30,22 +31,22 @@ import org.springframework.data.domain.Pageable;
 
 import fr.opensagres.xdocreport.eclipse.ui.dialogs.SearchDialog;
 
-public class SearchGroupDialog extends SearchDialog implements
-		ISpringDataPageLoader<org.dynaresume.domain.core.Group> {
+public class SearchClientDialog extends SearchDialog implements
+		ISpringDataPageLoader<Client> {
 
-	public final static String ID = "org.dynaresume.admin.eclipse.ui.group.dialogs.SearchGroupDialog";
+	public final static String ID = "org.dynaresume.eclipse.search.ui.dialogs.SearchClientDialog";
 
-	private GroupService groupService;
+	private ClientService clientService;
 
 	private String labelCriteria;
 
 	private FormPageableTable paginationTable;
 
-	public void setGroupService(GroupService groupService) {
-		this.groupService = groupService;
+	public void setClientService(ClientService clientService) {
+		this.clientService = clientService;
 	}
 
-	public SearchGroupDialog() {
+	public SearchClientDialog() {
 		super();
 	}
 
@@ -69,7 +70,7 @@ public class SearchGroupDialog extends SearchDialog implements
 		group.setLayoutData(new GridData(GridData.FILL_BOTH));
 		group.setLayout(new GridLayout());
 
-		group.setText("Group search criteria");
+		group.setText("Client search criteria");
 		toolkit.adapt(group);
 
 		Composite container = toolkit.createComposite(group);
@@ -114,7 +115,7 @@ public class SearchGroupDialog extends SearchDialog implements
 		// managedForm.getForm().reflow(true);
 		// }
 		// });
-		section.setText("Group search results");
+		section.setText("Client search results");
 		section.setDescription("Select one or several resume from the below list of resume search results and click OK to open the selected resumes.");
 
 		Composite container = toolkit.createComposite(section);
@@ -127,8 +128,23 @@ public class SearchGroupDialog extends SearchDialog implements
 				SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION
 						| SWT.BORDER, toolkit,
 				SpringDataPageContentProvider.getInstance());
-		paginationTable.setLayoutData(new GridData(GridData.FILL_BOTH));
+
+		// {
+		//
+		// @Override
+		// protected Page<Client> loadPage(PageableController controller) {
+		// return clientService.findByName(labelCriteria, controller);
+		// }
+		//
+		// @Override
+		// protected int getTableStyle() {
+		// return SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL
+		// | SWT.FULL_SELECTION | SWT.BORDER;
+		// }
+		// };
 		paginationTable.setPageLoader(this);
+		paginationTable.setLayoutData(new GridData(GridData.FILL_BOTH));
+
 		TableViewer viewer = paginationTable.getViewer();
 		createColumns(viewer);
 		final Table table = viewer.getTable();
@@ -140,9 +156,8 @@ public class SearchGroupDialog extends SearchDialog implements
 		section.setClient(container);
 	}
 
-	public Page<org.dynaresume.domain.core.Group> loadPage(
-			PageableController controller) {
-		return groupService.findByName(labelCriteria, (Pageable)controller);
+	public Page<Client> loadPage(PageableController controller) {
+		return clientService.findByName(labelCriteria, (Pageable) controller);
 	}
 
 	// private void createViewer(Composite parent) {
@@ -154,9 +169,9 @@ public class SearchGroupDialog extends SearchDialog implements
 	// table.setLinesVisible(true);
 	//
 	// viewer.setContentProvider(new ArrayContentProvider());
-	// // GroupService resumeService = (GroupService)
+	// // ClientService resumeService = (ClientService)
 	// // PlatformUI.getWorkbench()
-	// // .getService(GroupService.class);
+	// // .getService(ClientService.class);
 	// // Get the content for the viewer, setInput will call getElements in the
 	// // contentProvider
 	// viewer.setInput(resumeService.findAll());
@@ -186,7 +201,7 @@ public class SearchGroupDialog extends SearchDialog implements
 		col.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
-				org.dynaresume.domain.core.Group p = (org.dynaresume.domain.core.Group) element;
+				Client p = (Client) element;
 				return p.getName();
 			}
 		});

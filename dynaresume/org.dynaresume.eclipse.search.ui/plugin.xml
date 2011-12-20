@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   
+  <extension
+        point="fr.opensagres.xdocreport.eclipse.ui.dialogFactories">
+     <factory
+           id="org.dynaresume.eclipse.search.ui.dialogs.SearchResumeDialog"
+           class="org.eclipse.springframework.util.SpringExtensionFactory:searchResumeDialog"
+           title="%SearchResumeDialog.title" >
+     </factory>   
+     <factory
+           id="org.dynaresume.eclipse.search.ui.dialogs.SearchProjectDialog"
+           class="org.eclipse.springframework.util.SpringExtensionFactory:searchProjectDialog"
+           title="%SearchProjectDialog.title" >
+     </factory>        
+     <factory
+           id="org.dynaresume.eclipse.search.ui.dialogs.SearchClientDialog"
+           class="org.eclipse.springframework.util.SpringExtensionFactory:searchClientDialog"
+           title="%SearchClientDialog.title" >
+     </factory>   
+     <factory
+           id="org.dynaresume.eclipse.search.ui.dialogs.SearchGroupDialog"
+           class="org.eclipse.springframework.util.SpringExtensionFactory:searchGroupDialog"
+           title="%SearchGroupDialog.title" >
+     </factory>
+     <factory
+           id="org.dynaresume.eclipse.search.ui.dialogs.SearchSkillDialog"
+           class="org.eclipse.springframework.util.SpringExtensionFactory:searchSkillDialog"
+           title="%SearchSkillDialog.title" >
+     </factory>                         
+  </extension>
+    
+</plugin>

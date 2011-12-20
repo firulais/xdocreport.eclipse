@@ -1,7 +1,7 @@
-package org.dynaresume.admin.eclipse.ui.skill.dialogs;
+package org.dynaresume.eclipse.search.ui.dialogs;
 
-import org.dynaresume.domain.hr.Skill;
-import org.dynaresume.services.SkillService;
+import org.dynaresume.domain.project.Project;
+import org.dynaresume.services.ProjectService;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -10,7 +10,6 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.nebula.widgets.pagination.PageableController;
 import org.eclipse.nebula.widgets.pagination.springdata.ISpringDataPageLoader;
 import org.eclipse.nebula.widgets.pagination.springdata.SpringDataPageContentProvider;
-import org.eclipse.nebula.widgets.pagination.table.SortTableColumnSelectionListener;
 import org.eclipse.nebula.widgets.pagination.table.forms.FormPageableTable;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
@@ -32,22 +31,22 @@ import org.springframework.data.domain.Pageable;
 
 import fr.opensagres.xdocreport.eclipse.ui.dialogs.SearchDialog;
 
-public class SearchSkillDialog extends SearchDialog implements
-		ISpringDataPageLoader<Skill> {
+public class SearchProjectDialog extends SearchDialog implements
+		ISpringDataPageLoader<Project> {
 
-	public final static String ID = "org.dynaresume.admin.eclipse.ui.skill.dialogs.SearchSkillDialog";
+	public final static String ID = "org.dynaresume.eclipse.search.ui.dialogs.SearchProjectDialog";
 
-	private SkillService skillService;
+	private ProjectService projectService;
 
 	private String labelCriteria;
 
 	private FormPageableTable paginationTable;
 
-	public void setSkillService(SkillService skillService) {
-		this.skillService = skillService;
+	public void setProjectService(ProjectService groupService) {
+		this.projectService = groupService;
 	}
 
-	public SearchSkillDialog() {
+	public SearchProjectDialog() {
 		super();
 	}
 
@@ -71,7 +70,7 @@ public class SearchSkillDialog extends SearchDialog implements
 		group.setLayoutData(new GridData(GridData.FILL_BOTH));
 		group.setLayout(new GridLayout());
 
-		group.setText("Skill search criteria");
+		group.setText("Project search criteria");
 		toolkit.adapt(group);
 
 		Composite container = toolkit.createComposite(group);
@@ -116,7 +115,7 @@ public class SearchSkillDialog extends SearchDialog implements
 		// managedForm.getForm().reflow(true);
 		// }
 		// });
-		section.setText("Skill search results");
+		section.setText("Project search results");
 		section.setDescription("Select one or several resume from the below list of resume search results and click OK to open the selected resumes.");
 
 		Composite container = toolkit.createComposite(section);
@@ -143,8 +142,8 @@ public class SearchSkillDialog extends SearchDialog implements
 		section.setClient(container);
 	}
 
-	public Page<Skill> loadPage(PageableController controller) {
-		return skillService.findByName(labelCriteria, (Pageable)controller);
+	public Page<Project> loadPage(PageableController controller) {
+		return projectService.findByName(labelCriteria, (Pageable) controller);
 	}
 
 	// private void createViewer(Composite parent) {
@@ -156,9 +155,9 @@ public class SearchSkillDialog extends SearchDialog implements
 	// table.setLinesVisible(true);
 	//
 	// viewer.setContentProvider(new ArrayContentProvider());
-	// // SkillService resumeService = (SkillService)
+	// // ProjectService resumeService = (ProjectService)
 	// // PlatformUI.getWorkbench()
-	// // .getService(SkillService.class);
+	// // .getService(ProjectService.class);
 	// // Get the content for the viewer, setInput will call getElements in the
 	// // contentProvider
 	// viewer.setInput(resumeService.findAll());
@@ -179,8 +178,8 @@ public class SearchSkillDialog extends SearchDialog implements
 
 	// This will create the columns for the table
 	private void createColumns(final TableViewer viewer) {
-		String[] titles = { "Label", "Parent" };
-		int[] bounds = { 180, 180 };
+		String[] titles = { "Name", };
+		int[] bounds = { 200, };
 
 		// First column is for the first name
 		TableViewerColumn col = createTableViewerColumn(viewer, titles[0],
@@ -188,46 +187,10 @@ public class SearchSkillDialog extends SearchDialog implements
 		col.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
-				Skill p = (Skill) element;
+				org.dynaresume.domain.project.Project p = (org.dynaresume.domain.project.Project) element;
 				return p.getName();
 			}
 		});
-		col.getColumn().addSelectionListener(
-				new SortTableColumnSelectionListener("name"));
-
-		// Second column is for the last name
-		col = createTableViewerColumn(viewer, titles[1], bounds[1], 1);
-		col.setLabelProvider(new ColumnLabelProvider() {
-			@Override
-			public String getText(Object element) {
-				Skill p = (Skill) element;
-				if (p.getParent() != null) {
-					return p.getParent().getName();
-				}
-				return "";
-			}
-		});
-		col.getColumn().addSelectionListener(
-				new SortTableColumnSelectionListener("parent.name"));
-
-		// // Now the gender
-		// col = createTableViewerColumn(titles[2], bounds[2], 2);
-		// col.setLabelProvider(new ColumnLabelProvider() {
-		// @Override
-		// public String getText(Object element) {
-		// return "Edit";
-		// }
-		// });
-		//
-		// // // Now the status married
-		// col = createTableViewerColumn(titles[3], bounds[3], 3);
-		// col.setLabelProvider(new ColumnLabelProvider() {
-		// @Override
-		// public String getText(Object element) {
-		// return "Open";
-		// }
-		//
-		// });
 
 	}
 

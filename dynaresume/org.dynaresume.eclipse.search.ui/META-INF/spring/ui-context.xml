@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="searchResumeDialog" class="org.dynaresume.eclipse.search.ui.dialogs.SearchResumeDialog"
+		scope="prototype">
+		<property name="resumeService" ref="resumeService" />
+	</bean>	
+	
+	<bean id="searchProjectDialog" class="org.dynaresume.eclipse.search.ui.dialogs.SearchProjectDialog"
+		scope="prototype">
+		<property name="projectService" ref="projectService" />
+	</bean>	
+	
+	<bean id="searchClientDialog" class="org.dynaresume.eclipse.search.ui.dialogs.SearchClientDialog"
+		scope="prototype">
+		<property name="clientService" ref="clientService" />
+	</bean>
+		
+	<bean id="searchSkillDialog" class="org.dynaresume.eclipse.search.ui.dialogs.SearchSkillDialog"
+		scope="prototype">
+		<property name="skillService" ref="skillService" />
+	</bean>
+
+	<bean id="searchGroupDialog" class="org.dynaresume.eclipse.search.ui.dialogs.SearchGroupDialog"
+		scope="prototype">
+		<property name="groupService" ref="groupService" />
+	</bean>
+			
+</beans>

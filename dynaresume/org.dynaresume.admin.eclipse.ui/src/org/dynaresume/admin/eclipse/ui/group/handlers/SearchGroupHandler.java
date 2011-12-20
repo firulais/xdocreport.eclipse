@@ -1,9 +1,9 @@
 package org.dynaresume.admin.eclipse.ui.group.handlers;
 
-import org.dynaresume.admin.eclipse.ui.group.dialogs.SearchGroupDialog;
 import org.dynaresume.admin.eclipse.ui.group.editors.GroupEditorInput;
 import org.dynaresume.admin.eclipse.ui.group.editors.GroupFormEditor;
 import org.dynaresume.domain.core.Group;
+import org.dynaresume.eclipse.search.ui.dialogs.SearchGroupDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.dialogs.SelectionDialog;

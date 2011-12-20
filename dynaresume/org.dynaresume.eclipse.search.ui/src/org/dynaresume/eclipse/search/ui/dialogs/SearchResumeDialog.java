@@ -1,7 +1,7 @@
-package org.dynaresume.eclipse.ui.dialogs;
+package org.dynaresume.eclipse.search.ui.dialogs;
 
 import org.dynaresume.domain.hr.Resume;
-import org.dynaresume.eclipse.ui.internal.Messages;
+import org.dynaresume.eclipse.search.ui.internal.Messages;
 import org.dynaresume.services.ResumeService;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
@@ -36,7 +36,7 @@ import fr.opensagres.xdocreport.eclipse.ui.dialogs.SearchDialog;
 public class SearchResumeDialog extends SearchDialog implements
 		ISpringDataPageLoader<Resume> {
 
-	public final static String ID = "org.dynaresume.eclipse.ui.dialogs.SearchResumeDialog";
+	public final static String ID = "org.dynaresume.eclipse.search.ui.dialogs.SearchResumeDialog";
 
 	private ResumeService resumeService;
 

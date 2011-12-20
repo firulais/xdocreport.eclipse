@@ -13,15 +13,5 @@
 		scope="prototype">
 		<property name="skillService" ref="skillService" />
 	</bean>
-	
-	<bean id="searchSkillDialog" class="org.dynaresume.admin.eclipse.ui.skill.dialogs.SearchSkillDialog"
-		scope="prototype">
-		<property name="skillService" ref="skillService" />
-	</bean>
-
-	<bean id="searchGroupDialog" class="org.dynaresume.admin.eclipse.ui.group.dialogs.SearchGroupDialog"
-		scope="prototype">
-		<property name="groupService" ref="groupService" />
-	</bean>
 		
 </beans>

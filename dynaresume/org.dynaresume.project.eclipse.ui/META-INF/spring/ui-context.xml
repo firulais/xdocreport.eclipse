@@ -9,22 +9,12 @@
 		<property name="projectService" ref="projectService" />
 	</bean>
 
-	<bean id="searchProjectDialog" class="org.dynaresume.project.eclipse.ui.dialogs.SearchProjectDialog"
-		scope="prototype">
-		<property name="projectService" ref="projectService" />
-	</bean>
-
 	<bean id="newProjectWizard" class="org.dynaresume.project.eclipse.ui.wizards.NewProjectWizard"
 		scope="prototype">
 		<property name="projectService" ref="projectService" />
 	</bean>		
 	
 	<bean id="clientEditor" class="org.dynaresume.project.eclipse.ui.editors.client.ClientFormEditor"
-		scope="prototype">
-		<property name="clientService" ref="clientService" />
-	</bean>
-
-	<bean id="searchClientDialog" class="org.dynaresume.project.eclipse.ui.dialogs.SearchClientDialog"
 		scope="prototype">
 		<property name="clientService" ref="clientService" />
 	</bean>

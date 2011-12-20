@@ -50,21 +50,7 @@
            name="%ClientFormEditor.name">
      </editor>
   </extension>
-  
-  <extension
-        point="fr.opensagres.xdocreport.eclipse.ui.dialogFactories">
-     <factory
-           id="org.dynaresume.project.eclipse.ui.dialogs.SearchProjectDialog"
-           class="org.eclipse.springframework.util.SpringExtensionFactory:searchProjectDialog"
-           title="%SearchProjectDialog.title" >
-     </factory>        
-     <factory
-           id="org.dynaresume.project.eclipse.ui.dialogs.SearchClientDialog"
-           class="org.eclipse.springframework.util.SpringExtensionFactory:searchClientDialog"
-           title="%SearchClientDialog.title" >
-     </factory>        
-  </extension>
-  
+    
   <extension
         point="fr.opensagres.xdocreport.eclipse.ui.wizardFactories">
      <factory

@@ -1,7 +1,7 @@
 package org.dynaresume.project.eclipse.ui.handlers;
 
 import org.dynaresume.domain.project.Project;
-import org.dynaresume.project.eclipse.ui.dialogs.SearchProjectDialog;
+import org.dynaresume.eclipse.search.ui.dialogs.SearchProjectDialog;
 import org.dynaresume.project.eclipse.ui.editors.project.ProjectEditorInput;
 import org.dynaresume.project.eclipse.ui.editors.project.ProjectFormEditor;
 import org.eclipse.core.runtime.CoreException;

@@ -64,19 +64,5 @@
           defaultHandler="org.dynaresume.admin.eclipse.ui.skill.handlers.SearchSkillHandler"
           name="Search skill" />
  </extension>
-
-  <extension
-        point="fr.opensagres.xdocreport.eclipse.ui.dialogFactories">
-     <factory
-           id="org.dynaresume.admin.eclipse.ui.group.dialogs.SearchGroupDialog"
-           class="org.eclipse.springframework.util.SpringExtensionFactory:searchGroupDialog"
-           title="%SearchGroupDialog.title" >
-     </factory>
-     <factory
-           id="org.dynaresume.admin.eclipse.ui.skill.dialogs.SearchSkillDialog"
-           class="org.eclipse.springframework.util.SpringExtensionFactory:searchSkillDialog"
-           title="%SearchSkillDialog.title" >
-     </factory>             
-  </extension>
      
 </plugin>

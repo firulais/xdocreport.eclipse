@@ -65,6 +65,7 @@
       <plugin id="org.dynaresume.domain.project"/>
       <plugin id="org.dynaresume.eclipse.reporting"/>
       <plugin id="org.dynaresume.eclipse.ui"/>
+      <plugin id="org.dynaresume.eclipse.search.ui"/>
       <plugin id="org.dynaresume.project.eclipse.reporting"/>
       <plugin id="org.dynaresume.project.eclipse.ui"/>
       <plugin id="org.dynaresume.services"/>
@@ -183,7 +184,8 @@
       <plugin id="org.dynaresume.domain.core" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.domain.hr" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.domain.project" autoStart="true" startLevel="0" />
-      <plugin id="org.dynaresume.eclipse.reporting" autoStart="true" startLevel="0" />
+      <plugin id="org.dynaresume.eclipse.reporting" autoStart="true" startLevel="0" />      
+      <plugin id="org.dynaresume.eclipse.search.ui" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.eclipse.ui" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.project.eclipse.reporting" autoStart="true" startLevel="0" />
       <plugin id="org.dynaresume.project.eclipse.ui" autoStart="true" startLevel="0" />
