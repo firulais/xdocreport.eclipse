@@ -96,7 +96,7 @@ public class AllRenderersPaginationTableAtHandExample {
 		final IPageLoader pageLoader = new SpringDataPageLoaderList(items);// new
 																			// PageLoaderList(items);
 		controller.addPageChangedListener(PageLoaderStrategyHelper
-				.createloadPageAndReplaceItemsListener(controller, viewer,
+				.createLoadPageAndReplaceItemsListener(controller, viewer,
 						pageLoader, SpringDataPageContentProvider.getInstance(), null));
 
 		createColumns(viewer, controller);

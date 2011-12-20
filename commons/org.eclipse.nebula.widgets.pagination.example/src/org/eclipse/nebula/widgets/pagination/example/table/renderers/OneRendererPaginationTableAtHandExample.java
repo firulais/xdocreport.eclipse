@@ -79,7 +79,7 @@ public class OneRendererPaginationTableAtHandExample {
 		final IPageLoader<PageResult<Person>> pageLoader = new PageResultLoaderList<Person>(
 				items);
 		controller.addPageChangedListener(PageLoaderStrategyHelper
-				.createloadPageAndReplaceItemsListener(controller, viewer,
+				.createLoadPageAndReplaceItemsListener(controller, viewer,
 						pageLoader, PageResultContentProvider.getInstance(),
 						null));
 

@@ -111,7 +111,7 @@ public class PageLoaderStrategyHelper {
 	 *            process. If null no observation is done.
 	 * @return
 	 */
-	public static IPageChangedListener createloadPageAndReplaceItemsListener(
+	public static IPageChangedListener createLoadPageAndReplaceItemsListener(
 			final PageableController controller, final StructuredViewer viewer,
 			final IPageLoader<?> pageLoader,
 			final IPageContentProvider pageContentProvider,
@@ -339,7 +339,7 @@ public class PageLoaderStrategyHelper {
 	 * 
 	 * @return
 	 */
-	public static IPageChangedListener createloadPageAndAddItemsListener(
+	public static IPageChangedListener createLoadPageAndAddItemsListener(
 			final PageableController controller,
 			final Object parentElementOrTreePath, final TreeViewer viewer,
 			final IPageLoader<?> pageLoader,
@@ -430,7 +430,7 @@ public class PageLoaderStrategyHelper {
 	 *            process. If null no observation is done.
 	 * @return
 	 */
-	public static IPageChangedListener createloadPageAndAddItemsListener(
+	public static IPageChangedListener createLoadPageAndAddItemsListener(
 			final PageableController controller,
 			final AbstractListViewer viewer, final IPageLoader<?> pageLoader,
 			final IPageContentProvider pageContentProvider,

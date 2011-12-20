@@ -79,7 +79,7 @@ public class OneRendererPaginationTableAtHandExample {
 				pageSize);
 		final IPageLoader pageLoader = new SpringDataPageLoaderList(items);
 		controller.addPageChangedListener(PageLoaderStrategyHelper
-				.createloadPageAndReplaceItemsListener(controller, viewer,
+				.createLoadPageAndReplaceItemsListener(controller, viewer,
 						pageLoader,
 						SpringDataPageContentProvider.getInstance(), null));
 
