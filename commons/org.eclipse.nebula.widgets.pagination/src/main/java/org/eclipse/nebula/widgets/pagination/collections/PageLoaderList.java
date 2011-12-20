@@ -20,8 +20,7 @@ import org.eclipse.nebula.widgets.pagination.PageableController;
  * Implementation of {@link IPageLoader} with java {@link List}.
  * 
  */
-public class PageLoaderList implements
-		IPageLoader<PageableController, PageResult<?>> {
+public class PageLoaderList implements IPageLoader<PageResult<?>> {
 
 	private List<?> items;
 

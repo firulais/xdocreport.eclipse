@@ -25,7 +25,6 @@ import org.eclipse.nebula.widgets.pagination.example.springdata.model.Address;
 import org.eclipse.nebula.widgets.pagination.example.springdata.model.Person;
 import org.eclipse.nebula.widgets.pagination.springdata.SpringDataPageContentProvider;
 import org.eclipse.nebula.widgets.pagination.springdata.SpringDataPageLoaderList;
-import org.eclipse.nebula.widgets.pagination.springdata.SpringDataPageableController;
 import org.eclipse.nebula.widgets.pagination.table.PageableTable;
 import org.eclipse.nebula.widgets.pagination.table.SortTableColumnSelectionListener;
 import org.eclipse.swt.SWT;
@@ -113,7 +112,7 @@ public class ModelSortPageableTableWorkInProcessExample {
 		// 3) Set current page to 0 to refresh the table
 		pageableTable.setPageLoader(new SpringDataPageLoaderList(items) {
 			@Override
-			public Page<?> loadPage(SpringDataPageableController pageable) {
+			public Page<?> loadPage(PageableController pageable) {
 				if (pageableTable.isVisible()) {
 					try {
 						Thread.sleep(1000);

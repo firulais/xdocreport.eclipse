@@ -33,7 +33,7 @@ import org.eclipse.nebula.widgets.pagination.collections.PageLoaderList;
  * 
  * @see http://www.springsource.org/spring-data
  */
-public interface IPageLoader<C extends PageableController, P> {
+public interface IPageLoader<T> {
 
 	/**
 	 * Load the paginated list by using the {@link PageableController}
@@ -45,5 +45,5 @@ public interface IPageLoader<C extends PageableController, P> {
 	 * @return a pagination structure which contains the paginated list and the
 	 *         total elements
 	 */
-	P loadPage(C controller);
+	T loadPage(PageableController controller);
 }

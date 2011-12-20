@@ -7,9 +7,9 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.nebula.widgets.pagination.PageableController;
 import org.eclipse.nebula.widgets.pagination.springdata.ISpringDataPageLoader;
 import org.eclipse.nebula.widgets.pagination.springdata.SpringDataPageContentProvider;
-import org.eclipse.nebula.widgets.pagination.springdata.SpringDataPageableController;
 import org.eclipse.nebula.widgets.pagination.table.forms.FormPageableTable;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
@@ -155,9 +155,9 @@ public class SearchClientDialog extends SearchDialog implements
 		paginationTable.setCurrentPage(0);
 		section.setClient(container);
 	}
-	
-	public Page<Client> loadPage(SpringDataPageableController controller) {
-		return clientService.findByName(labelCriteria, controller);
+
+	public Page<Client> loadPage(PageableController controller) {
+		return clientService.findByName(labelCriteria, (Pageable) controller);
 	}
 
 	// private void createViewer(Composite parent) {

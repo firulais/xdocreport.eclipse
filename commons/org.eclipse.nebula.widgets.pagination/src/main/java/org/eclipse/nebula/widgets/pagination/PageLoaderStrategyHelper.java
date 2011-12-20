@@ -73,7 +73,7 @@ public class PageLoaderStrategyHelper {
 	 */
 	public static void loadPageAndReplaceItems(
 			final PageableController controller, final Viewer viewer,
-			final IPageLoader pageLoader,
+			final IPageLoader<?> pageLoader,
 			final IPageContentProvider pageContentProvider,
 			final IPageLoaderHandler<PageableController> handler) {
 		Object page = loadPageAndUpdateTotalElements(controller, pageLoader,
@@ -107,7 +107,7 @@ public class PageLoaderStrategyHelper {
 	 */
 	public static IPageChangedListener<PageableController> createloadPageAndReplaceItemsListener(
 			final PageableController controller, final StructuredViewer viewer,
-			final IPageLoader pageLoader,
+			final IPageLoader<?> pageLoader,
 			final IPageContentProvider pageContentProvider,
 			final IPageLoaderHandler<PageableController> handler) {
 		return new PageChangedAdapter<PageableController>() {
@@ -162,7 +162,7 @@ public class PageLoaderStrategyHelper {
 	 *            process. If null no observation is done.
 	 */
 	public static void loadPageAndAddItems(final PageableController controller,
-			final TableViewer viewer, final IPageLoader pageLoader,
+			final TableViewer viewer, final IPageLoader<?> pageLoader,
 			final IPageContentProvider pageContentProvider,
 			final IPageLoaderHandler<PageableController> handler) {
 		Object page = loadPageAndUpdateTotalElements(controller, pageLoader,
@@ -201,7 +201,7 @@ public class PageLoaderStrategyHelper {
 	 */
 	public static IPageChangedListener<PageableController> createLoadPageAndAddItemsListener(
 			final PageableController controller, final TableViewer viewer,
-			final IPageLoader pageLoader,
+			final IPageLoader<?> pageLoader,
 			final IPageLoaderHandler<PageableController> handler) {
 		return createLoadPageAndAddItemsListener(controller, viewer,
 				pageLoader, PageResultContentProvider.getInstance(), handler);
@@ -227,7 +227,7 @@ public class PageLoaderStrategyHelper {
 	 */
 	public static IPageChangedListener<PageableController> createLoadPageAndAddItemsListener(
 			final PageableController controller, final TableViewer viewer,
-			final IPageLoader pageLoader,
+			final IPageLoader<?> pageLoader,
 			final IPageContentProvider pageContentProvider,
 			final IPageLoaderHandler<PageableController> handler) {
 		return new PageChangedAdapter<PageableController>() {
@@ -281,7 +281,7 @@ public class PageLoaderStrategyHelper {
 	 */
 	public static void loadPageAndAddItems(final PageableController controller,
 			final Object parentElementOrTreePath, final TreeViewer viewer,
-			final IPageLoader pageLoader,
+			final IPageLoader<?> pageLoader,
 			final IPageContentProvider pageContentProvider,
 			final IPageLoaderHandler<PageableController> handler) {
 		Object page = loadPageAndUpdateTotalElements(controller, pageLoader,
@@ -321,7 +321,7 @@ public class PageLoaderStrategyHelper {
 	public static IPageChangedListener<PageableController> createloadPageAndAddItemsListener(
 			final PageableController controller,
 			final Object parentElementOrTreePath, final TreeViewer viewer,
-			final IPageLoader pageLoader,
+			final IPageLoader<?> pageLoader,
 			final IPageContentProvider pageContentProvider,
 			final IPageLoaderHandler<PageableController> handler) {
 		return new PageChangedAdapter<PageableController>() {
@@ -375,7 +375,7 @@ public class PageLoaderStrategyHelper {
 	 *            process. If null no observation is done.
 	 */
 	public static void loadPageAndAddItems(final PageableController controller,
-			final AbstractListViewer viewer, final IPageLoader pageLoader,
+			final AbstractListViewer viewer, final IPageLoader<?> pageLoader,
 			final IPageContentProvider pageContentProvider,
 			final IPageLoaderHandler<PageableController> handler) {
 		Object page = loadPageAndUpdateTotalElements(controller, pageLoader,
@@ -405,7 +405,7 @@ public class PageLoaderStrategyHelper {
 	 */
 	public static IPageChangedListener<PageableController> createloadPageAndAddItemsListener(
 			final PageableController controller,
-			final AbstractListViewer viewer, final IPageLoader pageLoader,
+			final AbstractListViewer viewer, final IPageLoader<?> pageLoader,
 			final IPageContentProvider pageContentProvider,
 			final IPageLoaderHandler<PageableController> handler) {
 		return new PageChangedAdapter<PageableController>() {
@@ -449,7 +449,7 @@ public class PageLoaderStrategyHelper {
 	 * @return the pagination {@link PageResult}.
 	 */
 	public static Object loadPageAndUpdateTotalElements(
-			final PageableController controller, final IPageLoader pageLoader,
+			final PageableController controller, final IPageLoader<?> pageLoader,
 			final IPageContentProvider pageContentProvider,
 			final IPageLoaderHandler<PageableController> handler) {
 		// Load the paginated list.
@@ -486,7 +486,7 @@ public class PageLoaderStrategyHelper {
 	 *            the pagination {@link Pageable}.
 	 * @return the pagination {@link PageResult}.
 	 */
-	public static Object loadPage(IPageLoader pageLoader,
+	public static Object loadPage(IPageLoader<?> pageLoader,
 			PageableController controller) {
 		if (pageLoader == null) {
 			throw new NullPointerException("PageLoader cannot be null!");
