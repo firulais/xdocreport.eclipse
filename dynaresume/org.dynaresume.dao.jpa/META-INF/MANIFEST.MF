@@ -33,3 +33,5 @@ Require-Bundle: org.springframework.beans,
  org.springframework.data.commons;bundle-version="1.0.0",
  org.springframework.orm;bundle-version="3.0.0",
  org.springframework.context;bundle-version="3.0.0"
+Bundle-ClassPath: target/classes/,
+ .
