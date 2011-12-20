@@ -14,8 +14,8 @@ package org.eclipse.nebula.widgets.pagination.table;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.nebula.widgets.pagination.AbstractPaginationWidget;
 import org.eclipse.nebula.widgets.pagination.IPageContentProvider;
-import org.eclipse.nebula.widgets.pagination.PageContentProvider;
 import org.eclipse.nebula.widgets.pagination.PageLoaderStrategyHelper;
+import org.eclipse.nebula.widgets.pagination.collections.PageResultContentProvider;
 import org.eclipse.nebula.widgets.pagination.renderers.ICompositeRendererFactory;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.ResultAndNavigationPageLinksRendererFactory;
 import org.eclipse.swt.SWT;
@@ -70,7 +70,7 @@ public class PageableTable extends AbstractPaginationWidget<Table> {
 
 	public PageableTable(Composite parent, int style, int tableStyle,
 			int pageSize) {
-		this(parent, style, tableStyle, pageSize, PageContentProvider
+		this(parent, style, tableStyle, pageSize, PageResultContentProvider
 				.getInstance(), getDefaultPageRendererTopFactory(),
 				getDefaultPageRendererBottomFactory(), true);
 	}

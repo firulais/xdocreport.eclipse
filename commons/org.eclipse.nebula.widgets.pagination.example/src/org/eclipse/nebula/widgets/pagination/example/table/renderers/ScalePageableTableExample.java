@@ -17,7 +17,7 @@ import java.util.List;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.nebula.widgets.pagination.PageContentProvider;
+import org.eclipse.nebula.widgets.pagination.collections.PageResultContentProvider;
 import org.eclipse.nebula.widgets.pagination.collections.PageLoaderList;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.NavigationPageScaleRendererFactory;
 import org.eclipse.nebula.widgets.pagination.table.PageableTable;
@@ -48,7 +48,7 @@ public class ScalePageableTableExample {
 		int pageSize = 10;
 		PageableTable pageableTable = new PageableTable(shell, SWT.BORDER,
 				SWT.BORDER | SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL, pageSize,
-				PageContentProvider.getInstance(),
+				PageResultContentProvider.getInstance(),
 				NavigationPageScaleRendererFactory.getFactory(), null);
 		pageableTable.setLayoutData(new GridData(GridData.FILL_BOTH));
 

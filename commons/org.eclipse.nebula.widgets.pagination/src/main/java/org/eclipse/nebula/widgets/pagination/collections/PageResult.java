@@ -9,40 +9,53 @@
  *     Angelo ZERR - initial API and implementation
  *     Pascal Leclercq - initial API and implementation
  *******************************************************************************/
-package org.eclipse.nebula.widgets.pagination;
+package org.eclipse.nebula.widgets.pagination.collections;
 
 import java.util.List;
 
-import org.eclipse.nebula.widgets.pagination.collections.PageResult;
-
 /**
- * When {@link IPageLoader} load paginated list, the method
- * {@link IPageLoader#loadPage(PageableController)} returns a pagination
- * structure (like {@link PageResult}, Spring Data Page etc...).
  * 
- * This interface is used to returns total elements and paginated list from the
- * returned pagination structure.
+ * Page result used to store pagination result information :
+ * 
+ * <ul>
+ * <li>the total elements</li>
+ * <li>the paginated list</li>
+ * </ul>
+ * 
+ * @param <T>
+ *            the type item of the paginated list.
  */
-public interface IPageContentProvider {
+public class PageResult<T> {
+
+	private final List<T> content;
+	private final long totalElements;
 
 	/**
-	 * Create an instance of {@link PageableController} with the given page
-	 * size.
+	 * Constructor with the given paginated list and total elements.
+	 * 
+	 * @param content
+	 * @param totalElements
 	 */
-	PageableController createController(int pageSize);
+	public PageResult(List<T> content, long totalElements) {
+		this.totalElements = totalElements;
+		this.content = content;
+	}
 
 	/**
 	 * Returns the total amount of elements.
 	 * 
 	 * @return the total amount of elements
 	 */
-	long getTotalElements(Object page);
+	public long getTotalElements() {
+		return totalElements;
+	}
 
 	/**
 	 * Returns the page content as {@link List}.
 	 * 
 	 * @return
 	 */
-	List<?> getPaginatedList(Object page);
-
+	public List<T> getContent() {
+		return content;
+	}
 }

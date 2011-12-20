@@ -17,7 +17,7 @@ import java.util.List;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.nebula.widgets.pagination.PageContentProvider;
+import org.eclipse.nebula.widgets.pagination.collections.PageResultContentProvider;
 import org.eclipse.nebula.widgets.pagination.collections.PageLoaderList;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.NavigationPageComboRendererFactory;
 import org.eclipse.nebula.widgets.pagination.table.PageableTable;

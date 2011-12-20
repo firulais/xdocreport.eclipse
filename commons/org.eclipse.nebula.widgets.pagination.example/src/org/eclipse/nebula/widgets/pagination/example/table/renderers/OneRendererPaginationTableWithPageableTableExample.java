@@ -19,8 +19,8 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.nebula.widgets.pagination.PageContentProvider;
 import org.eclipse.nebula.widgets.pagination.PageableController;
+import org.eclipse.nebula.widgets.pagination.collections.PageResultContentProvider;
 import org.eclipse.nebula.widgets.pagination.collections.PageLoaderList;
 import org.eclipse.nebula.widgets.pagination.example.model.Address;
 import org.eclipse.nebula.widgets.pagination.example.model.Person;
@@ -57,7 +57,7 @@ public class OneRendererPaginationTableWithPageableTableExample {
 		final PageableTable pageableTable = new PageableTable(shell,
 				SWT.BORDER, SWT.BORDER | SWT.MULTI | SWT.H_SCROLL
 						| SWT.V_SCROLL, pageSize,
-				PageContentProvider.getInstance(), null,
+				PageResultContentProvider.getInstance(), null,
 				ResultAndNavigationPageLinksRendererFactory.getFactory());
 		pageableTable.setLayoutData(new GridData(GridData.FILL_BOTH));
 		pageableTable.setPageLoader(new PageLoaderList(items));

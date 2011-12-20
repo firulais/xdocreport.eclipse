@@ -13,18 +13,23 @@ package org.eclipse.nebula.widgets.pagination.collections;
 
 import java.util.List;
 
+import org.eclipse.swt.SWT;
+
 /**
  * Sort processor used to sort a list.
  */
 public interface SortProcessor {
 
 	/**
-	 * Sort the given list by using Spring Data {@link Sort}.
+	 * Sort the given list by using the given sort property name and direction.
 	 * 
 	 * @param list
 	 *            the list to sort.
-	 * @param sort
-	 *            teh Spring Data sort information.
+	 * @param sortPropertyName
+	 *            the sort property name.
+	 * @param sortDirection
+	 *            the sort direction {@link SWT.UP}, {@link SWT.DOWN,
+	 *            {@link SWT.NONE} .
 	 */
 	void sort(List<?> list, String sortPropertyName, int sortDirection);
 }

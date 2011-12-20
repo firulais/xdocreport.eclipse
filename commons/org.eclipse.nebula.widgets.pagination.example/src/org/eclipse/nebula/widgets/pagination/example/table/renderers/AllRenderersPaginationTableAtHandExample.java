@@ -21,9 +21,9 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.nebula.widgets.pagination.IPageLoader;
-import org.eclipse.nebula.widgets.pagination.PageContentProvider;
 import org.eclipse.nebula.widgets.pagination.PageLoaderStrategyHelper;
 import org.eclipse.nebula.widgets.pagination.PageableController;
+import org.eclipse.nebula.widgets.pagination.collections.PageResultContentProvider;
 import org.eclipse.nebula.widgets.pagination.collections.PageLoaderList;
 import org.eclipse.nebula.widgets.pagination.example.model.Address;
 import org.eclipse.nebula.widgets.pagination.example.model.Person;
@@ -94,7 +94,7 @@ public class AllRenderersPaginationTableAtHandExample {
 		final IPageLoader pageLoader = new PageLoaderList(items);
 		controller.addPageChangedListener(PageLoaderStrategyHelper
 				.createloadPageAndReplaceItemsListener(controller, viewer,
-						pageLoader, PageContentProvider.getInstance(), null));
+						pageLoader, PageResultContentProvider.getInstance(), null));
 
 		createColumns(viewer, controller);
 

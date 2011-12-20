@@ -22,7 +22,7 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.nebula.widgets.pagination.IPageLoaderHandler;
 import org.eclipse.nebula.widgets.pagination.PageableController;
-import org.eclipse.nebula.widgets.pagination.collections.Page;
+import org.eclipse.nebula.widgets.pagination.collections.PageResult;
 import org.eclipse.nebula.widgets.pagination.collections.PageLoaderList;
 import org.eclipse.nebula.widgets.pagination.example.model.Address;
 import org.eclipse.nebula.widgets.pagination.example.model.Person;
@@ -111,7 +111,7 @@ public class ModelSortPageableTableWorkInProcessExample {
 		// 3) Set current page to 0 to refresh the table
 		pageableTable.setPageLoader(new PageLoaderList(items) {			
 			@Override
-			public Page<?> loadPage(PageableController pageable) {
+			public PageResult<?> loadPage(PageableController pageable) {
 				if (pageableTable.isVisible()) {
 					try {
 						Thread.sleep(1000);

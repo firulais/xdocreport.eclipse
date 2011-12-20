@@ -5,12 +5,11 @@ import java.util.List;
 import org.eclipse.nebula.widgets.pagination.IPageContentProvider;
 import org.springframework.data.domain.Page;
 
-public class SpringDataPageContentProvider implements
-		IPageContentProvider<SpringDataPageableController, Page<?>> {
+public class SpringDataPageContentProvider implements IPageContentProvider {
 
-	private static final IPageContentProvider<SpringDataPageableController, Page<?>> INSTANCE = new SpringDataPageContentProvider();
+	private static final IPageContentProvider INSTANCE = new SpringDataPageContentProvider();
 
-	public static IPageContentProvider<SpringDataPageableController, Page<?>> getInstance() {
+	public static IPageContentProvider getInstance() {
 		return INSTANCE;
 	}
 
@@ -18,12 +17,12 @@ public class SpringDataPageContentProvider implements
 		return new SpringDataPageableController(pageSize);
 	}
 
-	public long getTotalElements(Page<?> page) {
-		return page.getTotalElements();
+	public long getTotalElements(Object page) {
+		return ((Page<?>) page).getTotalElements();
 	}
 
-	public List<?> getPaginatedList(Page<?> page) {
-		return page.getContent();
+	public List<?> getPaginatedList(Object page) {
+		return ((Page<?>) page).getContent();
 	}
 
 }
