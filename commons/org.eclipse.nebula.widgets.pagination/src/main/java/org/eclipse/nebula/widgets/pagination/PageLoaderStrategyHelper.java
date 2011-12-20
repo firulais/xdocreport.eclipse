@@ -19,7 +19,8 @@ import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.nebula.widgets.pagination.collections.Page;
+import org.eclipse.nebula.widgets.pagination.collections.PageResult;
+import org.eclipse.nebula.widgets.pagination.collections.PageResultContentProvider;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.TreeItem;
 
@@ -41,8 +42,6 @@ import org.eclipse.swt.widgets.TreeItem;
  * </li>
  * </ul>
  * 
- * @see http://www.springsource.org/spring-data
- * 
  */
 public class PageLoaderStrategyHelper {
 
@@ -52,7 +51,7 @@ public class PageLoaderStrategyHelper {
 	 * This method loads the paginated list by using the given page loader
 	 * {@link IPageLoader} and information about pagination from the given
 	 * controller {@link PageableController}. After loading paginated list
-	 * returned in a Spring Data structure {@link Page}, this method :
+	 * returned in a pagination structure {@link PageResult}, this method :
 	 * 
 	 * <ul>
 	 * <li>update the total elements of the given controller
@@ -142,7 +141,7 @@ public class PageLoaderStrategyHelper {
 	 * This method loads the paginated list by using the given page loader
 	 * {@link IPageLoader} and information about pagination from the given
 	 * controller {@link PageableController}. After loading paginated list
-	 * returned in a Spring Data structure {@link Page}, this method :
+	 * returned in a pagination structure {@link PageResult}, this method :
 	 * 
 	 * <ul>
 	 * <li>update the total elements of the given controller
@@ -205,7 +204,7 @@ public class PageLoaderStrategyHelper {
 			final IPageLoader pageLoader,
 			final IPageLoaderHandler<PageableController> handler) {
 		return createLoadPageAndAddItemsListener(controller, viewer,
-				pageLoader, PageContentProvider.getInstance(), handler);
+				pageLoader, PageResultContentProvider.getInstance(), handler);
 	}
 
 	/**
@@ -260,7 +259,7 @@ public class PageLoaderStrategyHelper {
 	 * This method loads the paginated list by using the given page loader
 	 * {@link IPageLoader} and information about pagination from the given
 	 * controller {@link PageableController}. After loading paginated list
-	 * returned in a Spring Data structure {@link Page}, this method :
+	 * returned in a pagination structure {@link PageResult}, this method :
 	 * 
 	 * <ul>
 	 * <li>update the total elements of the given controller
@@ -355,7 +354,7 @@ public class PageLoaderStrategyHelper {
 	 * This method loads the paginated list by using the given page loader
 	 * {@link IPageLoader} and information about pagination from the given
 	 * controller {@link PageableController}. After loading paginated list
-	 * returned in a Spring Data structure {@link Page}, this method :
+	 * returned in a pagination structure {@link PageResult}, this method :
 	 * 
 	 * <ul>
 	 * <li>update the total elements of the given controller
@@ -447,7 +446,7 @@ public class PageLoaderStrategyHelper {
 	 *            the page loader handler to observe before/after page loading
 	 *            process. If null no observation is done.
 	 * 
-	 * @return the Spring Data {@link Page}.
+	 * @return the pagination {@link PageResult}.
 	 */
 	public static Object loadPageAndUpdateTotalElements(
 			final PageableController controller, final IPageLoader pageLoader,
@@ -484,8 +483,8 @@ public class PageLoaderStrategyHelper {
 	 * @param pageLoader
 	 *            the page loader used to load paginated list.
 	 * @param pageable
-	 *            the Spring Data {@link Pageable}.
-	 * @return the Spring Data {@link Page}.
+	 *            the pagination {@link Pageable}.
+	 * @return the pagination {@link PageResult}.
 	 */
 	public static Object loadPage(IPageLoader pageLoader,
 			PageableController controller) {

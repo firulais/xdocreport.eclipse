@@ -6,7 +6,7 @@ import org.eclipse.nebula.widgets.pagination.IPageLoader;
 import org.eclipse.nebula.widgets.pagination.PageableController;
 
 public class PageLoaderList implements
-		IPageLoader<PageableController, Page<?>> {
+		IPageLoader<PageableController, PageResult<?>> {
 
 	private List<?> items;
 
@@ -22,7 +22,7 @@ public class PageLoaderList implements
 		return items;
 	}
 
-	public Page<?> loadPage(PageableController controller) {
+	public PageResult<?> loadPage(PageableController controller) {
 		return PageListHelper.createPage(items, controller);
 	}
 

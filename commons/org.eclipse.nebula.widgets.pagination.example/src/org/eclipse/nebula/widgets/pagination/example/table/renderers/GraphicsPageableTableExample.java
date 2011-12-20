@@ -17,7 +17,7 @@ import java.util.List;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.nebula.widgets.pagination.PageContentProvider;
+import org.eclipse.nebula.widgets.pagination.collections.PageResultContentProvider;
 import org.eclipse.nebula.widgets.pagination.collections.PageLoaderList;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.ResultAndNavigationPageGraphicsRenderer;
 import org.eclipse.nebula.widgets.pagination.renderers.navigation.ResultAndNavigationPageGraphicsRendererFactory;
@@ -61,7 +61,7 @@ public class GraphicsPageableTableExample {
 				SWT.BORDER,
 				SWT.BORDER | SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL,
 				pageSize,
-				PageContentProvider.getInstance(),
+				PageResultContentProvider.getInstance(),
 				ResultAndNavigationPageGraphicsRendererFactory.getBlueFactory(),
 				null);
 		pageableTable.setLayoutData(new GridData(GridData.FILL_BOTH));
