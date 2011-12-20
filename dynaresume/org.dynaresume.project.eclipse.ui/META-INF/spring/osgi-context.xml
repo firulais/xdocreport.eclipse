@@ -8,6 +8,7 @@
 
 	<reference id="clientService" interface="org.dynaresume.services.ClientService" />
 	<reference id="projectService" interface="org.dynaresume.services.ProjectService" />
+	<reference id="projectDescriptionTypeService" interface="org.dynaresume.services.ProjectDescriptionTypeService" />
 	
 </beans:beans>           
 

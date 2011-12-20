@@ -27,6 +27,8 @@ public class ImageResources {
 	public static final String IMG_CLIENT_24 = "client_24";
 	public static final String IMG_SKILLS_16 = "skills_16";
 	public static final String IMG_PROJECT_48 = "project_48";
+
+	public static final String IMG_DESCRIPTIONS_16 = "description_16";
 	
 	public static void initialize(ImageRegistry imageRegistry) {
 		registerImage(imageRegistry, IMG_OVERVIEW_16, PATH_OBJ_16 + "overview.gif");

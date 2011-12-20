@@ -22,7 +22,7 @@ public class ProjectFormEditor extends ReportingFormEditor<Project> {
 	protected void doAddPages() {
 		try {
 			super.addPage(new OverviewPage(this));
-			super.addPage(new ClientsPage(this));
+			super.addPage(new DescriptionsPage(this));
 			super.addPage(new SkillsPage(this));
 		} catch (PartInitException e) {
 			e.printStackTrace();

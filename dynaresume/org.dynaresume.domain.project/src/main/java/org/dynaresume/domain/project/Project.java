@@ -1,11 +1,16 @@
 package org.dynaresume.domain.project;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Project implements Serializable {
@@ -15,7 +20,7 @@ public class Project implements Serializable {
 	private static final long serialVersionUID = 9217187221005720810L;
 
 	public static final String NAME_PROPERTY = "name";
-	public static final String DESCRIPTION_PROPERTY = "description";
+	//public static final String DESCRIPTION_PROPERTY = "description";
 	public static final String URL_PROPERTY = "URL";
 
 	@Id
@@ -23,8 +28,11 @@ public class Project implements Serializable {
 	private Long id;
 	@Column
 	private String name;
-	@Column
-	private String description;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "project_fk")
+	private Set<ProjectDescription> descriptions;
+
 	@Column
 	private String url;
 
@@ -44,12 +52,12 @@ public class Project implements Serializable {
 		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
+	public Set<ProjectDescription> getDescriptions() {
+		return descriptions;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescriptions(Set<ProjectDescription> descriptions) {
+		this.descriptions = descriptions;
 	}
 
 	public String getURL() {

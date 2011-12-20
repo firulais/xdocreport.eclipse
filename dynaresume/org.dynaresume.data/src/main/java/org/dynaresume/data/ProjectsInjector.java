@@ -1,6 +1,7 @@
 package org.dynaresume.data;
 
 import org.dynaresume.domain.project.Project;
+import org.dynaresume.domain.project.ProjectDescriptionType;
 
 public class ProjectsInjector extends AbstractInjector {
 
@@ -10,6 +11,11 @@ public class ProjectsInjector extends AbstractInjector {
 
 	public void inject() {
 
+		addType("CTXT", "Context");
+		addType("PBS", "Problems");
+		addType("SOL", "Solutions");
+		//addType("SOL", "Solutions");
+		
 		addProject(
 				"XDocReport",
 				"http://code.google.com/p/xdocreport",
@@ -17,11 +23,18 @@ public class ProjectsInjector extends AbstractInjector {
 		addProject("SIDoc", "", "");
 	}
 
+	private ProjectDescriptionType addType(String code, String label) {
+		ProjectDescriptionType type = new ProjectDescriptionType();
+		type.setCode(code);
+		type.setLabel(label);
+		return getDataInjector().getProjectDescriptionTypeService().save(type);
+	}
+
 	private void addProject(String name, String url, String description) {
 		Project project = new Project();
 		project.setName(name);
 		project.setURL(url);
-		project.setDescription(description);
+		// project.setDescription(description);
 		getDataInjector().getProjectService().save(project);
 	}
 

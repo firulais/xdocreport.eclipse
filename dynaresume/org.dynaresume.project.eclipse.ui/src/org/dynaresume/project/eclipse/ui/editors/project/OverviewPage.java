@@ -89,7 +89,7 @@ public class OverviewPage extends ReportingFormPage implements
 		bottom.setLayoutData(data);
 
 		// Description section
-		createDescriptionSection(toolkit, bottom);
+		//createDescriptionSection(toolkit, bottom);
 
 	}
 
@@ -144,7 +144,7 @@ public class OverviewPage extends ReportingFormPage implements
 		FormText text = createClient(container,
 				Messages.ProjectFormEditor_OverviewPage_ProjectContent_content,
 				toolkit);
-		text.setImage("clients_page",
+		text.setImage("descriptions_page",
 				ImageResources.getImage(ImageResources.IMG_CLIENT_16));
 		text.setImage("skills_page",
 				ImageResources.getImage(ImageResources.IMG_SKILLS_16));
@@ -217,15 +217,15 @@ public class OverviewPage extends ReportingFormPage implements
 				Jsr303BeansUpdateValueStrategyFactory
 						.create(getModel1FirstNameObserveValue), null);
 
-		// bind description skill
-		IObservableValue descriptionTextObserveTextObserveWidget = SWTObservables
-				.observeText(descriptionText.getTextarea(), SWT.Modify);
-		IObservableValue modelDescriptionObserveValue = PojoObservables
-				.observeValue(getModelObject(), Project.DESCRIPTION_PROPERTY);
-		bindingContext.bindValue(descriptionTextObserveTextObserveWidget,
-				modelDescriptionObserveValue,
-				Jsr303BeansUpdateValueStrategyFactory
-						.create(modelDescriptionObserveValue), null);
+//		// bind description skill
+//		IObservableValue descriptionTextObserveTextObserveWidget = SWTObservables
+//				.observeText(descriptionText.getTextarea(), SWT.Modify);
+//		IObservableValue modelDescriptionObserveValue = PojoObservables
+//				.observeValue(getModelObject(), Project.DESCRIPTION_PROPERTY);
+//		bindingContext.bindValue(descriptionTextObserveTextObserveWidget,
+//				modelDescriptionObserveValue,
+//				Jsr303BeansUpdateValueStrategyFactory
+//						.create(modelDescriptionObserveValue), null);
 
 		// bind url skill
 		IObservableValue urlTextObserveTextObserveWidget = SWTObservables

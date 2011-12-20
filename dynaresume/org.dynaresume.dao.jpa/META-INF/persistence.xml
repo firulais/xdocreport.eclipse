@@ -26,6 +26,8 @@
 		<class>org.dynaresume.domain.core.Address</class>
 		<class>org.dynaresume.domain.core.Country</class>
 		<class>org.dynaresume.domain.project.Client</class>
+		<class>org.dynaresume.domain.project.ProjectDescription</class>		
+		<class>org.dynaresume.domain.project.ProjectDescriptionType</class>		
 		<class>org.dynaresume.domain.project.Project</class>	
 	</persistence-unit>
 

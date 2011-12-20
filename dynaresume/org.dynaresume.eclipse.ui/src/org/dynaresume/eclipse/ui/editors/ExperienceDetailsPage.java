@@ -14,7 +14,10 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.forms.events.HyperlinkEvent;
+import org.eclipse.ui.forms.events.IHyperlinkListener;
 import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.Section;
 
 import fr.opensagres.eclipse.forms.conversion.DateConverterRegistry;
@@ -26,13 +29,15 @@ import fr.opensagres.eclipse.forms.widgets.DateTimeControl;
 import fr.opensagres.eclipse.forms.widgets.SimpleWikiText;
 import fr.opensagres.xdocreport.eclipse.PlatformXDocReport;
 
-public class ExperienceDetailsPage extends ModelDetailsPage<Experience> {
+public class ExperienceDetailsPage extends ModelDetailsPage<Experience>
+		implements IHyperlinkListener {
 
 	private Text experienceTitleText;
 	private Text experienceMissionText;
 	private SimpleWikiText experienceDetailWikiText;
 	private DateTimeControl experienceStartDateDateTime;
 	private DateTimeControl experienceEndDateDateTime;
+	private Hyperlink experienceProjectHyperlink;
 
 	@Override
 	protected void onCreateUI(Composite parent) {
@@ -96,6 +101,17 @@ public class ExperienceDetailsPage extends ModelDetailsPage<Experience> {
 		experienceEndDateDateTime.setLayoutData(data);
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit,
 				experienceEndDateDateTime);
+
+		// Experience project
+		toolkit.createLabel(
+				parent,
+				Messages.ResumeFormEditor_ExperiencesPage_ExperienceDetailsPage_projectName_label);
+		experienceProjectHyperlink = toolkit.createHyperlink(parent, "",
+				SWT.SINGLE);
+		data = new GridData(GridData.FILL_HORIZONTAL);
+		data.horizontalSpan = 3;
+		experienceProjectHyperlink.setLayoutData(data);
+		experienceProjectHyperlink.addHyperlinkListener(this);
 
 		// Experience title
 		toolkit.createLabel(
@@ -189,6 +205,25 @@ public class ExperienceDetailsPage extends ModelDetailsPage<Experience> {
 				.observeValue(getModelObject(), Experience.DETAIL_PROPERTY);
 		bindingContext.bindValue(experienceDetailTextObserveTextObserveWidget,
 				modelExperienceDetailObserveValue, null, null);
+	}
+
+	public void linkActivated(HyperlinkEvent e) {
+		if (e.widget.equals(experienceProjectHyperlink)) {
+			handleProjectNameHyperlink(e);
+		}
+	}
+
+	public void linkEntered(HyperlinkEvent e) {
+		// Do nothing
+	}
+
+	public void linkExited(HyperlinkEvent e) {
+		// Do nothing
+	}
+
+	private void handleProjectNameHyperlink(HyperlinkEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

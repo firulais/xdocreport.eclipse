@@ -13,13 +13,16 @@
 	<reference id="languageDao" interface="org.dynaresume.dao.LanguageDao" />
 	<reference id="clientDao" interface="org.dynaresume.dao.ClientDao" />
 	<reference id="projectDao" interface="org.dynaresume.dao.ProjectDao" />
+	<reference id="projectDescriptionTypeDao" interface="org.dynaresume.dao.ProjectDescriptionTypeDao" />	
 		
 	<service ref="resumeService" interface="org.dynaresume.services.ResumeService" />
 	<service ref="skillService" interface="org.dynaresume.services.SkillService" />
 	<service ref="groupService" interface="org.dynaresume.services.GroupService" />
 	<service ref="skillCategoryService" interface="org.dynaresume.services.SkillCategoryService" />	
 	<service ref="languageService" interface="org.dynaresume.services.LanguageService" />
+	
 	<service ref="clientService" interface="org.dynaresume.services.ClientService" />
 	<service ref="projectService" interface="org.dynaresume.services.ProjectService" />
+	<service ref="projectDescriptionTypeService" interface="org.dynaresume.services.ProjectDescriptionTypeService" />
 	
 </beans:beans>           

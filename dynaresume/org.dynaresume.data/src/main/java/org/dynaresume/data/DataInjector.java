@@ -3,6 +3,7 @@ package org.dynaresume.data;
 import org.dynaresume.services.ClientService;
 import org.dynaresume.services.GroupService;
 import org.dynaresume.services.LanguageService;
+import org.dynaresume.services.ProjectDescriptionTypeService;
 import org.dynaresume.services.ProjectService;
 import org.dynaresume.services.ResumeService;
 import org.dynaresume.services.SkillCategoryService;
@@ -17,6 +18,7 @@ public class DataInjector implements Runnable {
 	private LanguageService languageService;
 	private ClientService clientService;
 	private ProjectService projectService;
+	private ProjectDescriptionTypeService projectDescriptionTypeService;
 
 	private SkillsInjector skillsInjector;
 	private GroupsInjector groupsInjector;
@@ -44,7 +46,16 @@ public class DataInjector implements Runnable {
 	public void setLanguageService(LanguageService languageService) {
 		this.languageService = languageService;
 	}
+	
+	public void setProjectDescriptionTypeService(
+			ProjectDescriptionTypeService projectDescriptionTypeService) {
+		this.projectDescriptionTypeService = projectDescriptionTypeService;
+	}
 
+	public ProjectDescriptionTypeService getProjectDescriptionTypeService() {
+		return projectDescriptionTypeService;
+	}
+	
 	public void run() {
 		// Skills + Skills categories data injections
 		skillsInjector = new SkillsInjector(this);

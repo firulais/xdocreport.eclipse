@@ -18,7 +18,7 @@ public class MockProjectDao extends AbstractDaoMock<Project> implements ProjectD
 		newProject.setId(project.getId());
 		newProject.setName(project.getName());
 		newProject.setURL(project.getURL());
-		newProject.setDescription(project.getDescription());
+		//newProject.setDescription(project.getDescription());
 		return newProject;
 	}
 

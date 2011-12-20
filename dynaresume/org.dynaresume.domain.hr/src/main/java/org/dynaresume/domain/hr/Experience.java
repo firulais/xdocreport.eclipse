@@ -6,8 +6,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.dynaresume.domain.project.Project;
 
 @Entity
 public class Experience {
@@ -17,6 +20,8 @@ public class Experience {
 	public static final String TITLE_PROPERTY = "title";
 	public static final String MISSION_PROPERTY = "mission";
 	public static final String DETAIL_PROPERTY = "detail";
+	public static final String PROJECT_PROPERTY = "project";
+
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -27,10 +32,13 @@ public class Experience {
 	@Column
 	@Temporal(TemporalType.DATE)
 	private Date endDate;
-	@Column(length=1000)
+	@Column(length = 1000)
 	private String detail;
 	@Column
 	private String mission;
+
+	@ManyToOne
+	private Project project;
 
 	public Long getId() {
 		return id;
@@ -88,5 +96,13 @@ public class Experience {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	public Project getProject() {
+		return project;
 	}
 }
