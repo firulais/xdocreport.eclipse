@@ -12,7 +12,6 @@
 package org.eclipse.nebula.widgets.pagination.springdata;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import org.eclipse.nebula.widgets.pagination.PageableController;
@@ -30,6 +29,8 @@ import org.springframework.data.domain.Sort.Direction;
  */
 public class SpringDataPageableController extends PageableController implements
 		Pageable {
+
+	private static final long serialVersionUID = 245254414099137504L;
 
 	// Spring Data Sort dooesn't support property null
 	private static final String EMPTY_PROPERTY_SORT = "empty";
