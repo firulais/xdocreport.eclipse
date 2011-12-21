@@ -25,6 +25,7 @@ public class DataInjector implements Runnable {
 	private LanguagesInjector languagesInjector;
 	private ResumesInjector resumesInjector;
 	private ProjectsInjector projectsInjector;
+	private ClientsInjector clientsInjector;
 
 	public void setResumeService(ResumeService resumeService) {
 		this.resumeService = resumeService;
@@ -46,7 +47,7 @@ public class DataInjector implements Runnable {
 	public void setLanguageService(LanguageService languageService) {
 		this.languageService = languageService;
 	}
-	
+
 	public void setProjectDescriptionTypeService(
 			ProjectDescriptionTypeService projectDescriptionTypeService) {
 		this.projectDescriptionTypeService = projectDescriptionTypeService;
@@ -55,7 +56,7 @@ public class DataInjector implements Runnable {
 	public ProjectDescriptionTypeService getProjectDescriptionTypeService() {
 		return projectDescriptionTypeService;
 	}
-	
+
 	public void run() {
 		// Skills + Skills categories data injections
 		skillsInjector = new SkillsInjector(this);
@@ -75,6 +76,9 @@ public class DataInjector implements Runnable {
 
 		projectsInjector = new ProjectsInjector(this);
 		projectsInjector.inject();
+
+		clientsInjector = new ClientsInjector(this);
+		clientsInjector.inject();
 	}
 
 	public void interrupt() {

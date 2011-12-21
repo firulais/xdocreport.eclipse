@@ -32,6 +32,8 @@ import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 
+import fr.opensagres.eclipse.forms.widgets.FormSearchControl;
+import fr.opensagres.eclipse.forms.widgets.ISearcher;
 import fr.opensagres.eclipse.forms.widgets.SimpleWikiText;
 import fr.opensagres.xdocreport.eclipse.ui.FormLayoutFactory;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormEditor;
@@ -89,7 +91,7 @@ public class OverviewPage extends ReportingFormPage implements
 		bottom.setLayoutData(data);
 
 		// Description section
-		//createDescriptionSection(toolkit, bottom);
+		// createDescriptionSection(toolkit, bottom);
 
 	}
 
@@ -127,6 +129,26 @@ public class OverviewPage extends ReportingFormPage implements
 		gridData.widthHint = 150;
 		urlText.setLayoutData(gridData);
 
+		// Client
+		toolkit.createLabel(
+				sbody,
+				Messages.ProjectFormEditor_OverviewPage_GeneralInfo_Client_label);
+		FormSearchControl clientSearch = new FormSearchControl(sbody, SWT.NONE,
+				SWT.NONE, toolkit);
+
+		clientSearch.setSearcher(new ISearcher() {
+			public Iterable<?> search(String contents, int position) {				
+				return ((ProjectFormEditor) OverviewPage.this.getEditor())
+						.getClientService().findAll();
+			}
+		});
+
+		gridData = new GridData(GridData.FILL_HORIZONTAL);
+		gridData.widthHint = 150;
+		clientSearch.setLayoutData(gridData);
+
+		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, clientSearch);
+
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
 	}
 
@@ -145,7 +167,7 @@ public class OverviewPage extends ReportingFormPage implements
 				Messages.ProjectFormEditor_OverviewPage_ProjectContent_content,
 				toolkit);
 		text.setImage("descriptions_page",
-				ImageResources.getImage(ImageResources.IMG_CLIENT_16));
+				ImageResources.getImage(ImageResources.IMG_DESCRIPTION_16));
 		text.setImage("skills_page",
 				ImageResources.getImage(ImageResources.IMG_SKILLS_16));
 		section.setClient(container);
@@ -202,9 +224,9 @@ public class OverviewPage extends ReportingFormPage implements
 		descriptionText.setLayoutData(gridData);
 
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
-		
+
 	}
-	
+
 	private void onBindGeneralInfo(DataBindingContext bindingContext) {
 
 		// bind name skill
@@ -217,15 +239,16 @@ public class OverviewPage extends ReportingFormPage implements
 				Jsr303BeansUpdateValueStrategyFactory
 						.create(getModel1FirstNameObserveValue), null);
 
-//		// bind description skill
-//		IObservableValue descriptionTextObserveTextObserveWidget = SWTObservables
-//				.observeText(descriptionText.getTextarea(), SWT.Modify);
-//		IObservableValue modelDescriptionObserveValue = PojoObservables
-//				.observeValue(getModelObject(), Project.DESCRIPTION_PROPERTY);
-//		bindingContext.bindValue(descriptionTextObserveTextObserveWidget,
-//				modelDescriptionObserveValue,
-//				Jsr303BeansUpdateValueStrategyFactory
-//						.create(modelDescriptionObserveValue), null);
+		// // bind description skill
+		// IObservableValue descriptionTextObserveTextObserveWidget =
+		// SWTObservables
+		// .observeText(descriptionText.getTextarea(), SWT.Modify);
+		// IObservableValue modelDescriptionObserveValue = PojoObservables
+		// .observeValue(getModelObject(), Project.DESCRIPTION_PROPERTY);
+		// bindingContext.bindValue(descriptionTextObserveTextObserveWidget,
+		// modelDescriptionObserveValue,
+		// Jsr303BeansUpdateValueStrategyFactory
+		// .create(modelDescriptionObserveValue), null);
 
 		// bind url skill
 		IObservableValue urlTextObserveTextObserveWidget = SWTObservables

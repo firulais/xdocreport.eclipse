@@ -14,6 +14,7 @@ public class Messages extends NLS {
 	public static String ProjectFormEditor_OverviewPage_GeneralInfo_title;
 	public static String ProjectFormEditor_OverviewPage_GeneralInfo_desc;
 	public static String ProjectFormEditor_OverviewPage_GeneralInfo_Name_label;
+	public static String ProjectFormEditor_OverviewPage_GeneralInfo_Client_label;
 	public static String ProjectFormEditor_OverviewPage_GeneralInfo_URL_label;
 	
 	public static String ProjectFormEditor_OverviewPage_Description_title;
@@ -28,6 +29,9 @@ public class Messages extends NLS {
 	public static String ProjectFormEditor_DescriptionsPage_DescriptionDetailsPage_title;
 	public static String ProjectFormEditor_DescriptionsPage_DescriptionDetailsPage_desc;
 	public static String ProjectFormEditor_DescriptionsPage_DescriptionDetailsPage_description_label;
+	public static String ProjectFormEditor_DescriptionsPage_DescriptionTypeDetailsPage_title;
+	public static String ProjectFormEditor_DescriptionsPage_DescriptionTypeDetailsPage_desc;
+	public static String ProjectFormEditor_DescriptionsPage_DescriptionTypeDetailsPage_label_label;
 	
 	public static String ProjectFormEditor_SkillsPage_title;	
 	

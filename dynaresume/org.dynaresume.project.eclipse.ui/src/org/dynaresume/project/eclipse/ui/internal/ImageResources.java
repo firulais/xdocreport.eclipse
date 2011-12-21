@@ -27,8 +27,9 @@ public class ImageResources {
 	public static final String IMG_CLIENT_24 = "client_24";
 	public static final String IMG_SKILLS_16 = "skills_16";
 	public static final String IMG_PROJECT_48 = "project_48";
-
-	public static final String IMG_DESCRIPTIONS_16 = "description_16";
+	public static final String IMG_DESCRIPTION_16 = "description_16";
+	public static final String IMG_DESCRIPTION_24 = "description_24";
+	public static final String IMG_BULLET_16 = "bullet_16";
 	
 	public static void initialize(ImageRegistry imageRegistry) {
 		registerImage(imageRegistry, IMG_OVERVIEW_16, PATH_OBJ_16 + "overview.gif");
@@ -36,6 +37,9 @@ public class ImageResources {
 		registerImage(imageRegistry, IMG_CLIENT_24, PATH_OBJ_24 + "client.png");
 		registerImage(imageRegistry, IMG_SKILLS_16, PATH_OBJ_16 + "skills.png");
 		registerImage(imageRegistry, IMG_PROJECT_48, PATH_OBJ_48 + "project.png");
+		registerImage(imageRegistry, IMG_DESCRIPTION_16, PATH_OBJ_16 + "description.png");
+		registerImage(imageRegistry, IMG_DESCRIPTION_24, PATH_OBJ_24 + "description.png");
+		registerImage(imageRegistry, IMG_BULLET_16, PATH_OBJ_16 + "bullet.png");
 	}
 
 	private static void registerImage(ImageRegistry registry, String key,

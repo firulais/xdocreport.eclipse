@@ -25,7 +25,7 @@ public class DescriptionsPage extends ReportingMasterDetailsFormPage<Project> {
 
 	@Override
 	protected Image getFormTitleImage() {
-		return ImageResources.getImage(ImageResources.IMG_CLIENT_16);
+		return ImageResources.getImage(ImageResources.IMG_DESCRIPTION_24);
 	}
 
 	@Override

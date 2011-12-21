@@ -12,7 +12,8 @@ public class MockProjecDescriptionTypetDao extends
 	protected ProjectDescriptionType clone(ProjectDescriptionType type) {
 		ProjectDescriptionType newType = new ProjectDescriptionType();
 		newType.setId(type.getId());
-		newType.setLabel(type.getLabel());
+		newType.setCode(type.getCode());
+		newType.setLabel(type.getLabel());		
 		return newType;
 	}
 

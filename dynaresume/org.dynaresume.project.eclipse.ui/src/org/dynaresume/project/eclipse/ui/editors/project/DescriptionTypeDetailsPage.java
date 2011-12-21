@@ -1,7 +1,8 @@
 package org.dynaresume.project.eclipse.ui.editors.project;
 
-import org.dynaresume.domain.project.ProjectDescription;
+import org.dynaresume.domain.project.ProjectDescriptionType;
 import org.dynaresume.project.eclipse.ui.internal.Messages;
+import org.dynaresume.project.eclipse.ui.viewer.ProjectDescriptionTypeWrapper;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.PojoObservables;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
@@ -12,16 +13,15 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
 import fr.opensagres.eclipse.forms.editor.ModelDetailsPage;
 
-public class DescriptionDetailsPage extends
-		ModelDetailsPage<ProjectDescription> {
+public class DescriptionTypeDetailsPage extends
+		ModelDetailsPage<ProjectDescriptionTypeWrapper> {
 
-	private Text descriptionText;
+	private Label projectDescriptionTypeLabel;
 
 	@Override
 	protected void onCreateUI(Composite parent) {
@@ -36,9 +36,9 @@ public class DescriptionDetailsPage extends
 				Section.DESCRIPTION | Section.TITLE_BAR);
 		projectDescriptionDetailSection.marginWidth = 10;
 		projectDescriptionDetailSection
-				.setText(Messages.ProjectFormEditor_DescriptionsPage_DescriptionDetailsPage_title); //$NON-NLS-1$
+				.setText(Messages.ProjectFormEditor_DescriptionsPage_DescriptionTypeDetailsPage_title); //$NON-NLS-1$
 		projectDescriptionDetailSection
-				.setDescription(Messages.ProjectFormEditor_DescriptionsPage_DescriptionDetailsPage_desc); //$NON-NLS-1$
+				.setDescription(Messages.ProjectFormEditor_DescriptionsPage_DescriptionTypeDetailsPage_desc); //$NON-NLS-1$
 
 		GridData td = new GridData(GridData.FILL_HORIZONTAL
 				| GridData.FILL_VERTICAL);
@@ -60,24 +60,23 @@ public class DescriptionDetailsPage extends
 		parent.setLayout(glayout);
 
 		// ProjectDescription label
-		Label label = toolkit
-				.createLabel(
-						parent,
-						Messages.ProjectFormEditor_DescriptionsPage_DescriptionDetailsPage_description_label);
-		label.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING));
-		descriptionText = toolkit.createText(parent, "", SWT.MULTI | SWT.WRAP);
-		descriptionText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
-				true, 1, 1));
+		toolkit.createLabel(
+				parent,
+				Messages.ProjectFormEditor_DescriptionsPage_DescriptionTypeDetailsPage_label_label);
+		projectDescriptionTypeLabel = toolkit.createLabel(parent, "",
+				SWT.SINGLE);
+		projectDescriptionTypeLabel.setLayoutData(new GridData(
+				GridData.FILL_HORIZONTAL));
 
 	}
 
 	public void onBind(DataBindingContext bindingContext) {
 		// Label binding
 		IObservableValue projectDescriptionLabelTextObserveTextObserveWidget = SWTObservables
-				.observeText(descriptionText, SWT.Modify);
+				.observeText(projectDescriptionTypeLabel);
 		IObservableValue modelProjectDescriptionLabelObserveValue = PojoObservables
-				.observeValue(getModelObject(),
-						ProjectDescription.DESCRIPTION_PROPERTY);
+				.observeValue(getModelObject().getType(),
+						ProjectDescriptionType.LABEL_PROPERTY);
 		bindingContext.bindValue(
 				projectDescriptionLabelTextObserveTextObserveWidget,
 				modelProjectDescriptionLabelObserveValue, null, null);

@@ -12,6 +12,8 @@ public class ProjectDescriptionType implements Serializable {
 
 	private static final long serialVersionUID = 442559507462916283L;
 
+	public static final String LABEL_PROPERTY = "label";
+
 	@Id
 	@GeneratedValue
 	private Long id;

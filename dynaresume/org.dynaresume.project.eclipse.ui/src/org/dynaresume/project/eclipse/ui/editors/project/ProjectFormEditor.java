@@ -1,6 +1,8 @@
 package org.dynaresume.project.eclipse.ui.editors.project;
 
 import org.dynaresume.domain.project.Project;
+import org.dynaresume.services.ClientService;
+import org.dynaresume.services.ProjectDescriptionTypeService;
 import org.dynaresume.services.ProjectService;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.PartInitException;
@@ -13,9 +15,20 @@ public class ProjectFormEditor extends ReportingFormEditor<Project> {
 	public static final String ID = "org.dynaresume.project.eclipse.ui.editors.project.ProjectFormEditor";
 
 	private ProjectService projectService;
+	private ProjectDescriptionTypeService projectDescriptionTypeService;
+	private ClientService clientService;
 
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
+	}
+
+	public void setProjectDescriptionTypeService(
+			ProjectDescriptionTypeService projectDescriptionTypeService) {
+		this.projectDescriptionTypeService = projectDescriptionTypeService;
+	}
+
+	public void setClientService(ClientService clientService) {
+		this.clientService = clientService;
 	}
 
 	@Override
@@ -42,6 +55,14 @@ public class ProjectFormEditor extends ReportingFormEditor<Project> {
 	@Override
 	protected String getEditorId() {
 		return ID;
+	}
+
+	public ProjectDescriptionTypeService getProjectDescriptionTypeService() {
+		return projectDescriptionTypeService;
+	}
+
+	public ClientService getClientService() {
+		return clientService;
 	}
 
 }

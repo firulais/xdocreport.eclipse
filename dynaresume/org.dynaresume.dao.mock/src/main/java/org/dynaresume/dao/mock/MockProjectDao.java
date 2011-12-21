@@ -1,25 +1,51 @@
 package org.dynaresume.dao.mock;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.dynaresume.dao.ProjectDao;
 import org.dynaresume.domain.project.Project;
+import org.dynaresume.domain.project.ProjectDescription;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository("projectDao")
-public class MockProjectDao extends AbstractDaoMock<Project> implements ProjectDao {
+public class MockProjectDao extends AbstractDaoMock<Project> implements
+		ProjectDao {
 
 	protected Project clone(Project project) {
 		Project newProject = new Project();
 		newProject.setId(project.getId());
 		newProject.setName(project.getName());
 		newProject.setURL(project.getURL());
-		//newProject.setDescription(project.getDescription());
+
+		// Descriptions
+		Set<ProjectDescription> descriptions = project.getDescriptions();
+		if (descriptions != null) {
+			Set<ProjectDescription> newDescriptions = new HashSet<ProjectDescription>();
+			for (ProjectDescription description : descriptions) {
+				newDescriptions.add(clone(description));
+			}
+			newProject.setDescriptions(newDescriptions);
+		}
+
 		return newProject;
+	}
+
+	private ProjectDescription clone(ProjectDescription description) {
+		ProjectDescription newDescription = new ProjectDescription();
+		Long id = description.getId();
+		if (id == null) {
+			id = getId();
+		}
+		newDescription.setId(id);
+		newDescription.setDescription(description.getDescription());
+		newDescription.setType(description.getType());
+		return newDescription;
 	}
 
 	public Page<Project> findByNameLike(String name, Pageable pageable) {
@@ -53,4 +79,3 @@ public class MockProjectDao extends AbstractDaoMock<Project> implements ProjectD
 	}
 
 }
-

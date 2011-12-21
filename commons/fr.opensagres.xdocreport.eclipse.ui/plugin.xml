@@ -67,6 +67,13 @@
                   label="%ReportExitMenu.label">
             </command>
          </menu>
+		<menu
+               label="%HelpMenu.label">
+	        <command
+	              commandId="org.eclipse.ui.help.quickStartAction"
+	              style="push">    
+	        </command> 
+         </menu>         
       </menuContribution>
       <menuContribution
             allPopups="false"
@@ -88,12 +95,47 @@
           defaultHandler="fr.opensagres.xdocreport.eclipse.internal.handlers.NewReportHandler"
           name="New Report" />
  </extension>
+ 
 	 <extension
-         id="XDocReport"
+         id="product"
          point="org.eclipse.core.runtime.products">
       <product
-            application="fr.opensagres.xdocreport.eclipse.application"
+            application="fr.opensagres.xdocreport.eclipse.ui.application"
             name="fr.opensagres.xdocreport.eclipse.product">
+            <!--<property name="introBrandingImage" value="product:icons/alt_window_16.gif"/>
+		    <property name="introTitle"
+		       value="Welcome to Control System Studio (CSS) for this site!">
+		    </property>-->		            
       </product>
    </extension>
+   
+   <!-- Welcome page not supported with RAP 
+   <extension
+         point="org.eclipse.ui.intro">
+      <intro
+            class="org.eclipse.ui.intro.config.CustomizableIntroPart"
+            id="_bb.intro">
+      </intro>
+      <introProductBinding
+            introId="_bb.intro"
+            productId="fr.opensagres.xdocreport.eclipse.ui.product">
+      </introProductBinding>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.intro.config">
+      <config
+            introId="_bb.intro"
+            content="introContent.xml"
+            id="_bb.configId">
+         <presentation
+               home-page-id="root" standby-page-id="standby">
+            <implementation 
+                  kind="html"
+                  os="win32,linux,macosx">
+            </implementation>
+         </presentation>
+      </config>
+   </extension>
+   -->
 </plugin>

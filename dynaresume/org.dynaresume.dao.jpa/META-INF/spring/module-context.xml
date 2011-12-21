@@ -51,6 +51,7 @@
 		<jpa:repository id="skillCategoryDao" />
 		<jpa:repository id="clientDao" />
 		<jpa:repository id="projectDao" />
+		<jpa:repository id="projectDescriptionTypeDao" />
 	</jpa:repositories>
 	<!-- <context:annotation-config /> <jpa:repository id="resumeDao" query-lookup-strategy="use-declared-query" 
 		/> <jpa:repository id="groupDao" query-lookup-strategy="use-declared-query" 

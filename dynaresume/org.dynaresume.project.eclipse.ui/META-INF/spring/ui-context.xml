@@ -7,6 +7,8 @@
 	<bean id="projectEditor" class="org.dynaresume.project.eclipse.ui.editors.project.ProjectFormEditor"
 		scope="prototype">
 		<property name="projectService" ref="projectService" />
+		<property name="projectDescriptionTypeService" ref="projectDescriptionTypeService" />
+		<property name="clientService" ref="clientService" />		
 	</bean>
 
 	<bean id="newProjectWizard" class="org.dynaresume.project.eclipse.ui.wizards.NewProjectWizard"
