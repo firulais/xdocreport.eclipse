@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.dynaresume.dao.ProjectDao;
+import org.dynaresume.domain.project.Client;
 import org.dynaresume.domain.project.Project;
 import org.dynaresume.domain.project.ProjectDescription;
 import org.springframework.data.domain.Page;
@@ -33,7 +34,23 @@ public class MockProjectDao extends AbstractDaoMock<Project> implements
 			newProject.setDescriptions(newDescriptions);
 		}
 
+		// Client
+		Client client = project.getClient();
+		if (client != null) {
+			newProject.setClient(clone(client));
+		}
 		return newProject;
+	}
+
+	private Client clone(Client client) {
+		Client newClient = new Client();
+		Long id = client.getId();
+		if (id == null) {
+			id = getId();
+		}
+		newClient.setId(id);
+		newClient.setName(client.getName());
+		return newClient;
 	}
 
 	private ProjectDescription clone(ProjectDescription description) {

@@ -10,6 +10,7 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.nebula.widgets.pagination.PageableController;
 import org.eclipse.nebula.widgets.pagination.springdata.ISpringDataPageLoader;
 import org.eclipse.nebula.widgets.pagination.springdata.SpringDataPageContentProvider;
+import org.eclipse.nebula.widgets.pagination.table.SortTableColumnSelectionListener;
 import org.eclipse.nebula.widgets.pagination.table.forms.FormPageableTable;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
@@ -205,6 +206,8 @@ public class SearchClientDialog extends SearchDialog implements
 				return p.getName();
 			}
 		});
+		col.getColumn().addSelectionListener(
+				new SortTableColumnSelectionListener("name"));
 
 	}
 

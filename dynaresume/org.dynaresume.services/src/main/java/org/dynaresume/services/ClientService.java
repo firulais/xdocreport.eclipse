@@ -13,4 +13,6 @@ public interface ClientService {
 	Client save(Client group);
 	
 	Page<Client> findByName(String name, Pageable pageable);
+
+	Iterable<?> findByName(String name);
 }

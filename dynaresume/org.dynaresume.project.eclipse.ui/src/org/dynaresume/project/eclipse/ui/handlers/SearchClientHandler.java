@@ -1,9 +1,9 @@
 package org.dynaresume.project.eclipse.ui.handlers;
 
-import org.dynaresume.domain.project.Project;
+import org.dynaresume.domain.project.Client;
 import org.dynaresume.eclipse.search.ui.dialogs.SearchClientDialog;
-import org.dynaresume.project.eclipse.ui.editors.project.ProjectEditorInput;
-import org.dynaresume.project.eclipse.ui.editors.project.ProjectFormEditor;
+import org.dynaresume.project.eclipse.ui.editors.client.ClientEditorInput;
+import org.dynaresume.project.eclipse.ui.editors.client.ClientFormEditor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
@@ -30,12 +30,12 @@ public class SearchClientHandler extends OpenDialogHandler {
 
 	@Override
 	protected String getEditorId() {
-		return ProjectFormEditor.ID;
+		return ClientFormEditor.ID;
 	}
 
 	@Override
 	protected IEditorInput createEditorInput(IReportModuleEntry entry,
 			Object model) {
-		return new ProjectEditorInput(entry, (Project) model);
+		return new ClientEditorInput(entry, (Client) model);
 	}
 }

@@ -18,60 +18,13 @@ public class ImageResources {
 	 * Set of predefined Image Descriptors.
 	 */
 	private static final String PATH_OBJ_16 = ICONS_PATH + "obj16/"; //$NON-NLS-1$
-	private static final String PATH_OBJ_24 = ICONS_PATH + "obj24/"; //$NON-NLS-1$
+	//private static final String PATH_OBJ_24 = ICONS_PATH + "obj24/"; //$NON-NLS-1$
 
-	public static final String IMG_NEW_RESUME_16 = "new_resume_16";
-	public static final String IMG_SEARCH_RESUME_16 = "search_resume_16";
-	public static final String IMG_RESUME_16 = "resume_16";
-	public static final String IMG_OVERVIEW_16 = "overview_16";
-	public static final String IMG_EDUCATION_16 = "education_16";
-	public static final String IMG_EDUCATION_24 = "education_24";
-	public static final String IMG_EXPERIENCES_16 = "experiences_16";
-	public static final String IMG_SKILLS_16 = "skills_16";
-	public static final String IMG_SKILL_RESUME_16 = "skill_resume_16";
-	public static final String IMG_SKILL_RESUME_FREE_16 = "skill_resume_free_16";
-	public static final String IMG_LANGUAGES_16 = "language_16";
-	public static final String IMG_LANGUAGES_24 = "language_24";
-	public static final String IMG_REFERENCES_16 = "references_16";
-	public static final String IMG_REFERENCES_24 = "references_24";
-	public static final String IMG_HOBBIES_16 = "hobbies_16";
-	public static final String IMG_HOBBIES_24 = "hobbies_24";
-
-	public static final String IMG_EMPTY_PHOTO = "empty_photo";
+	public static final String IMG_CLIENT_16 = "client_16";
 	
 	public static void initialize(ImageRegistry imageRegistry) {
-		registerImage(imageRegistry, IMG_NEW_RESUME_16, PATH_OBJ_16
-				+ "new_resume.gif");
-		registerImage(imageRegistry, IMG_SEARCH_RESUME_16, PATH_OBJ_16
-				+ "search.gif");
-		registerImage(imageRegistry, IMG_RESUME_16, PATH_OBJ_16 + "resume.gif");
-		registerImage(imageRegistry, IMG_OVERVIEW_16, PATH_OBJ_16
-				+ "overview.gif");
-		registerImage(imageRegistry, IMG_EDUCATION_16, PATH_OBJ_16
-				+ "education.png");
-		registerImage(imageRegistry, IMG_EDUCATION_24, PATH_OBJ_24
-				+ "education.png");
-		registerImage(imageRegistry, IMG_EXPERIENCES_16, PATH_OBJ_16
-				+ "experiences.png");
-		registerImage(imageRegistry, IMG_SKILLS_16, PATH_OBJ_16 + "skills.png");
-		registerImage(imageRegistry, IMG_SKILL_RESUME_16, PATH_OBJ_16
-				+ "skill_resume.png");
-		registerImage(imageRegistry, IMG_SKILL_RESUME_FREE_16, PATH_OBJ_16
-				+ "skill_resume_free.png");
-		registerImage(imageRegistry, IMG_LANGUAGES_16, PATH_OBJ_16
-				+ "languages.png");
-		registerImage(imageRegistry, IMG_LANGUAGES_24, PATH_OBJ_24
-				+ "languages.png");
-		registerImage(imageRegistry, IMG_REFERENCES_16, PATH_OBJ_16
-				+ "references.png");
-		registerImage(imageRegistry, IMG_REFERENCES_24, PATH_OBJ_24
-				+ "references.png");
-		registerImage(imageRegistry, IMG_HOBBIES_16, PATH_OBJ_16
-				+ "hobbies.png");
-		registerImage(imageRegistry, IMG_HOBBIES_24, PATH_OBJ_24
-				+ "hobbies.png");
-		registerImage(imageRegistry, IMG_EMPTY_PHOTO, ICONS_PATH
-				+ "EmptyPhoto.jpg");
+		registerImage(imageRegistry, IMG_CLIENT_16, PATH_OBJ_16
+				+ "client.png");
 	}
 
 	private static void registerImage(ImageRegistry registry, String key,

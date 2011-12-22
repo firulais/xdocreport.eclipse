@@ -70,15 +70,15 @@ public class DataInjector implements Runnable {
 		languagesInjector = new LanguagesInjector(this);
 		languagesInjector.inject();
 
+		clientsInjector = new ClientsInjector(this);
+		clientsInjector.inject();
+		
+		projectsInjector = new ProjectsInjector(this);
+		projectsInjector.inject();
+		
 		// Resumes data injection
 		resumesInjector = new ResumesInjector(this);
 		resumesInjector.inject();
-
-		projectsInjector = new ProjectsInjector(this);
-		projectsInjector.inject();
-
-		clientsInjector = new ClientsInjector(this);
-		clientsInjector.inject();
 	}
 
 	public void interrupt() {
@@ -136,4 +136,9 @@ public class DataInjector implements Runnable {
 	public void setClientService(ClientService clientService) {
 		this.clientService = clientService;
 	}
+
+	public ClientsInjector getClientsInjector() {
+		return clientsInjector;
+	}
+	
 }

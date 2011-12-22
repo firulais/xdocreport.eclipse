@@ -11,7 +11,7 @@ import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormEditor;
 public class ClientFormEditor extends
 		ReportingFormEditor<Client> {
 
-	public static final String ID = "org.dynaresume.project.eclipse.ui.editors.project.client.ClientFormEditor";
+	public static final String ID = "org.dynaresume.project.eclipse.ui.editors.client.ClientFormEditor";
 
 	private ClientService clientService;
 

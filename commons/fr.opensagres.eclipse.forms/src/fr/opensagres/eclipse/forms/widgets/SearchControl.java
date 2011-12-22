@@ -1,25 +1,23 @@
 package fr.opensagres.eclipse.forms.widgets;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.jface.bindings.keys.KeyStroke;
+import org.eclipse.jface.bindings.keys.ParseException;
 import org.eclipse.jface.fieldassist.ContentProposalAdapter;
-import org.eclipse.jface.fieldassist.IContentProposal;
-import org.eclipse.jface.fieldassist.IContentProposalListener;
-import org.eclipse.jface.fieldassist.IContentProposalProvider;
-import org.eclipse.jface.fieldassist.TextContentAdapter;
+import org.eclipse.jface.fieldassist.ControlDecoration;
+import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
-public class SearchControl extends Composite implements
-		IContentProposalProvider {
+public class SearchControl extends Composite {
 
 	private Text searchText;
 	private int textStyle;
-	private ISearcher searcher;
+	private SearchContentProposalAdapter adapter;
+	private ControlDecoration deco;
 
 	public SearchControl(Composite parent, int style, int textStyle) {
 		this(parent, style, textStyle, true);
@@ -45,22 +43,76 @@ public class SearchControl extends Composite implements
 		searchText = createText(parent, getTextStyle());
 		searchText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-		//createContentAssist();
+		createDecoration();
+		createContentAssist();
+
+		// Button button = new Button(parent, SWT.NONE);
+		// button.setText("...");
+		// button.setLayoutData(new GridData());
+		// button.addSelectionListener(new SelectionAdapter() {
+		// @Override
+		// public void widgetSelected(SelectionEvent e) {
+		// adapter.forceOpenProposalPopup();
+		// }
+		// });
+	}
+
+	private void createDecoration() {
+
+		// Create the decoration for the text UI component
+		deco = new ControlDecoration(searchText, SWT.TOP | SWT.RIGHT);
+		// Re-use an existing image
+		Image image = FieldDecorationRegistry.getDefault()
+				.getFieldDecoration(FieldDecorationRegistry.DEC_INFORMATION)
+				.getImage();
+		// Set description and image
+		deco.setDescriptionText("Use Ctrl+Space to see possible values");
+		deco.setImage(image);
+		// Hide deco if not in focus
+		deco.setShowOnlyOnFocus(false);
+
 	}
 
 	private void createContentAssist() {
 
-		char[] autoActivationCharacters = new char[] { ' ' };
+		char[] autoActivationCharacters = new char[] {};
 		KeyStroke keyStroke = null;
-		IContentProposalProvider proposalProvider = null;
-		ContentProposalAdapter adapter = new ContentProposalAdapter(searchText,
-				new TextContentAdapter(), this, keyStroke,
+		try {
+			keyStroke = KeyStroke.getInstance("Ctrl+Space");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		adapter = new SearchContentProposalAdapter(searchText, keyStroke,
 				autoActivationCharacters);
-		adapter.addContentProposalListener(new IContentProposalListener() {
-			
-			public void proposalAccepted(IContentProposal proposal) {
-				System.err.println(((ModelContentProposal)proposal).getModel() );
-				
+		adapter.setProposalAcceptanceStyle(ContentProposalAdapter.PROPOSAL_REPLACE);
+		adapter.setPropagateKeys(true);
+
+		adapter.addSearchListener(new ISearchListener() {
+
+			public void modelChanged(Object oldModel, Object newModel) {
+				if (newModel == null) {
+					if (searchText.getText().length() > 0) {
+						deco.setImage(FieldDecorationRegistry
+								.getDefault()
+								.getFieldDecoration(
+										FieldDecorationRegistry.DEC_ERROR)
+								.getImage());
+						deco.setDescriptionText("Don't exist, use Ctrl+Space to see possible values");
+						deco.show();
+					} else {
+						deco.setImage(FieldDecorationRegistry
+								.getDefault()
+								.getFieldDecoration(
+										FieldDecorationRegistry.DEC_INFORMATION)
+								.getImage());
+						deco.setDescriptionText("Use Ctrl+Space to see possible values");
+						deco.show();
+					}
+				} else {
+					deco.hide();
+				}
+
 			}
 		});
 	}
@@ -73,20 +125,31 @@ public class SearchControl extends Composite implements
 		return textStyle;
 	}
 
-	public IContentProposal[] getProposals(String contents, int position) {
-		Iterable<?> models = search(contents, position);
-		List<IContentProposal> proposals = new ArrayList<IContentProposal>();
-		for (Object model : models) {
-			proposals.add(new ModelContentProposal(model));
-		}
-		return (IContentProposal[]) proposals.toArray(new IContentProposal[0]);
-	}
-
-	private Iterable<?> search(String contents, int position) {
-		return searcher.search(contents, position);
-	}
-
 	public void setSearcher(ISearcher searcher) {
-		this.searcher = searcher;
+		adapter.setSearcher(searcher);
+	}
+
+	public void setCompletionLabelProvider(
+			ICompletionLabelProvider completionLabelProvider) {
+		adapter.setCompletionLabelProvider(completionLabelProvider);
+	}
+
+	public void addSearchListener(ISearchListener listener) {
+		adapter.addSearchListener(listener);
+	}
+
+	public void removeSearchListener(ISearchListener listener) {
+		adapter.removeSearchListener(listener);
+	}
+
+	public void setModel(Object model) {
+		if (model != null) {
+			searchText.setText(adapter.getCompletionLabelProvider().getContent(model));
+		}
+		adapter.setCurrentModel(model);
+	}
+
+	public Object getModel() {
+		return adapter.getCurrentModel();
 	}
 }

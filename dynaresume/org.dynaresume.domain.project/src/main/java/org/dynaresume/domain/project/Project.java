@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -20,7 +21,7 @@ public class Project implements Serializable {
 	private static final long serialVersionUID = 9217187221005720810L;
 
 	public static final String NAME_PROPERTY = "name";
-	//public static final String DESCRIPTION_PROPERTY = "description";
+	// public static final String DESCRIPTION_PROPERTY = "description";
 	public static final String URL_PROPERTY = "URL";
 
 	@Id
@@ -32,6 +33,9 @@ public class Project implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "project_fk")
 	private Set<ProjectDescription> descriptions;
+
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Client client;
 
 	@Column
 	private String url;
@@ -67,4 +71,13 @@ public class Project implements Serializable {
 	public void setURL(String url) {
 		this.url = url;
 	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
 }

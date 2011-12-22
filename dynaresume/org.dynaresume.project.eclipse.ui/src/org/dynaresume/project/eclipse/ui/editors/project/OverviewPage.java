@@ -2,7 +2,10 @@ package org.dynaresume.project.eclipse.ui.editors.project;
 
 import java.net.URL;
 
+import org.dynaresume.domain.project.Client;
 import org.dynaresume.domain.project.Project;
+import org.dynaresume.eclipse.search.ui.searchers.ClientsCompletionLabelProvider;
+import org.dynaresume.eclipse.search.ui.searchers.SearchersFactory;
 import org.dynaresume.project.eclipse.ui.internal.Activator;
 import org.dynaresume.project.eclipse.ui.internal.ImageResources;
 import org.dynaresume.project.eclipse.ui.internal.Messages;
@@ -33,13 +36,13 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 
 import fr.opensagres.eclipse.forms.widgets.FormSearchControl;
-import fr.opensagres.eclipse.forms.widgets.ISearcher;
+import fr.opensagres.eclipse.forms.widgets.ISearchListener;
 import fr.opensagres.eclipse.forms.widgets.SimpleWikiText;
 import fr.opensagres.xdocreport.eclipse.ui.FormLayoutFactory;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormEditor;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormPage;
 
-public class OverviewPage extends ReportingFormPage implements
+public class OverviewPage extends ReportingFormPage<Project> implements
 		IHyperlinkListener {
 
 	public static final String ID = "overview";
@@ -49,6 +52,8 @@ public class OverviewPage extends ReportingFormPage implements
 	private Text urlText;
 
 	private Hyperlink urlHyperlink;
+
+	private FormSearchControl clientSearch;
 
 	public OverviewPage(ReportingFormEditor editor) {
 		super(editor, ID, Messages.ProjectFormEditor_OverviewPage_title);
@@ -133,16 +138,23 @@ public class OverviewPage extends ReportingFormPage implements
 		toolkit.createLabel(
 				sbody,
 				Messages.ProjectFormEditor_OverviewPage_GeneralInfo_Client_label);
-		FormSearchControl clientSearch = new FormSearchControl(sbody, SWT.NONE,
-				SWT.NONE, toolkit);
 
-		clientSearch.setSearcher(new ISearcher() {
-			public Iterable<?> search(String contents, int position) {				
-				return ((ProjectFormEditor) OverviewPage.this.getEditor())
-						.getClientService().findAll();
+		clientSearch = new FormSearchControl(sbody, SWT.NONE,
+				SWT.NONE, toolkit);
+		clientSearch.setSearcher(SearchersFactory
+				.createClientsSearcher(((ProjectFormEditor) OverviewPage.this
+						.getEditor()).getClientService()));
+		clientSearch.setCompletionLabelProvider(ClientsCompletionLabelProvider
+				.getInstance());
+
+		clientSearch.addSearchListener(new ISearchListener() {
+			
+			public void modelChanged(Object oldModel, Object newModel) {
+				getModelObject().setClient((Client)newModel);
+				
 			}
 		});
-
+		
 		gridData = new GridData(GridData.FILL_HORIZONTAL);
 		gridData.widthHint = 150;
 		clientSearch.setLayoutData(gridData);
@@ -258,6 +270,9 @@ public class OverviewPage extends ReportingFormPage implements
 		bindingContext.bindValue(urlTextObserveTextObserveWidget,
 				modelURLObserveValue, Jsr303BeansUpdateValueStrategyFactory
 						.create(modelURLObserveValue), null);
+		
+		// bind client
+		clientSearch.setModel(getModelObject().getClient());
 
 	}
 

@@ -12,7 +12,7 @@ public class FormSearchControl extends SearchControl {
 			FormToolkit toolkit) {
 		super(parent, style, textStyle, false);
 		toolkit.adapt(this);
-		//toolkit.paintBordersFor(this);
+		// toolkit.paintBordersFor(this);
 		this.toolkit = toolkit;
 		super.createUI(this);
 	}

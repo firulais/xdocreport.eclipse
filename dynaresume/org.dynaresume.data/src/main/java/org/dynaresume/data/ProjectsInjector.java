@@ -30,7 +30,7 @@ public class ProjectsInjector extends AbstractInjector {
 				"Client benefits");
 
 		Project xdocreportProject = createProject("XDocReport",
-				"http://code.google.com/p/xdocreport");
+				"http://code.google.com/p/xdocreport", null);
 		addDescription(
 				xdocreportProject,
 				contextType,
@@ -38,7 +38,7 @@ public class ProjectsInjector extends AbstractInjector {
 		save(xdocreportProject);
 
 		Project sampleProject = createProject(
-				"Création du Référentiel Personne Unique (RP)", "");
+				"Création du Référentiel Personne Unique (RP)", "", "Client10");
 		addDescription(
 				sampleProject,
 				contextType,
@@ -62,7 +62,7 @@ public class ProjectsInjector extends AbstractInjector {
 				"Industrialisation de la solution");
 		save(sampleProject);
 
-		addProject("SIDoc", "");
+		addProject("SIDoc", "", null);
 	}
 
 	private void addDescription(Project project, ProjectDescriptionType type,
@@ -91,8 +91,8 @@ public class ProjectsInjector extends AbstractInjector {
 		return getDataInjector().getProjectDescriptionTypeService().save(type);
 	}
 
-	private void addProject(String name, String url) {
-		Project project = createProject(name, url);
+	private void addProject(String name, String url, String clientName) {
+		Project project = createProject(name, url, clientName);
 		save(project);
 	}
 
@@ -100,10 +100,16 @@ public class ProjectsInjector extends AbstractInjector {
 		getDataInjector().getProjectService().save(project);
 	}
 
-	private Project createProject(String name, String url) {
+	private Project createProject(String name, String url, String clientName) {
 		Project project = new Project();
 		project.setName(name);
 		project.setURL(url);
+
+		if (clientName != null) {
+			project.setClient(getDataInjector().getClientsInjector().getClient(
+					clientName));
+		}
+
 		return project;
 	}
 

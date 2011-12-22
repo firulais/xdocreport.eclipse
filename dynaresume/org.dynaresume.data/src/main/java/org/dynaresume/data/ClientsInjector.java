@@ -1,8 +1,13 @@
 package org.dynaresume.data;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.dynaresume.domain.project.Client;
 
 public class ClientsInjector extends AbstractInjector {
+
+	private Map<String, Client> clientsCache = new HashMap<String, Client>();
 
 	public ClientsInjector(DataInjector dataInjector) {
 		super(dataInjector);
@@ -20,6 +25,7 @@ public class ClientsInjector extends AbstractInjector {
 	}
 
 	private void save(Client client) {
+		clientsCache.put(client.getName(), client);
 		getDataInjector().getClientService().save(client);
 	}
 
@@ -27,6 +33,10 @@ public class ClientsInjector extends AbstractInjector {
 		Client client = new Client();
 		client.setName(name);
 		return client;
+	}
+
+	public Client getClient(String name) {
+		return clientsCache.get(name);
 	}
 
 }

@@ -46,7 +46,7 @@
            class="org.eclipse.springframework.util.SpringExtensionFactory:clientEditor"           
            extensions="*"
            icon="icons/obj16/client.gif"
-           id="org.dynaresume.project.eclipse.ui.editors.client.ClientFormEditorPart"
+           id="org.dynaresume.project.eclipse.ui.editors.client.ClientFormEditor"
            name="%ClientFormEditor.name">
      </editor>
   </extension>

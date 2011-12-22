@@ -32,6 +32,11 @@ public class ClientServiceImpl implements ClientService {
 		name=name != null ? name+"%" : "%";
 		return clientDao.findByNameLike(name, pageable);
 	}
+	
+	public Iterable<Client> findByName(String name) {
+		name=name != null ? name+"%" : "%";
+		return clientDao.findByNameLike(name);
+	}
 
 	
 

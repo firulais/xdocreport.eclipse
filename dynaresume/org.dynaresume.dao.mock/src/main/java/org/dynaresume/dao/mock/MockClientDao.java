@@ -6,8 +6,8 @@ import java.util.List;
 import org.dynaresume.dao.ClientDao;
 import org.dynaresume.domain.project.Client;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.collections.PageListHelper;
 import org.springframework.stereotype.Repository;
 
 @Repository("clientDao")
@@ -20,10 +20,8 @@ public class MockClientDao extends AbstractDaoMock<Client> implements ClientDao 
 		return newClient;
 	}
 
-	public Page<Client> findByNameLike(String name, Pageable pageable) {
+	public List<Client> findByNameLike(String name) {
 		name = Utils.getCriteria(name);
-		int pageSize = pageable.getPageSize();
-		int pageIndex = pageable.getOffset();
 		Iterable<Client> allClients = findAll();
 		List<Client> filteredList = new ArrayList<Client>();
 		for (Client client : allClients) {
@@ -31,13 +29,12 @@ public class MockClientDao extends AbstractDaoMock<Client> implements ClientDao 
 				filteredList.add(client);
 			}
 		}
-		long totalSize = filteredList.size();
-		List<Client> paginatedList = new ArrayList<Client>();
-		for (int i = pageIndex; i < pageIndex + pageSize && i < totalSize; i++) {
-			Client client = filteredList.get(i);
-			paginatedList.add(client);
-		}
-		return new PageImpl<Client>(paginatedList, pageable, totalSize);
+		return filteredList;
+	}
+
+	public Page<Client> findByNameLike(String name, Pageable pageable) {
+		List<Client> clients = findByNameLike(name);
+		return PageListHelper.createPage(clients, pageable);
 	}
 
 	private boolean isClientOK(Client client, String label) {

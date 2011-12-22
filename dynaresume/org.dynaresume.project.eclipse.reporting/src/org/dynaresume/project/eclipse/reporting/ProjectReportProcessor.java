@@ -46,6 +46,10 @@ public class ProjectReportProcessor extends XDocReportProcessor {
 			}
 		}
 
+		String clientName = project.getClient() != null ? project.getClient()
+				.getName() : "";
+		context.put("clientName", clientName);
+
 		context.put("contextDescriptions", contextDescriptions);
 		context.put("problemsDescriptions", problemsDescriptions);
 		context.put("solutionsDescriptions", solutionsDescriptions);
