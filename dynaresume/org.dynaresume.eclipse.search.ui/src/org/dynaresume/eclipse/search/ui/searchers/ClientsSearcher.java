@@ -13,6 +13,12 @@ public class ClientsSearcher implements ISearcher {
 	}
 
 	public Iterable<?> search(String contents, int position) {
+//		try {
+//			Thread.sleep(5000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		return clientService.findByName(contents);
 	}
 }

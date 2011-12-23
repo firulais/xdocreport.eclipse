@@ -1,5 +1,6 @@
 package org.dynaresume.eclipse.search.ui.dialogs;
 
+import org.dynaresume.domain.project.Client;
 import org.dynaresume.domain.project.Project;
 import org.dynaresume.services.ProjectService;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -10,6 +11,7 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.nebula.widgets.pagination.PageableController;
 import org.eclipse.nebula.widgets.pagination.springdata.ISpringDataPageLoader;
 import org.eclipse.nebula.widgets.pagination.springdata.SpringDataPageContentProvider;
+import org.eclipse.nebula.widgets.pagination.table.SortTableColumnSelectionListener;
 import org.eclipse.nebula.widgets.pagination.table.forms.FormPageableTable;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
@@ -178,8 +180,8 @@ public class SearchProjectDialog extends SearchDialog implements
 
 	// This will create the columns for the table
 	private void createColumns(final TableViewer viewer) {
-		String[] titles = { "Name", };
-		int[] bounds = { 200, };
+		String[] titles = { "Name", "Client"};
+		int[] bounds = { 200, 200};
 
 		// First column is for the first name
 		TableViewerColumn col = createTableViewerColumn(viewer, titles[0],
@@ -191,6 +193,24 @@ public class SearchProjectDialog extends SearchDialog implements
 				return p.getName();
 			}
 		});
+		col.getColumn().addSelectionListener(
+				new SortTableColumnSelectionListener("name"));
+		
+		col = createTableViewerColumn(viewer, titles[1],
+				bounds[1], 1);
+		col.setLabelProvider(new ColumnLabelProvider() {
+			@Override
+			public String getText(Object element) {
+				Client client = ((Project) element).getClient();
+				if (client == null) {
+					return "";
+				}
+				return client.getName();
+			}
+		});
+		col.getColumn().addSelectionListener(
+				new SortTableColumnSelectionListener("client.name"));
+
 
 	}
 

@@ -23,6 +23,7 @@ public class Project implements Serializable {
 	public static final String NAME_PROPERTY = "name";
 	// public static final String DESCRIPTION_PROPERTY = "description";
 	public static final String URL_PROPERTY = "URL";
+	public static final String CLIENT_PROPERTY = "client";
 
 	@Id
 	@GeneratedValue

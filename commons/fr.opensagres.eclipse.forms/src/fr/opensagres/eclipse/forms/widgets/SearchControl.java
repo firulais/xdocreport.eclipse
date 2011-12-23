@@ -6,11 +6,21 @@ import org.eclipse.jface.fieldassist.ContentProposalAdapter;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.swt.widgets.TypedListener;
 
 public class SearchControl extends Composite {
 
@@ -34,9 +44,9 @@ public class SearchControl extends Composite {
 
 	protected void createUI(Composite parent) {
 		GridLayout layout = new GridLayout(2, false);
-		layout.marginWidth = 1;
+		//layout.marginWidth = 1;
 		// layout.marginHeight = 1;
-		layout.horizontalSpacing = 0;
+		// layout.horizontalSpacing = 0;
 
 		this.setLayout(layout);
 
@@ -47,7 +57,7 @@ public class SearchControl extends Composite {
 		createContentAssist();
 
 		// Button button = new Button(parent, SWT.NONE);
-		// button.setText("...");
+		// button.setText("Browse");
 		// button.setLayoutData(new GridData());
 		// button.addSelectionListener(new SelectionAdapter() {
 		// @Override
@@ -55,12 +65,75 @@ public class SearchControl extends Composite {
 		// adapter.forceOpenProposalPopup();
 		// }
 		// });
+
+		// Menu menu = new Menu(parent);
+		// ActionContributionItem item = new ActionContributionItem(new Action()
+		// {
+		// @Override
+		// public String getText() {
+		// // TODO Auto-generated method stub
+		// return "Browse";
+		// }
+		// });
+		//
+		// item.fill(menu, -1);
+		// menu.setLayoutData(new GridData());
+		//
+		final ToolBar toolBar = new ToolBar(parent, SWT.HORIZONTAL|SWT.BORDER);
+		final Menu menu = new Menu(getShell(), SWT.POP_UP);
+		// for (int i = 0; i < 8; i++) {
+		final MenuItem menuItem = new MenuItem(menu, SWT.PUSH);
+		menuItem.setText("Open");
+		final MenuItem menuItem2 = new MenuItem(menu, SWT.PUSH);
+		menuItem2.setText("Search");
+		
+		final ToolItem item = new ToolItem(toolBar, SWT.DROP_DOWN);
+		item.setText("Browse");
+		// item.setImage(ImageResources.getImage(DateTimeControl.IMG_CALENDAR));
+		// item.setEnabled(false);
+
+		item.addListener(SWT.Selection, new Listener() {
+
+			public void handleEvent(Event event) {
+
+				if (event.detail == SWT.ARROW) {
+					Point point = new Point(event.x, event.y);
+					point = getDisplay().map(toolBar, null, point);
+					menu.setLocation(point);
+					menu.setVisible(true);
+				} else {
+					menuItem.notifyListeners(SWT.Selection, event);
+				}
+			}
+
+		});
+
+		menuItem.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// item.setEnabled(false);
+				// item.setImage(ImageResources.getImage("icons/obj16/default_photo.jpg"));
+				// try {
+				adapter.forceOpenProposalPopup();
+				// } finally {
+				// item.setImage(ImageResources.getImage(DateTimeControl.IMG_CALENDAR));
+				// item.setEnabled(true);
+				// }
+			}
+		});
+		
+		menuItem2.addSelectionListener(new SelectionAdapter() {
+		});
+	}
+	
+	public void addSearcher(ISearcher2 searcher) {
+		
 	}
 
 	private void createDecoration() {
 
 		// Create the decoration for the text UI component
-		deco = new ControlDecoration(searchText, SWT.TOP | SWT.RIGHT);
+		deco = new ControlDecoration(searchText, SWT.BOTTOM | SWT.LEFT);
 		// Re-use an existing image
 		Image image = FieldDecorationRegistry.getDefault()
 				.getFieldDecoration(FieldDecorationRegistry.DEC_INFORMATION)
@@ -88,6 +161,8 @@ public class SearchControl extends Composite {
 		adapter.setProposalAcceptanceStyle(ContentProposalAdapter.PROPOSAL_REPLACE);
 		adapter.setPropagateKeys(true);
 
+		// adapter.setAutoActivationCharacters(null);
+		// adapter.setAutoActivationDelay(1);
 		adapter.addSearchListener(new ISearchListener() {
 
 			public void modelChanged(Object oldModel, Object newModel) {
@@ -144,12 +219,31 @@ public class SearchControl extends Composite {
 
 	public void setModel(Object model) {
 		if (model != null) {
-			searchText.setText(adapter.getCompletionLabelProvider().getContent(model));
+			searchText.setText(adapter.getCompletionLabelProvider().getContent(
+					model));
 		}
 		adapter.setCurrentModel(model);
 	}
 
 	public Object getModel() {
 		return adapter.getCurrentModel();
+	}
+
+	@Override
+	public void addListener(int eventType, Listener listener) {
+		if (eventType == 9999) {			
+			adapter.addSearchListener(listener);
+		} else {
+			super.addListener(eventType, listener);
+		}
+	}
+
+	@Override
+	public void removeListener(int eventType, Listener listener) {
+		if (eventType == 9999) {
+			adapter.removeSearchListener(listener);
+		} else {
+			super.removeListener(eventType, listener);
+		}
 	}
 }

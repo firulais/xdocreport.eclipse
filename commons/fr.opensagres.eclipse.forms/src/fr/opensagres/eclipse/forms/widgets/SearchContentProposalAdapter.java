@@ -126,15 +126,15 @@ public class SearchContentProposalAdapter extends ContentProposalAdapter
 	public void setCurrentModel(Object model) {
 		Object oldModel = currentModel;
 		this.currentModel = model;
-//		if (oldModel == null) {
-//			if (currentModel != null) {
-//				notifyListeners(oldModel, currentModel);
-//			}
-//		} else {
-//			if (!oldModel.equals(currentModel)) {
-//				notifyListeners(oldModel, currentModel);
-//			}
-//		}
+		// if (oldModel == null) {
+		// if (currentModel != null) {
+		// notifyListeners(oldModel, currentModel);
+		// }
+		// } else {
+		// if (!oldModel.equals(currentModel)) {
+		// notifyListeners(oldModel, currentModel);
+		// }
+		// }
 
 		notifyListeners(oldModel, currentModel);
 	}
@@ -151,10 +151,27 @@ public class SearchContentProposalAdapter extends ContentProposalAdapter
 		searchListeners.remove(listener);
 	}
 
+	public void addSearchListener(Listener listener) {
+		searchListeners.add(listener);
+	}
+
+	public void removeSearchListener(Listener listener) {
+		searchListeners.remove(listener);
+	}
+
 	private void notifyListeners(Object oldModel, Object newModel) {
 		Object[] listeners = searchListeners.getListeners();
 		for (int i = 0; i < listeners.length; i++) {
-			((ISearchListener) listeners[i]).modelChanged(oldModel, newModel);
+			if (listeners[i] instanceof Listener) {
+				Event event = new Event();
+				event.type=9999;
+				event.display=getControl().getDisplay();
+				event.widget=getControl();
+				((Listener) listeners[i]).handleEvent(event);
+			} else {
+				((ISearchListener) listeners[i]).modelChanged(oldModel,
+						newModel);
+			}
 		}
 	}
 }

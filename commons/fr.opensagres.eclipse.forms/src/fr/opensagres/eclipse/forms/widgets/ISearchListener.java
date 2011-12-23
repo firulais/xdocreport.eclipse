@@ -1,6 +1,8 @@
 package fr.opensagres.eclipse.forms.widgets;
 
-public interface ISearchListener {
+import org.eclipse.swt.internal.SWTEventListener;
+
+public interface ISearchListener extends SWTEventListener {
 
 	void modelChanged(Object oldModel, Object newModel);
 }

@@ -6,6 +6,8 @@ import org.dynaresume.domain.project.Client;
 import org.dynaresume.domain.project.Project;
 import org.dynaresume.eclipse.search.ui.searchers.ClientsCompletionLabelProvider;
 import org.dynaresume.eclipse.search.ui.searchers.SearchersFactory;
+import org.dynaresume.project.eclipse.ui.editors.client.ClientEditorInput;
+import org.dynaresume.project.eclipse.ui.editors.client.ClientFormEditor;
 import org.dynaresume.project.eclipse.ui.internal.Activator;
 import org.dynaresume.project.eclipse.ui.internal.ImageResources;
 import org.dynaresume.project.eclipse.ui.internal.Messages;
@@ -25,8 +27,11 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.IManagedForm;
+import org.eclipse.ui.forms.events.HyperlinkAdapter;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.events.IHyperlinkListener;
 import org.eclipse.ui.forms.widgets.FormText;
@@ -37,6 +42,7 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 
 import fr.opensagres.eclipse.forms.widgets.FormSearchControl;
 import fr.opensagres.eclipse.forms.widgets.ISearchListener;
+import fr.opensagres.eclipse.forms.widgets.SearchControlObservables;
 import fr.opensagres.eclipse.forms.widgets.SimpleWikiText;
 import fr.opensagres.xdocreport.eclipse.ui.FormLayoutFactory;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormEditor;
@@ -77,9 +83,6 @@ public class OverviewPage extends ReportingFormPage<Project> implements
 		// General info section
 		createGeneralInfoSection(toolkit, left);
 
-		// Address section
-		// createAddressSection(toolkit, left);
-
 		Composite right = toolkit.createComposite(body);
 		right.setLayout(FormLayoutFactory.createFormPaneTableWrapLayout(false,
 				1));
@@ -88,12 +91,12 @@ public class OverviewPage extends ReportingFormPage<Project> implements
 		// Content section
 		createContentSection(toolkit, right);
 
-		Composite bottom = toolkit.createComposite(body);
-		bottom.setLayout(FormLayoutFactory.createFormPaneTableWrapLayout(false,
-				1));
-		TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
-		data.colspan = 2;
-		bottom.setLayoutData(data);
+//		Composite bottom = toolkit.createComposite(body);
+//		bottom.setLayout(FormLayoutFactory.createFormPaneTableWrapLayout(false,
+//				1));
+//		TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
+//		data.colspan = 2;
+//		bottom.setLayoutData(data);
 
 		// Description section
 		// createDescriptionSection(toolkit, bottom);
@@ -135,12 +138,13 @@ public class OverviewPage extends ReportingFormPage<Project> implements
 		urlText.setLayoutData(gridData);
 
 		// Client
-		toolkit.createLabel(
-				sbody,
-				Messages.ProjectFormEditor_OverviewPage_GeneralInfo_Client_label);
-
-		clientSearch = new FormSearchControl(sbody, SWT.NONE,
-				SWT.NONE, toolkit);
+		final Hyperlink hyperlink = toolkit
+				.createHyperlink(
+						sbody,
+						Messages.ProjectFormEditor_OverviewPage_GeneralInfo_Client_label,
+						SWT.NONE);
+		hyperlink.setEnabled(false);
+		clientSearch = new FormSearchControl(sbody, SWT.NONE, SWT.NONE, toolkit);
 		clientSearch.setSearcher(SearchersFactory
 				.createClientsSearcher(((ProjectFormEditor) OverviewPage.this
 						.getEditor()).getClientService()));
@@ -148,20 +152,39 @@ public class OverviewPage extends ReportingFormPage<Project> implements
 				.getInstance());
 
 		clientSearch.addSearchListener(new ISearchListener() {
-			
+
 			public void modelChanged(Object oldModel, Object newModel) {
-				getModelObject().setClient((Client)newModel);
-				
+				//getModelObject().setClient((Client) newModel);
+				hyperlink.setEnabled(newModel != null);
 			}
 		});
-		
+
 		gridData = new GridData(GridData.FILL_HORIZONTAL);
 		gridData.widthHint = 150;
 		clientSearch.setLayoutData(gridData);
 
+		hyperlink.addHyperlinkListener(new HyperlinkAdapter() {
+			@Override
+			public void linkActivated(HyperlinkEvent e) {
+				handleSkillNameHyperlink(e);
+			}
+		});
+
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, clientSearch);
 
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
+	}
+
+	private void handleSkillNameHyperlink(HyperlinkEvent e) {
+		IWorkbenchPage page = getSite().getWorkbenchWindow().getActivePage();
+		try {
+			page.openEditor(new ClientEditorInput(getEditor().getEntry(),
+					(Client) clientSearch.getModel()), ClientFormEditor.ID,
+					false);
+		} catch (PartInitException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 	private void createContentSection(FormToolkit toolkit, Composite parent) {
@@ -262,6 +285,15 @@ public class OverviewPage extends ReportingFormPage<Project> implements
 		// Jsr303BeansUpdateValueStrategyFactory
 		// .create(modelDescriptionObserveValue), null);
 
+		// bind client
+		IObservableValue clientSearchObserveTextObserveWidget = SearchControlObservables
+				.observeModel(clientSearch);
+		IObservableValue modelClientObserveValue = PojoObservables.observeValue(
+				getModelObject(), Project.CLIENT_PROPERTY);
+		bindingContext.bindValue(clientSearchObserveTextObserveWidget,
+				modelClientObserveValue, Jsr303BeansUpdateValueStrategyFactory
+						.create(modelClientObserveValue), null);
+
 		// bind url skill
 		IObservableValue urlTextObserveTextObserveWidget = SWTObservables
 				.observeText(urlText, SWT.Modify);
@@ -270,9 +302,9 @@ public class OverviewPage extends ReportingFormPage<Project> implements
 		bindingContext.bindValue(urlTextObserveTextObserveWidget,
 				modelURLObserveValue, Jsr303BeansUpdateValueStrategyFactory
 						.create(modelURLObserveValue), null);
-		
+
 		// bind client
-		clientSearch.setModel(getModelObject().getClient());
+		//clientSearch.setModel(getModelObject().getClient());
 
 	}
 

@@ -10,8 +10,8 @@ import org.dynaresume.domain.project.Client;
 import org.dynaresume.domain.project.Project;
 import org.dynaresume.domain.project.ProjectDescription;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.collections.PageListHelper;
 import org.springframework.stereotype.Repository;
 
 @Repository("projectDao")
@@ -66,9 +66,12 @@ public class MockProjectDao extends AbstractDaoMock<Project> implements
 	}
 
 	public Page<Project> findByNameLike(String name, Pageable pageable) {
+		List<Project> projects = findByNameLike(name);
+		return PageListHelper.createPage(projects, pageable);
+	}
+
+	public List<Project> findByNameLike(String name) {
 		name = Utils.getCriteria(name);
-		int pageSize = pageable.getPageSize();
-		int pageIndex = pageable.getOffset();
 		Iterable<Project> allProjects = findAll();
 		List<Project> filteredList = new ArrayList<Project>();
 		for (Project project : allProjects) {
@@ -76,13 +79,7 @@ public class MockProjectDao extends AbstractDaoMock<Project> implements
 				filteredList.add(project);
 			}
 		}
-		long totalSize = filteredList.size();
-		List<Project> paginatedList = new ArrayList<Project>();
-		for (int i = pageIndex; i < pageIndex + pageSize && i < totalSize; i++) {
-			Project project = filteredList.get(i);
-			paginatedList.add(project);
-		}
-		return new PageImpl<Project>(paginatedList, pageable, totalSize);
+		return filteredList;
 	}
 
 	private boolean isProjectOK(Project project, String label) {
