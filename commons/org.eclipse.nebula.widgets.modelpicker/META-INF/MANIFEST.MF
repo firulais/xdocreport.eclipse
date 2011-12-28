@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.eclipse.nebula.widgets.modelpicker
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: org.eclipse.nebula.widgets.modelpicker,
+ org.eclipse.nebula.widgets.modelpicker.fieldassist
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.swt;resolution:=optional,
+ org.eclipse.ui.forms;resolution:=optional,
+ org.eclipse.rap.rwt;resolution:=optional,
+ org.eclipse.rap.ui.forms;resolution:=optional,
+ org.eclipse.jface;resolution:=optional,
+ org.eclipse.rap.jface;resolution:=optional
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

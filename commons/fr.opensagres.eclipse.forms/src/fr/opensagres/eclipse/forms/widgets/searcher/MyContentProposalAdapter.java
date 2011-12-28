@@ -1,4 +1,4 @@
-package fr.opensagres.eclipse.forms.widgets;
+package fr.opensagres.eclipse.forms.widgets.searcher;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -35,13 +35,31 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
+/**
+ * ContentProposalAdapter can be used to attach content proposal behavior to a
+ * control. This behavior includes obtaining proposals, opening a popup dialog,
+ * managing the content of the control relative to the selections in the popup,
+ * and optionally opening up a secondary popup to further describe proposals.
+ * <p>
+ * A number of configurable options are provided to determine how the control
+ * content is altered when a proposal is chosen, how the content proposal popup
+ * is activated, and whether any filtering should be done on the proposals as
+ * the user types characters.
+ * <p>
+ * This class provides some overridable methods to allow clients to manually
+ * control the popup. However, most of the implementation remains private.
+ * 
+ * @since 3.2
+ */
 public class MyContentProposalAdapter implements Serializable {
 
+	private static final boolean IS_RAP = "rap".equals(SWT.getPlatform());
 	/*
 	 * The lightweight popup used to show content proposals for a text field. If
 	 * additional information exists for a proposal, then selecting that
@@ -115,12 +133,13 @@ public class MyContentProposalAdapter implements Serializable {
 			void installListeners() {
 				// Listeners on this popup's table and scroll bar
 				proposalTable.addListener(SWT.FocusOut, this);
-				// RAP [bm]: 
-//				ScrollBar scrollbar = proposalTable.getVerticalBar();
-//				if (scrollbar != null) {
-//					scrollbar.addListener(SWT.Selection, this);
-//				}
-				// RAPEND: [bm] 
+				
+				if (!IS_RAP) {
+					ScrollBar scrollbar = proposalTable.getVerticalBar();
+					if (scrollbar != null) {
+						scrollbar.addListener(SWT.Selection, this);
+					}
+				}
 
 				// Listeners on this popup's shell
 				getShell().addListener(SWT.Deactivate, this);
@@ -134,23 +153,21 @@ public class MyContentProposalAdapter implements Serializable {
 				// Listeners on the target control's shell
 				Shell controlShell = control.getShell();
 				controlShell.addListener(SWT.Move, this);
-				// RAP [if] Don't add a resize listener because of 
-				// TextSizeDetermnation
-//				controlShell.addListener(SWT.Resize, this);
-				// RAPEND [if]
-
+				if (!IS_RAP) {
+					controlShell.addListener(SWT.Resize, this);
+				}
 			}
 
 			// Remove installed listeners
 			void removeListeners() {
 				if (isValid()) {
 					proposalTable.removeListener(SWT.FocusOut, this);
-					// RAP [bm]: 
-//					ScrollBar scrollbar = proposalTable.getVerticalBar();
-//					if (scrollbar != null) {
-//						scrollbar.removeListener(SWT.Selection, this);
-//					}
-					// RAPEND: [bm] 
+					if (!IS_RAP) {
+						ScrollBar scrollbar = proposalTable.getVerticalBar();
+						if (scrollbar != null) {
+							scrollbar.removeListener(SWT.Selection, this);
+						}
+					}
 
 					getShell().removeListener(SWT.Deactivate, this);
 					getShell().removeListener(SWT.Close, this);
@@ -165,10 +182,9 @@ public class MyContentProposalAdapter implements Serializable {
 
 					Shell controlShell = control.getShell();
 					controlShell.removeListener(SWT.Move, this);
-					// RAP [if] Don't add a resize listener because of 
-	                // TextSizeDetermnation
-//					controlShell.removeListener(SWT.Resize, this);
-					// RAPEND [if]
+					if (!IS_RAP) {
+						controlShell.removeListener(SWT.Resize, this);
+					}
 				}
 			}
 		}
@@ -185,47 +201,45 @@ public class MyContentProposalAdapter implements Serializable {
 
 				char key = e.character;
 
-				// RAP [bm]: KeyEvents
-//				// Traverse events are handled depending on whether the
-//				// event has a character.
-//				if (e.type == SWT.Traverse) {
-//					// If the traverse event contains a legitimate character,
-//					// then we must set doit false so that the widget will
-//					// receive the key event. We return immediately so that
-//					// the character is handled only in the key event.
-//					// See https://bugs.eclipse.org/bugs/show_bug.cgi?id=132101
-//					if (key != 0) {
-//						e.doit = false;
-//						return;
-//					}
-//					// Traversal does not contain a character. Set doit true
-//					// to indicate TRAVERSE_NONE will occur and that no key
-//					// event will be triggered. We will check for navigation
-//					// keys below.
-//					e.detail = SWT.TRAVERSE_NONE;
-//					e.doit = true;
-//				} else {
-//					// Default is to only propagate when configured that way.
-//					// Some keys will always set doit to false anyway.
-//					e.doit = propagateKeys;
-//				}
-				
-				// RAP [if]: Recompute proposals on modify event too.
-                if( e.type == SWT.Modify ) {                  
-                  asyncRecomputeProposals(filterText);
-                }
-                // ENDRAP [if]
+				if (!IS_RAP) {
+				// Traverse events are handled depending on whether the
+				// event has a character.
+				if (e.type == SWT.Traverse) {
+					// If the traverse event contains a legitimate character,
+					// then we must set doit false so that the widget will
+					// receive the key event. We return immediately so that
+					// the character is handled only in the key event.
+					// See https://bugs.eclipse.org/bugs/show_bug.cgi?id=132101
+					if (key != 0) {
+						e.doit = false;
+						return;
+					}
+					// Traversal does not contain a character. Set doit true
+					// to indicate TRAVERSE_NONE will occur and that no key
+					// event will be triggered. We will check for navigation
+					// keys below.
+					e.detail = SWT.TRAVERSE_NONE;
+					e.doit = true;
+				} else {
+					// Default is to only propagate when configured that way.
+					// Some keys will always set doit to false anyway.
+					e.doit = propagateKeys;
+				}
+				}
+				else {
+					// RAP [if]: Recompute proposals on modify event too.
+	                if( e.type == SWT.Modify ) {                  
+	                  asyncRecomputeProposals(filterText);
+	                }
+	                // ENDRAP [if]
+				}
 
 				// No character. Check for navigation keys.
 
 				if (key == 0) {
 					int newSelection = proposalTable.getSelectionIndex();
-					// RAP [bm]: KeyEvents
 					int visibleRows = (proposalTable.getSize().y / proposalTable
 							.getItemHeight()) - 1;
-					// RAPEND: [bm] 
-
-					
 					switch (e.keyCode) {
 					case SWT.ARROW_UP:
 						newSelection -= 1;
@@ -319,14 +333,16 @@ public class MyContentProposalAdapter implements Serializable {
 					// Modifier keys are explicitly checked and ignored because
 					// they are not complete yet (no character).
 					default:
-//						if (e.keyCode != SWT.CAPS_LOCK e.keyCode != SWT.NUM_LOCK 
-//								&& e.keyCode != SWT.MOD1
-//								&& e.keyCode != SWT.MOD2
-//								&& e.keyCode != SWT.MOD3
-//								&& e.keyCode != SWT.MOD4) {
-							//close();
-						//}
+						if (!IS_RAP) {
+						if (e.keyCode != SWT.CAPS_LOCK && e.keyCode != SWT.NUM_LOCK 
+								&& e.keyCode != SWT.MOD1
+								&& e.keyCode != SWT.MOD2
+								&& e.keyCode != SWT.MOD3
+								&& e.keyCode != SWT.MOD4) {
+							close();
+						}
 						return;
+						}						
 					}
 
 					// If any of these navigation events caused a new selection,
@@ -407,7 +423,6 @@ public class MyContentProposalAdapter implements Serializable {
 				}
 			}
 		}
-		// RAPEND: [bm] 
 
 		/*
 		 * Internal class used to implement the secondary popup.
@@ -1626,7 +1641,7 @@ public class MyContentProposalAdapter implements Serializable {
 	 *            not be <code>null</code>. If the listener has not already
 	 *            been registered, this method has no effect.
 	 * 
-	 * @since 1.0
+	 * @since 3.3
 	 * @see org.eclipse.jface.fieldassist.IContentProposalListener
 	 */
 	public void removeContentProposalListener(IContentProposalListener listener) {
@@ -1644,7 +1659,7 @@ public class MyContentProposalAdapter implements Serializable {
 	 *            an instance which is already registered with this instance,
 	 *            this method has no effect.
 	 * 
-	 * @since 1.0
+	 * @since 3.3
 	 * @see org.eclipse.jface.fieldassist.IContentProposalListener2
 	 */
 	public void addContentProposalListener(IContentProposalListener2 listener) {
@@ -1661,7 +1676,7 @@ public class MyContentProposalAdapter implements Serializable {
 	 *            Must not be <code>null</code>. If the listener has not
 	 *            already been registered, this method has no effect.
 	 * 
-	 * @since 1.0
+	 * @since 3.3
 	 * @see org.eclipse.jface.fieldassist.IContentProposalListener2
 	 */
 	public void removeContentProposalListener(IContentProposalListener2 listener) {
@@ -1822,11 +1837,13 @@ public class MyContentProposalAdapter implements Serializable {
 								}
 							}
 						}
+					if (IS_RAP) {
 						// RAP [if]: Recompute proposals on modify event too.
-						if( popup != null ) {
-                      		popup.getTargetControlListener().handleEvent( e );
+						if (popup != null) {
+							popup.getTargetControlListener().handleEvent(e);
 						}
 						// ENDRAP [if]
+					}
 						break;
 				default:
 					break;
@@ -1922,7 +1939,7 @@ public class MyContentProposalAdapter implements Serializable {
 	 * open. This method is used by subclasses to explicitly close the popup
 	 * based on additional logic.
 	 * 
-	 * @since 1.0
+	 * @since 3.3
 	 */
 	protected void closeProposalPopup() {
 		if (popup != null) {
@@ -2105,10 +2122,10 @@ public class MyContentProposalAdapter implements Serializable {
 			System.out.println("Notify listeners - popup opened."); //$NON-NLS-1$
 		}
 		final Object[] listenerArray = proposalListeners2.getListeners();
-		for (int i = 0; i < listenerArray.length; i++) {
-			//((IContentProposalListener2) listenerArray[i])
-			//		.proposalPopupOpened(this);
-		}
+//		for (int i = 0; i < listenerArray.length; i++) {
+//			((IContentProposalListener2) listenerArray[i])
+//					.proposalPopupOpened(this);
+//		}
 	}
 
 	/*
@@ -2119,10 +2136,10 @@ public class MyContentProposalAdapter implements Serializable {
 			System.out.println("Notify listeners - popup closed."); //$NON-NLS-1$
 		}
 		final Object[] listenerArray = proposalListeners2.getListeners();
-		for (int i = 0; i < listenerArray.length; i++) {
-			//((IContentProposalListener2) listenerArray[i])
-			//		.proposalPopupClosed(this);
-		}
+//		for (int i = 0; i < listenerArray.length; i++) {
+//			((IContentProposalListener2) listenerArray[i])
+//					.proposalPopupClosed(this);
+//		}
 	}
 
 	/**
@@ -2131,7 +2148,7 @@ public class MyContentProposalAdapter implements Serializable {
 	 * 
 	 * @return <code>true</code> if the proposal popup or its secondary info
 	 *         popup has the focus
-	 * @since 1.1
+	 * @since 3.4
 	 */
 	public boolean hasProposalPopupFocus() {
 		return popup != null && popup.hasFocus();
@@ -2182,15 +2199,15 @@ public class MyContentProposalAdapter implements Serializable {
 	 */
 	private boolean allowsAutoActivate() {
 		return (autoActivateString != null && autoActivateString.length() > 0) // there are specific autoactivation chars supplied
-		  || (autoActivateString == null && triggerKeyStroke == null);    // we autoactivate on everything		
+		  || (autoActivateString == null && triggerKeyStroke == null);    // we autoactivate on everything
 	}
 	
 	/**
 	 * Sets focus to the proposal popup. If the proposal popup is not opened,
-	 * this method is ignored. If the secondary popup has focus, focus is returned
-	 * to the main proposal popup.
+	 * this method is ignored. If the secondary popup has focus, focus is
+	 * returned to the main proposal popup.
 	 * 
-	 * @since 1.3
+	 * @since 3.6
 	 */
 	public void setProposalPopupFocus() {
 		if (isValid() && popup != null)
@@ -2203,7 +2220,7 @@ public class MyContentProposalAdapter implements Serializable {
 	 * @return <code>true</code> if the proposal popup is open, and
 	 *         <code>false</code> if it is not.
 	 * 
-	 * @since 1.3
+	 * @since 3.6
 	 */
 	public boolean isProposalPopupOpen() {
 		if (isValid() && popup != null)
