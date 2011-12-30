@@ -3,10 +3,8 @@ package org.eclipse.nebula.widgets.modelpicker;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jface.bindings.keys.KeyStroke;
-import org.eclipse.jface.bindings.keys.ParseException;
-import org.eclipse.jface.fieldassist.ContentProposalAdapter;
 import org.eclipse.nebula.widgets.modelpicker.fieldassist.ModelContentProposalAdapter;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -16,7 +14,7 @@ public class ModelPicker<T> {
 
 	private T model;
 	private Text text;
-	private List<ISearcher> searchers;
+	private List<SearcherDescriptor> searchers;
 	private Composite container;
 	private ModelContentProposalAdapter adapter;
 
@@ -47,7 +45,7 @@ public class ModelPicker<T> {
 	}
 
 	private void init() {
-		this.searchers = new ArrayList<ISearcher>();
+		this.searchers = new ArrayList<SearcherDescriptor>();
 	}
 
 	public void setModel(T model) {
@@ -58,12 +56,20 @@ public class ModelPicker<T> {
 		return model;
 	}
 
-	public void addSearcher(ISearcher searcher) {
-		searcher.init(this);
-		searchers.add(searcher);
+	public SearcherDescriptor addSearcher(ISearcher initializer,
+			String keyStroke, String description, Image icon) {
+		SearcherDescriptor searcher = new SearcherDescriptor(initializer, keyStroke, description,
+				icon);
+		return addSearcher(searcher);
 	}
 
-	public void removeSearcher(ISearcher searcher) {
+	public SearcherDescriptor addSearcher(SearcherDescriptor searcher) {
+		searcher.init(this, searcher.getKeyStroke());
+		searchers.add(searcher);
+		return searcher;
+	}
+
+	public void removeSearcher(SearcherDescriptor searcher) {
 		searchers.remove(searcher);
 	}
 

@@ -45,7 +45,8 @@ public class ModelPickerExample {
 		ModelPicker<Person> personPicker = new ModelPicker<Person>(shell,
 				SWT.BORDER, SWT.BORDER);
 		personPicker.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		personPicker.addSearcher(new PersonCompletionSearcher());
+		personPicker.addSearcher(new PersonCompletionSearcher(), "Ctrl+Space", "Autocomplete", null);
+		personPicker.addSearcher(new PersonSearchDialogSearcher(), "F5", "Search dialog", null);
 
 		shell.setSize(200, 150);
 		shell.open();

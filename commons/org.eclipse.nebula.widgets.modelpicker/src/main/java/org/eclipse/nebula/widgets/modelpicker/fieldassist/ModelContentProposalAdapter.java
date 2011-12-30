@@ -11,7 +11,7 @@ import org.eclipse.jface.fieldassist.IContentProposalProvider;
 import org.eclipse.jface.fieldassist.IControlContentAdapter;
 import org.eclipse.jface.fieldassist.TextContentAdapter;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.nebula.widgets.modelpicker.ISearcher;
+import org.eclipse.nebula.widgets.modelpicker.ISearchable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -27,7 +27,7 @@ public abstract class ModelContentProposalAdapter extends
 
 	public static final IControlContentAdapter TextContentAdapter = new TextContentAdapter();
 
-	private ISearcher searcher;
+	private ISearchable searchable;
 	private ICompletionLabelProvider completionLabelProvider;
 	private Listener keyDownListener;
 
@@ -81,15 +81,15 @@ public abstract class ModelContentProposalAdapter extends
 	}
 
 	private Iterable<?> search(String contents, int position) {
-		return searcher.search(contents, position);
+		return searchable.search(contents, position);
 	}
 
-	public void setSearcher(ISearcher searcher) {
-		this.searcher = searcher;
+	public void setSearchable(ISearchable searcher) {
+		this.searchable = searcher;
 	}
 
-	public ISearcher getSearcher() {
-		return searcher;
+	public ISearchable getSearchable() {
+		return searchable;
 	}
 
 	public void setCompletionLabelProvider(
