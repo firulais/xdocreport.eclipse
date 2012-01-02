@@ -35,7 +35,7 @@ public class ModelPickerExample {
 		Label label = new Label(shell, SWT.NONE);
 		label.setText("Photo:");
 		GridData gridData = new GridData();
-		gridData.verticalAlignment = SWT.TOP;
+		//gridData.verticalAlignment = SWT.TOP;
 		label.setLayoutData(gridData);
 
 		// PictureControl photoControl = new PictureControl(shell);
@@ -43,10 +43,12 @@ public class ModelPickerExample {
 		// photoControl.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		ModelPicker<Person> personPicker = new ModelPicker<Person>(shell,
-				SWT.BORDER, SWT.BORDER);
+				SWT.NONE, SWT.BORDER);
 		personPicker.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		personPicker.addSearcher(new PersonCompletionSearcher(), "Ctrl+Space", "Autocomplete", null);
-		personPicker.addSearcher(new PersonSearchDialogSearcher(), "F5", "Search dialog", null);
+		personPicker.addSearcher(new PersonCompletionSearcher(), "Ctrl+Space",
+				"Autocomplete", null);
+		personPicker.addSearcher(new PersonSearchDialogSearcher(), "F5",
+				"Search dialog", null);
 
 		shell.setSize(200, 150);
 		shell.open();

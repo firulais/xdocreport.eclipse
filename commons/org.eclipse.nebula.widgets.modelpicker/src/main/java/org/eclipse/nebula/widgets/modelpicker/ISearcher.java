@@ -1,6 +1,10 @@
 package org.eclipse.nebula.widgets.modelpicker;
 
-public interface ISearcher {
+public interface ISearcher<T> {
 
-	void init(ModelPicker modelPicker, String keyStroke);
+	void init(ModelHolder<T> modelPicker, String keyStroke);
+
+	void dispose();
+
+	void handle();
 }

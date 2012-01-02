@@ -17,7 +17,7 @@ public class SearcherDescriptor implements ISearcher {
 		this.icon = icon;
 	}
 
-	public void init(ModelPicker modelPicker, String keyStroke) {
+	public void init(ModelHolder modelPicker, String keyStroke) {
 		initializer.init(modelPicker, keyStroke);
 	}
 
@@ -35,6 +35,16 @@ public class SearcherDescriptor implements ISearcher {
 
 	public Image getIcon() {
 		return icon;
+	}
+
+	public void dispose() {
+		initializer.dispose();
+
+	}
+
+	public void handle() {
+		initializer.handle();
+
 	}
 
 }
