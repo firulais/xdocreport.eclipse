@@ -6,7 +6,8 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.eclipse.nebula.widgets.modelpicker,
- org.eclipse.nebula.widgets.modelpicker.fieldassist
+ org.eclipse.nebula.widgets.modelpicker.fieldassist,
+ org.eclipse.nebula.widgets.modelpicker.forms
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.swt;resolution:=optional,
  org.eclipse.ui.forms;resolution:=optional,

@@ -4,14 +4,14 @@ import java.net.URL;
 
 import org.dynaresume.domain.project.Client;
 import org.dynaresume.domain.project.Project;
-import org.dynaresume.eclipse.search.ui.searchers.ClientsCompletionLabelProvider;
-import org.dynaresume.eclipse.search.ui.searchers.SearchersFactory;
+import org.dynaresume.eclipse.search.ui.modelpickers.ModelPickersFactory;
 import org.dynaresume.project.eclipse.ui.editors.client.ClientEditorInput;
 import org.dynaresume.project.eclipse.ui.editors.client.ClientFormEditor;
 import org.dynaresume.project.eclipse.ui.internal.Activator;
 import org.dynaresume.project.eclipse.ui.internal.ImageResources;
 import org.dynaresume.project.eclipse.ui.internal.Messages;
 import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.beans.BeansObservables;
 import org.eclipse.core.databinding.beans.PojoObservables;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.validation.jsr303.Jsr303BeansUpdateValueStrategyFactory;
@@ -19,6 +19,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.nebula.widgets.modelpicker.ModelPicker;
+import org.eclipse.nebula.widgets.modelpicker.ModelPropertyChangeListener;
 import org.eclipse.rap.singlesourcing.SingleSourcingUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -40,9 +42,6 @@ import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 
-import fr.opensagres.eclipse.forms.widgets.FormSearchControl;
-import fr.opensagres.eclipse.forms.widgets.ISearchListener;
-import fr.opensagres.eclipse.forms.widgets.SearchControlObservables;
 import fr.opensagres.eclipse.forms.widgets.SimpleWikiText;
 import fr.opensagres.xdocreport.eclipse.ui.FormLayoutFactory;
 import fr.opensagres.xdocreport.eclipse.ui.editors.ReportingFormEditor;
@@ -59,7 +58,7 @@ public class OverviewPage extends ReportingFormPage<Project> implements
 
 	private Hyperlink urlHyperlink;
 
-	private FormSearchControl clientSearch;
+	private ModelPicker<Client> clientPicker;
 
 	public OverviewPage(ReportingFormEditor editor) {
 		super(editor, ID, Messages.ProjectFormEditor_OverviewPage_title);
@@ -91,12 +90,12 @@ public class OverviewPage extends ReportingFormPage<Project> implements
 		// Content section
 		createContentSection(toolkit, right);
 
-//		Composite bottom = toolkit.createComposite(body);
-//		bottom.setLayout(FormLayoutFactory.createFormPaneTableWrapLayout(false,
-//				1));
-//		TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
-//		data.colspan = 2;
-//		bottom.setLayoutData(data);
+		// Composite bottom = toolkit.createComposite(body);
+		// bottom.setLayout(FormLayoutFactory.createFormPaneTableWrapLayout(false,
+		// 1));
+		// TableWrapData data = new TableWrapData(TableWrapData.FILL_GRAB);
+		// data.colspan = 2;
+		// bottom.setLayoutData(data);
 
 		// Description section
 		// createDescriptionSection(toolkit, bottom);
@@ -143,25 +142,20 @@ public class OverviewPage extends ReportingFormPage<Project> implements
 						sbody,
 						Messages.ProjectFormEditor_OverviewPage_GeneralInfo_Client_label,
 						SWT.NONE);
-		hyperlink.setEnabled(false);
-		clientSearch = new FormSearchControl(sbody, SWT.NONE, SWT.NONE, toolkit);
-		clientSearch.setSearcher(SearchersFactory
-				.createClientsSearcher(((ProjectFormEditor) OverviewPage.this
-						.getEditor()).getClientService()));
-		clientSearch.setCompletionLabelProvider(ClientsCompletionLabelProvider
-				.getInstance());
+		clientPicker = ModelPickersFactory.createClientPicker(sbody, SWT.NONE,
+				SWT.SINGLE, toolkit, ((ProjectFormEditor) OverviewPage.this
+						.getEditor()).getClientService());
 
-		clientSearch.addSearchListener(new ISearchListener() {
-
-			public void modelChanged(Object oldModel, Object newModel) {
-				//getModelObject().setClient((Client) newModel);
-				hyperlink.setEnabled(newModel != null);
+		new ModelPropertyChangeListener<Client>(clientPicker) {
+			@Override
+			protected void setModelEnabled(boolean enabled) {
+				hyperlink.setEnabled(enabled);
 			}
-		});
+		};
 
 		gridData = new GridData(GridData.FILL_HORIZONTAL);
 		gridData.widthHint = 150;
-		clientSearch.setLayoutData(gridData);
+		clientPicker.setLayoutData(gridData);
 
 		hyperlink.addHyperlinkListener(new HyperlinkAdapter() {
 			@Override
@@ -170,7 +164,7 @@ public class OverviewPage extends ReportingFormPage<Project> implements
 			}
 		});
 
-		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, clientSearch);
+		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, clientPicker);
 
 		SingleSourcingUtils.FormToolkit_paintBordersFor(toolkit, sbody);
 	}
@@ -179,7 +173,7 @@ public class OverviewPage extends ReportingFormPage<Project> implements
 		IWorkbenchPage page = getSite().getWorkbenchWindow().getActivePage();
 		try {
 			page.openEditor(new ClientEditorInput(getEditor().getEntry(),
-					(Client) clientSearch.getModel()), ClientFormEditor.ID,
+					(Client) clientPicker.getModel()), ClientFormEditor.ID,
 					false);
 		} catch (PartInitException e1) {
 			// TODO Auto-generated catch block
@@ -286,10 +280,10 @@ public class OverviewPage extends ReportingFormPage<Project> implements
 		// .create(modelDescriptionObserveValue), null);
 
 		// bind client
-		IObservableValue clientSearchObserveTextObserveWidget = SearchControlObservables
-				.observeModel(clientSearch);
-		IObservableValue modelClientObserveValue = PojoObservables.observeValue(
-				getModelObject(), Project.CLIENT_PROPERTY);
+		IObservableValue clientSearchObserveTextObserveWidget = BeansObservables
+				.observeValue(clientPicker, ModelPicker.MODEL);
+		IObservableValue modelClientObserveValue = PojoObservables
+				.observeValue(getModelObject(), Project.CLIENT_PROPERTY);
 		bindingContext.bindValue(clientSearchObserveTextObserveWidget,
 				modelClientObserveValue, Jsr303BeansUpdateValueStrategyFactory
 						.create(modelClientObserveValue), null);
@@ -304,7 +298,7 @@ public class OverviewPage extends ReportingFormPage<Project> implements
 						.create(modelURLObserveValue), null);
 
 		// bind client
-		//clientSearch.setModel(getModelObject().getClient());
+		// clientSearch.setModel(getModelObject().getClient());
 
 	}
 

@@ -31,8 +31,8 @@ public class CompletionSearcher<T> implements ISearcher<T> {
 		adapter.setPropagateKeys(true);
 	}
 
-	public void setSearchable(ISearchable searcher) {
-		adapter.setSearchable(searcher);
+	public void setSearchable(ISearchable searchable) {
+		adapter.setSearchable(searchable);
 	}
 
 	public void setCompletionLabelProvider(

@@ -24,7 +24,8 @@ Require-Bundle: org.eclipse.ui;resolution:=optional,
  org.eclipse.core.databinding.validation.jsr303,
  org.eclipse.nebula.widgets.pagination,
  org.eclipse.nebula.widgets.pagination.springdata,
- org.dynaresume.eclipse.search.ui
+ org.dynaresume.eclipse.search.ui,
+ org.eclipse.nebula.widgets.modelpicker
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Import-Package: org.dynaresume.domain.project,
  org.dynaresume.services,

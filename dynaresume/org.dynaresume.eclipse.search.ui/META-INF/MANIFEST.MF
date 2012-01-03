@@ -23,10 +23,12 @@ Require-Bundle: org.eclipse.ui;resolution:=optional,
  fr.opensagres.xdocreport.eclipse.ui,
  org.eclipse.rap.singlesourcing,
  fr.opensagres.eclipse.forms,
- org.eclipse.springframework.util
+ org.eclipse.springframework.util,
+ org.eclipse.nebula.widgets.modelpicker
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.dynaresume.eclipse.search.ui.dialogs,
+ org.dynaresume.eclipse.search.ui.modelpickers,
  org.dynaresume.eclipse.search.ui.searchers
 Import-Package: org.dynaresume.domain.core,
  org.dynaresume.domain.hr,
