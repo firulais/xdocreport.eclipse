@@ -95,7 +95,8 @@
       <plugin id="org.eclipse.gemini.blueprint.core"/>
       <plugin id="org.eclipse.gemini.blueprint.extender"/>
       <plugin id="org.eclipse.gemini.blueprint.io"/>
-      <plugin id="org.eclipse.help"/>
+      <plugin id="org.eclipse.help"/>      
+      <plugin id="org.eclipse.nebula.widgets.modelpicker"/>
       <plugin id="org.eclipse.nebula.widgets.pagination"/>
       <plugin id="org.eclipse.nebula.widgets.pagination.springdata"/>
       <plugin id="org.eclipse.nebula.widgets.picture"/>
@@ -216,6 +217,7 @@
       <plugin id="org.eclipse.gemini.blueprint.extender" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.gemini.blueprint.io" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.help" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.nebula.widgets.modelpicker" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.nebula.widgets.pagination" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.nebula.widgets.pagination.springdata" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.nebula.widgets.picture" autoStart="true" startLevel="0" />

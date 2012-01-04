@@ -7,12 +7,12 @@ import fr.opensagres.xdocreport.eclipse.reporting.core.ReportException;
 import fr.opensagres.xdocreport.eclipse.reporting.xdocreport.core.XDocReportLoader;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
-import fr.opensagres.xdocreport.template.textstyling.SyntaxKind;
 
-public class SodifranceProjectReportLoader extends XDocReportLoader {
+public class PPTXSodifranceProjectReportLoader extends XDocReportLoader {
 
 	public InputStream doGetSourceStream() throws IOException, ReportException {
-		return ProjectReportProcessor.class.getResourceAsStream("SodifranceProject.docx");
+		return ProjectReportProcessor.class
+				.getResourceAsStream("SodifranceProject.pptx");
 	}
 
 	@Override
@@ -23,7 +23,11 @@ public class SodifranceProjectReportLoader extends XDocReportLoader {
 	@Override
 	public FieldsMetadata getFieldsMetadata() {
 		FieldsMetadata metadata = new FieldsMetadata();
-		metadata.addFieldAsTextStyling("project.Description", SyntaxKind.Html);
+		metadata.addFieldAsList("contextDescriptions.Description");
+		metadata.addFieldAsList("problemsDescriptions.Description");
+		metadata.addFieldAsList("solutionsDescriptions.Description");
+		metadata.addFieldAsList("companyBenefitsDescriptions.Description");
+		metadata.addFieldAsList("clientBenefitsDescriptions.Description");
 		return metadata;
 	}
 

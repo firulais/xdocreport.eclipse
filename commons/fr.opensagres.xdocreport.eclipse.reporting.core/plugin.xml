@@ -16,6 +16,10 @@
 	         icon="icons/obj16/format/docx.gif"
 	         name="Docx Format" />
 	   <reportFormat
+	   	     id="PPTX"
+	         icon="icons/obj16/format/pptx.gif"
+	         name="PPTX Format" />	         
+	   <reportFormat
 	   	     id="ODT"
 	         icon="icons/obj16/format/odt.gif"
 	         name="ODT Format" />

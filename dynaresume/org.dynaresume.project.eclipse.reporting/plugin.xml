@@ -14,10 +14,15 @@
          				  		  description="%DocxProjectDesc"
          				  		  class="org.dynaresume.project.eclipse.reporting.DocxProjectReportLoader" />
          				  <reportLoader
-         				  		  id="project.xdocreport.sodifrance"
-         				  		  name="%SodifranceProjectName" 
-         				  		  description="%SodifranceProjectDesc"
-         				  		  class="org.dynaresume.project.eclipse.reporting.SodifranceProjectReportLoader" />         				    				  		          				  		           				    				  		 
+         				  		  id="project.xdocreport.docx.sodifrance"
+         				  		  name="%DocxSodifranceProjectName" 
+         				  		  description="%DocxSodifranceProjectDesc"
+         				  		  class="org.dynaresume.project.eclipse.reporting.DocxSodifranceProjectReportLoader" />         				    				  		          				  		           				    				  		 
+						  <reportLoader
+         				  		  id="project.xdocreport.pptx.sodifrance"
+         				  		  name="%PPTXSodifranceProjectName" 
+         				  		  description="%PPTXSodifranceProjectDesc"
+         				  		  class="org.dynaresume.project.eclipse.reporting.PPTXSodifranceProjectReportLoader" />         				  		  
          </reportProcessor>				         				  
 	</extension>
   
