@@ -20,7 +20,9 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.rap.jface.databinding;bundle-version="1.4.0";resolution:=optional,
  org.eclipse.rap.singlesourcing,
  fr.opensagres.xdocreport.eclipse.core,
- fr.opensagres.xdocreport.eclipse.reporting.core
+ fr.opensagres.xdocreport.eclipse.reporting.core,
+ org.eclipse.nebula.widgets.pagination,
+ org.eclipse.nebula.widgets.pagination.springdata
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Activator: fr.opensagres.xdocreport.eclipse.internal.Activator
 Export-Package: fr.opensagres.xdocreport.eclipse,
@@ -39,4 +41,5 @@ Import-Package: fr.opensagres.eclipse.forms.dialogs,
  fr.opensagres.eclipse.forms.editor,
  fr.opensagres.eclipse.forms.registry,
  fr.opensagres.xdocreport.commons.utils,
- org.eclipse.nebula.widgets.pshelf
+ org.eclipse.nebula.widgets.pshelf,
+ org.springframework.data.domain

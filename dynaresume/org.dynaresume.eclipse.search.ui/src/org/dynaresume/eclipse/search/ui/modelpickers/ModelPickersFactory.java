@@ -19,7 +19,7 @@ public class ModelPickersFactory {
 		searchable.setClientService(clientService);
 		clientPicker.addSearcher(new ClientCompletionSearcher(searchable),
 				"Ctrl+Space", "Autocomplete", null);
-		clientPicker.addSearcher(new ClientSearchDialogSearcher(), "F5",
+		clientPicker.addSearcher(new ClientSearchDialogSearcher(), "F2",
 				"Search dialog", null);
 		return clientPicker;
 	}

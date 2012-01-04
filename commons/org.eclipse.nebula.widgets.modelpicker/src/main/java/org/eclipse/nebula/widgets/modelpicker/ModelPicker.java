@@ -28,7 +28,7 @@ public class ModelPicker<T> extends Composite implements PropertyChangeListener 
 	private final int textStyle;
 
 	public ModelPicker(Composite parent, int style, int textStyle) {
-		this(parent, style, textStyle, false);
+		this(parent, style, textStyle, true);
 	}
 
 	protected ModelPicker(Composite parent, int style, int textStyle,

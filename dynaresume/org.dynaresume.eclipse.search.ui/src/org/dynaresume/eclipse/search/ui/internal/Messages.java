@@ -12,6 +12,21 @@ public class Messages extends NLS {
 	public static String removeButton_label;
 	public static String searchButton_label;
 
+	// SearchClientDialog
+	public static String SearchClientDialog_searchCriteriaGroupText;
+	public static String SearchClientDialog_searchResultSectionText;
+	public static String SearchClientDialog_searchResultSectionDescription;
+
+	// SearchGroupDialog
+	public static String SearchGroupDialog_searchCriteriaGroupText;
+	public static String SearchGroupDialog_searchResultSectionText;
+	public static String SearchGroupDialog_searchResultSectionDescription;
+
+	// SearchProjectDialog
+	public static String SearchProjectDialog_searchCriteriaGroupText;
+	public static String SearchProjectDialog_searchResultSectionText;
+	public static String SearchProjectDialog_searchResultSectionDescription;
+
 	// SearchResumeDialog
 	public static String SearchResumeDialog_searchCriteria_label;
 	public static String SearchResumeDialog_searchCriteria_FirstName_label;
@@ -21,7 +36,12 @@ public class Messages extends NLS {
 	public static String SearchResumeDialog_resumeTable_FirstName_label;
 	public static String SearchResumeDialog_resumeTable_LastName_label;
 	public static String SearchResumeDialog_resumeTable_ResumeTitle_label;
-	
+
+	// SearchSkillDialog
+	public static String SearchSkillDialog_searchCriteriaGroupText;
+	public static String SearchSkillDialog_searchResultSectionText;
+	public static String SearchSkillDialog_searchResultSectionDescription;
+
 	static {
 		// load message values from bundle file
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

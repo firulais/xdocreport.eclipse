@@ -12,12 +12,10 @@ import org.eclipse.jface.fieldassist.IControlContentAdapter;
 import org.eclipse.jface.fieldassist.TextContentAdapter;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.nebula.widgets.modelpicker.ISearchable;
+import org.eclipse.nebula.widgets.modelpicker.internal.Utils;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
@@ -41,16 +39,9 @@ public abstract class ModelContentProposalAdapter extends
 			char[] autoActivationCharacters) {
 		super(control, controlContentAdapter, null, keyStroke,
 				autoActivationCharacters);
-		if ("rap".equals(SWT.getPlatform())) {
+		if (Utils.isRap()) {
 			keyDownListener = control.getListeners(SWT.KeyDown)[0];
-			Display.getCurrent().addFilter(SWT.KeyDown, keyDownListener);
-			control.addDisposeListener(new DisposeListener() {
-
-				public void widgetDisposed(DisposeEvent e) {
-					Display.getCurrent().removeFilter(SWT.KeyDown,
-							keyDownListener);
-				}
-			});
+			Utils.addFilterIfNeeded(keyDownListener, control);
 		}
 		super.setContentProposalProvider(this);
 
