@@ -25,8 +25,8 @@ public class ClientsInjector extends AbstractInjector {
 	}
 
 	private void save(Client client) {
-		clientsCache.put(client.getName(), client);
-		getDataInjector().getClientService().save(client);
+		Client newClient = getDataInjector().getClientService().save(client);
+		clientsCache.put(newClient.getName(), newClient);
 	}
 
 	private Client createClient(String name) {

@@ -32,7 +32,8 @@ import org.eclipse.ui.forms.widgets.Section;
 
 import fr.opensagres.eclipse.forms.ModelMasterDetailsBlock;
 
-public class LanguagesMasterDetailsBlock extends ModelMasterDetailsBlock<Resume> {
+public class LanguagesMasterDetailsBlock extends
+		ModelMasterDetailsBlock<Resume> {
 
 	private static final Integer ADD_BUTTON_INDEX = 1;
 	private static final Integer REMOVE_BUTTON_INDEX = 2;
@@ -134,10 +135,25 @@ public class LanguagesMasterDetailsBlock extends ModelMasterDetailsBlock<Resume>
 	}
 
 	protected void handleAddButton() {
-		SkillLanguage language = new SkillLanguage();		
-		getLanguages().add(language);
+		SkillLanguage language = new SkillLanguage();
+		Language fistLanguage = getFirstLanguage();
+		language.setLanguage(fistLanguage);		
+		getSkillLanguages().add(language);
 		viewer.add(language);
 		viewer.setSelection(new StructuredSelection(language));
+	}
+
+	private Language getFirstLanguage() {
+		Iterable<Language> languages = getEditor().getLanguageService().findAll();
+		for (Language language : languages) {
+			return language;
+		}
+		return null;
+	}
+
+	@Override
+	public ResumeFormEditor getEditor() {
+		return (ResumeFormEditor) super.getEditor();
 	}
 
 	protected void handleRemoveButton() {
@@ -148,7 +164,7 @@ public class LanguagesMasterDetailsBlock extends ModelMasterDetailsBlock<Resume>
 			Object[] languages = selection.toArray();
 			for (int i = 0; i < languages.length; i++) {
 				language = (Language) languages[i];
-				getLanguages().remove(language);
+				getSkillLanguages().remove(language);
 				viewer.remove(language);
 			}
 			viewer.refresh();
@@ -163,11 +179,11 @@ public class LanguagesMasterDetailsBlock extends ModelMasterDetailsBlock<Resume>
 
 	@Override
 	public void onBind(DataBindingContext dataBindingContext) {
-		Set<SkillLanguage> languages = getLanguages();
+		Set<SkillLanguage> languages = getSkillLanguages();
 		viewer.setInput(languages);
 	}
 
-	private Set<SkillLanguage> getLanguages() {
+	private Set<SkillLanguage> getSkillLanguages() {
 		Set<SkillLanguage> languages = getModelObject().getLanguages();
 		if (languages == null) {
 			languages = new HashSet<SkillLanguage>();

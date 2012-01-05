@@ -10,9 +10,9 @@ import javax.persistence.Id;
 @Entity
 public class Client implements Serializable {
 	/**
-     * 
-     */
-	private static final long serialVersionUID = 9217187221005720810L;
+	 * 
+	 */
+	private static final long serialVersionUID = -375386407803498914L;
 
 	public static final String NAME_PROPERTY = "name";
 

@@ -35,7 +35,7 @@ public class Project implements Serializable {
 	@JoinColumn(name = "project_fk")
 	private Set<ProjectDescription> descriptions;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne//(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Client client;
 
 	@Column
