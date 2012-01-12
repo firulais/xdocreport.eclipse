@@ -37,5 +37,6 @@
 		<module>org.dynaresume.project.eclipse.ui</module>
 		<module>org.dynaresume.project.eclipse.reporting</module>
 		<module>org.dynaresume.datasource.embedded</module>
+		<module>org.dynaresume.services.dosgi</module>
 	</modules>
 </project>
