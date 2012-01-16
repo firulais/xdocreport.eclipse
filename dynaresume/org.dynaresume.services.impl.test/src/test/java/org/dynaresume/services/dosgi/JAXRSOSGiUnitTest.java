@@ -83,10 +83,7 @@ public class JAXRSOSGiUnitTest {
 						"jackson-jaxrs", "1.9.0"), CoreOptions.mavenBundle(
 						"org.codehaus.jackson", "jackson-core-asl", "1.9.0"),
 				CoreOptions.mavenBundle("org.codehaus.jackson",
-						"jackson-mapper-asl", "1.9.0"), 
-				CoreOptions
-						.mavenBundle("soa-training",
-								"jaxrs-java-first-service-delijn", "2.4.1"));
+						"jackson-mapper-asl", "1.9.0"));
 	}
 
 	public static void main(String[] args) throws TimeoutException, IOException {
