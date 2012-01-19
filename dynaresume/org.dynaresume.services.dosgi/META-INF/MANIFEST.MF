@@ -5,7 +5,8 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-SymbolicName: org.dynaresume.services.dosgi
 Bundle-Version: 1.0.0.qualifier
-Import-Package: javax.annotation,
+Import-Package: org.codehaus.jackson.jaxrs,
+ javax.annotation,
  javax.ws.rs,
  org.dynaresume.domain.core,
  org.dynaresume.domain.hr,
@@ -18,3 +19,4 @@ Bundle-RequiredExecutionEnvironment: J2SE-1.5,
 Require-Bundle: org.springframework.beans
 Bundle-ClassPath: .,
  target/classes/
+Export-Package: org.dynaresume.services.rest;version="0.9.5"

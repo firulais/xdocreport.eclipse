@@ -120,7 +120,7 @@
 		<repository>
 			<id>gef</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/tools/gef/updates</url>
+			<url>http://download.eclipse.org/tools/gef/updates-pre-3_8/milestones/</url>
 		</repository>
 		<repository>
 			<id>rap_incubator</id>
