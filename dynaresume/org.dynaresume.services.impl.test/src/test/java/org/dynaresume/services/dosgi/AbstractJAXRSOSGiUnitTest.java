@@ -130,11 +130,10 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 				mavenBundle("org.apache.commons","com.springsource.org.apache.commons.dbcp", "1.2.2.osgi"),
 				mavenBundle("org.apache.commons","com.springsource.org.apache.commons.pool", "1.3.0"),
 				// ***************** EclipseLink dependencies ********************
-				mavenBundle("org.eclipse.persistence","javax.persistence", "2.0.3"),
-				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.antlr", "2.3.0"),
-				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.asm", "2.3.0"),
-				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.core", "2.3.0"),
-				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.jpa", "2.3.0")	
+				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.antlr").versionAsInProject(),
+				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.asm").versionAsInProject(),
+				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.core").versionAsInProject(),
+				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.jpa").versionAsInProject(),
 		};
 		return options;
 	}	
