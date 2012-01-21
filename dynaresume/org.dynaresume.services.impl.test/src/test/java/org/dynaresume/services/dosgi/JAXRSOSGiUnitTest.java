@@ -56,11 +56,11 @@ public class JAXRSOSGiUnitTest extends AbstractJAXRSOSGiUnitTest {
 	public void test(){
 		System.out.println("coucou");
 	}
-
-	@Override
-	protected void configureStartupLevel(ProvisionOption[] options) {
-		
-		
-	}
+//
+//	@Override
+//	protected void configureStartupLevel(ProvisionOption[] options) {
+//		
+//		
+//	}
 
 }

@@ -23,6 +23,7 @@ public class AbstractOSGiUnitTest {
 			felix(),
 			equinox(),
 
+			
 			mavenBundle("org.apache.commons","com.springsource.org.apache.commons.logging").versionAsInProject(),
 			// ***************** Spring dependencies ********************
 			mavenBundle("org.aopalliance", "com.springsource.org.aopalliance").versionAsInProject(),

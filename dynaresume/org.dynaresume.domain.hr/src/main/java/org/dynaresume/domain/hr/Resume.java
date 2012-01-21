@@ -1,6 +1,11 @@
 package org.dynaresume.domain.hr;
 
 import java.io.ByteArrayInputStream;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import java.io.InputStream;
 import java.util.Set;
 
@@ -16,7 +21,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import org.dynaresume.domain.core.NaturalPerson;
-
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 public class Resume {
 

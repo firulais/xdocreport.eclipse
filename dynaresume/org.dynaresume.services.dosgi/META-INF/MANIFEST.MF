@@ -5,9 +5,10 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-SymbolicName: org.dynaresume.services.dosgi
 Bundle-Version: 1.0.0.qualifier
-Import-Package: org.codehaus.jackson.jaxrs,
- javax.annotation,
+Import-Package: javax.annotation,
  javax.ws.rs,
+ javax.xml.bind.annotation;version="1.0.0",
+ org.codehaus.jackson.jaxrs,
  org.dynaresume.domain.core,
  org.dynaresume.domain.hr,
  org.dynaresume.domain.project,

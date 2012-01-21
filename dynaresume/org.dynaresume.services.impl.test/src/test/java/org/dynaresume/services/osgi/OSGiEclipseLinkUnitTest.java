@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import org.dynaresume.dao.AgencyDao;
@@ -80,8 +81,11 @@ public class OSGiEclipseLinkUnitTest extends AbstractOSGiUnitTest {
 								profile("gogo")))).start();
 	}
 
+	@Inject
+	BundleContext ctx;
+	
 	@Test
-	public void findDataSource(BundleContext ctx) throws InterruptedException {
+	public void findDataSource() throws InterruptedException {
 		Thread.sleep(10);
 		assertThat(ctx, is(notNullValue()));
 		System.out.println("BundleContext of bundle injected: "
@@ -97,8 +101,8 @@ public class OSGiEclipseLinkUnitTest extends AbstractOSGiUnitTest {
 	}
 
 	@Test
-	public void findResumeDao(BundleContext ctx) throws InterruptedException {
-		Thread.sleep(10);
+	public void findResumeDao() throws InterruptedException {
+		
 		assertThat(ctx, is(notNullValue()));
 		System.out.println("BundleContext of bundle injected: "
 				+ ctx.getBundle().getSymbolicName());
@@ -136,8 +140,8 @@ public class OSGiEclipseLinkUnitTest extends AbstractOSGiUnitTest {
 	}
 
 	@Test
-	public void testSkillDao(BundleContext ctx) throws InterruptedException {
-		Thread.sleep(10);
+	public void testSkillDao() throws InterruptedException {
+		
 		assertThat(ctx, is(notNullValue()));
 
 		ServiceTracker tracker = new ServiceTracker(ctx,
@@ -176,8 +180,8 @@ public class OSGiEclipseLinkUnitTest extends AbstractOSGiUnitTest {
 	}
 
 	@Test
-	public void testGroupDao(BundleContext ctx) throws InterruptedException {
-		Thread.sleep(2000);
+	public void testGroupDao() throws InterruptedException {
+		
 		assertThat(ctx, is(notNullValue()));
 
 		ServiceTracker groupTracker = new ServiceTracker(ctx,
@@ -213,9 +217,9 @@ public class OSGiEclipseLinkUnitTest extends AbstractOSGiUnitTest {
 	}
 
 	@Test
-	public void testSkillCategoryDao(BundleContext ctx)
+	public void testSkillCategoryDao()
 			throws InterruptedException {
-		Thread.sleep(2000);
+		
 
 		ServiceTracker skillCategoryDaoTracker = new ServiceTracker(ctx,
 				SkillCategoryDao.class.getName(), null);
@@ -235,8 +239,8 @@ public class OSGiEclipseLinkUnitTest extends AbstractOSGiUnitTest {
 	}
 
 	@Test
-	public void testLanguageDao(BundleContext ctx) throws InterruptedException {
-		Thread.sleep(2000);
+	public void testLanguageDao() throws InterruptedException {
+		
 		ServiceTracker tracker = new ServiceTracker(ctx,
 				LanguageDao.class.getName(), null);
 		tracker.open();

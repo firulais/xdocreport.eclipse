@@ -27,7 +27,16 @@ public class ResumeServiceRest {
 		resumes.add(new Resume());
 		return resumes;
 	}
-
+	@GET
+	@Path("testOne")
+	@Produces("application/json")
+	public Result testOne(){
+		Result result= new Result();
+		result.setMsg("coucou");
+		result.setTest(true);
+		return result;
+	}
+	
 	Resume findById(long id){
 		return new Resume();
 	}

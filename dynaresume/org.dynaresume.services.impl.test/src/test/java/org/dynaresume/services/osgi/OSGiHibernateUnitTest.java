@@ -27,6 +27,7 @@ import static org.ops4j.pax.exam.OptionUtils.combine;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import org.dynaresume.dao.ResumeDao;
@@ -83,20 +84,12 @@ public class OSGiHibernateUnitTest extends AbstractOSGiUnitTest {
 						profile("gogo")))).start();
 	}
 
-	/**
-	 * Just like any other Test in previous lessons, they can receive an
-	 * instance of BundleContext plus optional arguments. Because you have Test
-	 * Setup (@Configuration method) and Tests (this method) side by side, there
-	 * is no point passing additional arguments.
-	 * 
-	 * @param ctx
-	 *            BundleContext injected. Must be first argument, if any.
-	 * @throws InterruptedException
-	 */
+	@Inject
+	BundleContext ctx;
 	
 	@Test
-	public void findDataSource(BundleContext ctx) throws InterruptedException {
-		Thread.sleep(10);
+	public void findDataSource() throws InterruptedException {
+		
 		assertThat(ctx, is(notNullValue()));
 		System.out.println("BundleContext of bundle injected: "
 				+ ctx.getBundle().getSymbolicName());
@@ -112,7 +105,7 @@ public class OSGiHibernateUnitTest extends AbstractOSGiUnitTest {
 
 	@Ignore("Temporary ignore the test until I can find a usable hibernate bundle")
 	@Test
-	public void findResumeDao(BundleContext ctx) throws InterruptedException {
+	public void findResumeDao() throws InterruptedException {
 		assertThat(ctx, is(notNullValue()));
 		System.out.println("BundleContext of bundle injected: "
 				+ ctx.getBundle().getSymbolicName());
