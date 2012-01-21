@@ -218,7 +218,7 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 		return options;
 	}
 
-	protected static final int PORT = 9001;
+	protected static final int PORT = 9002;
 
 	private static String createURL(String relativePath) {
 		return "http://localhost:" + PORT + relativePath;
