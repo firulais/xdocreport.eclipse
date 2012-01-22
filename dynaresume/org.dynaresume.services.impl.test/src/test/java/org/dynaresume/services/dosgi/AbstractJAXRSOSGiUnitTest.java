@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactoryBean;
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
-import org.dynaresume.services.rest.Result;
+import org.dynaresume.domain.hr.Resume;
 import org.dynaresume.services.rest.ResumeServiceRest;
 import org.junit.After;
 import org.junit.Assert;
@@ -298,10 +298,11 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 		WebClient webClient = createUserMissionResourceClient();
 		System.out.println("webClient "+webClient);
 		assertNotNull(webClient);
-		Result result = webClient.accept(MediaType.APPLICATION_JSON)
-				.path("testOne").get(Result.class);
-		Assert.assertNotNull(result);
-		Assert.assertNotNull(result.isTest());
+		Resume resume = webClient.accept(MediaType.APPLICATION_JSON)
+				.path("testOne").get(Resume.class);
+		Assert.assertNotNull(resume);
+		
+		Assert.assertEquals(1L, resume.getId().longValue());
 		// assertResultContainsListOfSize(5,result.data);
 
 	}

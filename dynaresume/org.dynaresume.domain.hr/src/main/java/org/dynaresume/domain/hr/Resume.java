@@ -86,16 +86,6 @@ public class Resume {
 		this.picture = picture;
 	}
 
-	/**
-	 * @deprecated use byte[] as much as possible
-	 * @return
-	 */
-	public InputStream getPictureAsStream() {
-		if (picture == null) {
-			return null;
-		}
-		return new ByteArrayInputStream(picture);
-	}
 
 	public NaturalPerson getOwner() {
 		return owner;

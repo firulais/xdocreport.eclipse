@@ -48,9 +48,6 @@ public abstract class AbstractResumeFactory extends Resume {
 		return resume.getPicture();
 	}
 
-	public InputStream getPictureAsStream() {
-		return resume.getPictureAsStream();
-	}
 
 	public NaturalPerson getOwner() {
 		return resume.getOwner();

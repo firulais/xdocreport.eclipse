@@ -2,7 +2,10 @@ package org.dynaresume.services.rest;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.ws.rs.*;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 
 import org.dynaresume.domain.hr.Resume;
 
@@ -30,10 +33,10 @@ public class ResumeServiceRest {
 	@GET
 	@Path("testOne")
 	@Produces("application/json")
-	public Result testOne(){
-		Result result= new Result();
-		result.setMsg("coucou");
-		result.setTest(true);
+	public Resume testOne(){
+		Resume result= new Resume();
+		result.setId(1);
+		result.setTitle("test");
 		return result;
 	}
 	
