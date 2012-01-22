@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import org.dynaresume.domain.hr.Resume;
@@ -13,12 +14,6 @@ import org.dynaresume.domain.hr.Resume;
 public class ResumeServiceRest {
 	
 	
-	@GET
-	@Path("test")
-	@Produces("text/plain")
-	public String hello(){
-		return "Hello !!!";
-	}
 	
 	
 	@GET
@@ -30,21 +25,19 @@ public class ResumeServiceRest {
 		resumes.add(new Resume());
 		return resumes;
 	}
+	
+	
 	@GET
-	@Path("testOne")
+	@Path("findById/{resumeId}")
 	@Produces("application/json")
-	public Resume testOne(){
+	public Resume findById(@PathParam("resumeId") long resumeId){
 		Resume result= new Resume();
-		result.setId(1);
+		result.setId(resumeId);
 		result.setTitle("test");
 		return result;
 	}
-	
-	Resume findById(long id){
-		return new Resume();
-	}
 
-	Resume save(Resume resume){
+	public Resume save(Resume resume){
 		return resume;
 	}
 }

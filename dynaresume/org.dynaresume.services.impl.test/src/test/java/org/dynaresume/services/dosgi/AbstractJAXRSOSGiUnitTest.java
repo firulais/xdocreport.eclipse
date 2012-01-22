@@ -299,7 +299,7 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 		System.out.println("webClient "+webClient);
 		assertNotNull(webClient);
 		Resume resume = webClient.accept(MediaType.APPLICATION_JSON)
-				.path("testOne").get(Resume.class);
+				.path("findById/1").get(Resume.class);
 		Assert.assertNotNull(resume);
 		
 		Assert.assertEquals(1L, resume.getId().longValue());
