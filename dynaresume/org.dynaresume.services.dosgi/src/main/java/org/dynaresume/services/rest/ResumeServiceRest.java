@@ -18,10 +18,12 @@ public class ResumeServiceRest {
 	@GET
 	@Path("findAll")
 	@Produces("application/json")
-	public Iterable<Resume> findAll(){
+	public Resumes findAll(){
 		
-		List<Resume> resumes=new ArrayList<Resume>();
-		resumes.add(new Resume());
+		List<Resume> resume=new ArrayList<Resume>();
+		resume.add(new Resume());
+		Resumes resumes= new Resumes();
+		resumes.setResumes(resume);
 		return resumes;
 	}
 	

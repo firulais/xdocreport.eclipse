@@ -15,6 +15,7 @@ import org.apache.cxf.jaxrs.client.WebClient;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.dynaresume.domain.hr.Resume;
 import org.dynaresume.services.rest.ResumeServiceRest;
+import org.dynaresume.services.rest.Resumes;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -86,56 +87,40 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 				mavenBundle("org.apache.servicemix.bundles",
 						"org.apache.servicemix.bundles.wsdl4j", "1.6.1_1"),
 				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/org.apache.servicemix.bundles.wsdl4j-1.6.1_1.jar"),
-				mavenBundle("org.apache.servicemix.bundles",
-						"org.apache.servicemix.bundles.xmlsec", "1.3.0_1"),
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/org.apache.servicemix.bundles.xmlsec-1.3.0_1.jar"),
-				mavenBundle("org.apache.servicemix.bundles",
-						"org.apache.servicemix.bundles.xmlschema", "1.4.3_1"),
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/org.apache.servicemix.bundles.xmlschema-1.4.3_1.jar"),
-				mavenBundle("org.apache.servicemix.bundles",
-						"org.apache.servicemix.bundles.asm", "2.2.3_1"),
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/org.apache.servicemix.bundles.asm-2.2.3_1.jar"),
-				mavenBundle("org.apache.servicemix.bundles",
-						"org.apache.servicemix.bundles.xmlresolver", "1.2_1"),
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/org.apache.servicemix.bundles.xmlresolver-1.2_1.jar"),
-				mavenBundle("org.apache.servicemix.bundles",
-						"org.apache.servicemix.bundles.neethi", "2.0.4_4"),
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/org.apache.servicemix.bundles.neethi-2.0.4_1.jar"),
-				mavenBundle("org.apache.servicemix.bundles",
-						"org.apache.servicemix.bundles.woodstox", "3.2.7_1"),
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/org.apache.servicemix.bundles.woodstox-3.2.7_1.jar"),
-				mavenBundle("org.apache.servicemix.bundles",
-						"org.apache.servicemix.bundles.commons-pool", "1.5.4_1"),
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/org.apache.servicemix.bundles.commons-pool-1.5.4_1.jar"),
-				mavenBundle("org.apache.servicemix.specs",
-						"org.apache.servicemix.specs.saaj-api-1.3", "1.3.0"),
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/org.apache.servicemix.specs.saaj-api-1.3-1.3.0.jar"),
-				mavenBundle("org.apache.servicemix.specs",
-						"org.apache.servicemix.specs.stax-api-1.0", "1.3.0"),
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/org.apache.servicemix.specs.stax-api-1.0-1.3.0.jar"),
-				mavenBundle("org.apache.servicemix.specs",
-						"org.apache.servicemix.specs.jaxb-api-2.1", "1.3.0"),
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/org.apache.servicemix.specs.jaxb-api-2.1-1.3.0.jar"),
-				mavenBundle("org.apache.servicemix.specs",
-						"org.apache.servicemix.specs.jaxws-api-2.1", "1.3.0"),
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/org.apache.servicemix.specs.jaxws-api-2.1-1.3.0.jar"),
-				mavenBundle("org.apache.servicemix.specs",
-						"org.apache.servicemix.specs.jsr311-api-1.0", "1.3.0"),
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/org.apache.servicemix.specs.jsr311-api-1.0-1.3.0.jar"),
+				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.xmlsec", "1.3.0_1"),
+				
+				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.xmlschema", "1.4.3_1"),
+
+				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.asm", "2.2.3_1"),
+
+				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.xmlresolver", "1.2_1"),
+
+				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.neethi", "2.0.4_4"),
+
+				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.woodstox", "3.2.7_1"),
+
+				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.commons-pool", "1.5.4_1"),
+
+				mavenBundle("org.apache.servicemix.specs","org.apache.servicemix.specs.saaj-api-1.3", "1.3.0"),
+
+				mavenBundle("org.apache.servicemix.specs","org.apache.servicemix.specs.stax-api-1.0", "1.3.0"),
+
+				mavenBundle("org.apache.servicemix.specs","org.apache.servicemix.specs.jaxb-api-2.1", "1.3.0"),
+
+				mavenBundle("org.apache.servicemix.specs","org.apache.servicemix.specs.jaxws-api-2.1", "1.3.0"),
+
+				mavenBundle("org.apache.servicemix.specs","org.apache.servicemix.specs.jsr311-api-1.0", "1.3.0"),
+		
 				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.jaxb-impl", "2.1.6_1"),
-						
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/org.apache.servicemix.bundles.jaxb-impl-2.1.6_1.jar"),
+		
 				mavenBundle("org.apache.cxf", "cxf-bundle-minimal", "2.2.10"),
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/cxf-bundle-minimal-2.2.9.jar"),
-				mavenBundle("org.apache.cxf.dosgi",
-						"cxf-dosgi-ri-discovery-local", "1.2"),
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/cxf-dosgi-ri-discovery-local-1.2.jar"),
-				mavenBundle("org.apache.cxf.dosgi", "cxf-dosgi-ri-dsw-cxf",
-						"1.2"),
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/cxf-dosgi-ri-dsw-cxf-1.2.jar"),
-				mavenBundle("org.apache.cxf.dosgi",
-						"cxf-dosgi-ri-topology-manager", "1.2"),
-		// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/cxf-dosgi-ri-topology-manager-1.2.jar")
+		
+				mavenBundle("org.apache.cxf.dosgi","cxf-dosgi-ri-discovery-local", "1.2"),
+		
+				mavenBundle("org.apache.cxf.dosgi", "cxf-dosgi-ri-dsw-cxf","1.2"),
+		
+				mavenBundle("org.apache.cxf.dosgi","cxf-dosgi-ri-topology-manager", "1.2"),
+		
 		};
 		// configureStartupLevel( options);
 		return options;
@@ -264,7 +249,7 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 			// I have to "wait" until the OSGi platform is fully initialized...
 			// I'm still looking for a clever way of doing this (possibly
 			// through listeners).
-			Thread.sleep(20000);
+			Thread.sleep(15000);
 			setInitialized(true);
 		}
 	}
@@ -291,11 +276,11 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 	private BundleContext ctx;
 
 	@Test
-	public void testGetMissionsForUser1() throws Exception {
+	public void findById() throws Exception {
 
 		assertNotNull(ctx);
 		System.out.println("ctx "+ctx);
-		WebClient webClient = createUserMissionResourceClient();
+		WebClient webClient = createWebClient();
 		System.out.println("webClient "+webClient);
 		assertNotNull(webClient);
 		Resume resume = webClient.accept(MediaType.APPLICATION_JSON)
@@ -307,7 +292,27 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 
 	}
 
-	private WebClient createUserMissionResourceClient() {
+	@Test
+	public void findAll() throws Exception {
+
+		assertNotNull(ctx);
+		System.out.println("ctx "+ctx);
+		WebClient webClient = createWebClient();
+		System.out.println("webClient "+webClient);
+		assertNotNull(webClient);
+		
+		
+		Resumes resumes= webClient.accept(MediaType.APPLICATION_JSON).path("findAll").get(Resumes.class);
+		
+		Assert.assertNotNull(resumes);
+		Assert.assertEquals(1L, resumes.getResumes().size());
+		
+		//Assert.assertEquals(1L, resume.getId().longValue());
+		// assertResultContainsListOfSize(5,result.data);
+
+	}
+
+	private WebClient createWebClient() {
 
 		JAXRSClientFactoryBean factory = new JAXRSClientFactoryBean();
 		factory.setAddress(createURL("/resume"));

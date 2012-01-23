@@ -24,7 +24,7 @@ public class JAXRSOSGiUnitTest extends AbstractJAXRSOSGiUnitTest {
 	@Configuration
 	public  Option[] config() {
 		return CoreOptions.options(CoreOptions.cleanCaches(),
-
+				CoreOptions.cleanCaches(),
 				// Run this test under Felix.
 				CoreOptions.frameworks(CoreOptions.felix()),
 		        composite(infra()),
