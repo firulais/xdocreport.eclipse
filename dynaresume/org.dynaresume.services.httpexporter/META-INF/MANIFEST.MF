@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Httpexporter
+Bundle-SymbolicName: org.dynaresume.services.httpexporter
+Bundle-Version: 1.0.0.qualifier
+Import-Package: org.dynaresume.services,
+ org.springframework.remoting.httpinvoker;version="3.1.0.RELEASE"
