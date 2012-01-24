@@ -120,7 +120,7 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 				mavenBundle("org.apache.cxf.dosgi", "cxf-dosgi-ri-dsw-cxf","1.2"),
 		
 				mavenBundle("org.apache.cxf.dosgi","cxf-dosgi-ri-topology-manager", "1.2"),
-		
+				
 		};
 		// configureStartupLevel( options);
 		return options;
@@ -134,9 +134,10 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 				systemProperty("org.ops4j.pax.logging.DefaultServiceLog.level")
 						.value("WARN"),
 				CoreOptions.cleanCaches(),
-
-				systemProperty("org.osgi.service.http.port").value(
-						Integer.toString(PORT)),
+				
+				mavenBundle("org.osgi","org.osgi.compendium","4.2.0"),
+				
+				
 				CoreOptions.junitBundles(),
 				CoreOptions.compendiumProfile(),
 				// ***************** Gemini dependencies ********************
@@ -161,7 +162,9 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 				mavenBundle("org.eclipse.persistence",
 						"org.eclipse.persistence.core").versionAsInProject(),
 				mavenBundle("org.eclipse.persistence",
-						"org.eclipse.persistence.jpa").versionAsInProject(), };
+						"org.eclipse.persistence.jpa").versionAsInProject(), 
+					
+		};
 		return options;
 	}
 
@@ -203,7 +206,7 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 		return options;
 	}
 
-	protected static final int PORT = 9090;
+	protected static final int PORT = 10200;
 
 	private static String createURL(String relativePath) {
 		return "http://localhost:" + PORT + relativePath;
@@ -315,7 +318,7 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 	private WebClient createWebClient() {
 
 		JAXRSClientFactoryBean factory = new JAXRSClientFactoryBean();
-		factory.setAddress(createURL("/resume"));
+		factory.setAddress(createURL("/resume/resume"));
 		factory.setResourceClass(ResumeServiceRest.class);
 		JacksonJsonProvider provider = new JacksonJsonProvider();
 		factory.setProvider(provider);

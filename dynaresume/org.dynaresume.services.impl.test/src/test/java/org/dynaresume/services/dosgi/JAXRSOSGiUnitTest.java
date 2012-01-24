@@ -1,8 +1,10 @@
 package org.dynaresume.services.dosgi;
 
 
-import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
-import static org.ops4j.pax.exam.CoreOptions.*;
+import static org.ops4j.pax.exam.CoreOptions.composite;
+import static org.ops4j.pax.exam.CoreOptions.profile;
+import static org.ops4j.pax.exam.CoreOptions.systemProperty;
+import static org.ops4j.pax.exam.CoreOptions.workingDirectory;
 import static org.ops4j.pax.exam.OptionUtils.combine;
 
 import java.io.IOException;
@@ -14,7 +16,6 @@ import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.TimeoutException;
 import org.ops4j.pax.exam.junit.Configuration;
 import org.ops4j.pax.exam.junit.JUnit4TestRunner;
-import org.ops4j.pax.exam.options.ProvisionOption;
 import org.ops4j.pax.exam.spi.PaxExamRuntime;
 
 //starts this class  as an "application" (with a "main").
@@ -23,7 +24,10 @@ public class JAXRSOSGiUnitTest extends AbstractJAXRSOSGiUnitTest {
 
 	@Configuration
 	public  Option[] config() {
-		return CoreOptions.options(CoreOptions.cleanCaches(),
+		return CoreOptions.options(
+
+				systemProperty("org.osgi.service.http.port").value(Integer.toString(PORT)),
+				systemProperty("org.ops4j.pax.web.session.timeout").value(Integer.toString(30)),
 				CoreOptions.cleanCaches(),
 				// Run this test under Felix.
 				CoreOptions.frameworks(CoreOptions.felix()),
@@ -33,7 +37,7 @@ public class JAXRSOSGiUnitTest extends AbstractJAXRSOSGiUnitTest {
 				composite(cfxdosgi()),
 				//TODO:
 				//bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/spring-osgi-extender-1.2.0.jar").startLevel(6),
-				systemProperty("org.osgi.framework.startlevel.beginning").value("" + 20),
+				systemProperty("org.osgi.framework.startlevel.beginning").value("" + 100),
 				
 
 				// For debugging...
@@ -51,6 +55,7 @@ public class JAXRSOSGiUnitTest extends AbstractJAXRSOSGiUnitTest {
 				PaxExamRuntime.createTestSystem(combine(new JAXRSOSGiUnitTest().config(),
 						profile("web")))).start();
 	}
+	
 	
 	@Test
 	public void test(){
