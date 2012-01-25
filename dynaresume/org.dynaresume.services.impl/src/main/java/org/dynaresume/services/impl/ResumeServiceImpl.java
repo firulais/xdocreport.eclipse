@@ -36,4 +36,9 @@ public class ResumeServiceImpl implements ResumeService {
 				firstName, lastName, pageable);
 	}
 
+	public long count() {
+		
+		return resumeDao.count();
+	}
+
 }

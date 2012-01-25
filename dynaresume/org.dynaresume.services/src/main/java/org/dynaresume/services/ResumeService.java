@@ -10,6 +10,8 @@ public interface ResumeService {
 	Resume findById(long id);
 
 	Resume save(Resume resume);
+	
+	long count();
 
 	Page<Resume> findByFirstNameAndLastName(String firstName,
 			String lastName, Pageable pageable);

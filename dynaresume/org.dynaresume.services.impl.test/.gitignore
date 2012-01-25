@@ -5,3 +5,5 @@
 /.classpath
 /derbydb
 /.settings
+/dropDDL.jdbc
+/createDDL.jdbc
