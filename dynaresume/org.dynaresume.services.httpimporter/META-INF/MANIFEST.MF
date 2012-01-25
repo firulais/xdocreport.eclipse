@@ -3,3 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Httpimporter
 Bundle-SymbolicName: org.dynaresume.services.httpimporter
 Bundle-Version: 1.0.0.qualifier
+Import-Package: org.springframework.beans.factory.config;version="3.1.0.RELEASE",
+ org.springframework.remoting.httpinvoker;version="3.1.0.RELEASE"
+Bundle-RequiredExecutionEnvironment: J2SE-1.5,
+ JavaSE-1.6
