@@ -1,6 +1,10 @@
 package org.dynaresume.services.dosgi;
 
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.notNullValue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 import static org.ops4j.pax.exam.CoreOptions.systemProperty;
 
@@ -14,6 +18,7 @@ import org.apache.cxf.jaxrs.client.JAXRSClientFactoryBean;
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.dynaresume.domain.hr.Resume;
+import org.dynaresume.services.ResumeService;
 import org.dynaresume.services.rest.ResumeServiceRest;
 import org.dynaresume.services.rest.Resumes;
 import org.junit.After;
@@ -24,6 +29,7 @@ import org.ops4j.pax.exam.CoreOptions;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.options.ProvisionOption;
 import org.osgi.framework.BundleContext;
+import org.osgi.util.tracker.ServiceTracker;
 
 public abstract class AbstractJAXRSOSGiUnitTest {
 
@@ -171,37 +177,36 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 	protected Option[] brails() {
 		Option[] options = {
 				// ***************** Gemini blueprint ********************
-				mavenBundle("org.springframework.osgi", "spring-osgi-core",
-						"1.2.1"),
-				mavenBundle("org.springframework.osgi", "spring-osgi-io",
-						"1.2.1"),
-				mavenBundle("org.springframework.osgi", "spring-osgi-extender",
-						"1.2.1").startLevel(5),
+				mavenBundle("org.springframework.osgi", "spring-osgi-core","1.2.1"),
+				mavenBundle("org.springframework.osgi", "spring-osgi-io","1.2.1"),
+				mavenBundle("org.springframework.osgi", "spring-osgi-extender","1.2.1").startLevel(5),
 
 				// ***************** Spring data ********************
 				mavenBundle("org.springframework.data", "spring-data-jpa")
 						.versionAsInProject(),
-				mavenBundle("org.springframework.data",
-						"spring-data-commons-core").versionAsInProject(),
+				mavenBundle("org.springframework.data","spring-data-commons-core").versionAsInProject(),
 
 				// ***************** Required APIs ********************
-				mavenBundle("javax.validation",
-						"com.springsource.javax.validation")
-						.versionAsInProject(),
-				mavenBundle("org.eclipse.persistence", "javax.persistence")
-						.versionAsInProject(),
-				mavenBundle("fr.opensagres.xdocreport-eclipse",
-						"org.dynaresume.services").versionAsInProject(),
-				mavenBundle("fr.opensagres.xdocreport-eclipse",
-						"org.dynaresume.domain.core").versionAsInProject(),
-				mavenBundle("fr.opensagres.xdocreport-eclipse",
-						"org.dynaresume.domain.project").versionAsInProject(),
-				mavenBundle("fr.opensagres.xdocreport-eclipse",
-						"org.dynaresume.domain.hr").versionAsInProject(),
-
-				mavenBundle("fr.opensagres.xdocreport-eclipse",
-						"org.dynaresume.services.dosgi", "1.0.0-SNAPSHOT"),
-
+				mavenBundle("javax.validation","com.springsource.javax.validation").versionAsInProject(),
+				mavenBundle("org.eclipse.persistence", "javax.persistence").versionAsInProject(),
+				// ***************** DataBase ********************
+				mavenBundle("org.apache.derby", "derby").versionAsInProject(),
+				mavenBundle("org.apache.commons","com.springsource.org.apache.commons.dbcp").versionAsInProject(),
+				mavenBundle("org.apache.commons","com.springsource.org.apache.commons.pool").versionAsInProject(),
+		
+				// ***************** XDocReport    ********************
+				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.datasource").versionAsInProject(),
+				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao").versionAsInProject(),
+				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa").versionAsInProject(),
+				//eclipselink fragment 
+				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa.eclipselink").versionAsInProject().noStart(),
+				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.services").versionAsInProject(),
+				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.core").versionAsInProject(),
+				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.project").versionAsInProject(),
+				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.hr").versionAsInProject(),
+				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.services").versionAsInProject(),
+				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.services.impl").versionAsInProject(),
+				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.services.dosgi", "1.0.0-SNAPSHOT"),
 		};
 		return options;
 	}
@@ -276,7 +281,7 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 	}
 
 	@Inject
-	private BundleContext ctx;
+	protected BundleContext ctx;
 
 	@Test
 	public void findById() throws Exception {
@@ -315,6 +320,31 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 
 	}
 
+private static final int timeout = 30000;
+	
+
+	@Test
+	public void findResumeService() throws InterruptedException {
+		Thread.sleep(10);
+		assertThat(ctx, is(notNullValue()));
+		System.out.println("BundleContext of bundle injected: "
+				+ ctx.getBundle().getSymbolicName());
+
+		ServiceTracker tracker = new ServiceTracker(ctx,
+				ResumeService.class.getName(), null);
+		tracker.open();
+		ResumeService resumeService =(ResumeService) tracker.waitForService(timeout);
+
+		tracker.close();
+		assertNotNull(resumeService);
+		
+		long count=resumeService.count();
+		//assertThat(resumeService.count(), is(equalTo(0)));
+		Resume resume = new Resume();
+		resume.setTitle("Jedi Master");
+		resumeService.save(resume);
+		assertEquals(count+1, resumeService.count());
+	}
 	private WebClient createWebClient() {
 
 		JAXRSClientFactoryBean factory = new JAXRSClientFactoryBean();
@@ -325,5 +355,5 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 		WebClient webClient = factory.createWebClient();
 		return webClient;
 	}
-
+	
 }

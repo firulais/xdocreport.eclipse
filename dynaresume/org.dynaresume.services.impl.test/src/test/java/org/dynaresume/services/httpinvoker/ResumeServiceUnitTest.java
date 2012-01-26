@@ -71,7 +71,7 @@ public class ResumeServiceUnitTest extends AbstractOSGiUnitTest {
 	BundleContext ctx;
 	
 	@Test
-	public void findDataSource() throws InterruptedException {
+	public void findResumeService() throws InterruptedException {
 		Thread.sleep(10);
 		assertThat(ctx, is(notNullValue()));
 		System.out.println("BundleContext of bundle injected: "
