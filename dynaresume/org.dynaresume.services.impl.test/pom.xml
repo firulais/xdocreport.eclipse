@@ -358,12 +358,11 @@
 			<artifactId>com.springsource.javax.mail</artifactId>
 			<version>1.4.0</version>
 		</dependency>
-		<!-- Cause NonOSGi Test to fail...
 		<dependency>
 			<groupId>fr.opensagres.xdocreport-eclipse</groupId>
 			<version>1.0.0-SNAPSHOT</version>
 			<artifactId>org.dynaresume.services.httpexporter</artifactId>
-		</dependency> -->
+		</dependency> 
 		<!-- gemini web (requires OSGi v 4.3.0)
 		<dependency>
     		<groupId>org.eclipse.gemini.web</groupId>
@@ -423,12 +422,12 @@
 			<name>Maven Central Compatible Spring Milestone Repository</name>
 			<url>http://maven.springframework.org/milestone</url>
 		</repository>
-		 <!-- required for gemini web 
+		 <!-- required for gemini web  
 		 <repository>
-		<id>gemini web</id>
-		<url>http://build.eclipse.org/rt/virgo/maven/bundles/release</url>
-		</repository>  -->
-
+			<id>gemini web</id>
+			<url>http://build.eclipse.org/rt/virgo/maven/bundles/release</url>
+		</repository>  
+		-->
 	</repositories>
 
 </project>
