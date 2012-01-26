@@ -42,7 +42,7 @@ public class ResumeServiceUnitTest extends AbstractOSGiUnitTest {
 
 		
 		return CoreOptions.options(
-				
+				//mavenBundle("org.osgi","org.osgi.core").version("4.2.0"),
 				//CoreOptions.composite(xdocreportCommonBundles()),
 				// ***************** EclipseLink dependencies
 				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.antlr").versionAsInProject(),
@@ -54,6 +54,8 @@ public class ResumeServiceUnitTest extends AbstractOSGiUnitTest {
 				composite(commonOptions()),
 				composite(xdocreportCommonBundles()),
 				composite(xdocreportServiceBundles())
+				//sniff : gemini Web does not seems to work properly..
+				//composite(geminiWebOptions())
 				)
 ;
 	}
@@ -62,8 +64,7 @@ public class ResumeServiceUnitTest extends AbstractOSGiUnitTest {
 		PaxExamRuntime
 				.createContainer(
 						PaxExamRuntime.createTestSystem(combine(
-								new ResumeServiceUnitTest().config(),
-								profile("gogo")))).start();
+								new ResumeServiceUnitTest().config(),profile("gogo")))).start();
 	}
 
 	@Inject

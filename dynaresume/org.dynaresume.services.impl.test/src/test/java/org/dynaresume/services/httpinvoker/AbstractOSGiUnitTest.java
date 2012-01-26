@@ -49,12 +49,54 @@ public class AbstractOSGiUnitTest {
 			mavenBundle("org.apache.commons","com.springsource.org.apache.commons.dbcp").versionAsInProject(),
 			mavenBundle("org.apache.commons","com.springsource.org.apache.commons.pool").versionAsInProject(),
 			// ***************** Gemini blueprint ********************
-			mavenBundle("org.eclipse.gemini.blueprint", "gemini-blueprint-core").versionAsInProject(),
-			mavenBundle("org.eclipse.gemini.blueprint", "gemini-blueprint-io").versionAsInProject(),
-			mavenBundle("org.eclipse.gemini.blueprint","gemini-blueprint-extender").versionAsInProject().startLevel(5) 
+			mavenBundle("org.springframework.osgi", "org.springframework.osgi.core").version("1.2.1"),
+			mavenBundle("org.springframework.osgi", "org.springframework.osgi.io").version("1.2.1"),
+			mavenBundle("org.springframework.osgi", "org.springframework.osgi.extender").version("1.2.1").startLevel(5)
+			 
 		);
 	}
-	
+	public Option[] geminiWebOptions() {
+		return CoreOptions.options(
+				//shared whith DOSGi
+				mavenBundle("org.apache.geronimo.specs","geronimo-annotation_1.0_spec", "1.1.1"),
+				mavenBundle("javax.activation","com.springsource.javax.activation", "1.1.1"),
+				mavenBundle("javax.mail", "com.springsource.javax.mail","1.4.0"),
+				
+
+				//end
+				
+				mavenBundle("javax.ejb", "com.springsource.javax.ejb").version("3.0.0"),
+				
+				mavenBundle("javax.xml.rpc", "com.springsource.javax.xml.rpc").version("1.1.0"),
+			
+				mavenBundle("javax.xml.soap", "com.springsource.javax.xml.soap").version("1.3.0"),
+				mavenBundle("org.apache.catalina", "com.springsource.org.apache.catalina").version("7.0.21"),
+				mavenBundle("org.apache.catalina", "com.springsource.org.apache.catalina.ha").version("7.0.21"),
+				mavenBundle("org.apache.catalina", "com.springsource.org.apache.catalina.tribes").version("7.0.21"),
+				mavenBundle("javax.persistence", "com.springsource.javax.persistence").version("1.99.0"),
+				
+				mavenBundle("javax.xml.ws", "com.springsource.javax.xml.ws").version("2.1.1"),
+				
+				mavenBundle("javax.xml.stream", "com.springsource.javax.xml.stream").version("1.0.1"),
+				mavenBundle("org.apache.coyote", "com.springsource.org.apache.coyote").version("7.0.21").noStart(),
+				
+				mavenBundle("org.apache.juli", "com.springsource.org.apache.juli.extras").version("7.0.21"),
+				mavenBundle("org.apache.tomcat", "com.springsource.org.apache.tomcat.util").version("7.0.21").noStart(),
+				
+				mavenBundle("org.apache.tomcat", "com.springsource.org.apache.tomcat.api").version("7.0.21"),
+				mavenBundle("javax.xml.bind", "com.springsource.javax.xml.bind").version("2.2.0"),
+				mavenBundle("org.eclipse.virgo.util", "org.eclipse.virgo.util.parser.manifest").versionAsInProject(),
+				mavenBundle("org.eclipse.virgo.util", "org.eclipse.virgo.util.math").versionAsInProject(),
+				mavenBundle("org.eclipse.virgo.util", "org.eclipse.virgo.util.common").versionAsInProject(),
+			    mavenBundle("org.eclipse.virgo.util", "org.eclipse.virgo.util.osgi").versionAsInProject(),
+			    mavenBundle("org.eclipse.virgo.util", "org.eclipse.virgo.util.io").versionAsInProject(),
+				mavenBundle("org.eclipse.gemini.web", "org.eclipse.gemini.web.core").version("2.0.1.RELEASE"),
+				mavenBundle("org.eclipse.gemini.web", "org.eclipse.gemini.web.extender").version("2.0.1.RELEASE"),
+				mavenBundle("org.eclipse.gemini.web", "org.eclipse.gemini.web.tomcat").version("2.0.1.RELEASE")
+				
+				
+				);
+	}
 			
 	public Option[] xdocreportCommonBundles() {
 				
@@ -74,8 +116,8 @@ public class AbstractOSGiUnitTest {
 		
 		return CoreOptions.options (
 			mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.services").versionAsInProject(),
-			mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.services.impl").versionAsInProject(),
-			mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.services.httpexporter").versionAsInProject()
+			mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.services.impl").versionAsInProject()
+			//mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.services.httpexporter").versionAsInProject()
 		);
 	}
 }

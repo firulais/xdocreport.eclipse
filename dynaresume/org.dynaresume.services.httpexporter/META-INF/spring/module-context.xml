@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:osgi="http://www.springframework.org/schema/osgi"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
 
-<bean name="/ResumeService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+	<osgi:reference id="resumeService" interface="org.dynaresume.services.ResumeService" />
 
-<property name="service" ref="resumeService" />
-<property name="serviceInterface" value="org.dynaresume.services.ResumeService" />
-</bean>
-<!-- 
-	<bean name="/ResumeService" ﻿
+	<bean name="/ResumeService" id="resumeServiceHttpInvoker"
 		class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
 		<property name="service" ref="resumeService" />
 		<property name="serviceInterface" value="org.dynaresume.services.ResumeService" />
 	</bean>
- -->
+
 </beans>
