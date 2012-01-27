@@ -1,11 +1,6 @@
 package org.dynaresume.services.dosgi;
 
 
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsNull.notNullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 import static org.ops4j.pax.exam.CoreOptions.composite;
 import static org.ops4j.pax.exam.CoreOptions.profile;
 import static org.ops4j.pax.exam.CoreOptions.systemProperty;
@@ -14,8 +9,6 @@ import static org.ops4j.pax.exam.OptionUtils.combine;
 
 import java.io.IOException;
 
-import org.dynaresume.domain.hr.Resume;
-import org.dynaresume.services.ResumeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.CoreOptions;
@@ -24,7 +17,6 @@ import org.ops4j.pax.exam.TimeoutException;
 import org.ops4j.pax.exam.junit.Configuration;
 import org.ops4j.pax.exam.junit.JUnit4TestRunner;
 import org.ops4j.pax.exam.spi.PaxExamRuntime;
-import org.osgi.util.tracker.ServiceTracker;
 
 //starts this class  as an "application" (with a "main").
 @RunWith(JUnit4TestRunner.class)

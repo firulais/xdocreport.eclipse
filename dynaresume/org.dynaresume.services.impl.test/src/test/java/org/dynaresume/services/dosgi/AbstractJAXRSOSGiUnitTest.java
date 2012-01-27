@@ -1,10 +1,7 @@
 package org.dynaresume.services.dosgi;
 
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 import static org.ops4j.pax.exam.CoreOptions.systemProperty;
 
@@ -18,82 +15,47 @@ import org.apache.cxf.jaxrs.client.JAXRSClientFactoryBean;
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.dynaresume.domain.hr.Resume;
-import org.dynaresume.services.ResumeService;
 import org.dynaresume.services.rest.ResumeServiceRest;
-import org.dynaresume.services.rest.Resumes;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.ops4j.pax.exam.CoreOptions;
 import org.ops4j.pax.exam.Option;
-import org.ops4j.pax.exam.options.ProvisionOption;
 import org.osgi.framework.BundleContext;
-import org.osgi.util.tracker.ServiceTracker;
 
 public abstract class AbstractJAXRSOSGiUnitTest {
 
 	protected Option[] cfxdosgi() {
-		@SuppressWarnings("rawtypes")
-		ProvisionOption[] options = {
-				mavenBundle("org.apache.geronimo.specs",
-						"geronimo-annotation_1.0_spec", "1.1.1"),
-				// mavenBundle("org.apache.geronimo.specs","geronimo-activation_1.0.2_spec","1.1"),
-				// mavenBundle("org.apache.geronimo.javamail","geronimo-javamail-1.4","1.3"),
 
-				mavenBundle("javax.activation",
-						"com.springsource.javax.activation", "1.1.1"),
+		Option[] options = {
+				mavenBundle("org.apache.geronimo.specs","geronimo-annotation_1.0_spec", "1.1.1"),
 
-				mavenBundle("javax.mail", "com.springsource.javax.mail",
-						"1.4.0"),
-				mavenBundle("org.apache.geronimo.specs",
-						"geronimo-ws-metadata_2.0_spec", "1.1.2"),
-				mavenBundle("org.apache.commons",
-						"com.springsource.org.apache.commons.logging", "1.1.1"),
+				mavenBundle("javax.activation","com.springsource.javax.activation", "1.1.1"),
+
+				mavenBundle("javax.mail", "com.springsource.javax.mail","1.4.0"),
+				mavenBundle("org.apache.geronimo.specs","geronimo-ws-metadata_2.0_spec", "1.1.2"),
+				mavenBundle("org.apache.commons","com.springsource.org.apache.commons.logging", "1.1.1"),
 				mavenBundle("org.jdom", "com.springsource.org.jdom", "1.0.0"),
 
-				mavenBundle("org.aopalliance",
-						"com.springsource.org.aopalliance", "1.0.0"),
-				mavenBundle("org.springframework", "org.springframework.aop",
-						"3.0.6.RELEASE"),
-				mavenBundle("org.springframework", "org.springframework.beans",
-						"3.0.6.RELEASE"),
-				mavenBundle("org.springframework",
-						"org.springframework.context", "3.0.6.RELEASE"),
-				mavenBundle("org.springframework", "org.springframework.core",
-						"3.0.6.RELEASE"),
-				mavenBundle("org.springframework",
-						"org.springframework.transaction", "3.0.6.RELEASE"),
-				mavenBundle("org.springframework", "org.springframework.orm",
-						"3.0.6.RELEASE"),
-				mavenBundle("org.springframework", "org.springframework.jdbc",
-						"3.0.6.RELEASE"),
-				mavenBundle("org.springframework", "org.springframework.asm",
-						"3.0.6.RELEASE"),
-				mavenBundle("org.springframework",
-						"org.springframework.expression", "3.0.6.RELEASE"),
+				mavenBundle("org.aopalliance","com.springsource.org.aopalliance", "1.0.0"),
+				mavenBundle("org.springframework", "org.springframework.aop","3.0.6.RELEASE"),
+				mavenBundle("org.springframework", "org.springframework.beans","3.0.6.RELEASE"),
+				mavenBundle("org.springframework","org.springframework.context", "3.0.6.RELEASE"),
+				mavenBundle("org.springframework", "org.springframework.core","3.0.6.RELEASE"),
+				mavenBundle("org.springframework","org.springframework.transaction", "3.0.6.RELEASE"),
+				mavenBundle("org.springframework", "org.springframework.orm","3.0.6.RELEASE"),
+				mavenBundle("org.springframework", "org.springframework.jdbc","3.0.6.RELEASE"),
+				mavenBundle("org.springframework", "org.springframework.asm","3.0.6.RELEASE"),
+				mavenBundle("org.springframework","org.springframework.expression", "3.0.6.RELEASE"),
 				mavenBundle("org.slf4j", "com.springsource.slf4j.api", "1.5.10"),
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/com.springsource.slf4j.api-1.5.10.jar"),
-				mavenBundle("org.slf4j", "com.springsource.slf4j.jcl", "1.5.10")
-						.noStart(),
-				//mavenBundle("javax.xml.bind","com.springsource.javax.xml.bind","2.2.0"),
-				//mavenBundle("javax.xml.stream","com.springsource.javax.xml.stream","1.0.1"),
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/com.springsource.slf4j.jcl-1.5.10.jar").noStart(),
 
-				// mavenBundle("ch.qos.logback","logback-classic","1.0.0"),
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/spring-osgi-io-1.2.0.jar"),
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/spring-osgi-core-1.2.0.jar"),
-
-				// TODO...
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/pax-web-service-0.5.1.jar"),
+				mavenBundle("org.slf4j", "com.springsource.slf4j.jcl", "1.5.10").noStart(),
 
 				mavenBundle("org.ops4j.pax.web", "pax-web-service", "0.5.1"),
 
-				
-				mavenBundle("org.apache.servicemix.bundles",
-						"org.apache.servicemix.bundles.wsdl4j", "1.6.1_1"),
-				// bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/org.apache.servicemix.bundles.wsdl4j-1.6.1_1.jar"),
+				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.wsdl4j", "1.6.1_1"),
+
 				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.xmlsec", "1.3.0_1"),
 				
 				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.xmlschema", "1.4.3_1"),
@@ -129,47 +91,33 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 				mavenBundle("org.apache.cxf.dosgi","cxf-dosgi-ri-topology-manager", "1.2"),
 				
 		};
-		// configureStartupLevel( options);
+
 		return options;
 	}
 
-	// protected abstract void configureStartupLevel(ProvisionOption[] options)
-	// ;
+
 
 	protected Option[] infra() {
 		Option[] options = {
-				systemProperty("org.ops4j.pax.logging.DefaultServiceLog.level")
-						.value("WARN"),
+				systemProperty("org.ops4j.pax.logging.DefaultServiceLog.level").value("WARN"),
 				CoreOptions.cleanCaches(),
-				
 				mavenBundle("org.osgi","org.osgi.compendium","4.2.0"),
-				
-				
 				CoreOptions.junitBundles(),
 				CoreOptions.compendiumProfile(),
 				// ***************** Gemini dependencies ********************
 				mavenBundle("org.codehaus.jackson", "jackson-jaxrs", "1.9.0"),
 				mavenBundle("org.codehaus.jackson", "jackson-core-asl", "1.9.0"),
-				mavenBundle("org.codehaus.jackson", "jackson-mapper-asl",
-						"1.9.0"),
+				mavenBundle("org.codehaus.jackson", "jackson-mapper-asl","1.9.0"),
 
 				// ***************** Infra dependencies ********************
 				mavenBundle("com.h2database", "h2", "1.3.162"),
-				mavenBundle("org.apache.commons",
-						"com.springsource.org.apache.commons.dbcp",
-						"1.2.2.osgi"),
-				mavenBundle("org.apache.commons",
-						"com.springsource.org.apache.commons.pool", "1.3.0"),
-				// ***************** EclipseLink dependencies
-				// ********************
-				mavenBundle("org.eclipse.persistence",
-						"org.eclipse.persistence.antlr").versionAsInProject(),
-				mavenBundle("org.eclipse.persistence",
-						"org.eclipse.persistence.asm").versionAsInProject(),
-				mavenBundle("org.eclipse.persistence",
-						"org.eclipse.persistence.core").versionAsInProject(),
-				mavenBundle("org.eclipse.persistence",
-						"org.eclipse.persistence.jpa").versionAsInProject(), 
+				mavenBundle("org.apache.commons","com.springsource.org.apache.commons.dbcp","1.2.2.osgi"),
+				mavenBundle("org.apache.commons","com.springsource.org.apache.commons.pool", "1.3.0"),
+				// ***************** EclipseLink dependencies ********************
+				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.antlr").versionAsInProject(),
+				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.asm").versionAsInProject(),
+				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.core").versionAsInProject(),
+				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.jpa").versionAsInProject(), 
 					
 		};
 		return options;
@@ -285,46 +233,7 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 	protected BundleContext ctx;
 
 	@Test
-	public void findById() throws Exception {
-
-		assertNotNull(ctx);
-		System.out.println("ctx "+ctx);
-		WebClient webClient = createWebClient();
-		System.out.println("webClient "+webClient);
-		assertNotNull(webClient);
-		Resume resume = webClient.accept(MediaType.APPLICATION_JSON)
-				.path("findById/1").get(Resume.class);
-		Assert.assertNotNull(resume);
-		
-		Assert.assertEquals(1L, resume.getId().longValue());
-		// assertResultContainsListOfSize(5,result.data);
-
-	}
-
-	@Ignore
-	@Test
-	public void findAll() throws Exception {
-
-		assertNotNull(ctx);
-		System.out.println("ctx "+ctx);
-		WebClient webClient = createWebClient();
-		System.out.println("webClient "+webClient);
-		assertNotNull(webClient);
-		
-		
-		Resumes resumes= webClient.accept(MediaType.APPLICATION_JSON).path("findAll").get(Resumes.class);
-		
-		Assert.assertNotNull(resumes);
-		Assert.assertEquals(1L, resumes.getResumes().size());
-		
-		//Assert.assertEquals(1L, resume.getId().longValue());
-		// assertResultContainsListOfSize(5,result.data);
-
-	}
-
-
-	@Test
-	public void countAllResume() throws Exception {
+	public void saveAndRetreiveResume() throws Exception {
 
 		assertNotNull(ctx);
 		System.out.println("ctx "+ctx);
@@ -339,39 +248,19 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 		Resume resume = new Resume();
 		resume.setTitle("Jedi Master");
 		webClient = createWebClient();
-		webClient.accept(MediaType.APPLICATION_XML).path("saveResume").post(resume);
-		//Assert.assertEquals(1L, resume.getId().longValue());
-		// assertResultContainsListOfSize(5,result.data);
+		Resume resp=webClient.accept(MediaType.APPLICATION_XML).path("saveResume").post(resume, Resume.class);
+
 		 webClient = createWebClient();
 		long count2= webClient.accept(MediaType.APPLICATION_JSON).path("countAllResume").get(Long.class);
 		assertEquals(count+1, count2);
-
-	}
-private static final int timeout = 30000;
-	
-
-	@Test
-	public void findResumeService() throws InterruptedException {
-		Thread.sleep(10);
-		assertThat(ctx, is(notNullValue()));
-		System.out.println("BundleContext of bundle injected: "
-				+ ctx.getBundle().getSymbolicName());
-
-		ServiceTracker tracker = new ServiceTracker(ctx,
-				ResumeService.class.getName(), null);
-		tracker.open();
-		ResumeService resumeService =(ResumeService) tracker.waitForService(timeout);
-
-		tracker.close();
-		assertNotNull(resumeService);
+		System.err.println("mmmmmmmmmmmm "+resp.getId());
 		
-		long count=resumeService.count();
-		//assertThat(resumeService.count(), is(equalTo(0)));
-		Resume resume = new Resume();
-		resume.setTitle("Jedi Master");
-		resumeService.save(resume);
-		assertEquals(count+1, resumeService.count());
+		webClient = createWebClient();
+		Resume resume2 = webClient.accept(MediaType.APPLICATION_JSON)
+				.path("findById/"+resp.getId()).get(Resume.class);
+		Assert.assertNotNull(resume2);
 	}
+
 	private WebClient createWebClient() {
 
 		JAXRSClientFactoryBean factory = new JAXRSClientFactoryBean();
