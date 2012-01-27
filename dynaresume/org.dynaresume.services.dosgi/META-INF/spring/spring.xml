@@ -13,6 +13,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:osgi="http://www.springframework.org/schema/osgi"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                       http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
+
+	<osgi:reference id="resumeService" interface="org.dynaresume.services.ResumeService" />
 	<osgi:service interface="org.dynaresume.services.rest.ResumeServiceRest">
 		<osgi:service-properties>
 			<entry key="service.exported.interfaces" value="*" />
@@ -20,11 +22,12 @@
 			<entry key="org.apache.cxf.rs.provider" value="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
 			<entry key="service.exported.intents" value="HTTP" />
 <!-- 			<entry key="org.apache.cxf.rs.address" value="http://localhost:9090/" /> -->
-			<entry key="org.apache.cxf.rs.databinding" value="aegis" />
+			<entry key="org.apache.cxf.rs.databinding" value="jaxb" />
 			<entry key="org.apache.cxf.rs.httpservice.context" value="/resume" />
 		</osgi:service-properties>
 
-
-		<bean class="org.dynaresume.services.rest.ResumeServiceRest" />
+		<bean class="org.dynaresume.services.rest.ResumeServiceRest">
+			<property name="resumeService" ref="resumeService"/>
+		</bean>
 	</osgi:service>
 </beans>

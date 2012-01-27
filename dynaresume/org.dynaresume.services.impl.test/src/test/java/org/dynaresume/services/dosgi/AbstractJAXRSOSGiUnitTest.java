@@ -24,6 +24,7 @@ import org.dynaresume.services.rest.Resumes;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.ops4j.pax.exam.CoreOptions;
 import org.ops4j.pax.exam.Option;
@@ -300,6 +301,7 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 
 	}
 
+	@Ignore
 	@Test
 	public void findAll() throws Exception {
 
@@ -320,6 +322,31 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 
 	}
 
+
+	@Test
+	public void countAllResume() throws Exception {
+
+		assertNotNull(ctx);
+		System.out.println("ctx "+ctx);
+		WebClient webClient = createWebClient();
+		System.out.println("webClient "+webClient);
+		assertNotNull(webClient);
+		
+		
+		long count= webClient.accept(MediaType.APPLICATION_JSON).path("countAllResume").get(Long.class);
+		System.out.println(count);
+		
+		Resume resume = new Resume();
+		resume.setTitle("Jedi Master");
+		webClient = createWebClient();
+		webClient.accept(MediaType.APPLICATION_XML).path("saveResume").post(resume);
+		//Assert.assertEquals(1L, resume.getId().longValue());
+		// assertResultContainsListOfSize(5,result.data);
+		 webClient = createWebClient();
+		long count2= webClient.accept(MediaType.APPLICATION_JSON).path("countAllResume").get(Long.class);
+		assertEquals(count+1, count2);
+
+	}
 private static final int timeout = 30000;
 	
 
