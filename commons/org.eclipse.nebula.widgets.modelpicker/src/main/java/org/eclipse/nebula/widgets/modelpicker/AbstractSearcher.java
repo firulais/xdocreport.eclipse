@@ -27,7 +27,7 @@ public abstract class AbstractSearcher<T> implements ISearcher<T> {
 			}
 		};
 		text.addListener(SWT.KeyDown, keyDownListener);
-		Utils.addFilterIfNeeded(keyDownListener, text);
+		//Utils.addFilterIfNeeded(keyDownListener, text);
 	}
 
 	private KeyStroke getKeyStroke(String keyStroke) {

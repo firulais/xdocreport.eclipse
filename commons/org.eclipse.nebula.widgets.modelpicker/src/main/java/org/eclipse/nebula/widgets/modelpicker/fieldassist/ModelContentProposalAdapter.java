@@ -27,7 +27,6 @@ public abstract class ModelContentProposalAdapter extends
 
 	private ISearchable searchable;
 	private ICompletionLabelProvider completionLabelProvider;
-	private Listener keyDownListener;
 
 	public ModelContentProposalAdapter(Text control, KeyStroke keyStroke,
 			char[] autoActivationCharacters) {
@@ -39,12 +38,7 @@ public abstract class ModelContentProposalAdapter extends
 			char[] autoActivationCharacters) {
 		super(control, controlContentAdapter, null, keyStroke,
 				autoActivationCharacters);
-		if (Utils.isRap()) {
-			keyDownListener = control.getListeners(SWT.KeyDown)[0];
-			Utils.addFilterIfNeeded(keyDownListener, control);
-		}
 		super.setContentProposalProvider(this);
-
 		control.addListener(SWT.Modify, new Listener() {
 
 			public void handleEvent(Event event) {
