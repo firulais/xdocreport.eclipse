@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.6"?>
 
-<target name="XDocReport RCP target" sequenceNumber="129">
+<target name="XDocReport RCP target" sequenceNumber="131">
 <locations>
 <location id="org.eclipse.rcp.source" path="${eclipse_home}" type="Feature"/>
 <location id="org.eclipse.platform" path="${eclipse_home}" type="Feature"/>
@@ -15,19 +15,24 @@
 <repository location="http://download.eclipse.org/tools/gef/updates-pre-3_8/milestones/"/>
 </location>
 <location includeAllPlatforms="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="fr.opensagres.xdocreport.core.feature.feature.group" version="0.9.5.201202110908"/>
-<unit id="fr.opensagres.xdocreport.converter.feature.feature.group" version="0.9.5.201202110908"/>
-<unit id="fr.opensagres.xdocreport.jsr303.feature.group" version="0.9.5.201202110908"/>
-<unit id="fr.opensagres.xdocreport.template.feature.feature.group" version="0.9.5.201202110908"/>
-<unit id="fr.opensagres.xdocreport.document.feature.feature.group" version="0.9.5.201202110908"/>
-<unit id="fr.opensagres.xdocreport.tests.feature.feature.group" version="0.9.5.201202110908"/>
-<unit id="fr.opensagres.xdocreport.externals.jpa.feature.group" version="0.9.5.201202110908"/>
-<unit id="fr.opensagres.xdocreport.gemini.feature.feature.group" version="0.9.5.201202110908"/>
-<unit id="fr.opensagres.xdocreport.externals.dosgi.feature.group" version="0.9.5.201202110908"/>
-<unit id="fr.opensagres.xdocreport.externals.hibernate.feature.group" version="0.9.5.201202110908"/>
-<unit id="fr.opensagres.xdocreport.thirdparties-extension.feature.feature.group" version="0.9.5.201202110908"/>
-<unit id="fr.opensagres.xdocreport.externals.feature.feature.group" version="0.9.5.201202110908"/>
-<unit id="fr.opensagres.xdocreport.externals.eclipselink.feature.group" version="0.9.5.201202110908"/>
+<unit id="org.eclipse.nebula.widgets.pagination.feature.feature.group" version="1.0.0.201202171450"/>
+<unit id="org.eclipse.nebula.widgets.picture.feature.feature.group" version="1.0.0.201202171450"/>
+<repository location="http://download.eclipse.org/technology/nebula/incubation/snapshot"/>
+</location>
+<location includeAllPlatforms="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="fr.opensagres.xdocreport.converter.feature.feature.group" version="0.9.5.201202131845"/>
+<unit id="fr.opensagres.xdocreport.core.feature.feature.group" version="0.9.5.201202131845"/>
+<unit id="fr.opensagres.xdocreport.document.feature.feature.group" version="0.9.5.201202131845"/>
+<unit id="fr.opensagres.xdocreport.jsr303.feature.group" version="0.9.5.201202131845"/>
+<unit id="fr.opensagres.xdocreport.template.feature.feature.group" version="0.9.5.201202131845"/>
+<unit id="fr.opensagres.xdocreport.externals.dosgi.feature.group" version="0.9.5.201202131845"/>
+<unit id="fr.opensagres.xdocreport.externals.eclipselink.feature.group" version="0.9.5.201202131845"/>
+<unit id="fr.opensagres.xdocreport.externals.feature.feature.group" version="0.9.5.201202131845"/>
+<unit id="fr.opensagres.xdocreport.gemini.feature.feature.group" version="0.9.5.201202131845"/>
+<unit id="fr.opensagres.xdocreport.externals.hibernate.feature.group" version="0.9.5.201202131845"/>
+<unit id="fr.opensagres.xdocreport.externals.jpa.feature.group" version="0.9.5.201202131845"/>
+<unit id="fr.opensagres.xdocreport.tests.feature.feature.group" version="0.9.5.201202131845"/>
+<unit id="fr.opensagres.xdocreport.thirdparties-extension.feature.feature.group" version="0.9.5.201202131845"/>
 <repository location="http://oss.opensagres.fr/xdocreport/p2/p2repository/target/site/"/>
 </location>
 </locations>
