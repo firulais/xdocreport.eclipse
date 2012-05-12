@@ -10,6 +10,7 @@ Import-Package: fr.opensagres.xdocreport.commons.utils,
  org.dynaresume.domain.core,
  org.dynaresume.domain.hr,
  org.dynaresume.domain.project,
+ javax.persistence;resolution:=optional,
  org.springframework.data.domain.collections,
  org.springframework.data.repository;version="1.1.0",
  org.springframework.stereotype;version="3.0.0"

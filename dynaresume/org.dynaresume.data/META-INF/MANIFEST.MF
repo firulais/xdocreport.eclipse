@@ -6,6 +6,7 @@ Bundle-Localization: plugin
 Bundle-SymbolicName: org.dynaresume.data
 Bundle-Version: 1.0.0.qualifier
 Import-Package: fr.opensagres.xdocreport.commons.utils,
+ javax.persistence;resolution:=optional,
  org.dynaresume.domain.core,
  org.dynaresume.domain.hr,
  org.dynaresume.domain.project,
