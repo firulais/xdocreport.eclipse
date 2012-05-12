@@ -132,7 +132,12 @@
       <layout>p2</layout>
       <url>http://download.eclipse.org/rt/rap/1.5/runtime</url>
     </repository>
-
+	<repository>
+	<!--  for pagination control... -->
+	<id>nebula</id>
+	<layout>p2</layout>
+	<url>http://download.eclipse.org/technology/nebula/incubation/snapshot</url>
+	</repository>
   </repositories>
 
 </project>
