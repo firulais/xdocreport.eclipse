@@ -14,6 +14,7 @@ import org.dynaresume.domain.core.MaritalStatus;
 import org.dynaresume.domain.core.NaturalPerson;
 import org.dynaresume.domain.hr.Resume;
 import org.dynaresume.domain.hr.Skill;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.data.domain.Page;
@@ -31,16 +32,17 @@ public class NonOSGiUnitTest {
 	@Inject
 	private SkillDao skillDao;
 
+	@Ignore
 	@Test
 	public void validate() {
 		assertNotNull(resumeDao);
 		assertEquals(0,resumeDao.count());
-		
+
 		Resume resume = new Resume();
 		resume.setTitle("test");
 		NaturalPerson owner = new NaturalPerson();
 		owner.setMaritalStatus(MaritalStatus.SINGLE);
-		
+
 		owner.setFirstName("demo");
 		owner.setLastName("demo");
 		owner.setEmail("demo@demo.com");
@@ -50,24 +52,24 @@ public class NonOSGiUnitTest {
 		assertEquals(1,resumeDao.count());
 		Pageable page = new PageRequest(0,100);
 		Page<Resume> resumes=	resumeDao.findByOwnerFirstNameLikeAndOwnerLastNameLike("demo","demo", page);
-		
+
 		assertNotNull(resumes);
 		System.out.println(resumes.getContent().size());
 		assertEquals(1,resumes.getContent().size());
 
 	}
-	
-	
+
+	@Ignore
 	@Test
 	public void customeRepo() {
-		
+
 		assertNotNull(skillDao);
 		assertEquals(0, skillDao.count());
 
 		Skill jedi = new Skill();
 		jedi.setName("Jedi Master");
 		skillDao.save(jedi);
-		
+
 		Skill padawan = new Skill();
 		padawan.setName("Padawan");
 		skillDao.save(padawan);
@@ -77,8 +79,8 @@ public class NonOSGiUnitTest {
 		Pageable pageable = new PageRequest(10, 10);
 		Page<Skill> skills = skillDao.findAll(pageable);
 		assertNotNull(skills);
-		
-		
+
+
 		List<String> names = new ArrayList<String>();
 		names.add("Java");
 		names.add("Padawan");

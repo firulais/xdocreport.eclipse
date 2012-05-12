@@ -40,6 +40,7 @@ import org.ops4j.pax.exam.junit.Configuration;
 import org.ops4j.pax.exam.junit.ExamReactorStrategy;
 import org.ops4j.pax.exam.junit.JUnit4TestRunner;
 import org.ops4j.pax.exam.spi.PaxExamRuntime;
+import org.ops4j.pax.exam.spi.reactors.AllConfinedStagedReactorFactory;
 import org.ops4j.pax.exam.spi.reactors.EagerSingleStagedReactorFactory;
 import org.osgi.framework.BundleContext;
 import org.osgi.util.tracker.ServiceTracker;
@@ -48,28 +49,29 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 @RunWith(JUnit4TestRunner.class)
-@ExamReactorStrategy(EagerSingleStagedReactorFactory.class)
+@ExamReactorStrategy(AllConfinedStagedReactorFactory.class)
 public class OSGiEclipseLinkUnitTest extends AbstractOSGiUnitTest {
 
 	private static final int timeout = 30000;
-	
+
 
 	@Configuration()
 	public Option[] config() {
 
-		
+
 		return CoreOptions.options(
-				
+
 				//CoreOptions.composite(xdocreportCommonBundles()),
 				// ***************** EclipseLink dependencies
 				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.antlr").versionAsInProject(),
 				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.asm").versionAsInProject(),
 				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.core").versionAsInProject(),
 				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.jpa").versionAsInProject(),
-				//eclipselink fragment 
+				//eclipselink fragment
 				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa.eclipselink").versionAsInProject().noStart(),
 				composite(commonOptions()),
-				composite(xdocreportCommonBundles()))
+				composite(xdocreportCommonBundles()),
+				CoreOptions.workingDirectory("eclipselink"))
 ;
 	}
 
@@ -83,7 +85,7 @@ public class OSGiEclipseLinkUnitTest extends AbstractOSGiUnitTest {
 
 	@Inject
 	BundleContext ctx;
-	
+
 	@Test
 	public void findDataSource() throws InterruptedException {
 		Thread.sleep(10);
@@ -102,7 +104,7 @@ public class OSGiEclipseLinkUnitTest extends AbstractOSGiUnitTest {
 
 	@Test
 	public void findResumeDao() throws InterruptedException {
-		
+
 		assertThat(ctx, is(notNullValue()));
 		System.out.println("BundleContext of bundle injected: "
 				+ ctx.getBundle().getSymbolicName());
@@ -141,7 +143,7 @@ public class OSGiEclipseLinkUnitTest extends AbstractOSGiUnitTest {
 
 	@Test
 	public void testSkillDao() throws InterruptedException {
-		
+
 		assertThat(ctx, is(notNullValue()));
 
 		ServiceTracker tracker = new ServiceTracker(ctx,
@@ -181,7 +183,7 @@ public class OSGiEclipseLinkUnitTest extends AbstractOSGiUnitTest {
 
 	@Test
 	public void testGroupDao() throws InterruptedException {
-		
+
 		assertThat(ctx, is(notNullValue()));
 
 		ServiceTracker groupTracker = new ServiceTracker(ctx,
@@ -219,7 +221,7 @@ public class OSGiEclipseLinkUnitTest extends AbstractOSGiUnitTest {
 	@Test
 	public void testSkillCategoryDao()
 			throws InterruptedException {
-		
+
 
 		ServiceTracker skillCategoryDaoTracker = new ServiceTracker(ctx,
 				SkillCategoryDao.class.getName(), null);
@@ -240,7 +242,7 @@ public class OSGiEclipseLinkUnitTest extends AbstractOSGiUnitTest {
 
 	@Test
 	public void testLanguageDao() throws InterruptedException {
-		
+
 		ServiceTracker tracker = new ServiceTracker(ctx,
 				LanguageDao.class.getName(), null);
 		tracker.open();

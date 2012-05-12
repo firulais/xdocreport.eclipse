@@ -11,16 +11,16 @@
 
 
 
-<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" >
     <property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
     <property name="url" value="jdbc:derby:target/derbydb;create=true" />
     <property name="initialSize" value="5" />
     <property name="maxActive" value="50" />
 </bean>
-<!-- 
+<!--
 	<bean id="dataSource" class="org.apache.derby.jdbc.EmbeddedDataSource">
 		<property name="databaseName" value="target/derbydb" />
 		<property name="createDatabase" value="create" />
 	</bean>
- -->	
+ -->
 </beans>

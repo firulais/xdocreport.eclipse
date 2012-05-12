@@ -35,12 +35,12 @@ import org.osgi.util.tracker.ServiceTracker;
 public class ResumeServiceUnitTest extends AbstractOSGiUnitTest {
 
 	private static final int timeout = 30000;
-	
+
 
 	@Configuration()
 	public Option[] config() {
 
-		
+
 		return CoreOptions.options(
 				//mavenBundle("org.osgi","org.osgi.core").version("4.2.0"),
 				//CoreOptions.composite(xdocreportCommonBundles()),
@@ -49,11 +49,12 @@ public class ResumeServiceUnitTest extends AbstractOSGiUnitTest {
 				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.asm").versionAsInProject(),
 				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.core").versionAsInProject(),
 				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.jpa").versionAsInProject(),
-				//eclipselink fragment 
+				//eclipselink fragment
 				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa.eclipselink").versionAsInProject().noStart(),
 				composite(commonOptions()),
 				composite(xdocreportCommonBundles()),
-				composite(xdocreportServiceBundles())
+				composite(xdocreportServiceBundles()),
+				CoreOptions.workingDirectory("resumeService")
 				//sniff : gemini Web does not seems to work properly..
 				//composite(geminiWebOptions())
 				)
@@ -69,7 +70,7 @@ public class ResumeServiceUnitTest extends AbstractOSGiUnitTest {
 
 	@Inject
 	BundleContext ctx;
-	
+
 	@Test
 	public void findResumeService() throws InterruptedException {
 		Thread.sleep(10);
