@@ -16,6 +16,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.nebula.widgets.pagination
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Import-Package: org.eclipse.swt,org.eclipse.jface.dialogs,
- org.eclipse.swt.widgets,org.eclipse.ui.forms
+ org.eclipse.swt.widgets,org.eclipse.ui.forms,
  org.springframework.data.domain,
  org.springframework.data.domain.collections
