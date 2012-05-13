@@ -36,7 +36,7 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 				mavenBundle("javax.mail", "com.springsource.javax.mail","1.4.0"),
 				mavenBundle("org.apache.geronimo.specs","geronimo-ws-metadata_2.0_spec", "1.1.2"),
 				mavenBundle("org.apache.commons","com.springsource.org.apache.commons.logging", "1.1.1"),
-				mavenBundle("org.jdom", "com.springsource.org.jdom", "1.0.0"),
+				mavenBundle("org.jdom", "com.springsource.org.jdom").versionAsInProject(),
 
 				mavenBundle("org.aopalliance","com.springsource.org.aopalliance", "1.0.0"),
 				mavenBundle("org.springframework", "org.springframework.aop","3.0.6.RELEASE"),
@@ -56,15 +56,24 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 				
 				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.wsdl4j", "1.6.1_1"),
 
-				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.xmlsec", "1.3.0_1"),
+				mavenBundle("org.apache.cxf", "cxf-bundle-minimal").version("2.5.2"),
 				
-				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.xmlschema", "1.4.3_1"),
+				mavenBundle("org.apache.cxf.dosgi","cxf-dosgi-ri-discovery-local").versionAsInProject(),
+		
+				mavenBundle("org.apache.cxf.dosgi", "cxf-dosgi-ri-dsw-cxf").versionAsInProject(),
+		
+				mavenBundle("org.apache.cxf.dosgi","cxf-dosgi-ri-topology-manager").versionAsInProject(),
+				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.xmlsec").versionAsInProject(),
+				
+				mavenBundle("org.apache.ws.xmlschema","xmlschema-core", "2.0.2"),
 
+				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.opensaml", "2.5.1_2"),
+				
 				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.asm", "2.2.3_1"),
 
 				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.xmlresolver", "1.2_1"),
 
-				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.neethi", "2.0.4_4"),
+				mavenBundle("org.apache.neethi","neethi", "3.0.2"),
 
 				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.woodstox", "3.2.7_1"),
 
@@ -78,17 +87,11 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 
 				mavenBundle("org.apache.servicemix.specs","org.apache.servicemix.specs.jaxws-api-2.1", "1.3.0"),
 
-				mavenBundle("org.apache.servicemix.specs","org.apache.servicemix.specs.jsr311-api-1.0", "1.3.0"),
+				mavenBundle("org.apache.servicemix.specs","org.apache.servicemix.specs.jsr311-api-1.1.1", "1.9.0"),
 		
 				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.jaxb-impl", "2.1.6_1"),
 		
-				mavenBundle("org.apache.cxf", "cxf-bundle-minimal", "2.2.10"),
-		
-				mavenBundle("org.apache.cxf.dosgi","cxf-dosgi-ri-discovery-local", "1.2"),
-		
-				mavenBundle("org.apache.cxf.dosgi", "cxf-dosgi-ri-dsw-cxf","1.2"),
-		
-				mavenBundle("org.apache.cxf.dosgi","cxf-dosgi-ri-topology-manager", "1.2"),
+				
 				
 		};
 
@@ -99,11 +102,12 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 
 	protected Option[] infra() {
 		Option[] options = {
-				systemProperty("org.ops4j.pax.logging.DefaultServiceLog.level").value("WARN"),
+				systemProperty("org.ops4j.pax.logging.DefaultServiceLog.level").value("DEBUG"),
 				CoreOptions.cleanCaches(),
 				mavenBundle("org.osgi","org.osgi.compendium","4.2.0"),
+				mavenBundle("org.osgi","org.osgi.enterprise","4.2.0"),
 				CoreOptions.junitBundles(),
-				CoreOptions.compendiumProfile(),
+				//CoreOptions.compendiumProfile(),
 				// ***************** Gemini dependencies ********************
 				mavenBundle("org.codehaus.jackson", "jackson-jaxrs", "1.9.0"),
 				mavenBundle("org.codehaus.jackson", "jackson-core-asl", "1.9.0"),
@@ -160,7 +164,7 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 		return options;
 	}
 
-	protected static final int PORT = 10200;
+	protected static final int PORT = 10202;
 
 	private static String createURL(String relativePath) {
 		return "http://localhost:" + PORT + relativePath;
