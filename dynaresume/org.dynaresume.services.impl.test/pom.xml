@@ -29,11 +29,11 @@
 			<artifactId>maven-surefire-plugin</artifactId>
 			<configuration>
 				<forkMode>always</forkMode>
-				<includes>
+				<!-- <includes>
 				<include>
 				**/JAXRSOSGiUnitTest.java
 				</include>
-				</includes>
+				</includes> -->
 			</configuration>
 			</plugin>
 			<plugin>
