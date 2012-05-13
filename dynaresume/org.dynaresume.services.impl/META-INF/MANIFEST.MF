@@ -6,7 +6,7 @@ Bundle-Localization: plugin
 Bundle-SymbolicName: org.dynaresume.services.impl
 Bundle-Version: 1.0.0.qualifier
 Export-Package: org.dynaresume.services.impl
-Import-Package: javax.annotation,
+Import-Package: javax.persistence,javax.annotation,
  org.dynaresume.dao,
  org.dynaresume.dao.custom,
  org.dynaresume.domain.core,

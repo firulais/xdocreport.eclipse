@@ -29,7 +29,7 @@
 		<module>org.dynaresume.services.impl</module>
 		<module>org.dynaresume.services.impl.test</module>
 
- 		<module>org.dynaresume.dao.jpa.hibernate</module>
+		<module>org.dynaresume.dao.jpa.hibernate</module>
 		<module>org.dynaresume.dao.jpa.eclipselink</module>
 		<module>org.dynaresume.admin.eclipse.ui</module>
 		<module>org.dynaresume.admin.eclipse.ui.graphics</module>
@@ -41,17 +41,5 @@
 		<module>org.dynaresume.services.httpexporter</module>
 		<module>org.dynaresume.services.httpimporter</module>
 	</modules>
-	<dependencies>
-		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>javax.persistence</artifactId>
-			<version>2.0.3.v201010191057</version>
-		</dependency>
-	</dependencies>
-	<repositories>
-    <repository>
-      <id>eclipselink</id>
-      <url>http://www.eclipse.org/downloads/download.php?r=1&amp;nf=1&amp;file=/rt/eclipselink/maven.repo/</url>
-    </repository>
-  </repositories>
+	
 </project>

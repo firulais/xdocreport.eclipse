@@ -48,9 +48,13 @@ public class AbstractOSGiUnitTest {
 			mavenBundle("org.apache.commons","com.springsource.org.apache.commons.dbcp").versionAsInProject(),
 			mavenBundle("org.apache.commons","com.springsource.org.apache.commons.pool").versionAsInProject(),
 			// ***************** Gemini blueprint ********************
-			mavenBundle("org.eclipse.gemini.blueprint", "gemini-blueprint-core").versionAsInProject(),
-			mavenBundle("org.eclipse.gemini.blueprint", "gemini-blueprint-io").versionAsInProject(),
-			mavenBundle("org.eclipse.gemini.blueprint","gemini-blueprint-extender").versionAsInProject().startLevel(5) 
+			//mavenBundle("org.eclipse.gemini.blueprint", "gemini-blueprint-core").versionAsInProject(),
+			//mavenBundle("org.eclipse.gemini.blueprint", "gemini-blueprint-io").versionAsInProject(),
+			//mavenBundle("org.eclipse.gemini.blueprint","gemini-blueprint-extender").versionAsInProject().startLevel(5) 
+			// ***************** Gemini blueprint ********************
+			mavenBundle("org.springframework.osgi", "org.springframework.osgi.core").version("1.2.1"),
+			mavenBundle("org.springframework.osgi", "org.springframework.osgi.io").version("1.2.1"),
+			mavenBundle("org.springframework.osgi", "org.springframework.osgi.extender").version("1.2.1").startLevel(5)
 		);
 	}
 	

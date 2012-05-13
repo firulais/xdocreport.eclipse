@@ -132,6 +132,11 @@
       <layout>p2</layout>
       <url>http://download.eclipse.org/rt/rap/1.5/runtime</url>
     </repository>
+    <repository>
+    <id>eclipselink</id>
+    <layout>p2</layout>
+    <url>http://download.eclipse.org/rt/eclipselink/updates/</url>
+    </repository>
 	<repository>
 	<!--  for pagination control... -->
 	<id>nebula</id>
