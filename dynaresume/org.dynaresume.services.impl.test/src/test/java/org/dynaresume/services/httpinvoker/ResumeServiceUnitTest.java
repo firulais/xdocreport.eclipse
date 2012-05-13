@@ -45,7 +45,7 @@ public class ResumeServiceUnitTest extends AbstractOSGiUnitTest {
 				//mavenBundle("org.osgi","org.osgi.core").version("4.2.0"),
 				//CoreOptions.composite(xdocreportCommonBundles()),
 				CoreOptions.localRepository(System.getProperty("maven.repo.local")),
-				CoreOptions.repositories("http://repository.springsource.com/maven/bundles/external","http://repo1.maven.org/maven2/","http://download.eclipse.org/rt/eclipselink/maven.repo","http://repository-opensagres.forge.cloudbees.com/snapshot/","http://repository.springsource.com/maven/bundles/release"),
+				CoreOptions.repositories("http://repository.springsource.com/maven/bundles/external","http://repo1.maven.org/maven2/","http://www.eclipse.org/downloads/download.php?r=1&nf=1&file=/rt/eclipselink/maven.repo","http://repository-opensagres.forge.cloudbees.com/snapshot/","http://repository.springsource.com/maven/bundles/release"),
 				
 				// ***************** EclipseLink dependencies
 				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.antlr").versionAsInProject(),
