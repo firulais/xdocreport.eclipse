@@ -52,8 +52,8 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 
 				mavenBundle("org.slf4j", "com.springsource.slf4j.jcl", "1.5.10").noStart(),
 
-				mavenBundle("org.ops4j.pax.web", "pax-web-service", "0.5.1"),
-
+				mavenBundle("org.ops4j.pax.web", "pax-web-jetty-bundle", "1.1.3"),
+				
 				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.wsdl4j", "1.6.1_1"),
 
 				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.xmlsec", "1.3.0_1"),
