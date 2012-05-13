@@ -28,8 +28,8 @@ public class JAXRSOSGiUnitTest extends AbstractJAXRSOSGiUnitTest {
 	@Configuration
 	public  Option[] config() {
 		return CoreOptions.options(
-//				CoreOptions.localRepository(System.getProperty("maven.repo.local")),
-//				CoreOptions.repositories("http://repo1.maven.org/maven2/","http://repository.springsource.com/maven/bundles/external","http://www.eclipse.org/downloads/download.php?r=1&nf=1&file=/rt/eclipselink/maven.repo","http://repository-opensagres.forge.cloudbees.com/snapshot/","http://repository.springsource.com/maven/bundles/release"),
+				CoreOptions.localRepository(System.getProperty("maven.repo.local")),
+				CoreOptions.repositories("http://repo1.maven.org/maven2/","http://repository.springsource.com/maven/bundles/external","http://www.eclipse.org/downloads/download.php?r=1&nf=1&file=/rt/eclipselink/maven.repo","http://repository-opensagres.forge.cloudbees.com/snapshot/","http://repository.springsource.com/maven/bundles/release"),
 //				
 				systemProperty("org.osgi.service.http.port").value(Integer.toString(PORT)),
 				systemProperty("org.ops4j.pax.web.session.timeout").value(Integer.toString(300)),
