@@ -40,7 +40,7 @@ public class JAXRSOSGiUnitTest extends AbstractJAXRSOSGiUnitTest {
 				composite(cfxdosgi()),
 				//TODO:
 				//bundle("file:multibundle/apache-cxf-dosgi-ri-1.2/dosgi_bundles/spring-osgi-extender-1.2.0.jar").startLevel(6),
-				systemProperty("org.osgi.framework.startlevel.beginning").value("" + 100),
+				systemProperty("org.osgi.framework.startlevel.beginning").value("" + 100)
 
 
 				// For debugging...
@@ -49,8 +49,7 @@ public class JAXRSOSGiUnitTest extends AbstractJAXRSOSGiUnitTest {
 				// opts.add(CoreOptions.waitForFrameworkStartup());
 				// end debugging section.
 				 // end debugging section.
-
-		        workingDirectory("tmp/felix"));
+);
 	}
 
 	public static void main(String[] args) throws TimeoutException, IOException {
