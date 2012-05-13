@@ -55,7 +55,7 @@ public class OSGiHibernateUnitTest extends AbstractOSGiUnitTest {
 
 
 		return CoreOptions.options(
-
+				CoreOptions.repositories("http://repository.springsource.com/maven/bundles/external"),
 				// ***************** Hibernate OSGi dependencies
 				// ********************
 				mavenBundle("javax.persistence","com.springsource.javax.persistence","2.0.0"),
