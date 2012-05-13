@@ -70,8 +70,8 @@ public class OSGiEclipseLinkUnitTest extends AbstractOSGiUnitTest {
 				//eclipselink fragment
 				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa.eclipselink").versionAsInProject().noStart(),
 				composite(commonOptions()),
-				composite(xdocreportCommonBundles()),
-				CoreOptions.workingDirectory("eclipselink"))
+				composite(xdocreportCommonBundles())
+				)
 ;
 	}
 

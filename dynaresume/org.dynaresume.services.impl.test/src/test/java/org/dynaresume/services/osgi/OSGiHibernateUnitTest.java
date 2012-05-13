@@ -75,8 +75,7 @@ public class OSGiHibernateUnitTest extends AbstractOSGiUnitTest {
 				wrappedBundle(maven("org.jboss.logmanager","jboss-logmanager","1.2.0.GA")).exports("org.jboss.logmanager;version=\"1.2.0.GA\""),
 				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa.hibernate").versionAsInProject().noStart(),
 				composite(commonOptions()),
-				composite(xdocreportCommonBundles()),
-				CoreOptions.workingDirectory("hibernate")
+				composite(xdocreportCommonBundles())
 		);
 	}
 
