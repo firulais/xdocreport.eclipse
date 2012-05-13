@@ -55,7 +55,8 @@ public class OSGiHibernateUnitTest extends AbstractOSGiUnitTest {
 
 
 		return CoreOptions.options(
-				CoreOptions.repositories(System.getProperty("maven.repo.local")),
+				CoreOptions.localRepository(System.getProperty("maven.repo.local")),
+				
 				
 				// ***************** Hibernate OSGi dependencies
 				// ********************
