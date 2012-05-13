@@ -44,6 +44,9 @@ public class ResumeServiceUnitTest extends AbstractOSGiUnitTest {
 		return CoreOptions.options(
 				//mavenBundle("org.osgi","org.osgi.core").version("4.2.0"),
 				//CoreOptions.composite(xdocreportCommonBundles()),
+				CoreOptions.localRepository(System.getProperty("maven.repo.local")),
+				CoreOptions.repositories("http://repository.springsource.com/maven/bundles/external","http://repo1.maven.org/maven2/","http://download.eclipse.org/rt/eclipselink/maven.repo","http://repository-opensagres.forge.cloudbees.com/snapshot/","http://repository.springsource.com/maven/bundles/release"),
+				
 				// ***************** EclipseLink dependencies
 				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.antlr").versionAsInProject(),
 				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.asm").versionAsInProject(),
@@ -53,8 +56,7 @@ public class ResumeServiceUnitTest extends AbstractOSGiUnitTest {
 				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa.eclipselink").versionAsInProject().noStart(),
 				composite(commonOptions()),
 				composite(xdocreportCommonBundles()),
-				composite(xdocreportServiceBundles()),
-				CoreOptions.workingDirectory("resumeService")
+				composite(xdocreportServiceBundles())
 				//sniff : gemini Web does not seems to work properly..
 				//composite(geminiWebOptions())
 				)
