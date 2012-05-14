@@ -48,27 +48,27 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 				mavenBundle("org.springframework", "org.springframework.jdbc","3.0.6.RELEASE"),
 				mavenBundle("org.springframework", "org.springframework.asm","3.0.6.RELEASE"),
 				mavenBundle("org.springframework","org.springframework.expression", "3.0.6.RELEASE"),
-				mavenBundle("org.slf4j", "com.springsource.slf4j.api", "1.5.10"),
+				mavenBundle("org.slf4j", "slf4j-api", "1.6.1"),
 
-				mavenBundle("org.slf4j", "com.springsource.slf4j.jcl", "1.5.10").noStart(),
+				//mavenBundle("org.slf4j", "com.springsource.slf4j.jcl", "1.5.10").noStart(),
 
 				mavenBundle("org.ops4j.pax.web", "pax-web-jetty-bundle", "1.1.3"),
-				
+
 				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.wsdl4j", "1.6.1_1"),
 
 				mavenBundle("org.apache.cxf", "cxf-bundle-minimal").version("2.5.2"),
-				
+
 				mavenBundle("org.apache.cxf.dosgi","cxf-dosgi-ri-discovery-local").versionAsInProject(),
-		
+
 				mavenBundle("org.apache.cxf.dosgi", "cxf-dosgi-ri-dsw-cxf").versionAsInProject(),
-		
+
 				mavenBundle("org.apache.cxf.dosgi","cxf-dosgi-ri-topology-manager").versionAsInProject(),
 				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.xmlsec").versionAsInProject(),
-				
+
 				mavenBundle("org.apache.ws.xmlschema","xmlschema-core", "2.0.2"),
 
 				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.opensaml", "2.5.1_2"),
-				
+
 				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.asm", "2.2.3_1"),
 
 				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.xmlresolver", "1.2_1"),
@@ -88,11 +88,11 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 				mavenBundle("org.apache.servicemix.specs","org.apache.servicemix.specs.jaxws-api-2.1", "1.3.0"),
 
 				mavenBundle("org.apache.servicemix.specs","org.apache.servicemix.specs.jsr311-api-1.1.1", "1.9.0"),
-		
+
 				mavenBundle("org.apache.servicemix.bundles","org.apache.servicemix.bundles.jaxb-impl", "2.1.6_1"),
-		
-				
-				
+
+
+
 		};
 
 		return options;
@@ -121,8 +121,8 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.antlr").versionAsInProject(),
 				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.asm").versionAsInProject(),
 				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.core").versionAsInProject(),
-				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.jpa").versionAsInProject(), 
-					
+				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.jpa").versionAsInProject(),
+
 		};
 		return options;
 	}
@@ -146,12 +146,12 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 				mavenBundle("org.apache.derby", "derby").versionAsInProject(),
 				mavenBundle("org.apache.commons","com.springsource.org.apache.commons.dbcp").versionAsInProject(),
 				mavenBundle("org.apache.commons","com.springsource.org.apache.commons.pool").versionAsInProject(),
-		
+
 				// ***************** XDocReport    ********************
 				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.datasource").versionAsInProject(),
 				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao").versionAsInProject(),
 				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa").versionAsInProject(),
-				//eclipselink fragment 
+				//eclipselink fragment
 				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa.eclipselink").versionAsInProject().noStart(),
 				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.services").versionAsInProject(),
 				mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.core").versionAsInProject(),
@@ -244,11 +244,11 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 		WebClient webClient = createWebClient();
 		System.out.println("webClient "+webClient);
 		assertNotNull(webClient);
-		
-		
+
+
 		long count= webClient.accept(MediaType.APPLICATION_JSON).path("countAllResume").get(Long.class);
 		System.out.println(count);
-		
+
 		Resume resume = new Resume();
 		resume.setTitle("Jedi Master");
 		webClient = createWebClient();
@@ -258,7 +258,7 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 		long count2= webClient.accept(MediaType.APPLICATION_JSON).path("countAllResume").get(Long.class);
 		assertEquals(count+1, count2);
 		System.err.println("mmmmmmmmmmmm "+resp.getId());
-		
+
 		webClient = createWebClient();
 		Resume resume2 = webClient.accept(MediaType.APPLICATION_JSON)
 				.path("findById/"+resp.getId()).get(Resume.class);
@@ -275,5 +275,5 @@ public abstract class AbstractJAXRSOSGiUnitTest {
 		WebClient webClient = factory.createWebClient();
 		return webClient;
 	}
-	
+
 }

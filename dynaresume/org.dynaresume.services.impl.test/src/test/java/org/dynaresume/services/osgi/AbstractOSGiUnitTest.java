@@ -13,17 +13,16 @@ import org.ops4j.pax.exam.Option;
 public class AbstractOSGiUnitTest {
 
 	public Option[] commonOptions() {
-		
-	
+
+
 		return CoreOptions.options(
 			systemProperty("org.ops4j.pax.logging.DefaultServiceLog.level").value("ERROR"),
 
 			cleanCaches(),
 			junitBundles(),
-			felix(),
-			equinox(),
 
-			
+
+
 			mavenBundle("org.apache.commons","com.springsource.org.apache.commons.logging").versionAsInProject(),
 			// ***************** Spring dependencies ********************
 			mavenBundle("org.aopalliance", "com.springsource.org.aopalliance").versionAsInProject(),
@@ -39,7 +38,7 @@ public class AbstractOSGiUnitTest {
 			// ***************** Spring data ********************
 			mavenBundle("org.springframework.data", "spring-data-jpa").versionAsInProject(),
 			mavenBundle("org.springframework.data", "spring-data-commons-core").versionAsInProject(),
-			
+
 			// ***************** Required APIs ********************
 			mavenBundle("javax.validation", "com.springsource.javax.validation").versionAsInProject(),
 			mavenBundle("org.eclipse.persistence", "javax.persistence").versionAsInProject(),
@@ -50,18 +49,18 @@ public class AbstractOSGiUnitTest {
 			// ***************** Gemini blueprint ********************
 			//mavenBundle("org.eclipse.gemini.blueprint", "gemini-blueprint-core").versionAsInProject(),
 			//mavenBundle("org.eclipse.gemini.blueprint", "gemini-blueprint-io").versionAsInProject(),
-			//mavenBundle("org.eclipse.gemini.blueprint","gemini-blueprint-extender").versionAsInProject().startLevel(5) 
+			//mavenBundle("org.eclipse.gemini.blueprint","gemini-blueprint-extender").versionAsInProject().startLevel(5)
 			// ***************** Gemini blueprint ********************
 			mavenBundle("org.springframework.osgi", "org.springframework.osgi.core").version("1.2.1"),
 			mavenBundle("org.springframework.osgi", "org.springframework.osgi.io").version("1.2.1"),
 			mavenBundle("org.springframework.osgi", "org.springframework.osgi.extender").version("1.2.1").startLevel(5)
 		);
 	}
-	
-			
+
+
 	public Option[] xdocreportCommonBundles() {
-				
-			
+
+
 		return CoreOptions.options (
 			mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.core").versionAsInProject(),
 			mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.domain.project").versionAsInProject(),
@@ -71,5 +70,5 @@ public class AbstractOSGiUnitTest {
 			mavenBundle("fr.opensagres.xdocreport-eclipse","org.dynaresume.dao.jpa").versionAsInProject()
 		);
 	}
-			
+
 }

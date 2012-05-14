@@ -6,6 +6,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.ops4j.pax.exam.CoreOptions.composite;
+import static org.ops4j.pax.exam.CoreOptions.equinox;
+import static org.ops4j.pax.exam.CoreOptions.felix;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 import static org.ops4j.pax.exam.CoreOptions.profile;
 import static org.ops4j.pax.exam.OptionUtils.combine;
@@ -61,6 +63,8 @@ public class OSGiEclipseLinkUnitTest extends AbstractOSGiUnitTest {
 
 		return CoreOptions.options(
 
+				felix(),
+				equinox(),
 				//CoreOptions.composite(xdocreportCommonBundles()),
 				// ***************** EclipseLink dependencies
 				mavenBundle("org.eclipse.persistence","org.eclipse.persistence.antlr").versionAsInProject(),
