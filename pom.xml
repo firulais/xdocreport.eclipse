@@ -7,7 +7,7 @@
   <packaging>pom</packaging>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <tycho-version>0.14.1</tycho-version>
+    <tycho-version>0.22.0</tycho-version>
   </properties>
 
   <modules>
@@ -34,11 +34,11 @@
           <resolver>p2</resolver>
            <pomDependencies>consider</pomDependencies>
           <environments>
-          <!--	<environment>
+          	<!-- <environment>
               <os>linux</os>
               <ws>gtk</ws>
               <arch>x86_64</arch>
-            </environment>-->
+            </environment> -->
             <environment>
               <os>win32</os>
               <ws>win32</ws>
@@ -67,38 +67,6 @@
           <artifactId>maven-jar-plugin</artifactId>
           <version>2.3.2</version>
         </plugin>
-        <!--This plugin's configuration is used to store Eclipse m2e settings
-          only. It has no influence on the Maven build itself. -->
-        <plugin>
-          <groupId>org.eclipse.m2e</groupId>
-          <artifactId>lifecycle-mapping</artifactId>
-          <version>1.0.0</version>
-          <configuration>
-            <lifecycleMappingMetadata>
-              <pluginExecutions>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>
-                      org.eclipse.tycho
-                    </groupId>
-                    <artifactId>
-                      tycho-packaging-plugin
-                    </artifactId>
-                    <versionRange>
-                      [0.13.0,)
-                    </versionRange>
-                    <goals>
-                      <goal>validate-id</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore></ignore>
-                  </action>
-                </pluginExecution>
-              </pluginExecutions>
-            </lifecycleMappingMetadata>
-          </configuration>
-        </plugin>
       </plugins>
     </pluginManagement>
   </build>
@@ -125,7 +93,7 @@
     <repository>
       <id>rap_incubator</id>
       <layout>p2</layout>
-      <url>http://download.eclipse.org/rt/rap/1.4/incubator</url>
+      <url>http://download.eclipse.org/rt/rap/1.5/incubator/</url>
     </repository>
      <repository>
       <id>rap</id>
